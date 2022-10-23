@@ -1,0 +1,14 @@
+{
+    "terminal.integrated.env.windows": { "DOTNET_CLI_UI_LANGUAGE": "en" },
+    "terminal.integrated.env.linux": { "DOTNET_CLI_UI_LANGUAGE": "en" },
+    "terminal.integrated.env.osx": { "DOTNET_CLI_UI_LANGUAGE": "en" },
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.acceptSuggestionOnEnter": "on",
+    "editor.bracketPairColorization.enabled": true,
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.tabSize": 4,
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "workbench.editor.highlightModifiedTabs": true
+}
