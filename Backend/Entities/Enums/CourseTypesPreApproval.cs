@@ -1,12 +1,13 @@
 ﻿namespace Backend.Entities.Enums
 {
-    public enum CourseTypes
+    public enum CourseTypesPreApproval
     {
         GeneralElective,
         TechnicalElective,
         ProjectElective,
         SocialScienceCoreElective,
         ArtsCoreElective,
-        MandatoryCourse
+        MandatoryCourse,
+        AdditionalCourse
     }
 }

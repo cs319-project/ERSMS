@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Backend.Entities
 {
-    public class CTEForm
+    public class PreApprovalForm
     {
         [Key]
         public Guid Id { get; set; }
@@ -18,12 +18,9 @@ namespace Backend.Entities
         [Required]
         public string HostUniversityName { get; set; }
         [Required]
-        public StudentType StudentType { get; set; }
-        public ICollection<TransferredCourseGroup> TransferredCourseGroups { get; set; }
-
-        // These following approvals can be turned into collection
-        public Approval ChairApproval { get; set; }
-        public Approval DeanApproval { get; set; }
-        public Approval ExchangeCoordinatorApproval { get; set; }
+        public string AcademicYear { get; set; } // Data type can be changed
+        [Required]
+        public Semesters Semester { get; set; }
+        public ICollection<RequestedCourseGroup> RequestedCourseGroups { get; set; }
     }
 }

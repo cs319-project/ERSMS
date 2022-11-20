@@ -3,16 +3,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend.Entities
 {
-    public class Approval
+    // Group of transferred courses
+    public class TransferredCourseGroup
     {
         [ForeignKey("CTEForm")]
         public Guid CTEFormId { get; set; }
         [Key]
         public Guid Id { get; set; }
 
-        public string Name { get; set; }
-        public DateTime DateOfApproval { get; set; }
-        public Boolean IsApproved { get; set; }
-        // TODO think about the signature integration
+        [Required]
+        public ICollection<TransferredCourse> TransferredCourses { get; set; }
+        [Required]
+        public ExemptedCourse ExemptedCourse { get; set; }
     }
 }

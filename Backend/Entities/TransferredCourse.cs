@@ -1,13 +1,24 @@
-﻿namespace Backend.Entities
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Backend.Entities
 {
+    // Host university course for CTE form
     public class TransferredCourse
     {
+        [ForeignKey("TransferredCourseGroup")]
+        public Guid TransferredCourseGroupId { get; set; }
+        [Key]
         public Guid Id { get; set; }
+
+        [Required]
         public string CourseCode { get; set; }
+        [Required]
         public string CourseName { get; set; }
+        [Required]
         public int Credits { get; set; }
+        [Required]
         public string  Grade { get; set; }
-        public ExemptedCourse ExemptedCourse { get; set; }
         // Can be added for flagging the transfer status of the course
         //public Boolean IsPassed { get; set; }
     }
