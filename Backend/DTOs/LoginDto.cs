@@ -9,7 +9,7 @@ namespace Backend.DTOs
 {
     public class LoginDto
     {
-        [BilkentMailAttribute] public string Mail { get; set; }
+        [BilkentMailAttribute] public string Email { get; set; }
         [Required] public string Password { get; set; }
     }
 }

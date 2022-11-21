@@ -7,7 +7,7 @@ namespace Backend.DTOs
 {
     public class ErsmsUserDto
     {
-        public string Mail { get; set; }
+        public string Email { get; set; }
         public string Token { get; set; }
     }
 }
