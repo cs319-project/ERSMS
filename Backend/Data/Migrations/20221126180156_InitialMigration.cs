@@ -195,7 +195,9 @@ namespace Backend.Data.Migrations
                 name: "ExchangeCoordinators",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Department_DepartmentName = table.Column<int>(type: "INTEGER", nullable: true),
+                    Department_FacultyName = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -214,11 +216,10 @@ namespace Backend.Data.Migrations
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     EntranceYear = table.Column<int>(type: "INTEGER", nullable: false),
-                    Majors = table.Column<string>(type: "TEXT", nullable: true),
-                    Minors = table.Column<string>(type: "TEXT", nullable: true),
                     CGPA = table.Column<double>(type: "REAL", nullable: false),
                     ExchangeScore = table.Column<double>(type: "REAL", nullable: false),
-                    PreferredSemester = table.Column<string>(type: "TEXT", nullable: false),
+                    PreferredSemester_AcademicYear = table.Column<string>(type: "TEXT", nullable: true),
+                    PreferredSemester_Semester = table.Column<int>(type: "INTEGER", nullable: true),
                     PreferredSchools = table.Column<string>(type: "TEXT", nullable: true),
                     ExchangeSchool = table.Column<string>(type: "TEXT", nullable: true)
                 },
@@ -229,6 +230,46 @@ namespace Backend.Data.Migrations
                         name: "FK_Students_DomainUsers_Id",
                         column: x => x.Id,
                         principalTable: "DomainUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Students_Majors",
+                columns: table => new
+                {
+                    StudentId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false),
+                    DepartmentName = table.Column<int>(type: "INTEGER", nullable: false),
+                    FacultyName = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Students_Majors", x => new { x.StudentId, x.Id });
+                    table.ForeignKey(
+                        name: "FK_Students_Majors_Students_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Students",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Students_Minors",
+                columns: table => new
+                {
+                    StudentId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false),
+                    DepartmentName = table.Column<int>(type: "INTEGER", nullable: false),
+                    FacultyName = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Students_Minors", x => new { x.StudentId, x.Id });
+                    table.ForeignKey(
+                        name: "FK_Students_Minors_Students_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Students",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -301,10 +342,16 @@ namespace Backend.Data.Migrations
                 name: "ExchangeCoordinators");
 
             migrationBuilder.DropTable(
-                name: "Students");
+                name: "Students_Majors");
+
+            migrationBuilder.DropTable(
+                name: "Students_Minors");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Students");
 
             migrationBuilder.DropTable(
                 name: "DomainUsers");

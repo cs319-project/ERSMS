@@ -23,25 +23,38 @@ namespace Backend.Data
             builder.Entity<DomainUser>().Navigation(u => u.IdentityUser).AutoInclude();
             builder.Entity<AppUser>().Navigation(u => u.DomainUser).AutoInclude();
 
-            builder.Entity<Student>().Property(m => m.Majors).HasConversion(
-                v => string.Join(',', v),
-                v => (ICollection<DepartmentInfo>)v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()
-            );
+            builder.Entity<Student>().Navigation(s => s.Majors).AutoInclude();
+            builder.Entity<Student>().Navigation(s => s.Minors).AutoInclude();
+            builder.Entity<ExchangeCoordinator>().Navigation(s => s.Department).AutoInclude();
 
-            builder.Entity<Student>().Property(m => m.Minors).HasConversion(
-                v => string.Join(',', v),
-                v => (ICollection<DepartmentInfo>)v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()
-            );
+            builder.Entity<ExchangeCoordinator>().OwnsOne<DepartmentInfo>(c => c.Department);
+
+            builder.Entity<Student>().OwnsMany<DepartmentInfo>(c => c.Majors);
+            builder.Entity<Student>().OwnsMany<DepartmentInfo>(c => c.Minors);
+
+            builder.Entity<Student>().OwnsOne<SemesterInfo>(c => c.PreferredSemester);
+
+            // builder.Entity<Student>().Property(m => m.Majors).HasConversion(
+            //     v => string.Join(',', v),
+            //     v => (ICollection<DepartmentInfo>)v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()
+            // );
+
+            // builder.Entity<Student>().Property(m => m.Minors).HasConversion(
+            //     v => string.Join(',', v),
+            //     v => (ICollection<DepartmentInfo>)v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()
+            // );
+
+            // ...
 
             builder.Entity<Student>().Property(m => m.PreferredSchools).HasConversion(
                 v => string.Join(',', v),
                 v => (ICollection<string>)v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()
             );
 
-            builder.Entity<Student>().Property(m => m.PreferredSemester).HasConversion(
-                v => v.ToString(),
-                v => new SemesterInfo(v.ToString())
-            );
+            // builder.Entity<Student>().Property(m => m.PreferredSemester).HasConversion(
+            //     v => v.ToString(),
+            //     v => new SemesterInfo(v.ToString())
+            // );
 
             // No need for discriminator since we are using separate tables for each actor type
             // builder.Entity<DomainUser>().HasDiscriminator<string>("BaseRole").HasValue<Student>("Student");

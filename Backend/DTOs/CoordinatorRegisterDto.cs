@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend.Entities;
 
-namespace Backend.Entities
+namespace Backend.DTOs
 {
-    [Table("ExchangeCoordinators")]
-    public class ExchangeCoordinator : DomainUser
+    public class CoordinatorRegisterDto : RegisterDto
     {
         public DepartmentInfo Department { get; set; }
     }

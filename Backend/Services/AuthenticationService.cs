@@ -12,6 +12,7 @@ using Backend.DTOs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Backend.Utilities;
+using Backend.Utilities.Enum;
 
 namespace Backend.Services
 {
@@ -39,6 +40,28 @@ namespace Backend.Services
             {
                 string actorType = register.ActorType;
                 AppUser user = new AppUser(register, actorType);
+
+                switch (actorType)
+                {
+                    case "Exchange Coordinator":
+                        var t = (user.DomainUser as ExchangeCoordinator);
+                        t.Department = new DepartmentInfo();
+                        t.Department.DepartmentName = EnumStringify.DepartmentEnumarator(register.Department.DepartmentName);
+                        // (user.DomainUser as ExchangeCoordinator).Department.FacultyName = EnumStringify.FacultyEnumarator(register.Department.FacultyName);
+                        var x = String.Compare(register.Department.FacultyName, "Engineering");
+                        break;
+                    default:
+                        throw new System.ArgumentException("Invalid actor type");
+                }
+
+                if (register is CoordinatorRegisterDto)
+                {
+                    var department = EnumStringify.DepartmentEnumarator("CS");
+                    if (user.DomainUser.GetType() == typeof(ExchangeCoordinator))
+                    {
+                        (user.DomainUser as ExchangeCoordinator).Department.DepartmentName = department;
+                    }
+                }
 
                 var result = await _userManager.CreateAsync(user, register.Password);
                 return result.Succeeded ? await AssignRole(user, actorType) : result;
@@ -69,12 +92,12 @@ namespace Backend.Services
 
         public async Task CreateRoles()
         {
-            var values = Enum.GetNames(typeof(Backend.Utilities.Enum.Actors));
-            foreach (var actor in values)
+            var roles = EnumStringify.IdentityRoleList();
+            foreach (var role in roles)
             {
-                if (!await _roleManager.RoleExistsAsync(actor))
+                if (!await _roleManager.RoleExistsAsync(role))
                 {
-                    await _roleManager.CreateAsync(new Role { Name = actor });
+                    await _roleManager.CreateAsync(new Role { Name = role });
                 }
             }
         }

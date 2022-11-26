@@ -17,5 +17,7 @@ namespace Backend.DTOs
         [Required] public string FirstName { get; set; }
         [Required] public string LastName { get; set; }
         [Required] public string Password { get; set; }
+
+        public DepartmentInfoDto Department { get; set; } = null!;
     }
 }
