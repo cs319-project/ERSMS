@@ -161,16 +161,7 @@ namespace Backend.Data.Migrations
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     FirstName = table.Column<string>(type: "TEXT", nullable: false),
                     LastName = table.Column<string>(type: "TEXT", nullable: false),
-                    AppUserId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Discriminator = table.Column<string>(type: "TEXT", nullable: false),
-                    EntranceYear = table.Column<int>(type: "INTEGER", nullable: true),
-                    Majors = table.Column<string>(type: "TEXT", nullable: true),
-                    Minors = table.Column<string>(type: "TEXT", nullable: true),
-                    CGPA = table.Column<double>(type: "REAL", nullable: true),
-                    ExchangeScore = table.Column<double>(type: "REAL", nullable: true),
-                    PreferredSemester = table.Column<string>(type: "TEXT", nullable: true),
-                    PreferredSchools = table.Column<string>(type: "TEXT", nullable: true),
-                    ExchangeSchool = table.Column<string>(type: "TEXT", nullable: true)
+                    AppUserId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -179,6 +170,65 @@ namespace Backend.Data.Migrations
                         name: "FK_DomainUsers_AspNetUsers_AppUserId",
                         column: x => x.AppUserId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Admins",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Admins", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Admins_DomainUsers_Id",
+                        column: x => x.Id,
+                        principalTable: "DomainUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ExchangeCoordinators",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExchangeCoordinators", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ExchangeCoordinators_DomainUsers_Id",
+                        column: x => x.Id,
+                        principalTable: "DomainUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Students",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    EntranceYear = table.Column<int>(type: "INTEGER", nullable: false),
+                    Majors = table.Column<string>(type: "TEXT", nullable: true),
+                    Minors = table.Column<string>(type: "TEXT", nullable: true),
+                    CGPA = table.Column<double>(type: "REAL", nullable: false),
+                    ExchangeScore = table.Column<double>(type: "REAL", nullable: false),
+                    PreferredSemester = table.Column<string>(type: "TEXT", nullable: false),
+                    PreferredSchools = table.Column<string>(type: "TEXT", nullable: true),
+                    ExchangeSchool = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Students", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Students_DomainUsers_Id",
+                        column: x => x.Id,
+                        principalTable: "DomainUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -230,6 +280,9 @@ namespace Backend.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Admins");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
             migrationBuilder.DropTable(
@@ -245,10 +298,16 @@ namespace Backend.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "DomainUsers");
+                name: "ExchangeCoordinators");
+
+            migrationBuilder.DropTable(
+                name: "Students");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "DomainUsers");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

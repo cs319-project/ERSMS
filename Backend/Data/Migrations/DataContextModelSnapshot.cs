@@ -91,10 +91,6 @@ namespace Backend.Data.Migrations
                     b.Property<Guid>("AppUserId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -109,8 +105,6 @@ namespace Backend.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("DomainUsers");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("DomainUser");
                 });
 
             modelBuilder.Entity("Backend.Entities.Role", b =>
@@ -239,6 +233,20 @@ namespace Backend.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Backend.Entities.Admin", b =>
+                {
+                    b.HasBaseType("Backend.Entities.DomainUser");
+
+                    b.ToTable("Admins");
+                });
+
+            modelBuilder.Entity("Backend.Entities.ExchangeCoordinator", b =>
+                {
+                    b.HasBaseType("Backend.Entities.DomainUser");
+
+                    b.ToTable("ExchangeCoordinators");
+                });
+
             modelBuilder.Entity("Backend.Entities.Student", b =>
                 {
                     b.HasBaseType("Backend.Entities.DomainUser");
@@ -268,7 +276,7 @@ namespace Backend.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasDiscriminator().HasValue("Student");
+                    b.ToTable("Students");
                 });
 
             modelBuilder.Entity("Backend.Entities.DomainUser", b =>
@@ -329,6 +337,33 @@ namespace Backend.Data.Migrations
                     b.HasOne("Backend.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Backend.Entities.Admin", b =>
+                {
+                    b.HasOne("Backend.Entities.DomainUser", null)
+                        .WithOne()
+                        .HasForeignKey("Backend.Entities.Admin", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Backend.Entities.ExchangeCoordinator", b =>
+                {
+                    b.HasOne("Backend.Entities.DomainUser", null)
+                        .WithOne()
+                        .HasForeignKey("Backend.Entities.ExchangeCoordinator", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Backend.Entities.Student", b =>
+                {
+                    b.HasOne("Backend.Entities.DomainUser", null)
+                        .WithOne()
+                        .HasForeignKey("Backend.Entities.Student", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

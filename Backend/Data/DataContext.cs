@@ -43,10 +43,16 @@ namespace Backend.Data
                 v => new SemesterInfo(v.ToString())
             );
 
+            // No need for discriminator since we are using separate tables for each actor type
+            // builder.Entity<DomainUser>().HasDiscriminator<string>("BaseRole").HasValue<Student>("Student");
+
             // builder.Entity<Student>().OwnsMany<DepartmentInfo>(m => m.Majors);
         }
 
         public DbSet<DomainUser> DomainUsers { get; set; }
+
+        public DbSet<Admin> Admins { get; set; }
         public DbSet<Student> Students { get; set; }
+        public DbSet<ExchangeCoordinator> ExchangeCoordinators { get; set; }
     }
 }

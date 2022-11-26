@@ -11,6 +11,7 @@ using Backend.Interfaces;
 using Backend.DTOs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using Backend.Utilities;
 
 namespace Backend.Services
 {

@@ -25,7 +25,6 @@ namespace Backend.Entities
         [Required] public string FirstName { get; set; }
         [Required] public string LastName { get; set; }
         [Required] public Guid AppUserId { get; private set; }
-        public AppUser IdentityUser { get; set; } = null!;
-        public string Discriminator { get; private set; } = null!;
+        public AppUser IdentityUser { get; set; }
     }
 }

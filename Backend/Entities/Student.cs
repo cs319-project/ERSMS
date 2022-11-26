@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Backend.Entities
 {
+    [Table("Students")]
     public class Student : DomainUser
     {
         public int EntranceYear { get; set; } // might be redundant

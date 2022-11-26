@@ -1,6 +1,7 @@
 using Backend.Entities;
 using Backend.DTOs;
 using Backend.Utilities.Enum;
+using Backend.Utilities;
 
 namespace Backend.Utilities
 {
@@ -16,12 +17,17 @@ namespace Backend.Utilities
         public static DomainUser Create(string actorType, Action<DomainUser> initializer, string id)
         {
             Actors _enum = (Actors)System.Enum.Parse(typeof(Actors), actorType);
+            var enumVal = Extensions.GetEnumMemberValue(_enum);
+
             DomainUser domainUser = null;
 
-            switch (_enum)
+            switch (enumVal)
             {
-                case Actors.Student:
+                case "Student":
                     domainUser = new Student();
+                    break;
+                case "Exchange Coordinator":
+                    domainUser = new ExchangeCoordinator();
                     break;
                 default:
                     throw new System.ArgumentException("Invalid actor type");
