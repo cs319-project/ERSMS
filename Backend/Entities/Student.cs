@@ -25,5 +25,9 @@ namespace Backend.Entities
         public ICollection<string> PreferredSchools { get; set; }
 
         public string ExchangeSchool { get; set; }
+
+        public ICollection<CTEForm> CTEForms { get; set; }
+
+        public ICollection<PreApprovalForm> PreApprovalForms { get; set; }
     }
 }
