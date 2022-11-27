@@ -11,13 +11,33 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221126180156_InitialMigration")]
+    [Migration("20221127131657_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.10");
+
+            modelBuilder.Entity("Backend.Entities.Approval", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DateOfApproval")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Approval");
+                });
 
             modelBuilder.Entity("Backend.Entities.AppUser", b =>
                 {
@@ -84,6 +104,44 @@ namespace Backend.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("Backend.Entities.CTEForm", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("ApprovalTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("ChairApprovalId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("DeanApprovalId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("ExchangeCoordinatorApprovalId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("SubjectStudentId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("SubmissionTime")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChairApprovalId");
+
+                    b.HasIndex("DeanApprovalId");
+
+                    b.HasIndex("ExchangeCoordinatorApprovalId");
+
+                    b.HasIndex("SubjectStudentId");
+
+                    b.ToTable("CTEForm");
+                });
+
             modelBuilder.Entity("Backend.Entities.DomainUser", b =>
                 {
                     b.Property<Guid>("Id")
@@ -107,6 +165,157 @@ namespace Backend.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("DomainUsers");
+                });
+
+            modelBuilder.Entity("Backend.Entities.ExemptedCourse", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CourseCode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CourseName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("CourseType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Credits")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ExemptedCourse");
+                });
+
+            modelBuilder.Entity("Backend.Entities.ExemptionRequestForm", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("ApprovalTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CourseCodeBilkent")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CourseCodeHost")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("SubjectStudentId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("SubmissionTime")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SubjectStudentId");
+
+                    b.ToTable("ExemptionRequestForm");
+                });
+
+            modelBuilder.Entity("Backend.Entities.PreApprovalForm", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("ApprovalTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("ExchangeCoordinatorApprovalId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("SubjectStudentId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("SubmissionTime")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExchangeCoordinatorApprovalId");
+
+                    b.HasIndex("SubjectStudentId");
+
+                    b.ToTable("PreApprovalForm");
+                });
+
+            modelBuilder.Entity("Backend.Entities.RequestedCourse", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CourseCode")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CourseName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Credits")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid?>("RequestedCourseGroupId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RequestedCourseGroupId");
+
+                    b.ToTable("RequestedCourse");
+                });
+
+            modelBuilder.Entity("Backend.Entities.RequestedCourseGroup", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("PreApprovalFormId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("RequestedExemptedCourseId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PreApprovalFormId");
+
+                    b.HasIndex("RequestedExemptedCourseId");
+
+                    b.ToTable("RequestedCourseGroup");
+                });
+
+            modelBuilder.Entity("Backend.Entities.RequestedExemptedCourse", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CourseCode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CourseName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("CourseType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Credits")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RequestedExemptedCourse");
                 });
 
             modelBuilder.Entity("Backend.Entities.Role", b =>
@@ -134,6 +343,58 @@ namespace Backend.Data.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Backend.Entities.TransferredCourse", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CourseCode")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CourseName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Credits")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Grade")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("TransferredCourseGroupId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TransferredCourseGroupId");
+
+                    b.ToTable("TransferredCourse");
+                });
+
+            modelBuilder.Entity("Backend.Entities.TransferredCourseGroup", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("CTEFormId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("ExemptedCourseId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CTEFormId");
+
+                    b.HasIndex("ExemptedCourseId");
+
+                    b.ToTable("TransferredCourseGroup");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -271,6 +532,35 @@ namespace Backend.Data.Migrations
                     b.ToTable("Students");
                 });
 
+            modelBuilder.Entity("Backend.Entities.CTEForm", b =>
+                {
+                    b.HasOne("Backend.Entities.Approval", "ChairApproval")
+                        .WithMany()
+                        .HasForeignKey("ChairApprovalId");
+
+                    b.HasOne("Backend.Entities.Approval", "DeanApproval")
+                        .WithMany()
+                        .HasForeignKey("DeanApprovalId");
+
+                    b.HasOne("Backend.Entities.Approval", "ExchangeCoordinatorApproval")
+                        .WithMany()
+                        .HasForeignKey("ExchangeCoordinatorApprovalId");
+
+                    b.HasOne("Backend.Entities.Student", "SubjectStudent")
+                        .WithMany("CTEForms")
+                        .HasForeignKey("SubjectStudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ChairApproval");
+
+                    b.Navigation("DeanApproval");
+
+                    b.Navigation("ExchangeCoordinatorApproval");
+
+                    b.Navigation("SubjectStudent");
+                });
+
             modelBuilder.Entity("Backend.Entities.DomainUser", b =>
                 {
                     b.HasOne("Backend.Entities.AppUser", "IdentityUser")
@@ -280,6 +570,78 @@ namespace Backend.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("IdentityUser");
+                });
+
+            modelBuilder.Entity("Backend.Entities.ExemptionRequestForm", b =>
+                {
+                    b.HasOne("Backend.Entities.Student", "SubjectStudent")
+                        .WithMany("ExemptionRequestForms")
+                        .HasForeignKey("SubjectStudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SubjectStudent");
+                });
+
+            modelBuilder.Entity("Backend.Entities.PreApprovalForm", b =>
+                {
+                    b.HasOne("Backend.Entities.Approval", "ExchangeCoordinatorApproval")
+                        .WithMany()
+                        .HasForeignKey("ExchangeCoordinatorApprovalId");
+
+                    b.HasOne("Backend.Entities.Student", "SubjectStudent")
+                        .WithMany("PreApprovalForms")
+                        .HasForeignKey("SubjectStudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ExchangeCoordinatorApproval");
+
+                    b.Navigation("SubjectStudent");
+                });
+
+            modelBuilder.Entity("Backend.Entities.RequestedCourse", b =>
+                {
+                    b.HasOne("Backend.Entities.RequestedCourseGroup", null)
+                        .WithMany("RequestedCourses")
+                        .HasForeignKey("RequestedCourseGroupId");
+                });
+
+            modelBuilder.Entity("Backend.Entities.RequestedCourseGroup", b =>
+                {
+                    b.HasOne("Backend.Entities.PreApprovalForm", null)
+                        .WithMany("RequestedCourseGroups")
+                        .HasForeignKey("PreApprovalFormId");
+
+                    b.HasOne("Backend.Entities.RequestedExemptedCourse", "RequestedExemptedCourse")
+                        .WithMany()
+                        .HasForeignKey("RequestedExemptedCourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("RequestedExemptedCourse");
+                });
+
+            modelBuilder.Entity("Backend.Entities.TransferredCourse", b =>
+                {
+                    b.HasOne("Backend.Entities.TransferredCourseGroup", null)
+                        .WithMany("TransferredCourses")
+                        .HasForeignKey("TransferredCourseGroupId");
+                });
+
+            modelBuilder.Entity("Backend.Entities.TransferredCourseGroup", b =>
+                {
+                    b.HasOne("Backend.Entities.CTEForm", null)
+                        .WithMany("TransferredCourseGroups")
+                        .HasForeignKey("CTEFormId");
+
+                    b.HasOne("Backend.Entities.ExemptedCourse", "ExemptedCourse")
+                        .WithMany()
+                        .HasForeignKey("ExemptedCourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ExemptedCourse");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -455,6 +817,35 @@ namespace Backend.Data.Migrations
             modelBuilder.Entity("Backend.Entities.AppUser", b =>
                 {
                     b.Navigation("DomainUser");
+                });
+
+            modelBuilder.Entity("Backend.Entities.CTEForm", b =>
+                {
+                    b.Navigation("TransferredCourseGroups");
+                });
+
+            modelBuilder.Entity("Backend.Entities.PreApprovalForm", b =>
+                {
+                    b.Navigation("RequestedCourseGroups");
+                });
+
+            modelBuilder.Entity("Backend.Entities.RequestedCourseGroup", b =>
+                {
+                    b.Navigation("RequestedCourses");
+                });
+
+            modelBuilder.Entity("Backend.Entities.TransferredCourseGroup", b =>
+                {
+                    b.Navigation("TransferredCourses");
+                });
+
+            modelBuilder.Entity("Backend.Entities.Student", b =>
+                {
+                    b.Navigation("CTEForms");
+
+                    b.Navigation("ExemptionRequestForms");
+
+                    b.Navigation("PreApprovalForms");
                 });
 #pragma warning restore 612, 618
         }

@@ -23,39 +23,51 @@ namespace Backend.Data
             builder.Entity<DomainUser>().Navigation(u => u.IdentityUser).AutoInclude();
             builder.Entity<AppUser>().Navigation(u => u.DomainUser).AutoInclude();
 
+            builder.Entity<CTEForm>().Navigation(c => c.TransferredCourseGroups).AutoInclude();
+            builder.Entity<CTEForm>().Navigation(c => c.SubjectStudent).AutoInclude();
+            builder.Entity<TransferredCourseGroup>().Navigation(c => c.TransferredCourses).AutoInclude();
+            builder.Entity<PreApprovalForm>().Navigation(c => c.RequestedCourseGroups).AutoInclude();
+            builder.Entity<PreApprovalForm>().Navigation(c => c.SubjectStudent).AutoInclude();
+            builder.Entity<RequestedCourseGroup>().Navigation(c => c.RequestedCourses).AutoInclude();
+
+            builder.Entity<ExemptionRequestForm>().Navigation(c => c.SubjectStudent).AutoInclude();
+
             builder.Entity<Student>().Navigation(s => s.Majors).AutoInclude();
             builder.Entity<Student>().Navigation(s => s.Minors).AutoInclude();
             builder.Entity<Student>().Navigation(s => s.CTEForms).AutoInclude();
             builder.Entity<Student>().Navigation(s => s.PreApprovalForms).AutoInclude();
+            builder.Entity<Student>().Navigation(s => s.ExemptionRequestForms).AutoInclude();
             builder.Entity<ExchangeCoordinator>().Navigation(s => s.Department).AutoInclude();
 
             builder.Entity<ExchangeCoordinator>().OwnsOne<DepartmentInfo>(c => c.Department);
 
             builder.Entity<Student>().OwnsMany<DepartmentInfo>(c => c.Majors);
             builder.Entity<Student>().OwnsMany<DepartmentInfo>(c => c.Minors);
-            builder.Entity<Student>().OwnsMany<CTEForm>(c => c.CTEForms);
-            builder.Entity<Student>().OwnsMany<PreApprovalForm>(c => c.PreApprovalForms);
 
             builder.Entity<Student>().OwnsOne<SemesterInfo>(c => c.PreferredSemester);
 
             // FORMS
-            builder.Entity<CTEForm>().Navigation(c => c.TransferredCourseGroups).AutoInclude();
-            builder.Entity<TransferredCourseGroup>().Navigation(c => c.TransferredCourses).AutoInclude();
-            builder.Entity<PreApprovalForm>().Navigation(c => c.RequestedCourseGroups).AutoInclude();
-            builder.Entity<RequestedCourseGroup>().Navigation(c => c.RequestedCourses).AutoInclude();
+            builder.Entity<CTEForm>().HasOne<Student>(c => c.SubjectStudent);
+            builder.Entity<PreApprovalForm>().HasOne<Student>(c => c.SubjectStudent);
+            builder.Entity<ExemptionRequestForm>().HasOne<Student>(c => c.SubjectStudent);
 
-            builder.Entity<CTEForm>().OwnsOne<Approval>(c => c.DeanApproval);
-            builder.Entity<CTEForm>().OwnsOne<Approval>(c => c.ChairApproval);
-            builder.Entity<CTEForm>().OwnsOne<Approval>(c => c.ExchangeCoordinatorApproval);
-            builder.Entity<CTEForm>().OwnsMany<TransferredCourseGroup>(c => c.TransferredCourseGroups);
+            builder.Entity<CTEForm>().HasMany<TransferredCourseGroup>(c => c.TransferredCourseGroups);
+            builder.Entity<CTEForm>().HasOne<Approval>(c => c.DeanApproval);
+            builder.Entity<CTEForm>().HasOne<Approval>(c => c.ChairApproval);
+            builder.Entity<CTEForm>().HasOne<Approval>(c => c.ExchangeCoordinatorApproval);
 
-            builder.Entity<TransferredCourseGroup>().OwnsMany<TransferredCourse>(c => c.TransferredCourses);
-            builder.Entity<TransferredCourseGroup>().OwnsOne<ExemptedCourse>(c => c.ExemptedCourse);
+            builder.Entity<PreApprovalForm>().HasOne<Approval>(c => c.ExchangeCoordinatorApproval);
+            builder.Entity<PreApprovalForm>().HasMany<RequestedCourseGroup>(c => c.RequestedCourseGroups);
 
-            builder.Entity<PreApprovalForm>().OwnsMany<RequestedCourseGroup>(c => c.RequestedCourseGroups);
+            builder.Entity<Student>().HasMany<CTEForm>(c => c.CTEForms);
+            builder.Entity<Student>().HasMany<ExemptionRequestForm>(c => c.ExemptionRequestForms);
+            builder.Entity<Student>().HasMany<PreApprovalForm>(c => c.PreApprovalForms);
 
-            builder.Entity<RequestedCourseGroup>().OwnsMany<RequestedCourse>(c => c.RequestedCourses);
-            builder.Entity<RequestedCourseGroup>().OwnsOne<RequestedExemptedCourse>(c => c.RequestedExemptedCourse);
+            builder.Entity<TransferredCourseGroup>().HasOne<ExemptedCourse>(c => c.ExemptedCourse);
+            builder.Entity<TransferredCourseGroup>().HasMany<TransferredCourse>(c => c.TransferredCourses);
+
+            builder.Entity<RequestedCourseGroup>().HasOne<RequestedExemptedCourse>(c => c.RequestedExemptedCourse);
+            builder.Entity<RequestedCourseGroup>().HasMany<RequestedCourse>(c => c.RequestedCourses);
 
             // builder.Entity<Student>().Property(m => m.Majors).HasConversion(
             //     v => string.Join(',', v),

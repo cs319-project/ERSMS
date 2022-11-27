@@ -41,6 +41,8 @@ namespace Backend
             services.AddScoped<IPasswordHasher<AppUser>, Backend.Utilities.BCryptPasswordHasher>();
 
             services.AddScoped<IAuthenticationService, AuthenticationService>();
+            //Automappper setup
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies().Where(p => !p.IsDynamic));
             services.AddControllers();
             services.AddCors();
             // services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

@@ -5,8 +5,8 @@ namespace Backend.Entities
 {
     public class RequestedCourse
     {
-        [ForeignKey("RequestedCourseGroup")]
-        public Guid RequestedCourseGroupId { get; set; }
+        //[ForeignKey("RequestedCourseGroup")]
+        //public Guid RequestedCourseGroupId { get; set; }
         [Key]
         public Guid Id { get; set; }
 

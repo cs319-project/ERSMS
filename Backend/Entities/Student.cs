@@ -29,5 +29,7 @@ namespace Backend.Entities
         public ICollection<CTEForm> CTEForms { get; set; }
 
         public ICollection<PreApprovalForm> PreApprovalForms { get; set; }
+
+        public ICollection<ExemptionRequestForm> ExemptionRequestForms { get; set; }
     }
 }

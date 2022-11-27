@@ -5,12 +5,14 @@ namespace Backend.Entities
 {
     public class RequestedCourseGroup
     {
-        [ForeignKey("PreApprovalForm")]
-        public Guid PreApprovalFormId { get; set; }
+        //[ForeignKey("PreApprovalForm")]
+        //public Guid PreApprovalFormId { get; set; }
         [Key]
         public Guid Id { get; set; }
 
+        [Required]
         public ICollection<RequestedCourse> RequestedCourses { get; set; }
+        [Required]
         public RequestedExemptedCourse RequestedExemptedCourse { get; set; }
     }
 }

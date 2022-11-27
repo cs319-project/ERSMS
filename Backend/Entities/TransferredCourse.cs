@@ -6,8 +6,8 @@ namespace Backend.Entities
     // Host university course for CTE form
     public class TransferredCourse
     {
-        [ForeignKey("TransferredCourseGroup")]
-        public Guid TransferredCourseGroupId { get; set; }
+        //[ForeignKey("TransferredCourseGroup")]
+        //public Guid TransferredCourseGroupId { get; set; }
         [Key]
         public Guid Id { get; set; }
 

@@ -10,6 +10,20 @@ namespace Backend.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Approval",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    DateOfApproval = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    IsApproved = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Approval", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
                 {
@@ -46,6 +60,36 @@ namespace Backend.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ExemptedCourse",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Credits = table.Column<int>(type: "INTEGER", nullable: false),
+                    CourseCode = table.Column<string>(type: "TEXT", nullable: true),
+                    CourseName = table.Column<string>(type: "TEXT", nullable: true),
+                    CourseType = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExemptedCourse", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RequestedExemptedCourse",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Credits = table.Column<int>(type: "INTEGER", nullable: false),
+                    CourseCode = table.Column<string>(type: "TEXT", nullable: true),
+                    CourseName = table.Column<string>(type: "TEXT", nullable: true),
+                    CourseType = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RequestedExemptedCourse", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -235,6 +279,92 @@ namespace Backend.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CTEForm",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    SubjectStudentId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    SubmissionTime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ApprovalTime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ChairApprovalId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    DeanApprovalId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    ExchangeCoordinatorApprovalId = table.Column<Guid>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CTEForm", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CTEForm_Approval_ChairApprovalId",
+                        column: x => x.ChairApprovalId,
+                        principalTable: "Approval",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_CTEForm_Approval_DeanApprovalId",
+                        column: x => x.DeanApprovalId,
+                        principalTable: "Approval",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_CTEForm_Approval_ExchangeCoordinatorApprovalId",
+                        column: x => x.ExchangeCoordinatorApprovalId,
+                        principalTable: "Approval",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_CTEForm_Students_SubjectStudentId",
+                        column: x => x.SubjectStudentId,
+                        principalTable: "Students",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ExemptionRequestForm",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    SubjectStudentId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    SubmissionTime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ApprovalTime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    CourseCodeHost = table.Column<string>(type: "TEXT", nullable: true),
+                    CourseCodeBilkent = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExemptionRequestForm", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ExemptionRequestForm_Students_SubjectStudentId",
+                        column: x => x.SubjectStudentId,
+                        principalTable: "Students",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PreApprovalForm",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    SubjectStudentId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    SubmissionTime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ApprovalTime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ExchangeCoordinatorApprovalId = table.Column<Guid>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PreApprovalForm", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PreApprovalForm_Approval_ExchangeCoordinatorApprovalId",
+                        column: x => x.ExchangeCoordinatorApprovalId,
+                        principalTable: "Approval",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_PreApprovalForm_Students_SubjectStudentId",
+                        column: x => x.SubjectStudentId,
+                        principalTable: "Students",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Students_Majors",
                 columns: table => new
                 {
@@ -272,6 +402,95 @@ namespace Backend.Data.Migrations
                         principalTable: "Students",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TransferredCourseGroup",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    ExemptedCourseId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    CTEFormId = table.Column<Guid>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TransferredCourseGroup", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TransferredCourseGroup_CTEForm_CTEFormId",
+                        column: x => x.CTEFormId,
+                        principalTable: "CTEForm",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_TransferredCourseGroup_ExemptedCourse_ExemptedCourseId",
+                        column: x => x.ExemptedCourseId,
+                        principalTable: "ExemptedCourse",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RequestedCourseGroup",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    RequestedExemptedCourseId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    PreApprovalFormId = table.Column<Guid>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RequestedCourseGroup", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RequestedCourseGroup_PreApprovalForm_PreApprovalFormId",
+                        column: x => x.PreApprovalFormId,
+                        principalTable: "PreApprovalForm",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_RequestedCourseGroup_RequestedExemptedCourse_RequestedExemptedCourseId",
+                        column: x => x.RequestedExemptedCourseId,
+                        principalTable: "RequestedExemptedCourse",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TransferredCourse",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    CourseCode = table.Column<string>(type: "TEXT", nullable: false),
+                    CourseName = table.Column<string>(type: "TEXT", nullable: false),
+                    Credits = table.Column<int>(type: "INTEGER", nullable: false),
+                    Grade = table.Column<string>(type: "TEXT", nullable: false),
+                    TransferredCourseGroupId = table.Column<Guid>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TransferredCourse", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TransferredCourse_TransferredCourseGroup_TransferredCourseGroupId",
+                        column: x => x.TransferredCourseGroupId,
+                        principalTable: "TransferredCourseGroup",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RequestedCourse",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    CourseCode = table.Column<string>(type: "TEXT", nullable: false),
+                    CourseName = table.Column<string>(type: "TEXT", nullable: false),
+                    Credits = table.Column<int>(type: "INTEGER", nullable: false),
+                    RequestedCourseGroupId = table.Column<Guid>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RequestedCourse", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RequestedCourse_RequestedCourseGroup_RequestedCourseGroupId",
+                        column: x => x.RequestedCourseGroupId,
+                        principalTable: "RequestedCourseGroup",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -312,10 +531,75 @@ namespace Backend.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_CTEForm_ChairApprovalId",
+                table: "CTEForm",
+                column: "ChairApprovalId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CTEForm_DeanApprovalId",
+                table: "CTEForm",
+                column: "DeanApprovalId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CTEForm_ExchangeCoordinatorApprovalId",
+                table: "CTEForm",
+                column: "ExchangeCoordinatorApprovalId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CTEForm_SubjectStudentId",
+                table: "CTEForm",
+                column: "SubjectStudentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_DomainUsers_AppUserId",
                 table: "DomainUsers",
                 column: "AppUserId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ExemptionRequestForm_SubjectStudentId",
+                table: "ExemptionRequestForm",
+                column: "SubjectStudentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PreApprovalForm_ExchangeCoordinatorApprovalId",
+                table: "PreApprovalForm",
+                column: "ExchangeCoordinatorApprovalId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PreApprovalForm_SubjectStudentId",
+                table: "PreApprovalForm",
+                column: "SubjectStudentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RequestedCourse_RequestedCourseGroupId",
+                table: "RequestedCourse",
+                column: "RequestedCourseGroupId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RequestedCourseGroup_PreApprovalFormId",
+                table: "RequestedCourseGroup",
+                column: "PreApprovalFormId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RequestedCourseGroup_RequestedExemptedCourseId",
+                table: "RequestedCourseGroup",
+                column: "RequestedExemptedCourseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TransferredCourse_TransferredCourseGroupId",
+                table: "TransferredCourse",
+                column: "TransferredCourseGroupId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TransferredCourseGroup_CTEFormId",
+                table: "TransferredCourseGroup",
+                column: "CTEFormId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TransferredCourseGroup_ExemptedCourseId",
+                table: "TransferredCourseGroup",
+                column: "ExemptedCourseId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -342,13 +626,43 @@ namespace Backend.Data.Migrations
                 name: "ExchangeCoordinators");
 
             migrationBuilder.DropTable(
+                name: "ExemptionRequestForm");
+
+            migrationBuilder.DropTable(
+                name: "RequestedCourse");
+
+            migrationBuilder.DropTable(
                 name: "Students_Majors");
 
             migrationBuilder.DropTable(
                 name: "Students_Minors");
 
             migrationBuilder.DropTable(
+                name: "TransferredCourse");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "RequestedCourseGroup");
+
+            migrationBuilder.DropTable(
+                name: "TransferredCourseGroup");
+
+            migrationBuilder.DropTable(
+                name: "PreApprovalForm");
+
+            migrationBuilder.DropTable(
+                name: "RequestedExemptedCourse");
+
+            migrationBuilder.DropTable(
+                name: "CTEForm");
+
+            migrationBuilder.DropTable(
+                name: "ExemptedCourse");
+
+            migrationBuilder.DropTable(
+                name: "Approval");
 
             migrationBuilder.DropTable(
                 name: "Students");
