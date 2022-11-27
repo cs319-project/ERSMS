@@ -10,7 +10,9 @@ namespace Backend.Entities
 {
     public class DepartmentInfo
     {
+        [Column("DepartmentName")]
         public Department DepartmentName { get; set; }
+        [Column("FacultyName")]
         public Faculty FacultyName { get; set; }
     }
 }

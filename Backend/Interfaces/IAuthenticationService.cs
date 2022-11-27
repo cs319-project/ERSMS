@@ -14,9 +14,7 @@ namespace Backend.Interfaces
         Task<SignInResult> LogIn(LoginDto login);
         Task LogOut();
         Task CreateRoles();
-
-        // Get user by id
-        DomainUser GetUserById(string id);
-
+        Task<IdentityResult> ChangePassword(AppUser user, string currentPassword, string newPassword);
+        Task<IdentityResult> ForceChangePassword(AppUser user, string newPassword);
     }
 }

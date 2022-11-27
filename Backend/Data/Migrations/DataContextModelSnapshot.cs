@@ -716,10 +716,12 @@ namespace Backend.Data.Migrations
                                 .HasColumnType("TEXT");
 
                             b1.Property<int>("DepartmentName")
-                                .HasColumnType("INTEGER");
+                                .HasColumnType("INTEGER")
+                                .HasColumnName("DepartmentName");
 
                             b1.Property<int>("FacultyName")
-                                .HasColumnType("INTEGER");
+                                .HasColumnType("INTEGER")
+                                .HasColumnName("FacultyName");
 
                             b1.HasKey("ExchangeCoordinatorId");
 
@@ -769,10 +771,12 @@ namespace Backend.Data.Migrations
                                 .HasColumnType("INTEGER");
 
                             b1.Property<int>("DepartmentName")
-                                .HasColumnType("INTEGER");
+                                .HasColumnType("INTEGER")
+                                .HasColumnName("DepartmentName");
 
                             b1.Property<int>("FacultyName")
-                                .HasColumnType("INTEGER");
+                                .HasColumnType("INTEGER")
+                                .HasColumnName("FacultyName");
 
                             b1.HasKey("StudentId", "Id");
 
@@ -792,10 +796,12 @@ namespace Backend.Data.Migrations
                                 .HasColumnType("INTEGER");
 
                             b1.Property<int>("DepartmentName")
-                                .HasColumnType("INTEGER");
+                                .HasColumnType("INTEGER")
+                                .HasColumnName("DepartmentName");
 
                             b1.Property<int>("FacultyName")
-                                .HasColumnType("INTEGER");
+                                .HasColumnType("INTEGER")
+                                .HasColumnName("FacultyName");
 
                             b1.HasKey("StudentId", "Id");
 

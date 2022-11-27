@@ -240,8 +240,8 @@ namespace Backend.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Department_DepartmentName = table.Column<int>(type: "INTEGER", nullable: true),
-                    Department_FacultyName = table.Column<int>(type: "INTEGER", nullable: true)
+                    DepartmentName = table.Column<int>(type: "INTEGER", nullable: true),
+                    FacultyName = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {

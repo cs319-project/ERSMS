@@ -14,6 +14,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Backend.Entities;
+using Backend.Data;
 using Backend.Interfaces;
 using Backend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -41,6 +42,8 @@ namespace Backend
             services.AddScoped<IPasswordHasher<AppUser>, Backend.Utilities.BCryptPasswordHasher>();
 
             services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserService, UserService>();
             //Automappper setup
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies().Where(p => !p.IsDynamic));
             services.AddControllers();

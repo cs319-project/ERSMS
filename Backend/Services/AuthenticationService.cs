@@ -43,12 +43,13 @@ namespace Backend.Services
 
                 switch (actorType)
                 {
+                    case "Student":
+                        break;
                     case "Exchange Coordinator":
                         var t = (user.DomainUser as ExchangeCoordinator);
                         t.Department = new DepartmentInfo();
                         t.Department.DepartmentName = EnumStringify.DepartmentEnumarator(register.Department.DepartmentName);
                         // (user.DomainUser as ExchangeCoordinator).Department.FacultyName = EnumStringify.FacultyEnumarator(register.Department.FacultyName);
-                        var x = String.Compare(register.Department.FacultyName, "Engineering");
                         break;
                     default:
                         throw new System.ArgumentException("Invalid actor type");
@@ -85,9 +86,9 @@ namespace Backend.Services
             return await _signInManager.PasswordSignInAsync(user, login.Password, isPersistent: false, lockoutOnFailure: false);
         }
 
-        Task IAuthenticationService.LogOut()
+        public Task LogOut()
         {
-            throw new NotImplementedException();
+            return _signInManager.SignOutAsync();
         }
 
         public async Task CreateRoles()
@@ -106,6 +107,17 @@ namespace Backend.Services
         {
             var user = _dataContext.DomainUsers.SingleOrDefault(x => x.IdentityUser.UserName == id);
             return user;
+        }
+
+        public Task<IdentityResult> ChangePassword(AppUser user, string currentPassword, string newPassword)
+        {
+            return _userManager.ChangePasswordAsync(user, currentPassword, newPassword);
+        }
+
+        public Task<IdentityResult> ForceChangePassword(AppUser user, string newPassword)
+        {
+            _userManager.RemovePasswordAsync(user);
+            return _userManager.AddPasswordAsync(user, newPassword);
         }
     }
 }

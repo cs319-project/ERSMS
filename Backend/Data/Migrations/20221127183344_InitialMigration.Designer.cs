@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221127131657_InitialMigration")]
+    [Migration("20221127183344_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -718,10 +718,12 @@ namespace Backend.Data.Migrations
                                 .HasColumnType("TEXT");
 
                             b1.Property<int>("DepartmentName")
-                                .HasColumnType("INTEGER");
+                                .HasColumnType("INTEGER")
+                                .HasColumnName("DepartmentName");
 
                             b1.Property<int>("FacultyName")
-                                .HasColumnType("INTEGER");
+                                .HasColumnType("INTEGER")
+                                .HasColumnName("FacultyName");
 
                             b1.HasKey("ExchangeCoordinatorId");
 
@@ -771,10 +773,12 @@ namespace Backend.Data.Migrations
                                 .HasColumnType("INTEGER");
 
                             b1.Property<int>("DepartmentName")
-                                .HasColumnType("INTEGER");
+                                .HasColumnType("INTEGER")
+                                .HasColumnName("DepartmentName");
 
                             b1.Property<int>("FacultyName")
-                                .HasColumnType("INTEGER");
+                                .HasColumnType("INTEGER")
+                                .HasColumnName("FacultyName");
 
                             b1.HasKey("StudentId", "Id");
 
@@ -794,10 +798,12 @@ namespace Backend.Data.Migrations
                                 .HasColumnType("INTEGER");
 
                             b1.Property<int>("DepartmentName")
-                                .HasColumnType("INTEGER");
+                                .HasColumnType("INTEGER")
+                                .HasColumnName("DepartmentName");
 
                             b1.Property<int>("FacultyName")
-                                .HasColumnType("INTEGER");
+                                .HasColumnType("INTEGER")
+                                .HasColumnName("FacultyName");
 
                             b1.HasKey("StudentId", "Id");
 
