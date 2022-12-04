@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Backend.Interfaces;
 using Backend.Entities;
 using Backend.DTOs;
+using AutoMapper;
 
 namespace Backend.Services
 {
@@ -12,11 +13,13 @@ namespace Backend.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IAuthenticationService _authenticationService;
+        private readonly IMapper _mapper;
 
-        public UserService(IUserRepository userRepository, IAuthenticationService authenticationService)
+        public UserService(IUserRepository userRepository, IAuthenticationService authenticationService, IMapper mapper)
         {
             _userRepository = userRepository;
             _authenticationService = authenticationService;
+            _mapper = mapper;
         }
 
         public async Task<Object> GetUser(string username)
@@ -29,15 +32,17 @@ namespace Backend.Services
             {
                 case "Student":
                     var student = await _userRepository.GetStudent(user.Id);
-                    return new StudentDto
-                    {
-                        ActorType = "Student",
-                        UserName = user.UserName,
-                        Email = user.Email,
-                        FirstName = student.FirstName,
-                        LastName = student.LastName,
-                        EntranceYear = student.EntranceYear,
-                    };
+                    var studentDto = _mapper.Map<StudentDto>(student);
+                    return studentDto;
+                // return new StudentDto
+                // {
+                //     ActorType = "Student",
+                //     UserName = user.UserName,
+                //     Email = user.Email,
+                //     FirstName = student.FirstName,
+                //     LastName = student.LastName,
+                //     EntranceYear = student.EntranceYear,
+                // };
                 case "User":
                     break;
                 default:

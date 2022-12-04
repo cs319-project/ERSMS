@@ -27,7 +27,7 @@ namespace Backend.DTOs
 
         public ICollection<PreApprovalFormDto> PreApprovalForms { get; set; }
 
-        public ICollection<ExemptionRequestForm> ExemptionRequestForms { get; set; }
+        public ICollection<ExemptionRequestFormDto> ExemptionRequestForms { get; set; }
 
     }
 }

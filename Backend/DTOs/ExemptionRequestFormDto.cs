@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Backend.DTOs
 {
-    public class ExemptionRequestForm
+    public class ExemptionRequestFormDto
     {
         public Guid Id { get; set; }
 
