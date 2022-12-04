@@ -11,12 +11,10 @@ namespace Backend.Data.Profiles
         {
             CreateMap<StudentDto, Student>().ReverseMap().ForMember(dest => dest.ActorType, opt => opt.MapFrom(src => "Student"));
             CreateMap<SemesterInfo, SemesterInfoDto>().ReverseMap();
-            CreateMap<DepartmentInfo, DepartmentInfoDto>().ReverseMap();
             CreateMap<PreApprovalForm, PreApprovalFormDto>().ReverseMap();
             CreateMap<ExemptionRequestForm, ExemptionRequestFormDto>().ReverseMap();
             CreateMap<CTEForm, CTEFormDto>().ReverseMap();
             CreateMap<AppUser, AppUserDto>().ReverseMap();
-            CreateMap<DomainUserDto, DomainUser>().ReverseMap();
 
             CreateMap<TransferredCourseGroup, TransferredCourseGroupDto>().ReverseMap();
             CreateMap<Approval, ApprovalDto>().ReverseMap();

@@ -14,12 +14,12 @@ namespace Backend.Utilities
             {
                 case "Student":
                     return Actors.Student;
-                case "Course Coordinator/Instructor":
+                case "Course Coordinator Instructor":
                     return Actors.CourseCoordinatorInstructor;
                 case "Exchange Coordinator":
                     return Actors.ExchangeCoordinator;
-                case "Dean/Department Chair":
-                    return Actors.DeanDeparmentChair;
+                case "Dean Department Chair":
+                    return Actors.DeanDepartmentChair;
                 case "Admin":
                     return Actors.Admin;
                 case "Office of International Students and Exchange Programs":
@@ -36,11 +36,11 @@ namespace Backend.Utilities
                 case Actors.Student:
                     return "Student";
                 case Actors.CourseCoordinatorInstructor:
-                    return "Course Coordinator/Instructor";
+                    return "Course Coordinator Instructor";
                 case Actors.ExchangeCoordinator:
                     return "Exchange Coordinator";
-                case Actors.DeanDeparmentChair:
-                    return "Dean/Department Chair";
+                case Actors.DeanDepartmentChair:
+                    return "Dean Department Chair";
                 case Actors.Admin:
                     return "Admin";
                 case Actors.OISEP:
@@ -55,9 +55,9 @@ namespace Backend.Utilities
             return new List<string>
             {
                 "Student",
-                "Course Coordinator/Instructor",
+                "Course Coordinator Instructor",
                 "Exchange Coordinator",
-                "Dean/Department Chair",
+                "Dean Department Chair",
                 "Admin",
                 "Office of International Students and Exchange Programs"
             };

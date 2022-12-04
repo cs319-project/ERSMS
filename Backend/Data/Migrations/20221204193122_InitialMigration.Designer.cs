@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221204161312_InitialMigration")]
+    [Migration("20221204193122_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -217,6 +217,58 @@ namespace Backend.Data.Migrations
                     b.HasIndex("SubjectStudentId");
 
                     b.ToTable("ExemptionRequestForm");
+                });
+
+            modelBuilder.Entity("Backend.Entities.PlacedStudent", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("CGPA")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("ExchangeSchool")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("ExchangeScore")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PreferredSchools")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("StudentId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PlacedStudent");
+                });
+
+            modelBuilder.Entity("Backend.Entities.PlacementTable", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<byte[]>("ExcelFile")
+                        .HasColumnType("BLOB");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("UploadTime")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PlacementTables");
                 });
 
             modelBuilder.Entity("Backend.Entities.PreApprovalForm", b =>
@@ -503,6 +555,26 @@ namespace Backend.Data.Migrations
                     b.ToTable("Admins");
                 });
 
+            modelBuilder.Entity("Backend.Entities.CourseCoordinatorInstructor", b =>
+                {
+                    b.HasBaseType("Backend.Entities.DomainUser");
+
+                    b.Property<bool?>("IsCourseCoordinator")
+                        .HasColumnType("INTEGER");
+
+                    b.ToTable("CourseCoordinatorInstructors");
+                });
+
+            modelBuilder.Entity("Backend.Entities.DeanDepartmentChair", b =>
+                {
+                    b.HasBaseType("Backend.Entities.DomainUser");
+
+                    b.Property<bool?>("IsDean")
+                        .HasColumnType("INTEGER");
+
+                    b.ToTable("DeanDepartmentChairs");
+                });
+
             modelBuilder.Entity("Backend.Entities.ExchangeCoordinator", b =>
                 {
                     b.HasBaseType("Backend.Entities.DomainUser");
@@ -581,6 +653,79 @@ namespace Backend.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("SubjectStudent");
+                });
+
+            modelBuilder.Entity("Backend.Entities.PlacedStudent", b =>
+                {
+                    b.OwnsOne("Backend.Entities.DepartmentInfo", "Department", b1 =>
+                        {
+                            b1.Property<Guid>("PlacedStudentId")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<int>("DepartmentName")
+                                .HasColumnType("INTEGER")
+                                .HasColumnName("DepartmentName");
+
+                            b1.Property<int>("FacultyName")
+                                .HasColumnType("INTEGER")
+                                .HasColumnName("FacultyName");
+
+                            b1.HasKey("PlacedStudentId");
+
+                            b1.ToTable("PlacedStudent");
+
+                            b1.WithOwner()
+                                .HasForeignKey("PlacedStudentId");
+                        });
+
+                    b.OwnsOne("Backend.Entities.SemesterInfo", "PreferredSemester", b1 =>
+                        {
+                            b1.Property<Guid>("PlacedStudentId")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("AcademicYear")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<int>("Semester")
+                                .HasColumnType("INTEGER");
+
+                            b1.HasKey("PlacedStudentId");
+
+                            b1.ToTable("PlacedStudent");
+
+                            b1.WithOwner()
+                                .HasForeignKey("PlacedStudentId");
+                        });
+
+                    b.Navigation("Department");
+
+                    b.Navigation("PreferredSemester");
+                });
+
+            modelBuilder.Entity("Backend.Entities.PlacementTable", b =>
+                {
+                    b.OwnsOne("Backend.Entities.DepartmentInfo", "Department", b1 =>
+                        {
+                            b1.Property<Guid>("PlacementTableId")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<int>("DepartmentName")
+                                .HasColumnType("INTEGER")
+                                .HasColumnName("DepartmentName");
+
+                            b1.Property<int>("FacultyName")
+                                .HasColumnType("INTEGER")
+                                .HasColumnName("FacultyName");
+
+                            b1.HasKey("PlacementTableId");
+
+                            b1.ToTable("PlacementTables");
+
+                            b1.WithOwner()
+                                .HasForeignKey("PlacementTableId");
+                        });
+
+                    b.Navigation("Department");
                 });
 
             modelBuilder.Entity("Backend.Entities.PreApprovalForm", b =>
@@ -704,6 +849,91 @@ namespace Backend.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Backend.Entities.CourseCoordinatorInstructor", b =>
+                {
+                    b.HasOne("Backend.Entities.DomainUser", null)
+                        .WithOne()
+                        .HasForeignKey("Backend.Entities.CourseCoordinatorInstructor", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsOne("Backend.Entities.Course", "Course", b1 =>
+                        {
+                            b1.Property<Guid>("CourseCoordinatorInstructorId")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("CourseCode")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("CourseName")
+                                .HasColumnType("TEXT");
+
+                            b1.HasKey("CourseCoordinatorInstructorId");
+
+                            b1.ToTable("CourseCoordinatorInstructors");
+
+                            b1.WithOwner()
+                                .HasForeignKey("CourseCoordinatorInstructorId");
+                        });
+
+                    b.OwnsOne("Backend.Entities.DepartmentInfo", "Department", b1 =>
+                        {
+                            b1.Property<Guid>("CourseCoordinatorInstructorId")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<int>("DepartmentName")
+                                .HasColumnType("INTEGER")
+                                .HasColumnName("DepartmentName");
+
+                            b1.Property<int>("FacultyName")
+                                .HasColumnType("INTEGER")
+                                .HasColumnName("FacultyName");
+
+                            b1.HasKey("CourseCoordinatorInstructorId");
+
+                            b1.ToTable("CourseCoordinatorInstructors");
+
+                            b1.WithOwner()
+                                .HasForeignKey("CourseCoordinatorInstructorId");
+                        });
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Department");
+                });
+
+            modelBuilder.Entity("Backend.Entities.DeanDepartmentChair", b =>
+                {
+                    b.HasOne("Backend.Entities.DomainUser", null)
+                        .WithOne()
+                        .HasForeignKey("Backend.Entities.DeanDepartmentChair", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsOne("Backend.Entities.DepartmentInfo", "Department", b1 =>
+                        {
+                            b1.Property<Guid>("DeanDepartmentChairId")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<int>("DepartmentName")
+                                .HasColumnType("INTEGER")
+                                .HasColumnName("DepartmentName");
+
+                            b1.Property<int>("FacultyName")
+                                .HasColumnType("INTEGER")
+                                .HasColumnName("FacultyName");
+
+                            b1.HasKey("DeanDepartmentChairId");
+
+                            b1.ToTable("DeanDepartmentChairs");
+
+                            b1.WithOwner()
+                                .HasForeignKey("DeanDepartmentChairId");
+                        });
+
+                    b.Navigation("Department");
+                });
+
             modelBuilder.Entity("Backend.Entities.ExchangeCoordinator", b =>
                 {
                     b.HasOne("Backend.Entities.DomainUser", null)
@@ -743,25 +973,6 @@ namespace Backend.Data.Migrations
                         .HasForeignKey("Backend.Entities.Student", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.OwnsOne("Backend.Entities.SemesterInfo", "PreferredSemester", b1 =>
-                        {
-                            b1.Property<Guid>("StudentId")
-                                .HasColumnType("TEXT");
-
-                            b1.Property<string>("AcademicYear")
-                                .HasColumnType("TEXT");
-
-                            b1.Property<int>("Semester")
-                                .HasColumnType("INTEGER");
-
-                            b1.HasKey("StudentId");
-
-                            b1.ToTable("Students");
-
-                            b1.WithOwner()
-                                .HasForeignKey("StudentId");
-                        });
 
                     b.OwnsMany("Backend.Entities.DepartmentInfo", "Majors", b1 =>
                         {
@@ -808,6 +1019,25 @@ namespace Backend.Data.Migrations
                             b1.HasKey("StudentId", "Id");
 
                             b1.ToTable("Students_Minors");
+
+                            b1.WithOwner()
+                                .HasForeignKey("StudentId");
+                        });
+
+                    b.OwnsOne("Backend.Entities.SemesterInfo", "PreferredSemester", b1 =>
+                        {
+                            b1.Property<Guid>("StudentId")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("AcademicYear")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<int>("Semester")
+                                .HasColumnType("INTEGER");
+
+                            b1.HasKey("StudentId");
+
+                            b1.ToTable("Students");
 
                             b1.WithOwner()
                                 .HasForeignKey("StudentId");

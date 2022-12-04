@@ -12,7 +12,7 @@ namespace Backend.Utilities.Enum
         [EnumMember(Value = "Exchange Coordinator")]
         ExchangeCoordinator,
         [EnumMember(Value = "Dean/Department Chair")]
-        DeanDeparmentChair,
+        DeanDepartmentChair,
         [EnumMember(Value = "Admin")]
         Admin,
         [EnumMember(Value = "Office of International Students and Exchange Programs")]

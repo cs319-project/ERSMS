@@ -10,7 +10,11 @@ namespace Backend.Interfaces
     {
         void Update(AppUser user);
         Task<AppUser> GetUser(string username);
-        Task<Student> GetStudent(Guid username);
+        Task<Student> GetStudent(Guid id);
+        Task<ExchangeCoordinator> GetExchangeCoordinator(Guid id);
+        Task<Admin> GetAdmin(Guid id);
+        Task<DeanDepartmentChair> GetDeanDepartmentChair(Guid id);
+        Task<CourseCoordinatorInstructor> GetCourseCoordinatorInstructor(Guid id);
         Task<IList<String>> GetRoles(AppUser user);
 
         Task<IEnumerable<AppUser>> GetUsersAsync();

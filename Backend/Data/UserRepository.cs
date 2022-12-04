@@ -31,6 +31,26 @@ namespace Backend.Data
             return await _context.Students.FirstOrDefaultAsync(x => x.AppUserId == id);
         }
 
+        public async Task<ExchangeCoordinator> GetExchangeCoordinator(Guid id)
+        {
+            return await _context.ExchangeCoordinators.FirstOrDefaultAsync(x => x.AppUserId == id);
+        }
+
+        public async Task<Admin> GetAdmin(Guid id)
+        {
+            return await _context.Admins.FirstOrDefaultAsync(x => x.AppUserId == id);
+        }
+
+        public async Task<DeanDepartmentChair> GetDeanDepartmentChair(Guid id)
+        {
+            return await _context.DeanDepartmentChairs.FirstOrDefaultAsync(x => x.AppUserId == id);
+        }
+
+        public async Task<CourseCoordinatorInstructor> GetCourseCoordinatorInstructor(Guid id)
+        {
+            return await _context.CourseCoordinatorInstructors.FirstOrDefaultAsync(x => x.AppUserId == id);
+        }
+
         public async Task<IList<String>> GetRoles(AppUser user)
         {
             return await _userManager.GetRolesAsync(user);

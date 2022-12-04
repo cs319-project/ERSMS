@@ -26,6 +26,15 @@ namespace Backend.Utilities
                 case Actors.ExchangeCoordinator:
                     domainUser = new ExchangeCoordinator();
                     break;
+                case Actors.Admin:
+                    domainUser = new Admin();
+                    break;
+                case Actors.DeanDepartmentChair:
+                    domainUser = new DeanDepartmentChair();
+                    break;
+                case Actors.CourseCoordinatorInstructor:
+                    domainUser = new CourseCoordinatorInstructor();
+                    break;
                 default:
                     throw new System.ArgumentException("Invalid actor type");
             }

@@ -78,6 +78,44 @@ namespace Backend.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PlacedStudent",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    FirstName = table.Column<string>(type: "TEXT", nullable: true),
+                    LastName = table.Column<string>(type: "TEXT", nullable: true),
+                    StudentId = table.Column<string>(type: "TEXT", nullable: true),
+                    DepartmentName = table.Column<int>(type: "INTEGER", nullable: true),
+                    FacultyName = table.Column<int>(type: "INTEGER", nullable: true),
+                    CGPA = table.Column<double>(type: "REAL", nullable: false),
+                    ExchangeScore = table.Column<double>(type: "REAL", nullable: false),
+                    PreferredSemester_AcademicYear = table.Column<string>(type: "TEXT", nullable: true),
+                    PreferredSemester_Semester = table.Column<int>(type: "INTEGER", nullable: true),
+                    PreferredSchools = table.Column<string>(type: "TEXT", nullable: true),
+                    ExchangeSchool = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlacedStudent", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PlacementTables",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    DepartmentName = table.Column<int>(type: "INTEGER", nullable: true),
+                    FacultyName = table.Column<int>(type: "INTEGER", nullable: true),
+                    FileName = table.Column<string>(type: "TEXT", nullable: true),
+                    ExcelFile = table.Column<byte[]>(type: "BLOB", nullable: true),
+                    UploadTime = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlacementTables", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "RequestedExemptedCourse",
                 columns: table => new
                 {
@@ -229,6 +267,48 @@ namespace Backend.Data.Migrations
                     table.PrimaryKey("PK_Admins", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Admins_DomainUsers_Id",
+                        column: x => x.Id,
+                        principalTable: "DomainUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CourseCoordinatorInstructors",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    DepartmentName = table.Column<int>(type: "INTEGER", nullable: true),
+                    FacultyName = table.Column<int>(type: "INTEGER", nullable: true),
+                    Course_CourseCode = table.Column<string>(type: "TEXT", nullable: true),
+                    Course_CourseName = table.Column<string>(type: "TEXT", nullable: true),
+                    IsCourseCoordinator = table.Column<bool>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CourseCoordinatorInstructors", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CourseCoordinatorInstructors_DomainUsers_Id",
+                        column: x => x.Id,
+                        principalTable: "DomainUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DeanDepartmentChairs",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    DepartmentName = table.Column<int>(type: "INTEGER", nullable: true),
+                    FacultyName = table.Column<int>(type: "INTEGER", nullable: true),
+                    IsDean = table.Column<bool>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DeanDepartmentChairs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DeanDepartmentChairs_DomainUsers_Id",
                         column: x => x.Id,
                         principalTable: "DomainUsers",
                         principalColumn: "Id",
@@ -623,10 +703,22 @@ namespace Backend.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "CourseCoordinatorInstructors");
+
+            migrationBuilder.DropTable(
+                name: "DeanDepartmentChairs");
+
+            migrationBuilder.DropTable(
                 name: "ExchangeCoordinators");
 
             migrationBuilder.DropTable(
                 name: "ExemptionRequestForm");
+
+            migrationBuilder.DropTable(
+                name: "PlacedStudent");
+
+            migrationBuilder.DropTable(
+                name: "PlacementTables");
 
             migrationBuilder.DropTable(
                 name: "RequestedCourse");

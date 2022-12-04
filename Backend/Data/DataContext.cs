@@ -37,9 +37,12 @@ namespace Backend.Data
             builder.Entity<Student>().Navigation(s => s.CTEForms).AutoInclude();
             builder.Entity<Student>().Navigation(s => s.PreApprovalForms).AutoInclude();
             builder.Entity<Student>().Navigation(s => s.ExemptionRequestForms).AutoInclude();
-            builder.Entity<ExchangeCoordinator>().Navigation(s => s.Department).AutoInclude();
 
+            builder.Entity<DeanDepartmentChair>().OwnsOne<DepartmentInfo>(c => c.Department);
             builder.Entity<ExchangeCoordinator>().OwnsOne<DepartmentInfo>(c => c.Department);
+
+            builder.Entity<CourseCoordinatorInstructor>().OwnsOne(c => c.Course);
+            builder.Entity<CourseCoordinatorInstructor>().OwnsOne<DepartmentInfo>(c => c.Department);
 
             builder.Entity<Student>().OwnsMany<DepartmentInfo>(c => c.Majors);
             builder.Entity<Student>().OwnsMany<DepartmentInfo>(c => c.Minors);
@@ -69,6 +72,13 @@ namespace Backend.Data
             builder.Entity<RequestedCourseGroup>().HasOne<RequestedExemptedCourse>(c => c.RequestedExemptedCourse);
             builder.Entity<RequestedCourseGroup>().HasMany<RequestedCourse>(c => c.RequestedCourses);
 
+            builder.Entity<PlacementTable>().OwnsOne<DepartmentInfo>(c => c.Department);
+
+            builder.Entity<PlacedStudent>().OwnsOne<DepartmentInfo>(c => c.Department);
+            builder.Entity<PlacedStudent>().OwnsOne<SemesterInfo>(c => c.PreferredSemester);
+
+
+
             // builder.Entity<Student>().Property(m => m.Majors).HasConversion(
             //     v => string.Join(',', v),
             //     v => (ICollection<DepartmentInfo>)v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()
@@ -82,6 +92,11 @@ namespace Backend.Data
             // ...
 
             builder.Entity<Student>().Property(m => m.PreferredSchools).HasConversion(
+                v => string.Join(',', v),
+                v => (ICollection<string>)v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()
+            );
+
+            builder.Entity<PlacedStudent>().Property(m => m.PreferredSchools).HasConversion(
                 v => string.Join(',', v),
                 v => (ICollection<string>)v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()
             );
@@ -101,6 +116,8 @@ namespace Backend.Data
 
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Student> Students { get; set; }
+        public DbSet<DeanDepartmentChair> DeanDepartmentChairs { get; set; }
         public DbSet<ExchangeCoordinator> ExchangeCoordinators { get; set; }
+        public DbSet<CourseCoordinatorInstructor> CourseCoordinatorInstructors { get; set; }
     }
 }

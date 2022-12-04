@@ -34,17 +34,22 @@ namespace Backend.Services
                     var student = await _userRepository.GetStudent(user.Id);
                     var studentDto = _mapper.Map<StudentDto>(student);
                     return studentDto;
-                // return new StudentDto
-                // {
-                //     ActorType = "Student",
-                //     UserName = user.UserName,
-                //     Email = user.Email,
-                //     FirstName = student.FirstName,
-                //     LastName = student.LastName,
-                //     EntranceYear = student.EntranceYear,
-                // };
-                case "User":
-                    break;
+                case "Exchange Coordinator":
+                    var exchangeCoordinator = await _userRepository.GetExchangeCoordinator(user.Id);
+                    var exchangeCoordinatorDto = _mapper.Map<ExchangeCoordinatorDto>(exchangeCoordinator);
+                    return exchangeCoordinatorDto;
+                case "Admin":
+                    var admin = await _userRepository.GetAdmin(user.Id);
+                    var adminDto = _mapper.Map<AdminDto>(admin);
+                    return adminDto;
+                case "Dean Department Chair":
+                    var deanDepartmentChair = await _userRepository.GetDeanDepartmentChair(user.Id);
+                    var deanDepartmentChairDto = _mapper.Map<DeanDepartmentChairDto>(deanDepartmentChair);
+                    return deanDepartmentChairDto;
+                case "Course Coordinator Instructor":
+                    var courseCoordinatorInstructor = await _userRepository.GetCourseCoordinatorInstructor(user.Id);
+                    var courseCoordinatorInstructorDto = _mapper.Map<CourseCoordinatorInstructorDto>(courseCoordinatorInstructor);
+                    return courseCoordinatorInstructorDto;
                 default:
                     break;
             }

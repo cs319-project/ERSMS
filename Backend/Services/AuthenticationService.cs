@@ -46,23 +46,39 @@ namespace Backend.Services
                     case "Student":
                         break;
                     case "Exchange Coordinator":
-                        var t = (user.DomainUser as ExchangeCoordinator);
-                        t.Department = new DepartmentInfo();
-                        t.Department.DepartmentName = EnumStringify.DepartmentEnumarator(register.Department.DepartmentName);
-                        // (user.DomainUser as ExchangeCoordinator).Department.FacultyName = EnumStringify.FacultyEnumarator(register.Department.FacultyName);
+                        var exchangeCoordinator = (user.DomainUser as ExchangeCoordinator);
+                        exchangeCoordinator.Department = new DepartmentInfo();
+                        exchangeCoordinator.Department.DepartmentName = EnumStringify.DepartmentEnumarator(register.Department.DepartmentName);
+                        // t.Department.FacultyName = EnumStringify.FacultyEnumarator(register.Department.FacultyName);
+                        break;
+                    case "Admin":
+                        break;
+                    case "Dean Department Chair":
+                        var deanDepartmentChair = (user.DomainUser as DeanDepartmentChair);
+                        deanDepartmentChair.Department = new DepartmentInfo();
+                        deanDepartmentChair.Department.DepartmentName = EnumStringify.DepartmentEnumarator(register.Department.DepartmentName);
+                        // deanDepartmentChair.Department.FacultyName = EnumStringify.FacultyEnumarator(register.Department.FacultyName);
+                        deanDepartmentChair.IsDean = register.IsDean;
+                        break;
+                    case "Course Coordinator Instructor":
+                        var courseCoordinatorInstructor = (user.DomainUser as CourseCoordinatorInstructor);
+                        courseCoordinatorInstructor.Department = new DepartmentInfo();
+                        courseCoordinatorInstructor.Department.DepartmentName = EnumStringify.DepartmentEnumarator(register.Department.DepartmentName);
+                        // courseCoordinatorInstructor.Department.FacultyName = EnumStringify.FacultyEnumarator(register.Department.FacultyName);
+                        courseCoordinatorInstructor.IsCourseCoordinator = register.IsCourseCoordinator;
                         break;
                     default:
                         throw new System.ArgumentException("Invalid actor type");
                 }
 
-                if (register is CoordinatorRegisterDto)
-                {
-                    var department = EnumStringify.DepartmentEnumarator("CS");
-                    if (user.DomainUser.GetType() == typeof(ExchangeCoordinator))
-                    {
-                        (user.DomainUser as ExchangeCoordinator).Department.DepartmentName = department;
-                    }
-                }
+                // if (register is CoordinatorRegisterDto)
+                // {
+                //     var department = EnumStringify.DepartmentEnumarator("CS");
+                //     if (user.DomainUser.GetType() == typeof(ExchangeCoordinator))
+                //     {
+                //         (user.DomainUser as ExchangeCoordinator).Department.DepartmentName = department;
+                //     }
+                // }
 
                 var result = await _userManager.CreateAsync(user, register.Password);
                 return result.Succeeded ? await AssignRole(user, actorType) : result;
