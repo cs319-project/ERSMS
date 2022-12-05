@@ -259,10 +259,12 @@ namespace Backend.Utilities
         {
             switch (semester)
             {
-                case "Fall":
+                case "Fall Semester":
                     return Semester.Fall;
-                case "Spring":
+                case "Spring Semester":
                     return Semester.Spring;
+                case "Full Year":
+                    return Semester.FullYear;
                 default:
                     throw new Exception("Semester Exception");
             }
@@ -273,9 +275,11 @@ namespace Backend.Utilities
             switch (semester)
             {
                 case Semester.Fall:
-                    return "Fall";
+                    return "Fall Semester";
                 case Semester.Spring:
-                    return "Spring";
+                    return "Spring Semester";
+                case Semester.FullYear:
+                    return "Full Year";
                 default:
                     throw new Exception("Semester Exception");
             }
