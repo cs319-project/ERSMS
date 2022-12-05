@@ -119,5 +119,6 @@ namespace Backend.Data
         public DbSet<DeanDepartmentChair> DeanDepartmentChairs { get; set; }
         public DbSet<ExchangeCoordinator> ExchangeCoordinators { get; set; }
         public DbSet<CourseCoordinatorInstructor> CourseCoordinatorInstructors { get; set; }
+        public DbSet<OISEP> OISEPs { get; set; }
     }
 }

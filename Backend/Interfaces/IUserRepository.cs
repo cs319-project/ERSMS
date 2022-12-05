@@ -15,6 +15,7 @@ namespace Backend.Interfaces
         Task<Admin> GetAdmin(Guid id);
         Task<DeanDepartmentChair> GetDeanDepartmentChair(Guid id);
         Task<CourseCoordinatorInstructor> GetCourseCoordinatorInstructor(Guid id);
+        Task<OISEP> GetOISEP(Guid id);
         Task<IList<String>> GetRoles(AppUser user);
 
         Task<IEnumerable<AppUser>> GetUsersAsync();

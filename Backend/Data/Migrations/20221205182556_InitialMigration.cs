@@ -84,7 +84,7 @@ namespace Backend.Data.Migrations
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     FirstName = table.Column<string>(type: "TEXT", nullable: true),
                     LastName = table.Column<string>(type: "TEXT", nullable: true),
-                    StudentId = table.Column<string>(type: "TEXT", nullable: true),
+                    UserName = table.Column<string>(type: "TEXT", nullable: true),
                     DepartmentName = table.Column<int>(type: "INTEGER", nullable: true),
                     FacultyName = table.Column<int>(type: "INTEGER", nullable: true),
                     CGPA = table.Column<double>(type: "REAL", nullable: false),
@@ -92,7 +92,8 @@ namespace Backend.Data.Migrations
                     PreferredSemester_AcademicYear = table.Column<string>(type: "TEXT", nullable: true),
                     PreferredSemester_Semester = table.Column<int>(type: "INTEGER", nullable: true),
                     PreferredSchools = table.Column<string>(type: "TEXT", nullable: true),
-                    ExchangeSchool = table.Column<string>(type: "TEXT", nullable: true)
+                    ExchangeSchool = table.Column<string>(type: "TEXT", nullable: true),
+                    IsPlaced = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -328,6 +329,23 @@ namespace Backend.Data.Migrations
                     table.PrimaryKey("PK_ExchangeCoordinators", x => x.Id);
                     table.ForeignKey(
                         name: "FK_ExchangeCoordinators_DomainUsers_Id",
+                        column: x => x.Id,
+                        principalTable: "DomainUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OISEPs",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OISEPs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OISEPs_DomainUsers_Id",
                         column: x => x.Id,
                         principalTable: "DomainUsers",
                         principalColumn: "Id",
@@ -713,6 +731,9 @@ namespace Backend.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "ExemptionRequestForm");
+
+            migrationBuilder.DropTable(
+                name: "OISEPs");
 
             migrationBuilder.DropTable(
                 name: "PlacedStudent");

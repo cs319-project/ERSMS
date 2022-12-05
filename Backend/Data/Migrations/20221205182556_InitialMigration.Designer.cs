@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221204193122_InitialMigration")]
+    [Migration("20221205182556_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -237,13 +237,16 @@ namespace Backend.Data.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("IsPlaced")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("LastName")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PreferredSchools")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("StudentId")
+                    b.Property<string>("UserName")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -580,6 +583,13 @@ namespace Backend.Data.Migrations
                     b.HasBaseType("Backend.Entities.DomainUser");
 
                     b.ToTable("ExchangeCoordinators");
+                });
+
+            modelBuilder.Entity("Backend.Entities.OISEP", b =>
+                {
+                    b.HasBaseType("Backend.Entities.DomainUser");
+
+                    b.ToTable("OISEPs");
                 });
 
             modelBuilder.Entity("Backend.Entities.Student", b =>
@@ -964,6 +974,15 @@ namespace Backend.Data.Migrations
                         });
 
                     b.Navigation("Department");
+                });
+
+            modelBuilder.Entity("Backend.Entities.OISEP", b =>
+                {
+                    b.HasOne("Backend.Entities.DomainUser", null)
+                        .WithOne()
+                        .HasForeignKey("Backend.Entities.OISEP", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Backend.Entities.Student", b =>

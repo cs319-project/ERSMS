@@ -51,6 +51,11 @@ namespace Backend.Data
             return await _context.CourseCoordinatorInstructors.FirstOrDefaultAsync(x => x.AppUserId == id);
         }
 
+        public async Task<OISEP> GetOISEP(Guid id)
+        {
+            return await _context.OISEPs.FirstOrDefaultAsync(x => x.AppUserId == id);
+        }
+
         public async Task<IList<String>> GetRoles(AppUser user)
         {
             return await _userManager.GetRolesAsync(user);

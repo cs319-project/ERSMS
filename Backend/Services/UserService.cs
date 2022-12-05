@@ -50,6 +50,10 @@ namespace Backend.Services
                     var courseCoordinatorInstructor = await _userRepository.GetCourseCoordinatorInstructor(user.Id);
                     var courseCoordinatorInstructorDto = _mapper.Map<CourseCoordinatorInstructorDto>(courseCoordinatorInstructor);
                     return courseCoordinatorInstructorDto;
+                case "Office of International Students and Exchange Programs":
+                    var oISEP = await _userRepository.GetOISEP(user.Id);
+                    var oISEPDto = _mapper.Map<OISEPDto>(oISEP);
+                    return oISEPDto;
                 default:
                     break;
             }

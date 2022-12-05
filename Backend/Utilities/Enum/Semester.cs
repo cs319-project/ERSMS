@@ -4,10 +4,10 @@ namespace Backend.Utilities.Enum
 {
     public enum Semester
     {
-        [EnumMember(Value = "Fall")]
+        [EnumMember(Value = "Fall Semester")]
         Fall,
 
-        [EnumMember(Value = "Spring")]
+        [EnumMember(Value = "Spring Semester")]
         Spring,
 
         [EnumMember(Value = "Full Year")]

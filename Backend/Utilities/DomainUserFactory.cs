@@ -14,7 +14,7 @@ namespace Backend.Utilities
                 u.LastName = register.LastName;
             }, register.UserName);
 
-        public static DomainUser Create(string actorType, Action<DomainUser> initializer, string id)
+        public static DomainUser Create(string actorType, Action<DomainUser> initializer, string userName)
         {
             DomainUser domainUser = null;
 
@@ -34,6 +34,9 @@ namespace Backend.Utilities
                     break;
                 case Actors.CourseCoordinatorInstructor:
                     domainUser = new CourseCoordinatorInstructor();
+                    break;
+                case Actors.OISEP:
+                    domainUser = new OISEP();
                     break;
                 default:
                     throw new System.ArgumentException("Invalid actor type");

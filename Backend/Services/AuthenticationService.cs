@@ -67,6 +67,8 @@ namespace Backend.Services
                         // courseCoordinatorInstructor.Department.FacultyName = EnumStringify.FacultyEnumarator(register.Department.FacultyName);
                         courseCoordinatorInstructor.IsCourseCoordinator = register.IsCourseCoordinator;
                         break;
+                    case "Office of International Students and Exchange Programs":
+                        break;
                     default:
                         throw new System.ArgumentException("Invalid actor type");
                 }
