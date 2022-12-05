@@ -197,6 +197,64 @@ namespace Backend.Utilities
             }
         }
 
+        public static Faculty FacultyEnumarator(string faculty)
+        {
+            switch (faculty)
+            {
+                case "Faculty of Engineering":
+                    return Faculty.Engineering;
+                case "Faculty of Art, Design, and Architecture":
+                    return Faculty.ArtsDesignArchitecture;
+                case "Faculty of Economics, Administrative, and Social Sciences":
+                    return Faculty.EconomicsAdministrativeSocialSciences;
+                case "Faculty of Business Administration":
+                    return Faculty.BusinessAdministration;
+                case "Faculty of Law":
+                    return Faculty.Law;
+                case "Faculty of Science":
+                    return Faculty.Science;
+                case "Faculty of Education":
+                    return Faculty.Education;
+                case "Faculty of Humanities and Letters":
+                    return Faculty.HumanitiesLetters;
+                case "Faculty of Music and Performing Arts":
+                    return Faculty.MusicPerformingArts;
+                case "Faculty of Applied Sciences":
+                    return Faculty.AppliedSciences;
+                default:
+                    throw new Exception("Faculty Exception");
+            }
+        }
+
+        public static string FacultyStringify(Faculty faculty)
+        {
+            switch (faculty)
+            {
+                case Faculty.Engineering:
+                    return "Faculty of Engineering";
+                case Faculty.ArtsDesignArchitecture:
+                    return "Faculty of Art, Design, and Architecture";
+                case Faculty.EconomicsAdministrativeSocialSciences:
+                    return "Faculty of Economics, Administrative, and Social Sciences";
+                case Faculty.BusinessAdministration:
+                    return "Faculty of Business Administration";
+                case Faculty.Law:
+                    return "Faculty of Law";
+                case Faculty.Science:
+                    return "Faculty of Science";
+                case Faculty.Education:
+                    return "Faculty of Education";
+                case Faculty.HumanitiesLetters:
+                    return "Faculty of Humanities and Letters";
+                case Faculty.MusicPerformingArts:
+                    return "Faculty of Music and Performing Arts";
+                case Faculty.AppliedSciences:
+                    return "Faculty of Applied Sciences";
+                default:
+                    throw new Exception("Faculty Exception");
+            }
+        }
+
         public static Semester SemesterEnumarator(string semester)
         {
             switch (semester)

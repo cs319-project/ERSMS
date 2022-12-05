@@ -8,6 +8,9 @@ namespace Backend.Utilities.Enum
         Fall,
 
         [EnumMember(Value = "Spring")]
-        Spring
+        Spring,
+
+        [EnumMember(Value = "Full Year")]
+        FullYear
     }
 }
