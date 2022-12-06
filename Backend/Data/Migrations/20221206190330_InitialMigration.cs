@@ -377,41 +377,45 @@ namespace Backend.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CTEForm",
+                name: "CTEForms",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    SubjectStudentId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    FirstName = table.Column<string>(type: "TEXT", nullable: false),
+                    LastName = table.Column<string>(type: "TEXT", nullable: false),
+                    IDNumber = table.Column<string>(type: "TEXT", nullable: false),
+                    Department = table.Column<int>(type: "INTEGER", nullable: false),
+                    HostUniversityName = table.Column<string>(type: "TEXT", nullable: false),
                     SubmissionTime = table.Column<DateTime>(type: "TEXT", nullable: false),
                     ApprovalTime = table.Column<DateTime>(type: "TEXT", nullable: false),
                     ChairApprovalId = table.Column<Guid>(type: "TEXT", nullable: true),
                     DeanApprovalId = table.Column<Guid>(type: "TEXT", nullable: true),
-                    ExchangeCoordinatorApprovalId = table.Column<Guid>(type: "TEXT", nullable: true)
+                    ExchangeCoordinatorApprovalId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    StudentId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CTEForm", x => x.Id);
+                    table.PrimaryKey("PK_CTEForms", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CTEForm_Approval_ChairApprovalId",
+                        name: "FK_CTEForms_Approval_ChairApprovalId",
                         column: x => x.ChairApprovalId,
                         principalTable: "Approval",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_CTEForm_Approval_DeanApprovalId",
+                        name: "FK_CTEForms_Approval_DeanApprovalId",
                         column: x => x.DeanApprovalId,
                         principalTable: "Approval",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_CTEForm_Approval_ExchangeCoordinatorApprovalId",
+                        name: "FK_CTEForms_Approval_ExchangeCoordinatorApprovalId",
                         column: x => x.ExchangeCoordinatorApprovalId,
                         principalTable: "Approval",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_CTEForm_Students_SubjectStudentId",
-                        column: x => x.SubjectStudentId,
+                        name: "FK_CTEForms_Students_StudentId",
+                        column: x => x.StudentId,
                         principalTable: "Students",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -514,9 +518,9 @@ namespace Backend.Data.Migrations
                 {
                     table.PrimaryKey("PK_TransferredCourseGroup", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TransferredCourseGroup_CTEForm_CTEFormId",
+                        name: "FK_TransferredCourseGroup_CTEForms_CTEFormId",
                         column: x => x.CTEFormId,
-                        principalTable: "CTEForm",
+                        principalTable: "CTEForms",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_TransferredCourseGroup_ExemptedCourse_ExemptedCourseId",
@@ -629,24 +633,24 @@ namespace Backend.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_CTEForm_ChairApprovalId",
-                table: "CTEForm",
+                name: "IX_CTEForms_ChairApprovalId",
+                table: "CTEForms",
                 column: "ChairApprovalId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CTEForm_DeanApprovalId",
-                table: "CTEForm",
+                name: "IX_CTEForms_DeanApprovalId",
+                table: "CTEForms",
                 column: "DeanApprovalId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CTEForm_ExchangeCoordinatorApprovalId",
-                table: "CTEForm",
+                name: "IX_CTEForms_ExchangeCoordinatorApprovalId",
+                table: "CTEForms",
                 column: "ExchangeCoordinatorApprovalId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CTEForm_SubjectStudentId",
-                table: "CTEForm",
-                column: "SubjectStudentId");
+                name: "IX_CTEForms_StudentId",
+                table: "CTEForms",
+                column: "StudentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DomainUsers_AppUserId",
@@ -769,7 +773,7 @@ namespace Backend.Data.Migrations
                 name: "RequestedExemptedCourse");
 
             migrationBuilder.DropTable(
-                name: "CTEForm");
+                name: "CTEForms");
 
             migrationBuilder.DropTable(
                 name: "ExemptedCourse");

@@ -117,10 +117,29 @@ namespace Backend.Data.Migrations
                     b.Property<Guid?>("DeanApprovalId")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Department")
+                        .HasColumnType("INTEGER");
+
                     b.Property<Guid?>("ExchangeCoordinatorApprovalId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("SubjectStudentId")
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("HostUniversityName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("IDNumber")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("StudentId")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("SubmissionTime")
@@ -135,9 +154,9 @@ namespace Backend.Data.Migrations
 
                     b.HasIndex("ExchangeCoordinatorApprovalId");
 
-                    b.HasIndex("SubjectStudentId");
+                    b.HasIndex("StudentId");
 
-                    b.ToTable("CTEForm");
+                    b.ToTable("CTEForms");
                 });
 
             modelBuilder.Entity("Backend.Entities.DomainUser", b =>
@@ -626,19 +645,15 @@ namespace Backend.Data.Migrations
                         .WithMany()
                         .HasForeignKey("ExchangeCoordinatorApprovalId");
 
-                    b.HasOne("Backend.Entities.Student", "SubjectStudent")
+                    b.HasOne("Backend.Entities.Student", null)
                         .WithMany("CTEForms")
-                        .HasForeignKey("SubjectStudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StudentId");
 
                     b.Navigation("ChairApproval");
 
                     b.Navigation("DeanApproval");
 
                     b.Navigation("ExchangeCoordinatorApproval");
-
-                    b.Navigation("SubjectStudent");
                 });
 
             modelBuilder.Entity("Backend.Entities.DomainUser", b =>

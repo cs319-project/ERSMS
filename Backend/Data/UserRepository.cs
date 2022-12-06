@@ -31,6 +31,25 @@ namespace Backend.Data
             return await _context.Students.FirstOrDefaultAsync(x => x.AppUserId == id);
         }
 
+        public async Task<Student> GetStudentByUserName(string userName)
+        {
+            return await _context.Students.FirstOrDefaultAsync(x => x.IdentityUser.UserName == userName);
+        }
+
+        public async Task<IEnumerable<Student>> GetAllStudents()
+        {
+            return (IEnumerable<Student>)_context.Students.ToListAsync();
+        }
+
+        public async Task<Student> DeleteStudent(Guid id)
+        {
+            Student student = await _context.Students.FindAsync(id);
+            _context.Students.Remove(student);
+            await _context.SaveChangesAsync();
+
+            return student;
+        }
+
         public async Task<ExchangeCoordinator> GetExchangeCoordinator(Guid id)
         {
             return await _context.ExchangeCoordinators.FirstOrDefaultAsync(x => x.AppUserId == id);

@@ -46,6 +46,8 @@ namespace Backend
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IPlacementRepository, PlacementRepository>();
             services.AddScoped<IPlacementService, PlacementService>();
+            services.AddScoped<ICTEFormRepository, CTEFormRepository>();
+            services.AddScoped<ICTEFormService, CTEFormService>();
             //Automappper setup
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies().Where(p => !p.IsDynamic));
             services.AddControllers();

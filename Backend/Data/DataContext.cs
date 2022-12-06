@@ -24,7 +24,7 @@ namespace Backend.Data
             builder.Entity<AppUser>().Navigation(u => u.DomainUser).AutoInclude();
 
             builder.Entity<CTEForm>().Navigation(c => c.TransferredCourseGroups).AutoInclude();
-            builder.Entity<CTEForm>().Navigation(c => c.SubjectStudent).AutoInclude();
+            // builder.Entity<CTEForm>().Navigation(c => c.SubjectStudent).AutoInclude();
             builder.Entity<TransferredCourseGroup>().Navigation(c => c.TransferredCourses).AutoInclude();
             builder.Entity<PreApprovalForm>().Navigation(c => c.RequestedCourseGroups).AutoInclude();
             builder.Entity<PreApprovalForm>().Navigation(c => c.SubjectStudent).AutoInclude();
@@ -53,7 +53,7 @@ namespace Backend.Data
             builder.Entity<PlacedStudent>().OwnsOne<SemesterInfo>(c => c.PreferredSemester);
 
             // FORMS
-            builder.Entity<CTEForm>().HasOne<Student>(c => c.SubjectStudent);
+            // builder.Entity<CTEForm>().HasOne<Student>(c => c.SubjectStudent);
             builder.Entity<PreApprovalForm>().HasOne<Student>(c => c.SubjectStudent);
             builder.Entity<ExemptionRequestForm>().HasOne<Student>(c => c.SubjectStudent);
 
@@ -124,5 +124,6 @@ namespace Backend.Data
         public DbSet<OISEP> OISEPs { get; set; }
         public DbSet<PlacementTable> PlacementTables { get; set; }
         public DbSet<PlacedStudent> PlacedStudents { get; set; }
+        public DbSet<CTEForm> CTEForms { get; set; }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend.Entities.Enums;
 using Backend.Utilities.Enum;
 
 namespace Backend.Utilities
@@ -282,6 +283,52 @@ namespace Backend.Utilities
                     return "Full Year";
                 default:
                     throw new Exception("Semester Exception");
+            }
+        }
+
+        public static string CourseTypeStringify(CourseTypes courseType)
+        {
+            switch (courseType)
+            {
+                case CourseTypes.MandatoryCourse:
+                    return "Mandatory Course";
+                case CourseTypes.GeneralElective:
+                    return "General Elective";
+                case CourseTypes.TechnicalElective:
+                    return "Technical Elective";
+                case CourseTypes.ProjectElective:
+                    return "Project Elective";
+                case CourseTypes.SocialScienceCoreElective:
+                    return "Social Science Core Elective";
+                case CourseTypes.AdditionalCourse:
+                    return "Additional Course";
+                case CourseTypes.ArtsCoreElective:
+                    return "Arts Core Elective";
+                default:
+                    throw new Exception("CourseType Exception");
+            }
+        }
+
+        public static CourseTypes CourseTypeEnumarator(string courseType)
+        {
+            switch (courseType)
+            {
+                case "Mandatory Course":
+                    return CourseTypes.MandatoryCourse;
+                case "General Elective":
+                    return CourseTypes.GeneralElective;
+                case "Technical Elective":
+                    return CourseTypes.TechnicalElective;
+                case "Project Elective":
+                    return CourseTypes.ProjectElective;
+                case "Social Science Core Elective":
+                    return CourseTypes.SocialScienceCoreElective;
+                case "Additional Course":
+                    return CourseTypes.AdditionalCourse;
+                case "Arts Core Elective":
+                    return CourseTypes.ArtsCoreElective;
+                default:
+                    throw new Exception("CourseType Exception");
             }
         }
     }

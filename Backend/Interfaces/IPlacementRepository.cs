@@ -13,6 +13,5 @@ namespace Backend.Interfaces
         Task<bool> DeletePlacementTable(Guid id);
         Task<IEnumerable<PlacementTable>> GetAllPlacementTables();
         Task<bool> PlaceStudent(PlacedStudent placedStudent);
-
     }
 }
