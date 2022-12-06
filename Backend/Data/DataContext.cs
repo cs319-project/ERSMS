@@ -49,6 +49,9 @@ namespace Backend.Data
 
             builder.Entity<Student>().OwnsOne<SemesterInfo>(c => c.PreferredSemester);
 
+            builder.Entity<PlacedStudent>().OwnsOne<DepartmentInfo>(c => c.Department);
+            builder.Entity<PlacedStudent>().OwnsOne<SemesterInfo>(c => c.PreferredSemester);
+
             // FORMS
             builder.Entity<CTEForm>().HasOne<Student>(c => c.SubjectStudent);
             builder.Entity<PreApprovalForm>().HasOne<Student>(c => c.SubjectStudent);
@@ -92,13 +95,13 @@ namespace Backend.Data
             // ...
 
             builder.Entity<Student>().Property(m => m.PreferredSchools).HasConversion(
-                v => string.Join(',', v),
-                v => (ICollection<string>)v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()
+                v => string.Join(";|;", v),
+                v => (ICollection<string>)v.Split(";|;", StringSplitOptions.RemoveEmptyEntries).ToList()
             );
 
             builder.Entity<PlacedStudent>().Property(m => m.PreferredSchools).HasConversion(
-                v => string.Join(',', v),
-                v => (ICollection<string>)v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList()
+                v => string.Join(";|;'", v),
+                v => (ICollection<string>)v.Split(";|;", StringSplitOptions.RemoveEmptyEntries).ToList()
             );
 
             // builder.Entity<Student>().Property(m => m.PreferredSemester).HasConversion(
@@ -113,12 +116,13 @@ namespace Backend.Data
         }
 
         public DbSet<DomainUser> DomainUsers { get; set; }
-
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<DeanDepartmentChair> DeanDepartmentChairs { get; set; }
         public DbSet<ExchangeCoordinator> ExchangeCoordinators { get; set; }
         public DbSet<CourseCoordinatorInstructor> CourseCoordinatorInstructors { get; set; }
         public DbSet<OISEP> OISEPs { get; set; }
+        public DbSet<PlacementTable> PlacementTables { get; set; }
+        public DbSet<PlacedStudent> PlacedStudents { get; set; }
     }
 }

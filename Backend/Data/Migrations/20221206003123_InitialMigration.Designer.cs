@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221205182556_InitialMigration")]
+    [Migration("20221206003123_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -251,7 +251,7 @@ namespace Backend.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PlacedStudent");
+                    b.ToTable("PlacedStudents");
                 });
 
             modelBuilder.Entity("Backend.Entities.PlacementTable", b =>
@@ -682,7 +682,7 @@ namespace Backend.Data.Migrations
 
                             b1.HasKey("PlacedStudentId");
 
-                            b1.ToTable("PlacedStudent");
+                            b1.ToTable("PlacedStudents");
 
                             b1.WithOwner()
                                 .HasForeignKey("PlacedStudentId");
@@ -701,7 +701,7 @@ namespace Backend.Data.Migrations
 
                             b1.HasKey("PlacedStudentId");
 
-                            b1.ToTable("PlacedStudent");
+                            b1.ToTable("PlacedStudents");
 
                             b1.WithOwner()
                                 .HasForeignKey("PlacedStudentId");

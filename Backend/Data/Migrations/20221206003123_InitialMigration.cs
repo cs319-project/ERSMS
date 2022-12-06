@@ -78,7 +78,7 @@ namespace Backend.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PlacedStudent",
+                name: "PlacedStudents",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
@@ -97,7 +97,7 @@ namespace Backend.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PlacedStudent", x => x.Id);
+                    table.PrimaryKey("PK_PlacedStudents", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -736,7 +736,7 @@ namespace Backend.Data.Migrations
                 name: "OISEPs");
 
             migrationBuilder.DropTable(
-                name: "PlacedStudent");
+                name: "PlacedStudents");
 
             migrationBuilder.DropTable(
                 name: "PlacementTables");

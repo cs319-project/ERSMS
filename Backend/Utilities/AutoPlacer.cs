@@ -45,21 +45,16 @@ namespace Backend.Utilities
     public static class AutoPlacer
     {
         private static HashSet<SchoolInfo> Schools = new HashSet<SchoolInfo>();
-        public static ICollection<PlacedStudent> autoPlacer()
-        {
-            return placeStudents();
-        }
-
-        private static ICollection<PlacedStudent> placeStudents()
+        public static ICollection<PlacedStudent> PlaceStudents(byte[] excelFile)
         {
             ICollection<PlacedStudent> placedStudents = new List<PlacedStudent>();
 
             if (Schools.Count == 0)
             {
-                parseSchools();
+                parseSchools(excelFile);
             }
 
-            using (var fs = new FileStream("/Users/friberk/Downloads/Selection 2022-2023.xlsx", FileMode.Open, FileAccess.Read))
+            using (var fs = new MemoryStream(excelFile))
             {
                 var workbook = new XSSFWorkbook(fs);
                 var sheet = workbook.GetSheetAt(0);
@@ -69,6 +64,7 @@ namespace Backend.Utilities
                     var row = sheet.GetRow(i);
 
                     PlacedStudent student = new PlacedStudent();
+                    student.PreferredSchools = new List<string>();
 
                     // iterate over the columns of the row
                     for (int j = 0; j < row.LastCellNum; j++)
@@ -143,9 +139,8 @@ namespace Backend.Utilities
                                     continue;
                                 }
 
-
-
                                 SchoolInfo schoolInList = null;
+
                                 if (Schools.Contains(school))
                                 {
                                     schoolInList = Schools.First(s => s.Equals(school));
@@ -167,6 +162,7 @@ namespace Backend.Utilities
                             }
                         }
                     }
+
                     if (!String.IsNullOrEmpty(student.FirstName))
                     {
                         placedStudents.Add(student);
@@ -176,9 +172,10 @@ namespace Backend.Utilities
 
             return placedStudents;
         }
-        public static void parseSchools()
+
+        public static void parseSchools(byte[] excelFile)
         {
-            using (var fs = new FileStream("/Users/friberk/Downloads/Selection 2022-2023.xlsx", FileMode.Open, FileAccess.Read))
+            using (var fs = new MemoryStream(excelFile))
             {
                 var workbook = new XSSFWorkbook(fs);
                 var sheet = workbook.GetSheetAt(0);
@@ -222,7 +219,6 @@ namespace Backend.Utilities
                     }
                 }
             }
-
         }
     }
 }

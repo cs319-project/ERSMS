@@ -14,5 +14,11 @@ namespace Backend.Entities
         public Department DepartmentName { get; set; }
         [Column("FacultyName")]
         public Faculty FacultyName { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            var info = obj as DepartmentInfo;
+            return info.DepartmentName == DepartmentName && info.FacultyName == FacultyName;
+        }
     }
 }
