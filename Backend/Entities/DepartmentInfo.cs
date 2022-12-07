@@ -10,6 +10,7 @@ namespace Backend.Entities
 {
     public class DepartmentInfo
     {
+        //public Guid Id { get; set; } // NEWLY ADDED
         [Column("DepartmentName")]
         public Department DepartmentName { get; set; }
         [Column("FacultyName")]

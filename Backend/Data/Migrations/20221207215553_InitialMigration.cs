@@ -85,6 +85,7 @@ namespace Backend.Data.Migrations
                     FirstName = table.Column<string>(type: "TEXT", nullable: true),
                     LastName = table.Column<string>(type: "TEXT", nullable: true),
                     UserName = table.Column<string>(type: "TEXT", nullable: true),
+                    Department_Id = table.Column<Guid>(type: "TEXT", nullable: true),
                     DepartmentName = table.Column<int>(type: "INTEGER", nullable: true),
                     FacultyName = table.Column<int>(type: "INTEGER", nullable: true),
                     CGPA = table.Column<double>(type: "REAL", nullable: false),
@@ -105,6 +106,7 @@ namespace Backend.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Department_Id = table.Column<Guid>(type: "TEXT", nullable: true),
                     DepartmentName = table.Column<int>(type: "INTEGER", nullable: true),
                     FacultyName = table.Column<int>(type: "INTEGER", nullable: true),
                     FileName = table.Column<string>(type: "TEXT", nullable: true),
@@ -279,6 +281,7 @@ namespace Backend.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Department_Id = table.Column<Guid>(type: "TEXT", nullable: true),
                     DepartmentName = table.Column<int>(type: "INTEGER", nullable: true),
                     FacultyName = table.Column<int>(type: "INTEGER", nullable: true),
                     Course_CourseCode = table.Column<string>(type: "TEXT", nullable: true),
@@ -301,6 +304,7 @@ namespace Backend.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Department_Id = table.Column<Guid>(type: "TEXT", nullable: true),
                     DepartmentName = table.Column<int>(type: "INTEGER", nullable: true),
                     FacultyName = table.Column<int>(type: "INTEGER", nullable: true),
                     IsDean = table.Column<bool>(type: "INTEGER", nullable: true)
@@ -321,6 +325,7 @@ namespace Backend.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Department_Id = table.Column<Guid>(type: "TEXT", nullable: true),
                     DepartmentName = table.Column<int>(type: "INTEGER", nullable: true),
                     FacultyName = table.Column<int>(type: "INTEGER", nullable: true)
                 },
@@ -470,8 +475,8 @@ namespace Backend.Data.Migrations
                 name: "Students_Majors",
                 columns: table => new
                 {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     StudentId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Id = table.Column<int>(type: "INTEGER", nullable: false),
                     DepartmentName = table.Column<int>(type: "INTEGER", nullable: false),
                     FacultyName = table.Column<int>(type: "INTEGER", nullable: false)
                 },
@@ -490,8 +495,8 @@ namespace Backend.Data.Migrations
                 name: "Students_Minors",
                 columns: table => new
                 {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     StudentId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Id = table.Column<int>(type: "INTEGER", nullable: false),
                     DepartmentName = table.Column<int>(type: "INTEGER", nullable: false),
                     FacultyName = table.Column<int>(type: "INTEGER", nullable: false)
                 },

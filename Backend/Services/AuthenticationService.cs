@@ -44,6 +44,17 @@ namespace Backend.Services
                 switch (actorType)
                 {
                     case "Student":
+                        // var student = (user.DomainUser as Student);
+                        // student.Majors = new List<DepartmentInfo>();
+                        // foreach (DepartmentInfoDto dep in register.Majors)
+                        // {
+                        //     student.Majors.Add(new DepartmentInfo()
+                        //     {
+                        //         DepartmentName = EnumStringify.DepartmentEnumarator(dep.DepartmentName),
+                        //         FacultyName = EnumStringify.FacultyEnumarator(dep.FacultyName)
+                        //     });
+                        // }
+                        // student.ExchangeSchool = register.ExchangeSchool;
                         break;
                     case "Exchange Coordinator":
                         var exchangeCoordinator = (user.DomainUser as ExchangeCoordinator);

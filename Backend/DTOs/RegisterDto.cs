@@ -18,7 +18,8 @@ namespace Backend.DTOs
         [Required] public string FirstName { get; set; }
         [Required] public string LastName { get; set; }
         [Required] public string Password { get; set; }
-
+        //public IEnumerable<DepartmentInfoDto> Majors { get; set; } = null!; // NEWLY ADDED
+        //public string ExchangeSchool { get; set; } = null!; // NEWLY ADDED
         public DepartmentInfoDto Department { get; set; } = null!;
         [AllowNull] public bool? IsDean { get; set; } = null;
         [AllowNull] public bool? IsCourseCoordinator { get; set; } = null;
