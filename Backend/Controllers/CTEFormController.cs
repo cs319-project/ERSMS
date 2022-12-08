@@ -11,10 +11,12 @@ namespace Backend.Controllers
     public class CTEFormController : BaseApiController
     {
         private readonly ICTEFormService _cTEFormService;
+        private readonly IUserService _userService;
 
-        public CTEFormController(ICTEFormService cTEFormService)
+        public CTEFormController(ICTEFormService cTEFormService, IUserService userService)
         {
             _cTEFormService = cTEFormService;
+            _userService = userService;
         }
 
         [HttpPost()]
@@ -26,6 +28,16 @@ namespace Backend.Controllers
                 return Ok(cTEForm);
             }
             return BadRequest("Failed to add CTE Form to Student");
+        }
+
+        [HttpPut()]
+        public async Task<ActionResult<CTEFormDto>> UpdateCTEForm(CTEFormDto cTEForm)
+        {
+            if (await _cTEFormService.UpdateCTEForm(cTEForm))
+            {
+                return Ok(cTEForm);
+            }
+            return BadRequest("Failed to update CTE Form");
         }
 
         [HttpGet("getAll")]

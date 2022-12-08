@@ -12,6 +12,7 @@ namespace Backend.Interfaces
         Task<IEnumerable<CTEFormDto>> GetCTEForms();
         Task<bool> DeleteCTEForm(Guid id);
         Task<CTEFormDto> GetCTEForm(Guid id);
+        Task<bool> UpdateCTEForm(CTEFormDto cTEForm);
         Task<ICollection<CTEFormDto>> GetCTEFormsOfStudent(string studentID);
         Task<bool> ApproveFormDean(Guid formId, ApprovalDto approval);
         Task<bool> ApproveFormChair(Guid formId, ApprovalDto approval);

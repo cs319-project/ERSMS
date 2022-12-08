@@ -64,6 +64,12 @@ namespace Backend.Services
             return _cTEFormRepository.DeleteCTEForm(id);
         }
 
+        public async Task<bool> UpdateCTEForm(CTEFormDto cTEForm)
+        {
+            CTEForm formEntity = _mapper.Map<CTEForm>(cTEForm);
+            return await _cTEFormRepository.UpdateCTEForm(formEntity);
+        }
+
         public async Task<CTEFormDto> GetCTEForm(Guid id)
         {
             CTEForm formEntity = await _cTEFormRepository.GetCTEForm(id);
