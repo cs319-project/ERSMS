@@ -1,0 +1,16 @@
+* {
+    color: lighten(black, 25%);
+}
+
+.wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+
+    .container {
+        background-color: white;
+        border-radius: 3px;
+        padding: 20px;
+    }
+}

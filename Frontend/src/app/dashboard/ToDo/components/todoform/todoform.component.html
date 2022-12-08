@@ -1,0 +1,11 @@
+<input type="text"
+       class="form-control"
+       [(ngModel)]="description">
+
+<div class="text-right">
+  <button class="btn secondary"
+          (click)="closeForm.emit(true)">Cancel</button>&nbsp;
+
+  <button class="btn btn-primary"
+          (click)="submitNewTask(description)">Add Todo</button>
+</div>

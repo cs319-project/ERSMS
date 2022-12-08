@@ -1,0 +1,40 @@
+.todo {
+    display: flex;
+    margin-bottom: 10px;
+
+    span {
+        padding: 0 14px;
+        font-size: 16px;
+        line-height: 1;
+    }
+
+    .actions {
+        position: absolute;
+        right: 10px;
+        cursor: pointer;
+
+        fa {
+            padding: 0 5px;
+
+            &:hover {
+                color: #008ffe;
+            }
+
+        }
+    }
+}
+
+.add {
+    margin-top: 30px;
+    cursor: pointer;
+
+    fa {
+        font-size: 14px;
+        color: #008ffe;
+    }
+
+    span {
+        font-size: 14px;
+    }
+
+}
