@@ -1,0 +1,27 @@
+
+<p *ngIf="!todos?.length && !isNewTodo"
+class="text-secondary text-center pt-5">No tasks yet.</p>
+
+<div *ngFor="let todo of todos"
+  class="todo">
+  
+<input type="checkbox"
+      (click)="complete(todo.id)">
+<span>{{ todo.description }}</span>
+
+<div class="actions">
+ <a name="edit"></a>
+ <a name="trash"
+     (click)="deleteTodo(todo.id)"></a>
+</div>
+</div>
+
+<br/>
+<app-todo-form *ngIf="isNewTodo"
+            (newTask)="onNewTask($event)"
+            (closeForm)="isNewTodo = !isNewTodo"></app-todo-form>
+
+<span class="add"
+  (click)="isNewTodo = !isNewTodo">
+<a name="plus"></a>&nbsp; <span>Add Todo</span>
+</span>
