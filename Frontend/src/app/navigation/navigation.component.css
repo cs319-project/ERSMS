@@ -1,0 +1,50 @@
+* {
+  box-sizing: border-box;
+}
+.toolbar-item-spacer {
+  flex: 1 1 auto;
+}
+
+.app-container {
+  height: 90%;
+  margin: 0;
+}
+.app-sidenav {
+  width: 270px;
+}
+.app-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.username{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.username span{
+  margin: 0px !important;
+  height: 25px;
+  padding: 0px !important;
+}
+
+.notificationUser {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mat-menu-item{
+  line-height:20px;
+  height:auto;
+  max-lines: 3;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
