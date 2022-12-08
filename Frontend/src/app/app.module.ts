@@ -12,10 +12,12 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {HttpClientModule} from "@angular/common/http";
+import { RouterModule, Routes } from "@angular/router";
+import { DashboardComponent } from "./dashboard/dashboard.component";
 
 @NgModule({
   declarations: [AppComponent, NavigationComponent],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, MatSidenavModule, MatListModule, MatIconModule, MatToolbarModule, MatButtonModule, MatGridListModule, HttpClientModule],
+  imports: [BrowserModule ,AppRoutingModule, BrowserAnimationsModule, MatSidenavModule, MatListModule, MatIconModule, MatToolbarModule, MatButtonModule, MatGridListModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent]
 })

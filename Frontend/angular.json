@@ -101,6 +101,7 @@
   },
   "defaultProject": "Frontend",
   "cli": {
+    "analytics": false,
     "defaultCollection": "@angular-eslint/schematics"
   }
 }
