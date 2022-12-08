@@ -8,7 +8,12 @@ import { DomSanitizer} from "@angular/platform-browser";
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent implements OnInit {
+  name :String  = "Kutay Tire";
 
+  notifications :  {message: String, timeSent:String}[] = [
+    {message : "Your Pre-Approval Form Has Been Approved!", timeSent: "3 mins ago"},
+    {message : "Talay has sent you a message", timeSent: "7 mins ago"},
+  ];
   constructor(    private matIconRegistry: MatIconRegistry,
                   private domSanitizer: DomSanitizer
   ) {
@@ -37,13 +42,11 @@ export class NavigationComponent implements OnInit {
       this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/notification_idle.svg")
     );
     this.matIconRegistry.addSvgIcon(
-      `notification-new`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/notification_new.svg")
-    );
-    this.matIconRegistry.addSvgIcon(
       `settings`,
       this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/settings.svg")
     );
+
+
 
   }
 

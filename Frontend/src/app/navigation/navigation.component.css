@@ -33,3 +33,18 @@
   height: 25px;
   padding: 0px !important;
 }
+
+.notificationUser {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mat-menu-item{
+  line-height:20px;
+  height:auto;
+  max-lines: 3;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}

@@ -4,13 +4,25 @@
   </button>
   <span>ERSMS</span>
   <span class="toolbar-item-spacer"></span>
-  <button mat-icon-button>
-    <mat-icon svgIcon="notification-idle"></mat-icon>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon svgIcon="notification-idle" matBadge="2"></mat-icon>
   </button>
+
+  <mat-menu #menu="matMenu" xPosition="before" >
+    <div style="display: flex">
+      <span class="mat-h1 m-3"> Notifications</span>
+    </div>
+    <mat-divider></mat-divider>
+    <button mat-menu-item *ngFor="let notification of notifications">
+      <span> <strong>{{notification.message}}</strong></span><br/>
+      <span>{{notification.timeSent}}</span>
+    </button>
+  </mat-menu>
+
   <button mat-icon-button style="background-image: url('../assets/images/doggy.jpg');background-size: cover; background-position: center" class="m-2">
   </button>
   <div class="username">
-    <span><strong>Kutay Tire</strong> </span>
+    <span><strong>{{name}}</strong> </span>
     <span>Student</span>
   </div>
   <button mat-icon-button class="m-2">
