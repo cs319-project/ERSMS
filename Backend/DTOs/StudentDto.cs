@@ -9,7 +9,7 @@ namespace Backend.DTOs
     {
         public int EntranceYear { get; set; } // might be redundant
 
-        public ICollection<DepartmentInfoDto> Majors { get; set; }
+        public DepartmentInfoDto Major { get; set; }
 
         public ICollection<DepartmentInfoDto> Minors { get; set; }
 

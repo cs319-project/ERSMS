@@ -29,14 +29,32 @@ namespace Backend.Data
             }
 
             student.CTEForms.Add(cTEForm);
-            _context.CTEForms.Add(cTEForm); // CAN CREATE DUPLICATION IN DATABASE
+            //_context.CTEForms.Add(cTEForm); // CAN CREATE DUPLICATION IN DATABASE
             return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<IEnumerable<CTEForm>> GetCTEForms()
+        {
+            var cTEForms = await _context.CTEForms.ToListAsync();
+            return cTEForms;
         }
 
         public async Task<bool> DeleteCTEForm(Guid id)
         {
             var cTEForm = await _context.CTEForms.FindAsync(id);
             _context.CTEForms.Remove(cTEForm); // if cascading fails in db student lists won't updated
+            return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<CTEForm> GetCTEForm(Guid id)
+        {
+            var cTEForm = await _context.CTEForms.FindAsync(id);
+            return cTEForm;
+        }
+
+        public async Task<bool> UpdateCTEForm(CTEForm cTEForm)
+        {
+            var form = _context.CTEForms.Update(cTEForm);
             return await _context.SaveChangesAsync() > 0;
         }
     }

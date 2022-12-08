@@ -12,7 +12,7 @@ namespace Backend.Entities
     {
         public int EntranceYear { get; set; } // might be redundant
 
-        public ICollection<DepartmentInfo> Majors { get; set; }
+        public DepartmentInfo Major { get; set; }
 
         public ICollection<DepartmentInfo> Minors { get; set; }
 

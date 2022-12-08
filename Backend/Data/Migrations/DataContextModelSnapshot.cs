@@ -143,7 +143,6 @@ namespace Backend.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("SubmissionTime")
-                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -693,9 +692,6 @@ namespace Backend.Data.Migrations
                                 .HasColumnType("INTEGER")
                                 .HasColumnName("FacultyName");
 
-                            b1.Property<Guid>("Id")
-                                .HasColumnType("TEXT");
-
                             b1.HasKey("PlacedStudentId");
 
                             b1.ToTable("PlacedStudents");
@@ -742,9 +738,6 @@ namespace Backend.Data.Migrations
                             b1.Property<int>("FacultyName")
                                 .HasColumnType("INTEGER")
                                 .HasColumnName("FacultyName");
-
-                            b1.Property<Guid>("Id")
-                                .HasColumnType("TEXT");
 
                             b1.HasKey("PlacementTableId");
 
@@ -918,9 +911,6 @@ namespace Backend.Data.Migrations
                                 .HasColumnType("INTEGER")
                                 .HasColumnName("FacultyName");
 
-                            b1.Property<Guid>("Id")
-                                .HasColumnType("TEXT");
-
                             b1.HasKey("CourseCoordinatorInstructorId");
 
                             b1.ToTable("CourseCoordinatorInstructors");
@@ -955,9 +945,6 @@ namespace Backend.Data.Migrations
                                 .HasColumnType("INTEGER")
                                 .HasColumnName("FacultyName");
 
-                            b1.Property<Guid>("Id")
-                                .HasColumnType("TEXT");
-
                             b1.HasKey("DeanDepartmentChairId");
 
                             b1.ToTable("DeanDepartmentChairs");
@@ -990,9 +977,6 @@ namespace Backend.Data.Migrations
                                 .HasColumnType("INTEGER")
                                 .HasColumnName("FacultyName");
 
-                            b1.Property<Guid>("Id")
-                                .HasColumnType("TEXT");
-
                             b1.HasKey("ExchangeCoordinatorId");
 
                             b1.ToTable("ExchangeCoordinators");
@@ -1021,13 +1005,9 @@ namespace Backend.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsMany("Backend.Entities.DepartmentInfo", "Majors", b1 =>
+                    b.OwnsOne("Backend.Entities.DepartmentInfo", "Major", b1 =>
                         {
                             b1.Property<Guid>("StudentId")
-                                .HasColumnType("TEXT");
-
-                            b1.Property<Guid>("Id")
-                                .ValueGeneratedOnAdd()
                                 .HasColumnType("TEXT");
 
                             b1.Property<int>("DepartmentName")
@@ -1038,9 +1018,9 @@ namespace Backend.Data.Migrations
                                 .HasColumnType("INTEGER")
                                 .HasColumnName("FacultyName");
 
-                            b1.HasKey("StudentId", "Id");
+                            b1.HasKey("StudentId");
 
-                            b1.ToTable("Students_Majors");
+                            b1.ToTable("Students");
 
                             b1.WithOwner()
                                 .HasForeignKey("StudentId");
@@ -1051,9 +1031,9 @@ namespace Backend.Data.Migrations
                             b1.Property<Guid>("StudentId")
                                 .HasColumnType("TEXT");
 
-                            b1.Property<Guid>("Id")
+                            b1.Property<int>("Id")
                                 .ValueGeneratedOnAdd()
-                                .HasColumnType("TEXT");
+                                .HasColumnType("INTEGER");
 
                             b1.Property<int>("DepartmentName")
                                 .HasColumnType("INTEGER")
@@ -1090,7 +1070,7 @@ namespace Backend.Data.Migrations
                                 .HasForeignKey("StudentId");
                         });
 
-                    b.Navigation("Majors");
+                    b.Navigation("Major");
 
                     b.Navigation("Minors");
 

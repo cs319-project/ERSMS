@@ -85,7 +85,6 @@ namespace Backend.Data.Migrations
                     FirstName = table.Column<string>(type: "TEXT", nullable: true),
                     LastName = table.Column<string>(type: "TEXT", nullable: true),
                     UserName = table.Column<string>(type: "TEXT", nullable: true),
-                    Department_Id = table.Column<Guid>(type: "TEXT", nullable: true),
                     DepartmentName = table.Column<int>(type: "INTEGER", nullable: true),
                     FacultyName = table.Column<int>(type: "INTEGER", nullable: true),
                     CGPA = table.Column<double>(type: "REAL", nullable: false),
@@ -106,7 +105,6 @@ namespace Backend.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Department_Id = table.Column<Guid>(type: "TEXT", nullable: true),
                     DepartmentName = table.Column<int>(type: "INTEGER", nullable: true),
                     FacultyName = table.Column<int>(type: "INTEGER", nullable: true),
                     FileName = table.Column<string>(type: "TEXT", nullable: true),
@@ -281,7 +279,6 @@ namespace Backend.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Department_Id = table.Column<Guid>(type: "TEXT", nullable: true),
                     DepartmentName = table.Column<int>(type: "INTEGER", nullable: true),
                     FacultyName = table.Column<int>(type: "INTEGER", nullable: true),
                     Course_CourseCode = table.Column<string>(type: "TEXT", nullable: true),
@@ -304,7 +301,6 @@ namespace Backend.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Department_Id = table.Column<Guid>(type: "TEXT", nullable: true),
                     DepartmentName = table.Column<int>(type: "INTEGER", nullable: true),
                     FacultyName = table.Column<int>(type: "INTEGER", nullable: true),
                     IsDean = table.Column<bool>(type: "INTEGER", nullable: true)
@@ -325,7 +321,6 @@ namespace Backend.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Department_Id = table.Column<Guid>(type: "TEXT", nullable: true),
                     DepartmentName = table.Column<int>(type: "INTEGER", nullable: true),
                     FacultyName = table.Column<int>(type: "INTEGER", nullable: true)
                 },
@@ -363,6 +358,8 @@ namespace Backend.Data.Migrations
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     EntranceYear = table.Column<int>(type: "INTEGER", nullable: false),
+                    DepartmentName = table.Column<int>(type: "INTEGER", nullable: true),
+                    FacultyName = table.Column<int>(type: "INTEGER", nullable: true),
                     CGPA = table.Column<double>(type: "REAL", nullable: false),
                     ExchangeScore = table.Column<double>(type: "REAL", nullable: false),
                     PreferredSemester_AcademicYear = table.Column<string>(type: "TEXT", nullable: true),
@@ -472,31 +469,11 @@ namespace Backend.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Students_Majors",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    StudentId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    DepartmentName = table.Column<int>(type: "INTEGER", nullable: false),
-                    FacultyName = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Students_Majors", x => new { x.StudentId, x.Id });
-                    table.ForeignKey(
-                        name: "FK_Students_Majors_Students_StudentId",
-                        column: x => x.StudentId,
-                        principalTable: "Students",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Students_Minors",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     StudentId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false),
                     DepartmentName = table.Column<int>(type: "INTEGER", nullable: false),
                     FacultyName = table.Column<int>(type: "INTEGER", nullable: false)
                 },
@@ -752,9 +729,6 @@ namespace Backend.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "RequestedCourse");
-
-            migrationBuilder.DropTable(
-                name: "Students_Majors");
 
             migrationBuilder.DropTable(
                 name: "Students_Minors");

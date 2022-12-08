@@ -28,9 +28,9 @@ namespace Backend.Entities
         [Required]
         public ICollection<TransferredCourseGroup> TransferredCourseGroups { get; set; }
 
-        [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        [DefaultValue("getutcdate()")]
+        // [Required]
+        // [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        // [DefaultValue("getutcdate()")]
         public DateTime SubmissionTime { get; set; }
 
         public DateTime ApprovalTime { get; set; }

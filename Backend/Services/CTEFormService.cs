@@ -24,23 +24,63 @@ namespace Backend.Services
             _userRepository = userRepository;
         }
 
-        public async Task<bool> AddCTEFormToStudent(string userName, CTEFormDto cTEForm)
+        public async Task<bool> AddCTEFormToStudent(CTEFormDto cTEForm)
         {
             CTEForm formEntity = _mapper.Map<CTEForm>(cTEForm);
-            var student = await _userRepository.GetStudentByUserName(userName);
-            formEntity.FirstName = student.FirstName;
-            formEntity.LastName = student.LastName;
-            formEntity.IDNumber = student.IdentityUser.UserName;
-            formEntity.Department = student.Majors.FirstOrDefault().DepartmentName;
-            formEntity.HostUniversityName = student.ExchangeSchool;
-            bool flag = await _cTEFormRepository.AddCTEFormToStudent(userName, formEntity);
+            bool flag = await _cTEFormRepository.AddCTEFormToStudent(cTEForm.IDNumber, formEntity);
 
             return flag;
+        }
+
+        public Task<bool> ApproveFormDean(Guid formId, ApprovalDto approval)
+        {
+            CTEForm formEntity = _cTEFormRepository.GetCTEForm(formId).Result;
+            Approval approvalEntity = _mapper.Map<Approval>(approval);
+            formEntity.DeanApproval = approvalEntity;
+
+            return _cTEFormRepository.UpdateCTEForm(formEntity);
+        }
+
+        public Task<bool> ApproveFormChair(Guid formId, ApprovalDto approval)
+        {
+            CTEForm formEntity = _cTEFormRepository.GetCTEForm(formId).Result;
+            Approval approvalEntity = _mapper.Map<Approval>(approval);
+            formEntity.ChairApproval = approvalEntity;
+
+            return _cTEFormRepository.UpdateCTEForm(formEntity);
+        }
+
+        public Task<bool> ApproveFormCoordinator(Guid formId, ApprovalDto approval)
+        {
+            CTEForm formEntity = _cTEFormRepository.GetCTEForm(formId).Result;
+            Approval approvalEntity = _mapper.Map<Approval>(approval);
+            formEntity.ExchangeCoordinatorApproval = approvalEntity;
+
+            return _cTEFormRepository.UpdateCTEForm(formEntity);
         }
 
         public Task<bool> DeleteCTEForm(Guid id)
         {
             return _cTEFormRepository.DeleteCTEForm(id);
+        }
+
+        public async Task<CTEFormDto> GetCTEForm(Guid id)
+        {
+            CTEForm formEntity = await _cTEFormRepository.GetCTEForm(id);
+            return _mapper.Map<CTEFormDto>(formEntity);
+        }
+
+        public async Task<ICollection<CTEFormDto>> GetCTEFormsOfStudent(string studentID)
+        {
+            Student student = await _userRepository.GetStudentByUserName(studentID);
+            ICollection<CTEFormDto> forms = _mapper.Map<ICollection<CTEFormDto>>(student.CTEForms);
+            return forms;
+        }
+
+        public async Task<IEnumerable<CTEFormDto>> GetCTEForms()
+        {
+            IEnumerable<CTEForm> forms = await _cTEFormRepository.GetCTEForms();
+            return _mapper.Map<IEnumerable<CTEFormDto>>(forms);
         }
     }
 }

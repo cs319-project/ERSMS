@@ -24,15 +24,19 @@ namespace Backend.Data
             builder.Entity<AppUser>().Navigation(u => u.DomainUser).AutoInclude();
 
             builder.Entity<CTEForm>().Navigation(c => c.TransferredCourseGroups).AutoInclude();
+            builder.Entity<CTEForm>().Navigation(c => c.DeanApproval).AutoInclude();
+            builder.Entity<CTEForm>().Navigation(c => c.ChairApproval).AutoInclude();
+            builder.Entity<CTEForm>().Navigation(c => c.ExchangeCoordinatorApproval).AutoInclude();
             // builder.Entity<CTEForm>().Navigation(c => c.SubjectStudent).AutoInclude();
             builder.Entity<TransferredCourseGroup>().Navigation(c => c.TransferredCourses).AutoInclude();
+            builder.Entity<TransferredCourseGroup>().Navigation(c => c.ExemptedCourse).AutoInclude();
             builder.Entity<PreApprovalForm>().Navigation(c => c.RequestedCourseGroups).AutoInclude();
             builder.Entity<PreApprovalForm>().Navigation(c => c.SubjectStudent).AutoInclude();
             builder.Entity<RequestedCourseGroup>().Navigation(c => c.RequestedCourses).AutoInclude();
 
             builder.Entity<ExemptionRequestForm>().Navigation(c => c.SubjectStudent).AutoInclude();
 
-            builder.Entity<Student>().Navigation(s => s.Majors).AutoInclude();
+            builder.Entity<Student>().Navigation(s => s.Major).AutoInclude();
             builder.Entity<Student>().Navigation(s => s.Minors).AutoInclude();
             builder.Entity<Student>().Navigation(s => s.CTEForms).AutoInclude();
             builder.Entity<Student>().Navigation(s => s.PreApprovalForms).AutoInclude();
@@ -44,7 +48,7 @@ namespace Backend.Data
             builder.Entity<CourseCoordinatorInstructor>().OwnsOne(c => c.Course);
             builder.Entity<CourseCoordinatorInstructor>().OwnsOne<DepartmentInfo>(c => c.Department);
 
-            builder.Entity<Student>().OwnsMany<DepartmentInfo>(c => c.Majors);
+            builder.Entity<Student>().OwnsOne<DepartmentInfo>(c => c.Major);
             builder.Entity<Student>().OwnsMany<DepartmentInfo>(c => c.Minors);
 
             builder.Entity<Student>().OwnsOne<SemesterInfo>(c => c.PreferredSemester);
