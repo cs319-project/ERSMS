@@ -31,8 +31,10 @@ namespace Backend.Data
             builder.Entity<TransferredCourseGroup>().Navigation(c => c.TransferredCourses).AutoInclude();
             builder.Entity<TransferredCourseGroup>().Navigation(c => c.ExemptedCourse).AutoInclude();
             builder.Entity<PreApprovalForm>().Navigation(c => c.RequestedCourseGroups).AutoInclude();
-            builder.Entity<PreApprovalForm>().Navigation(c => c.SubjectStudent).AutoInclude();
+            builder.Entity<PreApprovalForm>().Navigation(c => c.ExchangeCoordinatorApproval).AutoInclude();
+            // builder.Entity<PreApprovalForm>().Navigation(c => c.SubjectStudent).AutoInclude();
             builder.Entity<RequestedCourseGroup>().Navigation(c => c.RequestedCourses).AutoInclude();
+            builder.Entity<RequestedCourseGroup>().Navigation(c => c.RequestedExemptedCourse).AutoInclude();
 
             builder.Entity<ExemptionRequestForm>().Navigation(c => c.SubjectStudent).AutoInclude();
 
@@ -58,7 +60,7 @@ namespace Backend.Data
 
             // FORMS
             // builder.Entity<CTEForm>().HasOne<Student>(c => c.SubjectStudent);
-            builder.Entity<PreApprovalForm>().HasOne<Student>(c => c.SubjectStudent);
+            // builder.Entity<PreApprovalForm>().HasOne<Student>(c => c.SubjectStudent);
             builder.Entity<ExemptionRequestForm>().HasOne<Student>(c => c.SubjectStudent);
 
             builder.Entity<CTEForm>().HasMany<TransferredCourseGroup>(c => c.TransferredCourseGroups);
@@ -129,5 +131,6 @@ namespace Backend.Data
         public DbSet<PlacementTable> PlacementTables { get; set; }
         public DbSet<PlacedStudent> PlacedStudents { get; set; }
         public DbSet<CTEForm> CTEForms { get; set; }
+        public DbSet<PreApprovalForm> PreApprovalForms { get; set; }
     }
 }

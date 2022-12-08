@@ -32,36 +32,36 @@ namespace Backend.Services
             return flag;
         }
 
-        public Task<bool> ApproveFormDean(Guid formId, ApprovalDto approval)
+        public async Task<bool> ApproveFormDean(Guid formId, ApprovalDto approval)
         {
             CTEForm formEntity = _cTEFormRepository.GetCTEForm(formId).Result;
             Approval approvalEntity = _mapper.Map<Approval>(approval);
             formEntity.DeanApproval = approvalEntity;
 
-            return _cTEFormRepository.UpdateCTEForm(formEntity);
+            return await _cTEFormRepository.UpdateCTEForm(formEntity);
         }
 
-        public Task<bool> ApproveFormChair(Guid formId, ApprovalDto approval)
+        public async Task<bool> ApproveFormChair(Guid formId, ApprovalDto approval)
         {
             CTEForm formEntity = _cTEFormRepository.GetCTEForm(formId).Result;
             Approval approvalEntity = _mapper.Map<Approval>(approval);
             formEntity.ChairApproval = approvalEntity;
 
-            return _cTEFormRepository.UpdateCTEForm(formEntity);
+            return await _cTEFormRepository.UpdateCTEForm(formEntity);
         }
 
-        public Task<bool> ApproveFormCoordinator(Guid formId, ApprovalDto approval)
+        public async Task<bool> ApproveFormCoordinator(Guid formId, ApprovalDto approval)
         {
             CTEForm formEntity = _cTEFormRepository.GetCTEForm(formId).Result;
             Approval approvalEntity = _mapper.Map<Approval>(approval);
             formEntity.ExchangeCoordinatorApproval = approvalEntity;
 
-            return _cTEFormRepository.UpdateCTEForm(formEntity);
+            return await _cTEFormRepository.UpdateCTEForm(formEntity);
         }
 
-        public Task<bool> DeleteCTEForm(Guid id)
+        public async Task<bool> DeleteCTEForm(Guid id)
         {
-            return _cTEFormRepository.DeleteCTEForm(id);
+            return await _cTEFormRepository.DeleteCTEForm(id);
         }
 
         public async Task<bool> UpdateCTEForm(CTEFormDto cTEForm)

@@ -22,27 +22,19 @@ namespace Backend.Data.Profiles
             .ForMember(d => d.Department,
                 op => op.MapFrom(o => EnumStringify.DepartmentEnumarator(o.Department)));
 
-            CreateMap<TransferredCourseGroup, TransferredCourseGroupDto>().ReverseMap();
+            // CreateMap<TransferredCourseGroup, TransferredCourseGroupDto>().ReverseMap();
 
-            CreateMap<ExemptedCourse, ExemptedCourseDto>()
-                .ForMember(d => d.CourseType,
-                op => op.MapFrom(o => EnumStringify.CourseTypeStringify(o.CourseType)));
+            // CreateMap<ExemptedCourse, ExemptedCourseDto>()
+            //     .ForMember(d => d.CourseType,
+            //     op => op.MapFrom(o => EnumStringify.CourseTypeStringify(o.CourseType)));
 
-            CreateMap<ExemptedCourseDto, ExemptedCourse>()
-                .ForMember(d => d.CourseType,
-                op => op.MapFrom(o => EnumStringify.CourseTypeEnumarator(o.CourseType)));
+            // CreateMap<ExemptedCourseDto, ExemptedCourse>()
+            //     .ForMember(d => d.CourseType,
+            //     op => op.MapFrom(o => EnumStringify.CourseTypeEnumarator(o.CourseType)));
 
-            CreateMap<TransferredCourseDto, TransferredCourse>().ReverseMap();
+            // CreateMap<TransferredCourseDto, TransferredCourse>().ReverseMap();
 
-            CreateMap<ExemptedCourse, ExemptedCourseDto>()
-                .ForMember(d => d.CourseType,
-                op => op.MapFrom(o => EnumStringify.CourseTypeStringify(o.CourseType)));
-
-            CreateMap<ExemptedCourseDto, ExemptedCourse>()
-                .ForMember(d => d.CourseType,
-                op => op.MapFrom(o => EnumStringify.CourseTypeEnumarator(o.CourseType)));
-
-            CreateMap<Approval, ApprovalDto>().ReverseMap();
+            // CreateMap<Approval, ApprovalDto>().ReverseMap();
         }
     }
 }

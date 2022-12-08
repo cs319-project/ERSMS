@@ -1,4 +1,5 @@
 ﻿using Backend.Entities.Enums;
+using Backend.Utilities.Enum;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,27 +11,26 @@ namespace Backend.Entities
         [Key]
         public Guid Id { get; set; }
 
-        //[Required]
-        //public string FirstName { get; set; }
-        //[Required]
-        //public string LastName { get; set; }
-        //[Required]
-        //public int IDNumber { get; set; }
-        //[Required]
-        //public string Department { get; set; }
-        //[Required]
-        //public string HostUniversityName { get; set; }
-        //[Required]
-        //public string AcademicYear { get; set; } // Data type can be changed
-        //[Required]
-        //public Semesters Semester { get; set; }
+        [Required]
+        public string FirstName { get; set; }
+        [Required]
+        public string LastName { get; set; }
+        [Required]
+        public string IDNumber { get; set; }
+        [Required]
+        public Department Department { get; set; }
+        [Required]
+        public string HostUniversityName { get; set; }
+        [Required]
+        public string AcademicYear { get; set; } // Data type can be changed
+        [Required]
+        public Semester Semester { get; set; }
+
+        // public Student SubjectStudent { get; set; }
 
         [Required]
-        public Student SubjectStudent { get; set; }
-
-        [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        [DefaultValue("getutcdate()")]
+        // [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        // [DefaultValue("getutcdate()")]
         public DateTime SubmissionTime { get; set; }
 
         public DateTime ApprovalTime { get; set; }

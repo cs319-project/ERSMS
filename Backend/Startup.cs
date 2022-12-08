@@ -48,6 +48,8 @@ namespace Backend
             services.AddScoped<IPlacementService, PlacementService>();
             services.AddScoped<ICTEFormRepository, CTEFormRepository>();
             services.AddScoped<ICTEFormService, CTEFormService>();
+            services.AddScoped<IPreApprovalFormRepository, PreApprovalFormRepository>();
+            services.AddScoped<IPreApprovalFormService, PreApprovalFormService>();
             //Automappper setup
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies().Where(p => !p.IsDynamic));
             services.AddControllers();

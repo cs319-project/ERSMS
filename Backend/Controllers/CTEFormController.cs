@@ -49,9 +49,16 @@ namespace Backend.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<CTEFormDto>> CancelCTEForm(Guid id)
         {
+            var form = _cTEFormService.GetCTEForm(id);
+
+            if (form == null)
+            {
+                return NotFound(id);
+            }
+
             if (await _cTEFormService.DeleteCTEForm(id))
             {
-                return Ok(id);
+                return Ok(form);
             }
             return BadRequest("Failed to delete CTE Form");
         }

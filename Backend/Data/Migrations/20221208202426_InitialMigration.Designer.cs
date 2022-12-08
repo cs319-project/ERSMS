@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221208120551_InitialMigration")]
+    [Migration("20221208202426_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -298,26 +298,52 @@ namespace Backend.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("AcademicYear")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("ApprovalTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Department")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<Guid?>("ExchangeCoordinatorApprovalId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("SubjectStudentId")
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("HostUniversityName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("IDNumber")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Semester")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid?>("StudentId")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("SubmissionTime")
-                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ExchangeCoordinatorApprovalId");
 
-                    b.HasIndex("SubjectStudentId");
+                    b.HasIndex("StudentId");
 
-                    b.ToTable("PreApprovalForm");
+                    b.ToTable("PreApprovalForms");
                 });
 
             modelBuilder.Entity("Backend.Entities.RequestedCourse", b =>
@@ -758,15 +784,11 @@ namespace Backend.Data.Migrations
                         .WithMany()
                         .HasForeignKey("ExchangeCoordinatorApprovalId");
 
-                    b.HasOne("Backend.Entities.Student", "SubjectStudent")
+                    b.HasOne("Backend.Entities.Student", null)
                         .WithMany("PreApprovalForms")
-                        .HasForeignKey("SubjectStudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StudentId");
 
                     b.Navigation("ExchangeCoordinatorApproval");
-
-                    b.Navigation("SubjectStudent");
                 });
 
             modelBuilder.Entity("Backend.Entities.RequestedCourse", b =>
