@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Backend.DTOs;
+using Backend.Entities.Exceptions;
 using Backend.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,11 +25,20 @@ namespace Backend.Controllers
         [HttpPost()]
         public async Task<ActionResult<PreApprovalFormDto>> SubmitPreApprovalForm(PreApprovalFormDto preApprovalForm)
         {
-            if (await _preApprovalFormService.SubmitPreApprovalForm(preApprovalForm))
+            try
             {
-                return Ok(preApprovalForm);
+                if (await _preApprovalFormService.SubmitPreApprovalForm(preApprovalForm))
+                {
+                    return Ok(preApprovalForm);
+                }
+                return BadRequest("Failed to add Pre-Approval Form to Student");
             }
-            return BadRequest("Failed to add Pre-Approval Form to Student");
+            catch (ToDoListException e)
+            {
+                var result = Accepted();
+                result.Value = e.Message;
+                return Accepted(result);
+            }
         }
 
         [HttpPut()]
@@ -50,7 +60,7 @@ namespace Backend.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<PreApprovalFormDto>> CancelPreApprovalForm(Guid id)
         {
-            var form = _preApprovalFormService.GetPreApprovalForm(id);
+            var form = await _preApprovalFormService.GetPreApprovalForm(id);
 
             if (form == null)
             {
@@ -90,6 +100,16 @@ namespace Backend.Controllers
         public async Task<ActionResult<bool>> CoordinatorApprovePreApprovalForm(Guid formId, ApprovalDto approval)
         {
             if (await _preApprovalFormService.ApproveFormCoordinator(formId, approval))
+            {
+                return Ok(true);
+            }
+            return BadRequest("Failed to approve Pre-Approval Form");
+        }
+
+        [HttpPost("fabApprove/{formId}")]
+        public async Task<ActionResult<bool>> FABApprovePreApprovalForm(Guid formId, ApprovalDto approval)
+        {
+            if (await _preApprovalFormService.ApproveFormFacultyAdministrationBoard(formId, approval))
             {
                 return Ok(true);
             }

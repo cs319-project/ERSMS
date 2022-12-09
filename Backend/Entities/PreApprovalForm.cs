@@ -37,6 +37,7 @@ namespace Backend.Entities
 
         public ICollection<RequestedCourseGroup> RequestedCourseGroups { get; set; }
         public Approval ExchangeCoordinatorApproval { get; set; }
+        public Approval FacultyAdministrationBoardApproval { get; set; }
         public Guid ToDoItemId { get; set; }
     }
 }

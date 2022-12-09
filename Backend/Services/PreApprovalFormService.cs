@@ -38,6 +38,15 @@ namespace Backend.Services
             return await _preApprovalFormRepository.UpdatePreApprovalForm(formEntity);
         }
 
+        public async Task<bool> ApproveFormFacultyAdministrationBoard(Guid formId, ApprovalDto approval)
+        {
+            PreApprovalForm formEntity = _preApprovalFormRepository.GetPreApprovalForm(formId).Result;
+            Approval approvalEntity = _mapper.Map<Approval>(approval);
+            formEntity.FacultyAdministrationBoardApproval = approvalEntity;
+
+            return await _preApprovalFormRepository.UpdatePreApprovalForm(formEntity);
+        }
+
         public async Task<bool> DeletePreApprovalForm(Guid id)
         {
             PreApprovalForm formEntity = await _preApprovalFormRepository.GetPreApprovalForm(id);
@@ -72,10 +81,10 @@ namespace Backend.Services
         public async Task<bool> SubmitPreApprovalForm(PreApprovalFormDto preApprovalForm)
         {
             ToDoItemDto todo = new ToDoItemDto();
-            todo.Title = "Pre-Approval Form";
+            todo.Title = "Review Pre-Approval Form";
             todo.Description = "Review the Pre-Approval Form of " + preApprovalForm.FirstName + " "
                                     + preApprovalForm.LastName + " (" + preApprovalForm.IDNumber + ")"
-                                    + " and approve it if it is correct";
+                                    + " and approve or reject it.";
             todo.CascadeId = Guid.NewGuid();
             PreApprovalForm formEntity = _mapper.Map<PreApprovalForm>(preApprovalForm);
             formEntity.ToDoItemId = todo.CascadeId;
@@ -91,6 +100,7 @@ namespace Backend.Services
             // Don't update the approval
             PreApprovalForm oldForm = await _preApprovalFormRepository.GetPreApprovalForm(formEntity.Id);
             formEntity.ExchangeCoordinatorApproval = oldForm.ExchangeCoordinatorApproval;
+            formEntity.FacultyAdministrationBoardApproval = oldForm.FacultyAdministrationBoardApproval;
 
             return await _preApprovalFormRepository.UpdatePreApprovalForm(formEntity);
         }

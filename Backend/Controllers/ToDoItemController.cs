@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Backend.DTOs;
+using Backend.Entities.Exceptions;
 using Backend.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -84,11 +85,20 @@ namespace Backend.Controllers
         [HttpPost("addToAll")]
         public async Task<ActionResult<ToDoItemDto>> AddToDoItemToAll(ToDoItemDto toDoItem)
         {
-            if (await _toDoItemService.AddToDoItemToAll(toDoItem))
+            try
             {
-                return Ok(toDoItem);
+                if (await _toDoItemService.AddToDoItemToAll(toDoItem))
+                {
+                    return Ok(toDoItem);
+                }
+                return BadRequest("Failed to add to do item to all");
             }
-            return BadRequest("Failed to add to do item to all");
+            catch (ToDoListException e)
+            {
+                var result = Accepted();
+                result.Value = e.Message;
+                return Accepted(result);
+            }
         }
 
         [HttpGet("{id}")]

@@ -28,8 +28,21 @@ namespace Backend.Services
 
         public async Task<bool> AddCTEFormToStudent(CTEFormDto cTEForm)
         {
+            ToDoItemDto todo = new ToDoItemDto();
+            todo.CascadeId = Guid.NewGuid();
+            todo.Title = "Review CTE Form";
+            todo.Description = "Review the CTE Form of " + cTEForm.FirstName + " "
+                                    + cTEForm.LastName + " (" + cTEForm.IDNumber + ")"
+                                    + " and approve or reject it.";
+
             CTEForm formEntity = _mapper.Map<CTEForm>(cTEForm);
+            formEntity.ToDoItemId = todo.CascadeId;
             bool flag = await _cTEFormRepository.AddCTEFormToStudent(cTEForm.IDNumber, formEntity);
+
+            if (flag)
+            {
+                flag = await _toDoItemService.AddToDoItemToAll(todo);
+            }
 
             return flag;
         }
@@ -58,11 +71,23 @@ namespace Backend.Services
             Approval approvalEntity = _mapper.Map<Approval>(approval);
             formEntity.ExchangeCoordinatorApproval = approvalEntity;
 
+            // Complete todo
+            ToDoItemDto todo = await _toDoItemService.GetToDoItemByCascadeId(formEntity.ToDoItemId);
+            await _toDoItemService.ChangeCompleteToDoItem(todo.Id, true);
+
             return await _cTEFormRepository.UpdateCTEForm(formEntity);
         }
 
         public async Task<bool> DeleteCTEForm(Guid id)
         {
+            CTEForm form = await _cTEFormRepository.GetCTEForm(id);
+
+            if (form == null)
+            {
+                return false;
+            }
+
+            await _toDoItemService.DeleteToDoItemByCascadeId(form.ToDoItemId);
             return await _cTEFormRepository.DeleteCTEForm(id);
         }
 

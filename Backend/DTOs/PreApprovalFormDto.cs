@@ -29,6 +29,9 @@ namespace Backend.DTOs
         public DateTime ApprovalTime { get; set; }
 
         public ICollection<RequestedCourseGroupDto> RequestedCourseGroups { get; set; }
+
         public ApprovalDto ExchangeCoordinatorApproval { get; set; }
+
+        public ApprovalDto FacultyAdministrationBoardApproval { get; set; }
     }
 }

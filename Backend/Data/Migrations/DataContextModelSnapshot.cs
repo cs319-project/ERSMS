@@ -148,6 +148,9 @@ namespace Backend.Data.Migrations
                     b.Property<DateTime>("SubmissionTime")
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid>("ToDoItemId")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ChairApprovalId");
@@ -314,6 +317,9 @@ namespace Backend.Data.Migrations
                     b.Property<Guid?>("ExchangeCoordinatorApprovalId")
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid?>("FacultyAdministrationBoardApprovalId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -345,6 +351,8 @@ namespace Backend.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ExchangeCoordinatorApprovalId");
+
+                    b.HasIndex("FacultyAdministrationBoardApprovalId");
 
                     b.HasIndex("StudentId");
 
@@ -804,11 +812,17 @@ namespace Backend.Data.Migrations
                         .WithMany()
                         .HasForeignKey("ExchangeCoordinatorApprovalId");
 
+                    b.HasOne("Backend.Entities.Approval", "FacultyAdministrationBoardApproval")
+                        .WithMany()
+                        .HasForeignKey("FacultyAdministrationBoardApprovalId");
+
                     b.HasOne("Backend.Entities.Student", null)
                         .WithMany("PreApprovalForms")
                         .HasForeignKey("StudentId");
 
                     b.Navigation("ExchangeCoordinatorApproval");
+
+                    b.Navigation("FacultyAdministrationBoardApproval");
                 });
 
             modelBuilder.Entity("Backend.Entities.RequestedCourse", b =>

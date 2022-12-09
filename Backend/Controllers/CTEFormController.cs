@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Backend.DTOs;
+using Backend.Entities.Exceptions;
 using Backend.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,11 +24,20 @@ namespace Backend.Controllers
         public async Task<ActionResult<CTEFormDto>> AddCTEFormToStudent(CTEFormDto cTEForm)
         {
             //cTEForm.Id = Guid.NewGuid();
-            if (await _cTEFormService.AddCTEFormToStudent(cTEForm))
+            try
             {
-                return Ok(cTEForm);
+                if (await _cTEFormService.AddCTEFormToStudent(cTEForm))
+                {
+                    return Ok(cTEForm);
+                }
+                return BadRequest("Failed to add CTE Form to Student");
             }
-            return BadRequest("Failed to add CTE Form to Student");
+            catch (ToDoListException e)
+            {
+                var result = Accepted();
+                result.Value = e.Message;
+                return Accepted(result);
+            }
         }
 
         [HttpPut()]
@@ -49,7 +59,7 @@ namespace Backend.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<CTEFormDto>> CancelCTEForm(Guid id)
         {
-            var form = _cTEFormService.GetCTEForm(id);
+            var form = await _cTEFormService.GetCTEForm(id);
 
             if (form == null)
             {

@@ -401,6 +401,7 @@ namespace Backend.Data.Migrations
                     DeanApprovalId = table.Column<Guid>(type: "TEXT", nullable: true),
                     ExchangeCoordinatorApprovalId = table.Column<Guid>(type: "TEXT", nullable: true),
                     FacultyOfAdministrationBoardApprovalId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    ToDoItemId = table.Column<Guid>(type: "TEXT", nullable: false),
                     StudentId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
@@ -470,6 +471,7 @@ namespace Backend.Data.Migrations
                     SubmissionTime = table.Column<DateTime>(type: "TEXT", nullable: false),
                     ApprovalTime = table.Column<DateTime>(type: "TEXT", nullable: false),
                     ExchangeCoordinatorApprovalId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    FacultyAdministrationBoardApprovalId = table.Column<Guid>(type: "TEXT", nullable: true),
                     ToDoItemId = table.Column<Guid>(type: "TEXT", nullable: false),
                     StudentId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
@@ -479,6 +481,11 @@ namespace Backend.Data.Migrations
                     table.ForeignKey(
                         name: "FK_PreApprovalForms_Approval_ExchangeCoordinatorApprovalId",
                         column: x => x.ExchangeCoordinatorApprovalId,
+                        principalTable: "Approval",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_PreApprovalForms_Approval_FacultyAdministrationBoardApprovalId",
+                        column: x => x.FacultyAdministrationBoardApprovalId,
                         principalTable: "Approval",
                         principalColumn: "Id");
                     table.ForeignKey(
@@ -674,6 +681,11 @@ namespace Backend.Data.Migrations
                 name: "IX_PreApprovalForms_ExchangeCoordinatorApprovalId",
                 table: "PreApprovalForms",
                 column: "ExchangeCoordinatorApprovalId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PreApprovalForms_FacultyAdministrationBoardApprovalId",
+                table: "PreApprovalForms",
+                column: "FacultyAdministrationBoardApprovalId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PreApprovalForms_StudentId",

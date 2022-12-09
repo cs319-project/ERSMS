@@ -42,5 +42,7 @@ namespace Backend.Entities
 
         // Faculty of Administration Board Decision
         public Approval FacultyOfAdministrationBoardApproval { get; set; }
+
+        public Guid ToDoItemId { get; set; }
     }
 }
