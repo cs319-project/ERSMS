@@ -10,10 +10,11 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { TodoModule } from "./ToDo/ToDo.module";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatCardModule} from "@angular/material/card";
+import {MatDividerModule} from "@angular/material/divider";
 
 
 @NgModule({
-  imports: [ReactiveFormsModule, FormsModule, BrowserAnimationsModule, BrowserModule, NgxChartsModule, TodoModule, MatGridListModule, MatCardModule],
+    imports: [ReactiveFormsModule, FormsModule, BrowserAnimationsModule, BrowserModule, NgxChartsModule, TodoModule, MatGridListModule, MatCardModule, MatDividerModule],
     exports: [PieChartComponent, ColumnChartComponent],
     declarations: [ DashboardComponent, PieChartComponent, ColumnChartComponent],
     providers: [],

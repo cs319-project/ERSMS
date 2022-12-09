@@ -17,12 +17,18 @@ import { DashboardModule } from "./dashboard/dashboard.module";
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { MatCheckboxModule} from "@angular/material/checkbox";
 import { PlacementModule } from "./placement/placement.module";
-
+import { LoginComponent } from './login/login.component';
+import {MatCardModule} from "@angular/material/card";
+import {FormsModule} from "@angular/forms";
+import {ReactiveFormsModule} from "@angular/forms";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
-  declarations: [AppComponent, NavigationComponent],
+  declarations: [AppComponent, NavigationComponent, LoginComponent, SignupComponent],
   imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, MatSidenavModule, MatListModule, MatIconModule, MatToolbarModule, MatButtonModule, MatGridListModule, HttpClientModule, MatMenuModule, MatBadgeModule, DashboardModule, NgxChartsModule,
-  PlacementModule, MatCheckboxModule],
+    PlacementModule, MatCheckboxModule, MatCardModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule],
   providers: [],
   bootstrap: [AppComponent]
 })
