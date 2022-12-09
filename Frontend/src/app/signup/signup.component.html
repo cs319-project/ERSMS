@@ -14,10 +14,16 @@
             <input matInput placeholder="Email">
           </mat-form-field>
           <mat-form-field class="full-width">
-            <input type="password" matInput placeholder="Password">
+            <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="Password">
+            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
           </mat-form-field>
           <mat-form-field class="full-width">
-            <input type="password" matInput placeholder="Confirm Password">
+            <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="Confirm Password">
+            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
           </mat-form-field>
           <button (click)="signUp()" mat-raised-button color="primary" class="full-width mt-4">
             Create Account

@@ -26,8 +26,11 @@ import {MatInputModule} from "@angular/material/input";
 import { SignupComponent } from './signup/signup.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
+import {FormsAndRequestsComponent} from "./formsandrequests/formsandrequests.component";
+import { ProfileComponent } from './profile/profile.component';
+
 @NgModule({
-  declarations: [AppComponent, NavigationComponent, LoginComponent, SignupComponent, ForgotPasswordComponent],
+  declarations: [AppComponent, NavigationComponent, LoginComponent, SignupComponent, FormsAndRequestsComponent, ForgotPasswordComponent, ProfileComponent],
   imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, MatSidenavModule, MatListModule, MatIconModule, MatToolbarModule, MatButtonModule, MatGridListModule, HttpClientModule, MatMenuModule, MatBadgeModule, DashboardModule, NgxChartsModule,
     PlacementModule, MatCheckboxModule, MatCardModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule],
   providers: [],

@@ -3,12 +3,15 @@
     <mat-card style="height: 100%">
       <mat-card-content class="full-width flex-center full-height">
         <form>
-          <h1 class="login-header">Login</h1>
+          <h1 class="login-header"><strong>ERSMS</strong></h1>
           <mat-form-field class="full-width mt-4">
             <input matInput placeholder="Email">
           </mat-form-field>
           <mat-form-field class="full-width">
-            <input type="password" matInput placeholder="Password">
+            <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="Password">
+            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
           </mat-form-field>
           <div class="flex-space-between mt-2">
             <mat-checkbox>Remember Me</mat-checkbox>
