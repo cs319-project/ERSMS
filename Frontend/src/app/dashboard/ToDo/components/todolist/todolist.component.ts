@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Todo, Status } from '../../todo.interface';
 
 import { TodoService } from '../../todo.service';
-import { plus } from '@fortawesome/fontawesome-free';
+
 
 @Component({
   selector: 'app-todo-list',
@@ -15,7 +15,7 @@ export class TodoListComponent {
 
   todos: Todo[] = [];
   isNewTodo: boolean = false;
-  add = plus;
+
 
   constructor(private todoService: TodoService) {}
 
