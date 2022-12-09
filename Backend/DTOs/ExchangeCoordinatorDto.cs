@@ -8,5 +8,7 @@ namespace Backend.DTOs
     public class ExchangeCoordinatorDto : DomainUserDto
     {
         public DepartmentInfoDto Department { get; set; }
+
+        public ICollection<ToDoItemDto> ToDoList { get; set; }
     }
 }

@@ -22,6 +22,12 @@ namespace Backend.Services
             _mapper = mapper;
         }
 
+        public Task<ExchangeCoordinator> GetCoordinator(string username)
+        {
+            var coordinator = _userRepository.GetCoordinatorByUserName(username);
+            return coordinator;
+        }
+
         public async Task<Object> GetUser(string username)
         {
             var user = await _userRepository.GetUser(username);

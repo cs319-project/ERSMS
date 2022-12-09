@@ -23,6 +23,9 @@ namespace Backend.Data
             builder.Entity<DomainUser>().Navigation(u => u.IdentityUser).AutoInclude();
             builder.Entity<AppUser>().Navigation(u => u.DomainUser).AutoInclude();
 
+            builder.Entity<ExchangeCoordinator>().Navigation(c => c.ToDoList).AutoInclude();
+            builder.Entity<ExchangeCoordinator>().OwnsMany<ToDoItem>(c => c.ToDoList);
+
             builder.Entity<CTEForm>().Navigation(c => c.TransferredCourseGroups).AutoInclude();
             builder.Entity<CTEForm>().Navigation(c => c.DeanApproval).AutoInclude();
             builder.Entity<CTEForm>().Navigation(c => c.ChairApproval).AutoInclude();
@@ -130,6 +133,7 @@ namespace Backend.Data
         public DbSet<OISEP> OISEPs { get; set; }
         public DbSet<PlacementTable> PlacementTables { get; set; }
         public DbSet<PlacedStudent> PlacedStudents { get; set; }
+        public DbSet<ToDoItem> ToDoItems { get; set; }
         public DbSet<CTEForm> CTEForms { get; set; }
         public DbSet<PreApprovalForm> PreApprovalForms { get; set; }
     }

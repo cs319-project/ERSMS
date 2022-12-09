@@ -10,5 +10,7 @@ namespace Backend.Entities
     public class ExchangeCoordinator : DomainUser
     {
         public DepartmentInfo Department { get; set; }
+
+        public ICollection<ToDoItem> ToDoList { get; set; }
     }
 }

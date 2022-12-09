@@ -99,5 +99,11 @@ namespace Backend.Data
         {
             throw new NotImplementedException();
         }
+
+        public async Task<ExchangeCoordinator> GetCoordinatorByUserName(string username)
+        {
+            var coordinator = await _context.ExchangeCoordinators.FirstOrDefaultAsync(x => x.IdentityUser.UserName == username);
+            return coordinator;
+        }
     }
 }
