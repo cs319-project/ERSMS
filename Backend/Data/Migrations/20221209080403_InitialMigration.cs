@@ -117,21 +117,6 @@ namespace Backend.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RequestedExemptedCourse",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Credits = table.Column<int>(type: "INTEGER", nullable: false),
-                    CourseCode = table.Column<string>(type: "TEXT", nullable: true),
-                    CourseName = table.Column<string>(type: "TEXT", nullable: true),
-                    CourseType = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RequestedExemptedCourse", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -450,7 +435,7 @@ namespace Backend.Data.Migrations
                     FirstName = table.Column<string>(type: "TEXT", nullable: false),
                     LastName = table.Column<string>(type: "TEXT", nullable: false),
                     IDNumber = table.Column<string>(type: "TEXT", nullable: false),
-                    Department = table.Column<string>(type: "TEXT", nullable: false),
+                    Department = table.Column<int>(type: "INTEGER", nullable: false),
                     HostUniversityName = table.Column<string>(type: "TEXT", nullable: false),
                     AcademicYear = table.Column<string>(type: "TEXT", nullable: false),
                     Semester = table.Column<int>(type: "INTEGER", nullable: false),
@@ -530,16 +515,16 @@ namespace Backend.Data.Migrations
                 {
                     table.PrimaryKey("PK_RequestedCourseGroup", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_RequestedCourseGroup_ExemptedCourse_RequestedExemptedCourseId",
+                        column: x => x.RequestedExemptedCourseId,
+                        principalTable: "ExemptedCourse",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_RequestedCourseGroup_PreApprovalForms_PreApprovalFormId",
                         column: x => x.PreApprovalFormId,
                         principalTable: "PreApprovalForms",
                         principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_RequestedCourseGroup_RequestedExemptedCourse_RequestedExemptedCourseId",
-                        column: x => x.RequestedExemptedCourseId,
-                        principalTable: "RequestedExemptedCourse",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -753,9 +738,6 @@ namespace Backend.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "PreApprovalForms");
-
-            migrationBuilder.DropTable(
-                name: "RequestedExemptedCourse");
 
             migrationBuilder.DropTable(
                 name: "CTEForms");

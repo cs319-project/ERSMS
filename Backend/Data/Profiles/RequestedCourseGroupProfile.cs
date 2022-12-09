@@ -15,14 +15,6 @@ namespace Backend.Data.Profiles
         public RequestedCourseGroupProfile()
         {
             CreateMap<RequestedCourseGroup, RequestedCourseGroupDto>().ReverseMap();
-
-            CreateMap<RequestedExemptedCourse, RequestedExemptedCourseDto>()
-            .ForMember(d => d.CourseType,
-                op => op.MapFrom(o => EnumStringify.CourseTypeStringify(o.CourseType)));
-
-            CreateMap<RequestedExemptedCourseDto, RequestedExemptedCourse>()
-            .ForMember(d => d.CourseType,
-                op => op.MapFrom(o => EnumStringify.CourseTypeEnumarator(o.CourseType)));
         }
     }
 }

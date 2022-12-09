@@ -10,6 +10,6 @@ namespace Backend.DTOs
         public Guid Id { get; set; }
 
         public ICollection<RequestedCourseDto> RequestedCourses { get; set; }
-        public RequestedExemptedCourseDto RequestedExemptedCourse { get; set; }
+        public ExemptedCourseDto RequestedExemptedCourse { get; set; }
     }
 }

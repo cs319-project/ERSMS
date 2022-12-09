@@ -13,6 +13,6 @@ namespace Backend.Entities
         [Required]
         public ICollection<RequestedCourse> RequestedCourses { get; set; }
         [Required]
-        public RequestedExemptedCourse RequestedExemptedCourse { get; set; }
+        public ExemptedCourse RequestedExemptedCourse { get; set; }
     }
 }

@@ -303,9 +303,8 @@ namespace Backend.Data.Migrations
                     b.Property<DateTime>("ApprovalTime")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Department")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Department")
+                        .HasColumnType("INTEGER");
 
                     b.Property<Guid?>("ExchangeCoordinatorApprovalId")
                         .HasColumnType("TEXT");
@@ -390,29 +389,6 @@ namespace Backend.Data.Migrations
                     b.HasIndex("RequestedExemptedCourseId");
 
                     b.ToTable("RequestedCourseGroup");
-                });
-
-            modelBuilder.Entity("Backend.Entities.RequestedExemptedCourse", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CourseCode")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CourseName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("CourseType")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Credits")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("RequestedExemptedCourse");
                 });
 
             modelBuilder.Entity("Backend.Entities.Role", b =>
@@ -802,7 +778,7 @@ namespace Backend.Data.Migrations
                         .WithMany("RequestedCourseGroups")
                         .HasForeignKey("PreApprovalFormId");
 
-                    b.HasOne("Backend.Entities.RequestedExemptedCourse", "RequestedExemptedCourse")
+                    b.HasOne("Backend.Entities.ExemptedCourse", "RequestedExemptedCourse")
                         .WithMany()
                         .HasForeignKey("RequestedExemptedCourseId")
                         .OnDelete(DeleteBehavior.Cascade)

@@ -78,7 +78,7 @@ namespace Backend.Data
             builder.Entity<TransferredCourseGroup>().HasOne<ExemptedCourse>(c => c.ExemptedCourse);
             builder.Entity<TransferredCourseGroup>().HasMany<TransferredCourse>(c => c.TransferredCourses);
 
-            builder.Entity<RequestedCourseGroup>().HasOne<RequestedExemptedCourse>(c => c.RequestedExemptedCourse);
+            builder.Entity<RequestedCourseGroup>().HasOne<ExemptedCourse>(c => c.RequestedExemptedCourse);
             builder.Entity<RequestedCourseGroup>().HasMany<RequestedCourse>(c => c.RequestedCourses);
 
             builder.Entity<PlacementTable>().OwnsOne<DepartmentInfo>(c => c.Department);
