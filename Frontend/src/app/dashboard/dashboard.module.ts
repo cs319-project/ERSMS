@@ -8,13 +8,15 @@ import { BrowserModule } from "@angular/platform-browser";
 
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { TodoModule } from "./ToDo/ToDo.module";
+import {MatGridListModule} from "@angular/material/grid-list";
+import {MatCardModule} from "@angular/material/card";
 
 
 @NgModule({
-    imports: [ReactiveFormsModule,FormsModule, BrowserAnimationsModule, BrowserModule, NgxChartsModule, TodoModule],
+  imports: [ReactiveFormsModule, FormsModule, BrowserAnimationsModule, BrowserModule, NgxChartsModule, TodoModule, MatGridListModule, MatCardModule],
     exports: [PieChartComponent, ColumnChartComponent],
     declarations: [ DashboardComponent, PieChartComponent, ColumnChartComponent],
     providers: [],
-  
+
 })
 export class DashboardModule {}

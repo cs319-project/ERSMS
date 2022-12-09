@@ -12,7 +12,7 @@ export class ColumnChartComponent{
     single: any[];
   multi: any[];
 
-  view: any[] = [700, 400];
+  view: any[] = [500, 200];
 
   // options
   showXAxis = true;
@@ -23,7 +23,7 @@ export class ColumnChartComponent{
   xAxisLabel = 'Days';
   showYAxisLabel = true;
   yAxisLabel = 'Forms';
- 
+
 
   colorScheme = {
     domain: ['#5AA454', '#C7B42C']

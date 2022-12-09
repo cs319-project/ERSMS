@@ -1,0 +1,36 @@
+mat-grid-tile{
+  width: 70%;
+  margin: 0 !important;
+}
+
+mat-card-content{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+mat-grid-list{
+  height: 80%;
+}
+
+.grid-item{
+  margin: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.grid-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title{
+  margin-top: 20px;
+  margin-left: 50px;
+}
+
+.title span{
+  font-size: 3rem;
+}

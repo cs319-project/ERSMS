@@ -22,7 +22,6 @@
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
     "@swimlane/ngx-charts": "^20.1.2",
-    "angular-font-awesome": "^3.1.2",
     "bootstrap": "^4.5.3",
     "font-awesome": "^4.7.0",
     "ngx-bootstrap": "^7.1.0",

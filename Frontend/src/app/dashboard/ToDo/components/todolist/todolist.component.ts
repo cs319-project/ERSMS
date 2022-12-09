@@ -1,7 +1,6 @@
-import { ForwardRefHandling } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 
-import { Todo, Status } from '../../todo.interface';
+import {Status, Todo} from '../../todo.interface';
 
 import { TodoService } from '../../todo.service';
 
@@ -42,8 +41,16 @@ export class TodoListComponent {
       .subscribe(response => this.todos = [...this.todos, newTask]);
   }
 
-  complete(id: number): void {
-    
+  changeEvent($event, id: number): void {
+    let item = this.todos.find((obj) => {
+      return obj.id === id;
+    });
+    if(item.status == Status.Completed){
+      item.status = Status.Open;
+    }
+    else{
+      item.status = Status.Completed;
+    }
   }
 
   deleteTodo(id: number): void {

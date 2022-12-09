@@ -7,9 +7,9 @@ import { single } from './data';
   styleUrls: ['./piechart.component.css']
 })
 export class PieChartComponent{
-   
-    single: any[];
-  view: any[] = [700, 400];
+
+  single: any[];
+  view: any[] = [500, 200];
 
   // options
   gradient: boolean = true;
@@ -38,4 +38,3 @@ export class PieChartComponent{
   }
 
 }
-  

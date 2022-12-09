@@ -4,12 +4,11 @@
 
 .wrap {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 80vh;
-
+    height: 60vh;
+    width: 100%;
     .container {
-        background-color: white;
+      width: 100%;
+      background-color: white;
         border-radius: 3px;
         padding: 20px;
     }

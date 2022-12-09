@@ -4,3 +4,11 @@
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Poppins, "Helvetica Neue", sans-serif; font-style: normal}
+
+.mat-checkbox-layout{
+  white-space: normal !important;
+
+}
+.mat-checkbox-inner-container{
+  margin-top: 4px;
+}

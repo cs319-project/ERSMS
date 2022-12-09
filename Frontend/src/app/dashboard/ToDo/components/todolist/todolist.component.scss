@@ -9,7 +9,7 @@
     }
 
     .actions {
-        position: absolute;
+
         right: 10px;
         cursor: pointer;
 
@@ -24,17 +24,11 @@
     }
 }
 
-.add {
-    margin-top: 30px;
-    cursor: pointer;
-
-    fa {
-        font-size: 14px;
-        color: #008ffe;
-    }
-
-    span {
-        font-size: 14px;
-    }
-
+.add{
+  position: relative;
+  bottom: 20px;
 }
+.text-wrap {
+  white-space: normal !important;
+}
+
