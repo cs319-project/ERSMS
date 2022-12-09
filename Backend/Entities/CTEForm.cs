@@ -39,5 +39,8 @@ namespace Backend.Entities
         public Approval ChairApproval { get; set; }
         public Approval DeanApproval { get; set; }
         public Approval ExchangeCoordinatorApproval { get; set; }
+
+        // Faculty of Administration Board Decision
+        public Approval FacultyOfAdministrationBoardApproval { get; set; }
     }
 }

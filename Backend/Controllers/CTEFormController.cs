@@ -114,5 +114,15 @@ namespace Backend.Controllers
             }
             return BadRequest("Failed to approve CTE Form");
         }
+
+        [HttpPost("fabApprove/{formId}")]
+        public async Task<ActionResult<bool>> ApproveFormFAB(Guid formId, ApprovalDto approval)
+        {
+            if (await _cTEFormService.ApproveFacultyOfAdministrationBoard(formId, approval))
+            {
+                return Ok(true);
+            }
+            return BadRequest("Failed to approve CTE Form");
+        }
     }
 }

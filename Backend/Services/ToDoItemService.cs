@@ -34,9 +34,14 @@ namespace Backend.Services
             return await _toDoItemRepository.AddToDoItemToAll(itemEntity);
         }
 
-        public async Task<bool> CompleteToDoItem(Guid id)
+        public Task<bool> ChangeStarToDoItem(Guid id, bool isStarred)
         {
-            return await _toDoItemRepository.CompleteToDoItem(id);
+            return _toDoItemRepository.ChangeStarToDoItem(id, isStarred);
+        }
+
+        public async Task<bool> ChangeCompleteToDoItem(Guid id, bool isComplete)
+        {
+            return await _toDoItemRepository.ChangeCompleteToDoItem(id, isComplete);
         }
 
         public async Task<bool> DeleteToDoItem(Guid id)
@@ -44,9 +49,21 @@ namespace Backend.Services
             return await _toDoItemRepository.DeleteToDoItem(id);
         }
 
+        public async Task<bool> DeleteToDoItemByCascadeId(Guid cascadeId)
+        {
+            var item = await _toDoItemRepository.GetToDoItemByCascadeId(cascadeId);
+            return await _toDoItemRepository.DeleteToDoItem(item.Id);
+        }
+
         public async Task<ToDoItemDto> GetToDoItem(Guid id)
         {
             ToDoItem item = await _toDoItemRepository.GetToDoItem(id);
+            return _mapper.Map<ToDoItemDto>(item);
+        }
+
+        public async Task<ToDoItemDto> GetToDoItemByCascadeId(Guid cascadeId)
+        {
+            ToDoItem item = await _toDoItemRepository.GetToDoItemByCascadeId(cascadeId);
             return _mapper.Map<ToDoItemDto>(item);
         }
 

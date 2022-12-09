@@ -17,5 +17,6 @@ namespace Backend.Interfaces
         Task<bool> ApproveFormDean(Guid formId, ApprovalDto approval);
         Task<bool> ApproveFormChair(Guid formId, ApprovalDto approval);
         Task<bool> ApproveFormCoordinator(Guid formId, ApprovalDto approval);
+        Task<bool> ApproveFacultyOfAdministrationBoard(Guid formId, ApprovalDto approval);
     }
 }

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221209080403_InitialMigration")]
+    [Migration("20221209205731_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -125,6 +125,9 @@ namespace Backend.Data.Migrations
                     b.Property<Guid?>("ExchangeCoordinatorApprovalId")
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid?>("FacultyOfAdministrationBoardApprovalId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -154,6 +157,8 @@ namespace Backend.Data.Migrations
                     b.HasIndex("DeanApprovalId");
 
                     b.HasIndex("ExchangeCoordinatorApprovalId");
+
+                    b.HasIndex("FacultyOfAdministrationBoardApprovalId");
 
                     b.HasIndex("StudentId");
 
@@ -336,6 +341,9 @@ namespace Backend.Data.Migrations
                     b.Property<DateTime>("SubmissionTime")
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid>("ToDoItemId")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ExchangeCoordinatorApprovalId");
@@ -418,6 +426,38 @@ namespace Backend.Data.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Backend.Entities.ToDoItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("CascadeId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("ExchangeCoordinatorId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsComplete")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsStarred")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExchangeCoordinatorId");
+
+                    b.ToTable("ToDoItems");
                 });
 
             modelBuilder.Entity("Backend.Entities.TransferredCourse", b =>
@@ -648,6 +688,10 @@ namespace Backend.Data.Migrations
                         .WithMany()
                         .HasForeignKey("ExchangeCoordinatorApprovalId");
 
+                    b.HasOne("Backend.Entities.Approval", "FacultyOfAdministrationBoardApproval")
+                        .WithMany()
+                        .HasForeignKey("FacultyOfAdministrationBoardApprovalId");
+
                     b.HasOne("Backend.Entities.Student", null)
                         .WithMany("CTEForms")
                         .HasForeignKey("StudentId");
@@ -657,6 +701,8 @@ namespace Backend.Data.Migrations
                     b.Navigation("DeanApproval");
 
                     b.Navigation("ExchangeCoordinatorApproval");
+
+                    b.Navigation("FacultyOfAdministrationBoardApproval");
                 });
 
             modelBuilder.Entity("Backend.Entities.DomainUser", b =>
@@ -787,6 +833,13 @@ namespace Backend.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("RequestedExemptedCourse");
+                });
+
+            modelBuilder.Entity("Backend.Entities.ToDoItem", b =>
+                {
+                    b.HasOne("Backend.Entities.ExchangeCoordinator", null)
+                        .WithMany("ToDoList")
+                        .HasForeignKey("ExchangeCoordinatorId");
                 });
 
             modelBuilder.Entity("Backend.Entities.TransferredCourse", b =>
@@ -1100,6 +1153,11 @@ namespace Backend.Data.Migrations
             modelBuilder.Entity("Backend.Entities.TransferredCourseGroup", b =>
                 {
                     b.Navigation("TransferredCourses");
+                });
+
+            modelBuilder.Entity("Backend.Entities.ExchangeCoordinator", b =>
+                {
+                    b.Navigation("ToDoList");
                 });
 
             modelBuilder.Entity("Backend.Entities.Student", b =>

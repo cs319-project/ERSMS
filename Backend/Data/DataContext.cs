@@ -24,12 +24,13 @@ namespace Backend.Data
             builder.Entity<AppUser>().Navigation(u => u.DomainUser).AutoInclude();
 
             builder.Entity<ExchangeCoordinator>().Navigation(c => c.ToDoList).AutoInclude();
-            builder.Entity<ExchangeCoordinator>().OwnsMany<ToDoItem>(c => c.ToDoList);
+            builder.Entity<ExchangeCoordinator>().HasMany<ToDoItem>(c => c.ToDoList);
 
             builder.Entity<CTEForm>().Navigation(c => c.TransferredCourseGroups).AutoInclude();
             builder.Entity<CTEForm>().Navigation(c => c.DeanApproval).AutoInclude();
             builder.Entity<CTEForm>().Navigation(c => c.ChairApproval).AutoInclude();
             builder.Entity<CTEForm>().Navigation(c => c.ExchangeCoordinatorApproval).AutoInclude();
+            builder.Entity<CTEForm>().Navigation(c => c.FacultyOfAdministrationBoardApproval).AutoInclude();
             // builder.Entity<CTEForm>().Navigation(c => c.SubjectStudent).AutoInclude();
             builder.Entity<TransferredCourseGroup>().Navigation(c => c.TransferredCourses).AutoInclude();
             builder.Entity<TransferredCourseGroup>().Navigation(c => c.ExemptedCourse).AutoInclude();
@@ -70,6 +71,7 @@ namespace Backend.Data
             builder.Entity<CTEForm>().HasOne<Approval>(c => c.DeanApproval);
             builder.Entity<CTEForm>().HasOne<Approval>(c => c.ChairApproval);
             builder.Entity<CTEForm>().HasOne<Approval>(c => c.ExchangeCoordinatorApproval);
+            builder.Entity<CTEForm>().HasOne<Approval>(c => c.FacultyOfAdministrationBoardApproval);
 
             builder.Entity<PreApprovalForm>().HasOne<Approval>(c => c.ExchangeCoordinatorApproval);
             builder.Entity<PreApprovalForm>().HasMany<RequestedCourseGroup>(c => c.RequestedCourseGroups);

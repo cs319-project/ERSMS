@@ -364,6 +364,28 @@ namespace Backend.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ToDoItems",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    CascadeId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Title = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    IsComplete = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsStarred = table.Column<bool>(type: "INTEGER", nullable: false),
+                    ExchangeCoordinatorId = table.Column<Guid>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ToDoItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ToDoItems_ExchangeCoordinators_ExchangeCoordinatorId",
+                        column: x => x.ExchangeCoordinatorId,
+                        principalTable: "ExchangeCoordinators",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CTEForms",
                 columns: table => new
                 {
@@ -378,6 +400,7 @@ namespace Backend.Data.Migrations
                     ChairApprovalId = table.Column<Guid>(type: "TEXT", nullable: true),
                     DeanApprovalId = table.Column<Guid>(type: "TEXT", nullable: true),
                     ExchangeCoordinatorApprovalId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    FacultyOfAdministrationBoardApprovalId = table.Column<Guid>(type: "TEXT", nullable: true),
                     StudentId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
@@ -396,6 +419,11 @@ namespace Backend.Data.Migrations
                     table.ForeignKey(
                         name: "FK_CTEForms_Approval_ExchangeCoordinatorApprovalId",
                         column: x => x.ExchangeCoordinatorApprovalId,
+                        principalTable: "Approval",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_CTEForms_Approval_FacultyOfAdministrationBoardApprovalId",
+                        column: x => x.FacultyOfAdministrationBoardApprovalId,
                         principalTable: "Approval",
                         principalColumn: "Id");
                     table.ForeignKey(
@@ -442,6 +470,7 @@ namespace Backend.Data.Migrations
                     SubmissionTime = table.Column<DateTime>(type: "TEXT", nullable: false),
                     ApprovalTime = table.Column<DateTime>(type: "TEXT", nullable: false),
                     ExchangeCoordinatorApprovalId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    ToDoItemId = table.Column<Guid>(type: "TEXT", nullable: false),
                     StudentId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
@@ -621,6 +650,11 @@ namespace Backend.Data.Migrations
                 column: "ExchangeCoordinatorApprovalId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CTEForms_FacultyOfAdministrationBoardApprovalId",
+                table: "CTEForms",
+                column: "FacultyOfAdministrationBoardApprovalId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CTEForms_StudentId",
                 table: "CTEForms",
                 column: "StudentId");
@@ -660,6 +694,11 @@ namespace Backend.Data.Migrations
                 name: "IX_RequestedCourseGroup_RequestedExemptedCourseId",
                 table: "RequestedCourseGroup",
                 column: "RequestedExemptedCourseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ToDoItems_ExchangeCoordinatorId",
+                table: "ToDoItems",
+                column: "ExchangeCoordinatorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TransferredCourse_TransferredCourseGroupId",
@@ -704,9 +743,6 @@ namespace Backend.Data.Migrations
                 name: "DeanDepartmentChairs");
 
             migrationBuilder.DropTable(
-                name: "ExchangeCoordinators");
-
-            migrationBuilder.DropTable(
                 name: "ExemptionRequestForm");
 
             migrationBuilder.DropTable(
@@ -725,6 +761,9 @@ namespace Backend.Data.Migrations
                 name: "Students_Minors");
 
             migrationBuilder.DropTable(
+                name: "ToDoItems");
+
+            migrationBuilder.DropTable(
                 name: "TransferredCourse");
 
             migrationBuilder.DropTable(
@@ -732,6 +771,9 @@ namespace Backend.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "RequestedCourseGroup");
+
+            migrationBuilder.DropTable(
+                name: "ExchangeCoordinators");
 
             migrationBuilder.DropTable(
                 name: "TransferredCourseGroup");

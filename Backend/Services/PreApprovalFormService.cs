@@ -13,11 +13,13 @@ namespace Backend.Services
     {
         private readonly IPreApprovalFormRepository _preApprovalFormRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IToDoItemService _toDoItemService;
         private readonly IMapper _mapper;
 
         // Constructor
-        public PreApprovalFormService(IPreApprovalFormRepository preApprovalFormRepository, IMapper mapper, IUserRepository userRepository)
+        public PreApprovalFormService(IPreApprovalFormRepository preApprovalFormRepository, IMapper mapper, IUserRepository userRepository, IToDoItemService toDoItemService)
         {
+            _toDoItemService = toDoItemService;
             _preApprovalFormRepository = preApprovalFormRepository;
             _mapper = mapper;
             _userRepository = userRepository;
@@ -29,11 +31,22 @@ namespace Backend.Services
             Approval approvalEntity = _mapper.Map<Approval>(approval);
             formEntity.ExchangeCoordinatorApproval = approvalEntity;
 
+            // Complete the ToDoItem
+            ToDoItemDto todo = await _toDoItemService.GetToDoItemByCascadeId(formEntity.ToDoItemId);
+            await _toDoItemService.ChangeCompleteToDoItem(todo.Id, true);
+
             return await _preApprovalFormRepository.UpdatePreApprovalForm(formEntity);
         }
 
         public async Task<bool> DeletePreApprovalForm(Guid id)
         {
+            PreApprovalForm formEntity = await _preApprovalFormRepository.GetPreApprovalForm(id);
+
+            if (formEntity == null)
+                return false;
+
+            // Delete the ToDoItem
+            await _toDoItemService.DeleteToDoItemByCascadeId(formEntity.ToDoItemId);
             return await _preApprovalFormRepository.DeletePreApprovalForm(id);
         }
 
@@ -58,13 +71,27 @@ namespace Backend.Services
 
         public async Task<bool> SubmitPreApprovalForm(PreApprovalFormDto preApprovalForm)
         {
+            ToDoItemDto todo = new ToDoItemDto();
+            todo.Title = "Pre-Approval Form";
+            todo.Description = "Review the Pre-Approval Form of " + preApprovalForm.FirstName + " "
+                                    + preApprovalForm.LastName + " (" + preApprovalForm.IDNumber + ")"
+                                    + " and approve it if it is correct";
+            todo.CascadeId = Guid.NewGuid();
             PreApprovalForm formEntity = _mapper.Map<PreApprovalForm>(preApprovalForm);
-            return await _preApprovalFormRepository.SubmitPreApprovalForm(formEntity);
+            formEntity.ToDoItemId = todo.CascadeId;
+
+            await _preApprovalFormRepository.SubmitPreApprovalForm(formEntity);
+            return await _toDoItemService.AddToDoItemToAll(todo);
         }
 
         public async Task<bool> UpdatePreApprovalForm(PreApprovalFormDto preApprovalForm)
         {
             PreApprovalForm formEntity = _mapper.Map<PreApprovalForm>(preApprovalForm);
+
+            // Don't update the approval
+            PreApprovalForm oldForm = await _preApprovalFormRepository.GetPreApprovalForm(formEntity.Id);
+            formEntity.ExchangeCoordinatorApproval = oldForm.ExchangeCoordinatorApproval;
+
             return await _preApprovalFormRepository.UpdatePreApprovalForm(formEntity);
         }
     }

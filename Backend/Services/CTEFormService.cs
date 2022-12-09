@@ -14,11 +14,13 @@ namespace Backend.Services
     {
         private readonly ICTEFormRepository _cTEFormRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IToDoItemService _toDoItemService;
         private readonly IMapper _mapper;
 
         // Constructor
-        public CTEFormService(ICTEFormRepository cTEFormRepository, IMapper mapper, IUserRepository userRepository)
+        public CTEFormService(ICTEFormRepository cTEFormRepository, IMapper mapper, IUserRepository userRepository, IToDoItemService toDoItemService)
         {
+            _toDoItemService = toDoItemService;
             _cTEFormRepository = cTEFormRepository;
             _mapper = mapper;
             _userRepository = userRepository;
@@ -67,6 +69,19 @@ namespace Backend.Services
         public async Task<bool> UpdateCTEForm(CTEFormDto cTEForm)
         {
             CTEForm formEntity = _mapper.Map<CTEForm>(cTEForm);
+
+            CTEForm oldForm = await _cTEFormRepository.GetCTEForm(formEntity.Id);
+            if (oldForm == null)
+            {
+                return false;
+            }
+
+            // Don't allow the approval to be updated
+            formEntity.DeanApproval = oldForm.DeanApproval;
+            formEntity.ChairApproval = oldForm.ChairApproval;
+            formEntity.ExchangeCoordinatorApproval = oldForm.ExchangeCoordinatorApproval;
+            formEntity.FacultyOfAdministrationBoardApproval = oldForm.FacultyOfAdministrationBoardApproval;
+
             return await _cTEFormRepository.UpdateCTEForm(formEntity);
         }
 
@@ -87,6 +102,15 @@ namespace Backend.Services
         {
             IEnumerable<CTEForm> forms = await _cTEFormRepository.GetCTEForms();
             return _mapper.Map<IEnumerable<CTEFormDto>>(forms);
+        }
+
+        public async Task<bool> ApproveFacultyOfAdministrationBoard(Guid formId, ApprovalDto approval)
+        {
+            CTEForm formEntity = _cTEFormRepository.GetCTEForm(formId).Result;
+            Approval approvalEntity = _mapper.Map<Approval>(approval);
+            formEntity.FacultyOfAdministrationBoardApproval = approvalEntity;
+
+            return await _cTEFormRepository.UpdateCTEForm(formEntity);
         }
     }
 }

@@ -13,7 +13,10 @@ namespace Backend.Interfaces
         Task<bool> DeleteToDoItem(Guid id);
         Task<ToDoItemDto> GetToDoItem(Guid id);
         Task<bool> UpdateToDoItem(ToDoItemDto toDoItem);
-        Task<bool> CompleteToDoItem(Guid id);
+        Task<bool> ChangeCompleteToDoItem(Guid id, bool isComplete);
         Task<bool> AddToDoItemToAll(ToDoItemDto toDoItem);
+        Task<ToDoItemDto> GetToDoItemByCascadeId(Guid cascadeId);
+        Task<bool> DeleteToDoItemByCascadeId(Guid cascadeId);
+        Task<bool> ChangeStarToDoItem(Guid id, bool isStarred);
     }
 }

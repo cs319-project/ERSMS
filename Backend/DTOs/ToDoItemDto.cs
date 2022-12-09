@@ -10,6 +10,8 @@ namespace Backend.DTOs
     {
         public Guid Id { get; set; }
 
+        public Guid CascadeId { get; set; }
+
         //[Required]
         public string Title { get; set; }
         public string Description { get; set; }

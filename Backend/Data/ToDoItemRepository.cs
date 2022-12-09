@@ -47,10 +47,10 @@ namespace Backend.Data
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<bool> CompleteToDoItem(Guid id)
+        public async Task<bool> ChangeCompleteToDoItem(Guid id, bool isComplete)
         {
             var item = await _context.ToDoItems.FindAsync(id);
-            item.IsComplete = true;
+            item.IsComplete = isComplete;
             return await _context.SaveChangesAsync() > 0;
         }
 
@@ -67,10 +67,23 @@ namespace Backend.Data
             return toDoItem;
         }
 
+        public Task<ToDoItem> GetToDoItemByCascadeId(Guid cascadeId)
+        {
+            var toDoItem = _context.ToDoItems.FirstOrDefault(x => x.CascadeId == cascadeId);
+            return Task.FromResult(toDoItem);
+        }
+
         public async Task<IEnumerable<ToDoItem>> GetToDoItems()
         {
             var toDoItems = await _context.ToDoItems.ToListAsync();
             return toDoItems;
+        }
+
+        public async Task<bool> ChangeStarToDoItem(Guid id, bool isStarred)
+        {
+            var item = await _context.ToDoItems.FindAsync(id);
+            item.IsStarred = isStarred;
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<bool> UpdateToDoItem(ToDoItem toDoItem)

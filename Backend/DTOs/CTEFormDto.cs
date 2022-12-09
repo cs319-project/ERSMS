@@ -26,5 +26,6 @@ namespace Backend.DTOs
         public ApprovalDto ChairApproval { get; set; }
         public ApprovalDto DeanApproval { get; set; }
         public ApprovalDto ExchangeCoordinatorApproval { get; set; }
+        public ApprovalDto FacultyOfAdministrationBoardApproval { get; set; }
     }
 }

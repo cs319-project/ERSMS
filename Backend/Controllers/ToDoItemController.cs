@@ -50,7 +50,7 @@ namespace Backend.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<ToDoItemDto>> DeleteToDoItem(Guid id)
         {
-            var item = _toDoItemService.GetToDoItem(id);
+            var item = await _toDoItemService.GetToDoItem(id);
 
             if (item == null)
             {
@@ -65,16 +65,16 @@ namespace Backend.Controllers
         }
 
         [HttpPut("complete/{id}")]
-        public async Task<ActionResult<ToDoItemDto>> CompleteToDoItem(Guid id)
+        public async Task<ActionResult<ToDoItemDto>> CompleteToDoItem(Guid id, [FromBody] bool isComplete)
         {
-            var item = _toDoItemService.GetToDoItem(id);
+            var item = await _toDoItemService.GetToDoItem(id);
 
             if (item == null)
             {
                 return NotFound(id);
             }
 
-            if (await _toDoItemService.CompleteToDoItem(id))
+            if (await _toDoItemService.ChangeCompleteToDoItem(id, isComplete))
             {
                 return Ok(item);
             }
@@ -89,6 +89,19 @@ namespace Backend.Controllers
                 return Ok(toDoItem);
             }
             return BadRequest("Failed to add to do item to all");
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ToDoItemDto>> GetToDoItem(Guid id)
+        {
+            var item = await _toDoItemService.GetToDoItem(id);
+
+            if (item == null)
+            {
+                return NotFound(id);
+            }
+
+            return Ok(item);
         }
 
         [HttpGet("coordinatorToDoList/{userName}")]

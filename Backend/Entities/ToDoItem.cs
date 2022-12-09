@@ -11,12 +11,14 @@ namespace Backend.Entities
         [Key]
         public Guid Id { get; set; }
 
+        public Guid CascadeId { get; set; }
+
         [Required]
         public string Title { get; set; }
         public string Description { get; set; }
         [Required]
-        public bool IsComplete { get; set; }
+        public bool IsComplete { get; set; } = false;
         [Required]
-        public bool IsStarred { get; set; }
+        public bool IsStarred { get; set; } = false;
     }
 }
