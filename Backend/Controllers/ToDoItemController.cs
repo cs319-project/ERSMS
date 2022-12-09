@@ -82,6 +82,23 @@ namespace Backend.Controllers
             return BadRequest("Failed to complete to do item");
         }
 
+        [HttpPut("star/{id}")]
+        public async Task<ActionResult<ToDoItemDto>> StarToDoItem(Guid id, [FromBody] bool isStarred)
+        {
+            var item = await _toDoItemService.GetToDoItem(id);
+
+            if (item == null)
+            {
+                return NotFound(id);
+            }
+
+            if (await _toDoItemService.ChangeStarToDoItem(id, isStarred))
+            {
+                return Ok(item);
+            }
+            return BadRequest("Failed to star to do item");
+        }
+
         [HttpPost("addToAll")]
         public async Task<ActionResult<ToDoItemDto>> AddToDoItemToAll(ToDoItemDto toDoItem)
         {
@@ -129,6 +146,23 @@ namespace Backend.Controllers
             }
 
             return Ok(coordinator.ToDoList);
+        }
+
+        [HttpGet("studentToDoList/{userName}")]
+        public async Task<ActionResult<IEnumerable<ToDoItemDto>>> GetStudentToDoList(string userName)
+        {
+            var student = await _userService.GetStudent(userName);
+            if (student == null)
+            {
+                return NotFound(userName);
+            }
+
+            if (student.ToDoList == null)
+            {
+                return BadRequest("Student does not have a to do list");
+            }
+
+            return Ok(student.ToDoList);
         }
     }
 }

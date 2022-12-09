@@ -31,5 +31,7 @@ namespace Backend.Entities
         public ICollection<PreApprovalForm> PreApprovalForms { get; set; }
 
         public ICollection<ExemptionRequestForm> ExemptionRequestForms { get; set; }
+
+        public ICollection<ToDoItem> ToDoList { get; set; }
     }
 }

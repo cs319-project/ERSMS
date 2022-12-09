@@ -26,6 +26,9 @@ namespace Backend.Data
             builder.Entity<ExchangeCoordinator>().Navigation(c => c.ToDoList).AutoInclude();
             builder.Entity<ExchangeCoordinator>().HasMany<ToDoItem>(c => c.ToDoList);
 
+            builder.Entity<Student>().Navigation(c => c.ToDoList).AutoInclude();
+            builder.Entity<Student>().HasMany<ToDoItem>(c => c.ToDoList);
+
             builder.Entity<CTEForm>().Navigation(c => c.TransferredCourseGroups).AutoInclude();
             builder.Entity<CTEForm>().Navigation(c => c.DeanApproval).AutoInclude();
             builder.Entity<CTEForm>().Navigation(c => c.ChairApproval).AutoInclude();
