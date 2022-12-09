@@ -24,9 +24,10 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import { SignupComponent } from './signup/signup.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 @NgModule({
-  declarations: [AppComponent, NavigationComponent, LoginComponent, SignupComponent],
+  declarations: [AppComponent, NavigationComponent, LoginComponent, SignupComponent, ForgotPasswordComponent],
   imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, MatSidenavModule, MatListModule, MatIconModule, MatToolbarModule, MatButtonModule, MatGridListModule, HttpClientModule, MatMenuModule, MatBadgeModule, DashboardModule, NgxChartsModule,
     PlacementModule, MatCheckboxModule, MatCardModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule],
   providers: [],
