@@ -1,0 +1,34 @@
+.todo {
+    display: flex;
+    margin-bottom: 10px;
+
+    span {
+        padding: 0 14px;
+        font-size: 16px;
+        line-height: 1;
+    }
+
+    .actions {
+
+        right: 10px;
+        cursor: pointer;
+
+        fa {
+            padding: 0 5px;
+
+            &:hover {
+                color: #008ffe;
+            }
+
+        }
+    }
+}
+
+.add{
+  position: relative;
+  bottom: 20px;
+}
+.text-wrap {
+  white-space: normal !important;
+}
+

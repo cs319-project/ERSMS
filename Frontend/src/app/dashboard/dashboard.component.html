@@ -1,4 +1,35 @@
-
+<div class="title">
+  <span class="mat-h1"><strong>Dashboard</strong></span>
+</div>
 <div>
-    <app-todo></app-todo>
-  </div>
+  <mat-grid-list cols="2" rowHeight="fit" style="height: 80vh; margin: 2% 5%">
+    <mat-grid-tile class="grid-item">
+      <mat-card class="mat-elevation-z4 m-2">
+        <mat-card-title>Status of Forms&Requests</mat-card-title>
+        <mat-card-content>
+          <div>
+            <app-piechart></app-piechart>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile class="grid-item" rowspan="2">
+      <mat-card class="mat-elevation-z4 m-2" style="width: 100%">
+        <mat-card-content style="width: 100%">
+          <div style="width: 100%">
+            <app-todo style="width: 80%;"></app-todo>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile class="grid-item" >
+      <mat-card class="mat-elevation-z4 m-2">
+        <mat-card-title>Number Of Submissions</mat-card-title>
+        <mat-card-content>
+          <app-columnchart></app-columnchart>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+

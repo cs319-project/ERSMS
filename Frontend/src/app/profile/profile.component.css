@@ -1,0 +1,146 @@
+.full-width{
+  width: 100%;
+}
+
+.profile-header-container{
+  height: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-header{
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+  padding-left: 2%;
+  padding-right: 2%;
+  width: 85%;
+  height: 70%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.profile-photo-container{
+  margin-top: 1%;
+  margin-bottom: 1%;
+  max-height: 100px;
+  max-width: 100px;
+}
+.profile-photo-container img{
+  max-width: 100px;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.name-dep-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.buttons-container{
+  display: flex;
+  justify-content: space-between;
+}
+
+.email-id-container{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.name-value-pair{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.name-value-pair span {
+  display: inline;
+  text-align: left;
+}
+
+.profile-content-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+}
+
+.profile-content{
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+  width: 85%;
+
+}
+
+.social-container{
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+  height: 100%;
+  width: 38%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding-bottom: 30px;
+
+}
+
+.social-profile-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+.information-card-container{
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+  height: 100%;
+  width: 58%;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 30px;
+}
+
+.other-student{
+  display: flex;
+  justify-content: center;
+}
+
+.other-student img{
+  max-width: 50px;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.info-card-element{
+  display: flex;
+  justify-content: space-between;
+}
+
+span{
+  font-size: 1rem;
+}
+
+h2{
+  font-size: 1.5rem;
+}
+
+h3{
+  font-size: 1.4rem;
+}
+
+.gray-text{
+  color: #8A9099;
+}

@@ -1,0 +1,31 @@
+<div class="loginContainer">
+  <div style="width: 45%; height: 60%;min-width: 700px">
+    <mat-card style="height: 100%">
+      <mat-card-content class="full-width flex-center full-height">
+        <form>
+          <h1 class="login-header"><strong>ERSMS</strong></h1>
+          <mat-form-field class="full-width mt-4">
+            <input matInput placeholder="Email">
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="Password">
+            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+          <div class="flex-space-between mt-2">
+            <mat-checkbox>Remember Me</mat-checkbox>
+            <span><a href="#" style="text-decoration: underline;"> Forgot Password?</a></span>
+          </div>
+          <button (click)="login()" mat-raised-button color="primary" class="full-width mt-2">
+            Login
+          </button>
+          <div class="flex-center">
+            <span class="mt-4">Don't have an account?<a href="#">  Sign Up</a></span>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+

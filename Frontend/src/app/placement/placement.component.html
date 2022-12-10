@@ -1,0 +1,110 @@
+<div class="placement-container mr-3 ml-3">
+  <div class="placement-header mt-3">
+    <div>
+      <span class="placement-title">Placements</span>
+    </div>
+    <div class="placement-buttons-container">
+      <button mat-raised-button color="primary" class="mr-3">Perform Auto-Placement</button>
+      <button mat-raised-button color="accent">View/Update Score Table</button>
+    </div>
+  </div>
+  <div class="placement-content mt-4">
+    <div style="width: 70%">
+      <div class="table-header">
+        <mat-form-field>
+          <mat-icon matPrefix>search</mat-icon>
+          <input type="search" matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+        </mat-form-field>
+      </div>
+
+      <div class="table-container mat-elevation-z8">
+
+        <mat-table [dataSource]="dataSource" matSort>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="studentname">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Student Name </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <div class="name-column-cell">
+                <div>
+                  <img src="../assets/images/avatar.png">
+                </div>
+                <div class="name-dep-pair ml-3">
+                  <span>{{row.name}}</span>
+                  <span class="gray-text mt-1">{{row.department}}</span>
+                </div>
+              </div>
+            </mat-cell>
+          </ng-container>
+
+          <!-- Email Column -->
+          <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
+          </ng-container>
+
+          <!-- Preferences Column -->
+          <ng-container matColumnDef="preferences">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Preferences </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.preferences}} </mat-cell>
+          </ng-container>
+
+          <!-- Score Column -->
+          <ng-container matColumnDef="score">
+            <mat-header-cell class="scoreColumn"  *matHeaderCellDef mat-sort-header> Score </mat-header-cell>
+            <mat-cell class="scoreColumn" *matCellDef="let row" [style.color]="row.color"> {{row.score}} </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;">
+          </mat-row>
+        </mat-table>
+
+        <mat-paginator [pageSizeOptions]="[10]"></mat-paginator>
+      </div>
+    </div>
+    <div class="preview-container">
+      <div class="preview-header">
+        <img src="../assets/images/avatar.png" class="mt-3">
+        <span class="mt-2 preview-name">Eda Orta</span>
+        <div class="preview-icons">
+          <button mat-icon-button>
+            <mat-icon svgIcon="mail"></mat-icon>
+          </button>
+          <button mat-icon-button>
+            <mat-icon svgIcon="messages"></mat-icon>
+          </button>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="preview-info mt-3">
+        <span class="info-title">Info</span>
+        <div class="mt-2 preview-pair">
+          <span class="gray-text">CGPA</span>
+          <span>3.87</span>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="mt-2 preview-pair">
+          <span class="gray-text">Bilkent ID Number</span>
+          <span>22004921</span>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="mt-2 preview-pair">
+          <span class="gray-text">Department</span>
+          <span>Computer Engineering</span>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="mt-2 preview-pair">
+          <span class="gray-text">Preferred Term</span>
+          <span>2022-2023 Spring</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Copyright 2018 Google Inc. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->
