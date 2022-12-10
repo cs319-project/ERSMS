@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Backend.DTOs;
 using Backend.Entities.Exceptions;
 using Backend.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
@@ -88,6 +89,17 @@ namespace Backend.Controllers
         public async Task<ActionResult<IEnumerable<CTEFormDto>>> GetCTEFormsOfStudent(string studentID)
         {
             var forms = await _cTEFormService.GetCTEFormsOfStudent(studentID);
+            if (forms != null)
+            {
+                return Ok(forms);
+            }
+            return BadRequest("Failed to get CTE Forms of Student");
+        }
+
+        [HttpGet("department/{userName}")]
+        public async Task<ActionResult<IEnumerable<CTEFormDto>>> GetCTEFormsByDepartment(string userName)
+        {
+            var forms = await _cTEFormService.GetCTEFormsByDepartment(userName);
             if (forms != null)
             {
                 return Ok(forms);

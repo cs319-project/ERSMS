@@ -14,6 +14,7 @@ namespace Backend.Interfaces
         Task<CTEFormDto> GetCTEForm(Guid id);
         Task<bool> UpdateCTEForm(CTEFormDto cTEForm);
         Task<ICollection<CTEFormDto>> GetCTEFormsOfStudent(string studentID);
+        Task<ICollection<CTEFormDto>> GetCTEFormsByDepartment(string userName);
         Task<bool> ApproveFormDean(Guid formId, ApprovalDto approval);
         Task<bool> ApproveFormChair(Guid formId, ApprovalDto approval);
         Task<bool> ApproveFormCoordinator(Guid formId, ApprovalDto approval);

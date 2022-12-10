@@ -13,13 +13,17 @@ namespace Backend.Services
     {
         private readonly IPreApprovalFormRepository _preApprovalFormRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IUserService _userService;
         private readonly IToDoItemService _toDoItemService;
         private readonly IMapper _mapper;
 
         // Constructor
-        public PreApprovalFormService(IPreApprovalFormRepository preApprovalFormRepository, IMapper mapper, IUserRepository userRepository, IToDoItemService toDoItemService)
+        public PreApprovalFormService(IPreApprovalFormRepository preApprovalFormRepository,
+                                        IMapper mapper, IUserRepository userRepository,
+                                        IToDoItemService toDoItemService, IUserService userService)
         {
             _toDoItemService = toDoItemService;
+            _userService = userService;
             _preApprovalFormRepository = preApprovalFormRepository;
             _mapper = mapper;
             _userRepository = userRepository;
@@ -69,6 +73,24 @@ namespace Backend.Services
         {
             IEnumerable<PreApprovalForm> formEntities = await _preApprovalFormRepository.GetPreApprovalForms();
             return _mapper.Map<IEnumerable<PreApprovalFormDto>>(formEntities);
+        }
+
+        public async Task<ICollection<PreApprovalFormDto>> GetPreApprovalFormsByDepartment(string userName)
+        {
+            ExchangeCoordinator coordinator = await _userService.GetCoordinator(userName);
+            IEnumerable<PreApprovalFormDto> forms = await GetPreApprovalForms();
+            ICollection<PreApprovalFormDto> listToReturn = new List<PreApprovalFormDto>();
+
+            foreach (PreApprovalFormDto form in forms)
+            {
+                var student = await _userRepository.GetStudentByUserName(form.IDNumber);
+                if (student.Major.DepartmentName == coordinator.Department.DepartmentName)
+                {
+                    listToReturn.Add(form);
+                }
+            }
+
+            return listToReturn;
         }
 
         public async Task<ICollection<PreApprovalFormDto>> GetPreApprovalFormsOfStudent(string studentID)

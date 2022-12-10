@@ -15,12 +15,15 @@ namespace Backend.Services
         private readonly ICTEFormRepository _cTEFormRepository;
         private readonly IUserRepository _userRepository;
         private readonly IToDoItemService _toDoItemService;
+        private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
         // Constructor
-        public CTEFormService(ICTEFormRepository cTEFormRepository, IMapper mapper, IUserRepository userRepository, IToDoItemService toDoItemService)
+        public CTEFormService(ICTEFormRepository cTEFormRepository, IMapper mapper,
+                                IUserRepository userRepository, IToDoItemService toDoItemService, IUserService userService)
         {
             _toDoItemService = toDoItemService;
+            _userService = userService;
             _cTEFormRepository = cTEFormRepository;
             _mapper = mapper;
             _userRepository = userRepository;
@@ -136,6 +139,24 @@ namespace Backend.Services
             formEntity.FacultyOfAdministrationBoardApproval = approvalEntity;
 
             return await _cTEFormRepository.UpdateCTEForm(formEntity);
+        }
+
+        public async Task<ICollection<CTEFormDto>> GetCTEFormsByDepartment(string userName)
+        {
+            ExchangeCoordinator coordinator = await _userService.GetCoordinator(userName);
+            IEnumerable<CTEFormDto> forms = await GetCTEForms();
+            ICollection<CTEFormDto> formsToReturn = new List<CTEFormDto>();
+
+            foreach (CTEFormDto form in forms)
+            {
+                var student = await _userRepository.GetStudentByUserName(form.IDNumber);
+                if (student.Major.DepartmentName == coordinator.Department.DepartmentName)
+                {
+                    formsToReturn.Add(form);
+                }
+            }
+
+            return formsToReturn;
         }
     }
 }
