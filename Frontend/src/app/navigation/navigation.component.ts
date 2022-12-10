@@ -57,8 +57,22 @@ export class NavigationComponent implements OnInit {
       `calendar`,
       this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/calendar.svg")
     );
-
-
+    this.matIconRegistry.addSvgIcon(
+      `plus`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/plus.svg")
+    );
+    this.matIconRegistry.addSvgIcon(
+      `send`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/send.svg")
+    );
+    this.matIconRegistry.addSvgIcon(
+      `attachment`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/attachment.svg")
+    );
+    this.matIconRegistry.addSvgIcon(
+      `emoji`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/emoji.svg")
+    );
   }
 
   ngOnInit(): void {
