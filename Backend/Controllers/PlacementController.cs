@@ -22,7 +22,9 @@ namespace Backend.Controllers
 
         [HttpPost("upload")]
         [Consumes("multipart/form-data")]
-        public async Task<ActionResult> UploadPlacementTable([FromQuery] String facultyName, [FromQuery] String departmentName, [FromForm(Name = "placementTable")] IFormFile placementTable)
+        public async Task<ActionResult> UploadPlacementTable([FromQuery] String facultyName,
+                                                                [FromQuery] String departmentName,
+                                                                [FromForm(Name = "placementTable")] IFormFile placementTable)
         {
             if (placementTable == null)
             {

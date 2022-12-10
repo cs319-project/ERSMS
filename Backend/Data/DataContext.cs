@@ -44,13 +44,11 @@ namespace Backend.Data
             builder.Entity<RequestedCourseGroup>().Navigation(c => c.RequestedCourses).AutoInclude();
             builder.Entity<RequestedCourseGroup>().Navigation(c => c.RequestedExemptedCourse).AutoInclude();
 
-            builder.Entity<ExemptionRequestForm>().Navigation(c => c.SubjectStudent).AutoInclude();
-
             builder.Entity<Student>().Navigation(s => s.Major).AutoInclude();
             builder.Entity<Student>().Navigation(s => s.Minors).AutoInclude();
             builder.Entity<Student>().Navigation(s => s.CTEForms).AutoInclude();
             builder.Entity<Student>().Navigation(s => s.PreApprovalForms).AutoInclude();
-            builder.Entity<Student>().Navigation(s => s.ExemptionRequestForms).AutoInclude();
+            builder.Entity<Student>().Navigation(s => s.EquivalanceRequestForms).AutoInclude();
 
             builder.Entity<DeanDepartmentChair>().OwnsOne<DepartmentInfo>(c => c.Department);
             builder.Entity<ExchangeCoordinator>().OwnsOne<DepartmentInfo>(c => c.Department);
@@ -69,7 +67,6 @@ namespace Backend.Data
             // FORMS
             // builder.Entity<CTEForm>().HasOne<Student>(c => c.SubjectStudent);
             // builder.Entity<PreApprovalForm>().HasOne<Student>(c => c.SubjectStudent);
-            builder.Entity<ExemptionRequestForm>().HasOne<Student>(c => c.SubjectStudent);
 
             builder.Entity<CTEForm>().HasMany<TransferredCourseGroup>(c => c.TransferredCourseGroups);
             builder.Entity<CTEForm>().HasOne<Approval>(c => c.DeanApproval);
@@ -82,7 +79,6 @@ namespace Backend.Data
             builder.Entity<PreApprovalForm>().HasOne<Approval>(c => c.FacultyAdministrationBoardApproval);
 
             builder.Entity<Student>().HasMany<CTEForm>(c => c.CTEForms);
-            builder.Entity<Student>().HasMany<ExemptionRequestForm>(c => c.ExemptionRequestForms);
             builder.Entity<Student>().HasMany<PreApprovalForm>(c => c.PreApprovalForms);
 
             builder.Entity<TransferredCourseGroup>().HasOne<ExemptedCourse>(c => c.ExemptedCourse);
@@ -96,7 +92,10 @@ namespace Backend.Data
             builder.Entity<PlacedStudent>().OwnsOne<DepartmentInfo>(c => c.Department);
             builder.Entity<PlacedStudent>().OwnsOne<SemesterInfo>(c => c.PreferredSemester);
 
-
+            builder.Entity<EquivalanceRequest>().HasOne<Approval>(c => c.InstructorApproval);
+            builder.Entity<EquivalanceRequest>().HasOne<ExemptedCourse>(c => c.ExemptedCourse);
+            builder.Entity<EquivalanceRequest>().Navigation(c => c.ExemptedCourse).AutoInclude();
+            builder.Entity<EquivalanceRequest>().Navigation(c => c.InstructorApproval).AutoInclude();
 
             // builder.Entity<Student>().Property(m => m.Majors).HasConversion(
             //     v => string.Join(',', v),
@@ -143,5 +142,6 @@ namespace Backend.Data
         public DbSet<ToDoItem> ToDoItems { get; set; }
         public DbSet<CTEForm> CTEForms { get; set; }
         public DbSet<PreApprovalForm> PreApprovalForms { get; set; }
+        public DbSet<EquivalanceRequest> EquivalanceRequests { get; set; }
     }
 }
