@@ -30,9 +30,10 @@ import { MessagesComponent} from "./messages/messages.component";
 import {FormsAndRequestsComponent} from "./formsandrequests/formsandrequests.component";
 import { ProfileComponent } from './profile/profile.component';
 import { LoggingModule } from "./logging/logging.module";
+import { FormDialogComponent } from './formsandrequests/form-dialog/form-dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, NavigationComponent, LoginComponent, SignupComponent, FormsAndRequestsComponent, ForgotPasswordComponent, ProfileComponent, MessagesComponent],
+  declarations: [AppComponent, NavigationComponent, LoginComponent, SignupComponent, FormsAndRequestsComponent, ForgotPasswordComponent, ProfileComponent, MessagesComponent, FormDialogComponent],
   imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, MatSidenavModule, MatListModule, MatIconModule, MatToolbarModule, MatButtonModule, MatGridListModule, HttpClientModule, MatMenuModule, MatBadgeModule, DashboardModule, NgxChartsModule,
     PlacementModule, MatCheckboxModule, MatCardModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, LoggingModule],
   providers: [],
