@@ -1,7 +1,7 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
+import {Component, ViewChild} from '@angular/core';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
-import {MatSort, Sort} from '@angular/material/sort';
+import {MatSort} from '@angular/material/sort';
 import  {SelectionModel} from "@angular/cdk/collections";
 
 
@@ -10,9 +10,10 @@ import  {SelectionModel} from "@angular/cdk/collections";
   styleUrls: ['./placement.component.css'],
   templateUrl: './placement.component.html',
 })
-export class PlacementComponent implements OnInit{
+export class PlacementComponent{
   displayedColumns = ['studentname', 'email', 'preferences', 'score'];
   dataSource: MatTableDataSource<UserData>;
+  page_index = 0;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -44,16 +45,16 @@ export class PlacementComponent implements OnInit{
     this.dataSource.filter = filterValue;
   }
 
-  ngOnInit(): void {
-
+  handlePageEvent(e: PageEvent) {
+    this.page_index = e.pageIndex;
   }
 }
 
 /** Builds and returns a new User. */
 function createNewUser(): UserData {
   const name =
-      NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
-      NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
+    NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
+    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
 
   const department = DEPARTMENTS[Math.round(Math.random() * (DEPARTMENTS.length - 1))];
   const departmentFull = DEPARTMENTS_FULL[Math.round(Math.random() * (DEPARTMENTS_FULL.length - 1))];

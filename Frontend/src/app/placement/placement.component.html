@@ -57,12 +57,18 @@
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns; " (click)="selection.toggle(row)"
-                   [ngClass]="{hovered: row.hovered, highlighted: selection.isSelected(row)}"
-                   (mouseover)="row.hovered = true" (mouseout)="row.hovered = false">>
+              [ngClass]="{hovered: row.hovered, highlighted: selection.isSelected(row)}"
+              (mouseover)="row.hovered = true" (mouseout)="row.hovered = false">>
           </tr>
         </table>
 
-        <mat-paginator [pageSizeOptions]="[10]"></mat-paginator>
+        <mat-paginator (page)="handlePageEvent($event)"
+                       [pageSizeOptions]="[10]"
+                       [showFirstLastButtons]="true"
+                       [pageIndex]="page_index"
+                       [hidePageSize]="true"
+
+        ></mat-paginator>
       </div>
     </div>
     <div class="preview-container">
