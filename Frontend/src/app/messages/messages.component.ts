@@ -7,5 +7,5 @@ import { Component} from '@angular/core';
   })
 
 export class MessagesComponent{
-    
+    numbers = Array(15).fill(4)
 }
