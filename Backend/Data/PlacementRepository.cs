@@ -74,5 +74,10 @@ namespace Backend.Data
 
             return await _context.SaveChangesAsync() > 0;
         }
+
+        public async Task<PlacedStudent> GetPlacedStudent(String studentId)
+        {
+            return await _context.PlacedStudents.SingleAsync(ps => ps.UserName == studentId);
+        }
     }
 }

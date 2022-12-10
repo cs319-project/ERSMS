@@ -21,17 +21,20 @@ namespace Backend.Services
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<Role> _roleManager;
+        private readonly IPlacementRepository _placementRepository;
 
         public AuthenticationService(
             DataContext dataContext,
             SignInManager<AppUser> signInManager,
             UserManager<AppUser> userManager,
-            RoleManager<Role> roleManager
+            RoleManager<Role> roleManager,
+            IPlacementRepository placementRepository
         ) : base(dataContext)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _roleManager = roleManager;
+            _placementRepository = placementRepository;
         }
 
         public async Task<IdentityResult> Register(RegisterDto register)
@@ -44,23 +47,43 @@ namespace Backend.Services
                 switch (actorType)
                 {
                     case "Student":
-                        // var student = (user.DomainUser as Student);
-                        // student.Majors = new List<DepartmentInfo>();
-                        // foreach (DepartmentInfoDto dep in register.Majors)
-                        // {
-                        //     student.Majors.Add(new DepartmentInfo()
-                        //     {
-                        //         DepartmentName = EnumStringify.DepartmentEnumarator(dep.DepartmentName),
-                        //         FacultyName = EnumStringify.FacultyEnumarator(dep.FacultyName)
-                        //     });
-                        // }
-                        // student.ExchangeSchool = register.ExchangeSchool;
+                        var student = (user.DomainUser as Student);
+                        try
+                        {
+                            var studentInfo = await _placementRepository.GetPlacedStudent(register.UserName);
+
+                            // If student is not placed, abort registration and return an informative error message
+                            if (studentInfo.IsPlaced == false)
+                            {
+                                return IdentityResult.Failed(new IdentityError() { Description = "Student has been found on the placement table, but he/she is not placed to a school yet" });
+                            }
+
+                            // Set entrance year according to first two digits of student ID
+                            student.EntranceYear = Int32.Parse("20" + studentInfo.UserName.Substring(1, 2));
+
+                            student.FirstName = studentInfo.FirstName;
+                            student.LastName = studentInfo.LastName;
+                            student.Major = new DepartmentInfo();
+                            student.Major.DepartmentName = studentInfo.Department.DepartmentName;
+                            student.Major.FacultyName = studentInfo.Department.FacultyName;
+                            student.ExchangeSchool = studentInfo.ExchangeSchool;
+                            student.PreferredSemester = studentInfo.PreferredSemester;
+                            student.PreferredSchools = studentInfo.PreferredSchools;
+                            student.CGPA = studentInfo.CGPA;
+                            student.ExchangeScore = studentInfo.ExchangeScore;
+
+                        }
+                        catch (Exception e)
+                        {
+                            return IdentityResult.Failed(new IdentityError() { Description = String.Format("Student not found in placement repository: {0}", e.Message) });
+                        }
+
                         break;
                     case "Exchange Coordinator":
                         var exchangeCoordinator = (user.DomainUser as ExchangeCoordinator);
                         exchangeCoordinator.Department = new DepartmentInfo();
                         exchangeCoordinator.Department.DepartmentName = EnumStringify.DepartmentEnumarator(register.Department.DepartmentName);
-                        // t.Department.FacultyName = EnumStringify.FacultyEnumarator(register.Department.FacultyName);
+                        exchangeCoordinator.Department.FacultyName = EnumStringify.FacultyEnumarator(register.Department.FacultyName);
                         break;
                     case "Admin":
                         break;
@@ -68,14 +91,14 @@ namespace Backend.Services
                         var deanDepartmentChair = (user.DomainUser as DeanDepartmentChair);
                         deanDepartmentChair.Department = new DepartmentInfo();
                         deanDepartmentChair.Department.DepartmentName = EnumStringify.DepartmentEnumarator(register.Department.DepartmentName);
-                        // deanDepartmentChair.Department.FacultyName = EnumStringify.FacultyEnumarator(register.Department.FacultyName);
+                        deanDepartmentChair.Department.FacultyName = EnumStringify.FacultyEnumarator(register.Department.FacultyName);
                         deanDepartmentChair.IsDean = register.IsDean;
                         break;
                     case "Course Coordinator Instructor":
                         var courseCoordinatorInstructor = (user.DomainUser as CourseCoordinatorInstructor);
                         courseCoordinatorInstructor.Department = new DepartmentInfo();
                         courseCoordinatorInstructor.Department.DepartmentName = EnumStringify.DepartmentEnumarator(register.Department.DepartmentName);
-                        // courseCoordinatorInstructor.Department.FacultyName = EnumStringify.FacultyEnumarator(register.Department.FacultyName);
+                        courseCoordinatorInstructor.Department.FacultyName = EnumStringify.FacultyEnumarator(register.Department.FacultyName);
                         courseCoordinatorInstructor.IsCourseCoordinator = register.IsCourseCoordinator;
                         break;
                     case "Office of International Students and Exchange Programs":
