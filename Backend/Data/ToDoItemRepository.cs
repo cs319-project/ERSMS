@@ -19,20 +19,31 @@ namespace Backend.Data
         }
 
         // Methods
-        public async Task<bool> AddToDoItem(string userName, ToDoItem toDoItem)
+        public async Task<bool> AddToDoItem(DepartmentInfo departmentInfo, ToDoItem toDoItem)
         {
-            var coordinator = _context.ExchangeCoordinators.FirstOrDefault(x => x.IdentityUser.UserName == userName);
+            var coordinators
+                = _context.ExchangeCoordinators.Where(x => x.Department.Equals(departmentInfo)).ToList();
 
-            if (coordinator != null && coordinator.ToDoList == null)
+            if (coordinators.Count == 0 || coordinators == null)
             {
-                coordinator.ToDoList = new List<ToDoItem>();
-            }
-            else if (coordinator == null)
-            {
-                return false;
+                throw new ToDoListException("No coordinators found to add to do item to");
             }
 
-            coordinator.ToDoList.Add(toDoItem);
+            foreach (var coordinator in coordinators)
+            {
+                if (coordinator == null)
+                {
+                    continue;
+                }
+
+                else if (coordinator.ToDoList == null)
+                {
+                    coordinator.ToDoList = new List<ToDoItem>();
+                }
+
+                coordinator.ToDoList.Add(toDoItem);
+            }
+
             return await _context.SaveChangesAsync() > 0;
         }
 

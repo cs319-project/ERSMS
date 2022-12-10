@@ -57,8 +57,15 @@ namespace Backend.Controllers
             return await _preApprovalFormService.GetPreApprovalForms();
         }
 
+        [HttpPatch("cancel/{id:guid}")]
+        public async Task<ActionResult> CancelPreApprovalForm(Guid id)
+        {
+            var form = await _preApprovalFormService.CancelPreApprovalForm(id);
+            return (form) ? Ok() : BadRequest("Failed to cancel Pre-Approval Form");
+        }
+
         [HttpDelete("{id}")]
-        public async Task<ActionResult<PreApprovalFormDto>> CancelPreApprovalForm(Guid id)
+        public async Task<ActionResult<PreApprovalFormDto>> DeletePreApprovalForm(Guid id)
         {
             var form = await _preApprovalFormService.GetPreApprovalForm(id);
 

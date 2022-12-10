@@ -13,7 +13,7 @@ namespace Backend.Interfaces
         Task<IEnumerable<AppUser>> GetUsersAsync();
         Task<AppUser> GetUserByIdAsync(int id);
         Task<AppUser> GetUserByUsernameAsync(string username);
-        Task<ExchangeCoordinator> GetCoordinator(string username);
+        Task<ExchangeCoordinator> GetExchangeCoordinator(string username);
         Task<Student> GetStudent(string username);
         // Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams);
         // Task<MemberDto> GetMemberAsync(string username);

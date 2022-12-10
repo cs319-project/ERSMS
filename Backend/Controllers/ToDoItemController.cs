@@ -134,7 +134,7 @@ namespace Backend.Controllers
         [HttpGet("coordinatorToDoList/{userName}")]
         public async Task<ActionResult<IEnumerable<ToDoItemDto>>> GetCoordinatorToDoList(string userName)
         {
-            var coordinator = await _userService.GetCoordinator(userName);
+            var coordinator = await _userService.GetExchangeCoordinator(userName);
             if (coordinator == null)
             {
                 return NotFound(userName);

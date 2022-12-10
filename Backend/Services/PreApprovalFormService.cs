@@ -77,7 +77,7 @@ namespace Backend.Services
 
         public async Task<ICollection<PreApprovalFormDto>> GetPreApprovalFormsByDepartment(string userName)
         {
-            ExchangeCoordinator coordinator = await _userService.GetCoordinator(userName);
+            ExchangeCoordinator coordinator = await _userService.GetExchangeCoordinator(userName);
             IEnumerable<PreApprovalFormDto> forms = await GetPreApprovalForms();
             ICollection<PreApprovalFormDto> listToReturn = new List<PreApprovalFormDto>();
 
@@ -124,6 +124,20 @@ namespace Backend.Services
             formEntity.ExchangeCoordinatorApproval = oldForm.ExchangeCoordinatorApproval;
             formEntity.FacultyAdministrationBoardApproval = oldForm.FacultyAdministrationBoardApproval;
 
+            return await _preApprovalFormRepository.UpdatePreApprovalForm(formEntity);
+        }
+
+        public async Task<bool> CancelPreApprovalForm(Guid id)
+        {
+            PreApprovalForm formEntity = await _preApprovalFormRepository.GetPreApprovalForm(id);
+
+            if (formEntity == null)
+                return false;
+
+            // Delete the ToDoItem
+            await _toDoItemService.DeleteToDoItemByCascadeId(formEntity.ToDoItemId);
+
+            formEntity.IsCanceled = true;
             return await _preApprovalFormRepository.UpdatePreApprovalForm(formEntity);
         }
     }

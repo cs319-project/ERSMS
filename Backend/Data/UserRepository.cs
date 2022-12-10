@@ -80,6 +80,18 @@ namespace Backend.Data
             return await _userManager.GetRolesAsync(user);
         }
 
+        public async Task<String> GetUserRole(AppUser user)
+        {
+            var roles = await _userManager.GetRolesAsync(user);
+            return roles.FirstOrDefault();
+        }
+
+        public async Task<DomainUser> GetDomainUser(string userName)
+        {
+            var result = await _context.DomainUsers.FirstOrDefaultAsync(x => x.IdentityUser.UserName == userName);
+            return result;
+        }
+
         public Task<AppUser> GetUserByIdAsync(int id)
         {
             throw new NotImplementedException();
@@ -100,7 +112,7 @@ namespace Backend.Data
             throw new NotImplementedException();
         }
 
-        public async Task<ExchangeCoordinator> GetCoordinatorByUserName(string username)
+        public async Task<ExchangeCoordinator> GetExchangeCoordinatorByUserName(string username)
         {
             var coordinator = await _context.ExchangeCoordinators.FirstOrDefaultAsync(x => x.IdentityUser.UserName == username);
             return coordinator;

@@ -21,7 +21,7 @@ namespace Backend.Controllers
             _userService = userService;
         }
 
-        [HttpPost()]
+        [HttpPost("submit")]
         public async Task<ActionResult<CTEFormDto>> AddCTEFormToStudent(CTEFormDto cTEForm)
         {
             //cTEForm.Id = Guid.NewGuid();
@@ -41,7 +41,7 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpPut()]
+        [HttpPut("update")]
         public async Task<ActionResult<CTEFormDto>> UpdateCTEForm(CTEFormDto cTEForm)
         {
             if (await _cTEFormService.UpdateCTEForm(cTEForm))
@@ -145,6 +145,16 @@ namespace Backend.Controllers
                 return Ok(true);
             }
             return BadRequest("Failed to approve CTE Form");
+        }
+
+        [HttpPatch("cancel/{formId:guid}")]
+        public async Task<ActionResult<bool>> CancelCTEFormByStudent(Guid formId)
+        {
+            if (await _cTEFormService.CancelCTEForm(formId))
+            {
+                return Ok(true);
+            }
+            return BadRequest("Failed to cancel CTE Form");
         }
     }
 }

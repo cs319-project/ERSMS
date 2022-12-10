@@ -8,7 +8,7 @@ namespace Backend.Interfaces
 {
     public interface IToDoItemRepository
     {
-        Task<bool> AddToDoItem(string userName, ToDoItem toDoItem);
+        Task<bool> AddToDoItem(DepartmentInfo departmentInfo, ToDoItem toDoItem);
         Task<IEnumerable<ToDoItem>> GetToDoItems();
         Task<bool> DeleteToDoItem(Guid id);
         Task<ToDoItem> GetToDoItem(Guid id);

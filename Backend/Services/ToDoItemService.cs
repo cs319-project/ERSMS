@@ -13,19 +13,30 @@ namespace Backend.Services
     {
         private readonly IMapper _mapper;
         private readonly IToDoItemRepository _toDoItemRepository;
+        private readonly IUserRepository _userRepository;
 
         // Constructor
-        public ToDoItemService(IMapper mapper, IToDoItemRepository toDoItemRepository)
+        public ToDoItemService(IMapper mapper, IToDoItemRepository toDoItemRepository, IUserRepository userRepository)
         {
             _mapper = mapper;
             _toDoItemRepository = toDoItemRepository;
+            _userRepository = userRepository;
         }
 
         // Methods
         public async Task<bool> AddToDoItem(string userName, ToDoItemDto toDoItem)
         {
+
+            var exchangeCoordinator = _userRepository.GetExchangeCoordinatorByUserName(userName).Result;
+
+            if (exchangeCoordinator == null)
+            {
+                return false;
+            }
+
             ToDoItem itemEntity = _mapper.Map<ToDoItem>(toDoItem);
-            return await _toDoItemRepository.AddToDoItem(userName, itemEntity);
+            DepartmentInfo departmentEntity = _mapper.Map<DepartmentInfo>(exchangeCoordinator.Department);
+            return await _toDoItemRepository.AddToDoItem(departmentEntity, itemEntity);
         }
 
         public async Task<bool> AddToDoItemToAll(ToDoItemDto toDoItem)

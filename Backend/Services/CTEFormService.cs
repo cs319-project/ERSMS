@@ -143,7 +143,7 @@ namespace Backend.Services
 
         public async Task<ICollection<CTEFormDto>> GetCTEFormsByDepartment(string userName)
         {
-            ExchangeCoordinator coordinator = await _userService.GetCoordinator(userName);
+            ExchangeCoordinator coordinator = await _userService.GetExchangeCoordinator(userName);
             IEnumerable<CTEFormDto> forms = await GetCTEForms();
             ICollection<CTEFormDto> formsToReturn = new List<CTEFormDto>();
 
@@ -157,6 +157,20 @@ namespace Backend.Services
             }
 
             return formsToReturn;
+        }
+
+        public async Task<bool> CancelCTEForm(Guid formId)
+        {
+            CTEForm formEntity = _cTEFormRepository.GetCTEForm(formId).Result;
+
+            if (formEntity == null)
+            {
+                return false;
+            }
+
+            formEntity.IsCanceled = true;
+
+            return await _cTEFormRepository.UpdateCTEForm(formEntity);
         }
     }
 }

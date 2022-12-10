@@ -17,5 +17,6 @@ namespace Backend.Interfaces
         Task<ICollection<PreApprovalFormDto>> GetPreApprovalFormsByDepartment(string userName);
         Task<bool> ApproveFormCoordinator(Guid formId, ApprovalDto approval);
         Task<bool> ApproveFormFacultyAdministrationBoard(Guid formId, ApprovalDto approval);
+        Task<bool> CancelPreApprovalForm(Guid formId);
     }
 }

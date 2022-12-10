@@ -22,9 +22,9 @@ namespace Backend.Services
             _mapper = mapper;
         }
 
-        public async Task<ExchangeCoordinator> GetCoordinator(string username)
+        public async Task<ExchangeCoordinator> GetExchangeCoordinator(string username)
         {
-            var coordinator = await _userRepository.GetCoordinatorByUserName(username);
+            var coordinator = await _userRepository.GetExchangeCoordinatorByUserName(username);
             return coordinator;
         }
 
