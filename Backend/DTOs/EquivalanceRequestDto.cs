@@ -9,8 +9,10 @@ namespace Backend.DTOs
     {
         public Guid Id { get; set; }
         public string StudentId { get; set; }
-        public byte[] Syllabus { get; set; }
+        public string FileName { get; set; }
+        //public byte[] Syllabus { get; set; }
         public ExemptedCourseDto ExemptedCourse { get; set; }
         public ApprovalDto InstructorApproval { get; set; }
+        public string AdditionalNotes { get; set; }
     }
 }

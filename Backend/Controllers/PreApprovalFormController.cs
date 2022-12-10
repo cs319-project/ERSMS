@@ -52,9 +52,14 @@ namespace Backend.Controllers
         }
 
         [HttpGet("getAll")]
-        public async Task<IEnumerable<PreApprovalFormDto>> GetPreApprovalForms()
+        public async Task<ActionResult<IEnumerable<PreApprovalFormDto>>> GetPreApprovalForms()
         {
-            return await _preApprovalFormService.GetPreApprovalForms();
+            var forms = await _preApprovalFormService.GetPreApprovalForms();
+            if (forms == null || forms.Count() == 0)
+            {
+                return NotFound();
+            }
+            return Ok(forms);
         }
 
         [HttpPatch("cancel/{id:guid}")]

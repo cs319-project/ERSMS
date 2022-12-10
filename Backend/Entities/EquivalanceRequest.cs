@@ -15,5 +15,6 @@ namespace Backend.Entities
         public byte[] Syllabus { get; set; }
         public ExemptedCourse ExemptedCourse { get; set; }
         public Approval InstructorApproval { get; set; }
+        public string AdditionalNotes { get; set; }
     }
 }
