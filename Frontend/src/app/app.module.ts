@@ -28,11 +28,12 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 
 import {FormsAndRequestsComponent} from "./formsandrequests/formsandrequests.component";
 import { ProfileComponent } from './profile/profile.component';
+import { LoggingModule } from "./logging/logging.module";
 
 @NgModule({
   declarations: [AppComponent, NavigationComponent, LoginComponent, SignupComponent, FormsAndRequestsComponent, ForgotPasswordComponent, ProfileComponent],
   imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, MatSidenavModule, MatListModule, MatIconModule, MatToolbarModule, MatButtonModule, MatGridListModule, HttpClientModule, MatMenuModule, MatBadgeModule, DashboardModule, NgxChartsModule,
-    PlacementModule, MatCheckboxModule, MatCardModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule],
+    PlacementModule, MatCheckboxModule, MatCardModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, LoggingModule],
   providers: [],
   bootstrap: [AppComponent]
 })
