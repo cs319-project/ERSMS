@@ -1,7 +1,8 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort, Sort} from '@angular/material/sort';
+import  {SelectionModel} from "@angular/cdk/collections";
 
 
 @Component({
@@ -9,17 +10,20 @@ import {MatSort, Sort} from '@angular/material/sort';
   styleUrls: ['./placement.component.css'],
   templateUrl: './placement.component.html',
 })
-export class PlacementComponent{
+export class PlacementComponent implements OnInit{
   displayedColumns = ['studentname', 'email', 'preferences', 'score'];
   dataSource: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-
+  sample : UserData ={name: "Student Name", department: "Student Department",departmentFull: "Student Department",
+    cpga:0.00,id: 22200000, email: "Student Email", preferences: "Student Preferences", score:89,
+    prefTerm: "Preferred Term"};
+  selection = new SelectionModel<UserData>(false, [this.sample]);
   constructor() {
     // Create 100 users
     const users: UserData[] = [];
-    for (let i = 1; i <= 100; i++) { users.push(createNewUser(i)); }
+    for (let i = 1; i <= 100; i++) { users.push(createNewUser()); }
 
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource(users);
@@ -39,22 +43,31 @@ export class PlacementComponent{
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
+
+  ngOnInit(): void {
+
+  }
 }
 
 /** Builds and returns a new User. */
-function createNewUser(id: number): UserData {
+function createNewUser(): UserData {
   const name =
       NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
       NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
 
   const department = DEPARTMENTS[Math.round(Math.random() * (DEPARTMENTS.length - 1))];
-
+  const departmentFull = DEPARTMENTS_FULL[Math.round(Math.random() * (DEPARTMENTS_FULL.length - 1))];
+  const id = IDS[Math.round(Math.random() * (IDS.length - 1))];
   return {
     name: name,
     department: department,
+    departmentFull: departmentFull,
+    id: id,
+    cpga: Math.round(Math.random() * 4 * 100) / 100,
     email: name + "@ug.bilkent.edu.tr",
     preferences: PREFERENCES[Math.round(Math.random() * (PREFERENCES.length - 1))] + ", " + PREFERENCES[Math.round(Math.random() * (PREFERENCES.length - 1))],
-    score: Math.round(Math.random() * 100)
+    score: Math.round(Math.random() * 100 * 100) / 100,
+    prefTerm: "2022-2023 Spring"
   };
 }
 
@@ -64,13 +77,24 @@ const NAMES = ['Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack',
   'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'];
 
 const DEPARTMENTS = ["CS", "EEE", "IE", "ME"];
+const DEPARTMENTS_FULL = [
+  "Computer Engineering",
+  "Electrical Engineering",
+  "Industrial Engineering",
+  "Mechanical Engineering"];
 
 const PREFERENCES = ['EPFL' , 'Saarland', 'AGH', 'Vrije', 'Roskilde', 'TU Dortmund', 'TU Berlin']
 
+const IDS = [21902534, 22074268, 21956239, 21877324];
+
 export interface UserData {
-  email: string;
+  email: string,
+  departmentFull: string,
   department: string,
-  name: string;
-  preferences: string;
-  score: number;
+  cpga: number,
+  id: number,
+  name: string,
+  preferences: string,
+  score: number,
+  prefTerm: string
 }
