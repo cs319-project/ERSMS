@@ -12,6 +12,7 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  hidePassword = true;
   signUp(){
     console.log("Sign up");
   }

@@ -19,7 +19,7 @@
     </button>
   </mat-menu>
 
-  <button mat-icon-button style="background-image: url('../assets/images/doggy.jpg');background-size: cover; background-position: center" class="m-2">
+  <button mat-icon-button routerLink="/profile" style="background-image: url('../assets/images/doggy.jpg');background-size: cover; background-position: center" class="m-2">
   </button>
   <div class="username">
     <span><strong>{{name}}</strong> </span>
@@ -55,7 +55,7 @@
   <!-- <mat-sidenav opened="true" position="end"  mode="side" [class.mat-elevation-z4]="true" class="app-sidenav">
 
   </mat-sidenav>-->
-  <mat-sidenav-content>
+  <mat-sidenav-content style="background-color: #F8F8F8">
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -45,7 +45,18 @@ export class NavigationComponent implements OnInit {
       `settings`,
       this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/settings.svg")
     );
-
+    this.matIconRegistry.addSvgIcon(
+      `mail`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/mail.svg")
+    );
+    this.matIconRegistry.addSvgIcon(
+      `edit`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/edit.svg")
+    );
+    this.matIconRegistry.addSvgIcon(
+      `calendar`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/calendar.svg")
+    );
 
 
   }
