@@ -54,6 +54,13 @@
 .name-value-pair{
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.name-value-pair span {
+  display: inline;
+  text-align: left;
 }
 
 .profile-content-container{
@@ -83,6 +90,15 @@
   text-align: center;
   padding-bottom: 30px;
 
+}
+
+.social-profile-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  margin-left: 2rem;
+  margin-right: 2rem;
 }
 
 .information-card-container{
