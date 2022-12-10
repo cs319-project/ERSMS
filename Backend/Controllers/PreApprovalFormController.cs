@@ -96,6 +96,17 @@ namespace Backend.Controllers
             return BadRequest("Failed to get Pre-Approval Form");
         }
 
+        [HttpGet("department/{userName}")]
+        public async Task<ActionResult<IEnumerable<PreApprovalFormDto>>> GetPreApprovalFormsByDepartment(string userName)
+        {
+            var preApprovalForms = await _preApprovalFormService.GetPreApprovalFormsByDepartment(userName);
+            if (preApprovalForms != null)
+            {
+                return Ok(preApprovalForms);
+            }
+            return BadRequest("Failed to get Pre-Approval Form");
+        }
+
         [HttpPost("coordinatorApprove/{formId}")]
         public async Task<ActionResult<bool>> CoordinatorApprovePreApprovalForm(Guid formId, ApprovalDto approval)
         {

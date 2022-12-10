@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221209213941_InitialMigration")]
+    [Migration("20221210181013_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -457,6 +457,9 @@ namespace Backend.Data.Migrations
                     b.Property<bool>("IsStarred")
                         .HasColumnType("INTEGER");
 
+                    b.Property<Guid?>("StudentId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -464,6 +467,8 @@ namespace Backend.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ExchangeCoordinatorId");
+
+                    b.HasIndex("StudentId");
 
                     b.ToTable("ToDoItems");
                 });
@@ -854,6 +859,10 @@ namespace Backend.Data.Migrations
                     b.HasOne("Backend.Entities.ExchangeCoordinator", null)
                         .WithMany("ToDoList")
                         .HasForeignKey("ExchangeCoordinatorId");
+
+                    b.HasOne("Backend.Entities.Student", null)
+                        .WithMany("ToDoList")
+                        .HasForeignKey("StudentId");
                 });
 
             modelBuilder.Entity("Backend.Entities.TransferredCourse", b =>
@@ -1181,6 +1190,8 @@ namespace Backend.Data.Migrations
                     b.Navigation("ExemptionRequestForms");
 
                     b.Navigation("PreApprovalForms");
+
+                    b.Navigation("ToDoList");
                 });
 #pragma warning restore 612, 618
         }

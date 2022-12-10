@@ -364,28 +364,6 @@ namespace Backend.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ToDoItems",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    CascadeId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Title = table.Column<string>(type: "TEXT", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
-                    IsComplete = table.Column<bool>(type: "INTEGER", nullable: false),
-                    IsStarred = table.Column<bool>(type: "INTEGER", nullable: false),
-                    ExchangeCoordinatorId = table.Column<Guid>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ToDoItems", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ToDoItems_ExchangeCoordinators_ExchangeCoordinatorId",
-                        column: x => x.ExchangeCoordinatorId,
-                        principalTable: "ExchangeCoordinators",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "CTEForms",
                 columns: table => new
                 {
@@ -513,6 +491,34 @@ namespace Backend.Data.Migrations
                         principalTable: "Students",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ToDoItems",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    CascadeId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Title = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    IsComplete = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsStarred = table.Column<bool>(type: "INTEGER", nullable: false),
+                    ExchangeCoordinatorId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    StudentId = table.Column<Guid>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ToDoItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ToDoItems_ExchangeCoordinators_ExchangeCoordinatorId",
+                        column: x => x.ExchangeCoordinatorId,
+                        principalTable: "ExchangeCoordinators",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_ToDoItems_Students_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Students",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -711,6 +717,11 @@ namespace Backend.Data.Migrations
                 name: "IX_ToDoItems_ExchangeCoordinatorId",
                 table: "ToDoItems",
                 column: "ExchangeCoordinatorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ToDoItems_StudentId",
+                table: "ToDoItems",
+                column: "StudentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TransferredCourse_TransferredCourseGroupId",
