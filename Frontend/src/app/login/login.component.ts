@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +9,7 @@ import {FormControl, FormGroup} from "@angular/forms";
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
@@ -16,7 +17,15 @@ export class LoginComponent implements OnInit {
   hidePassword = true;
 
   login(){
-    console.log("Log in");
+    let successful = true; // TODO: Add checks
+    if (successful) {
+      this.openSnackBar("Login successful!", "Close", 5000);
+    }
   }
 
+  openSnackBar(message: string, action: string, duration: number) {
+    this._snackBar.open(message, action, {
+      duration: duration * 1000
+    });
+  }
 }
