@@ -15,8 +15,8 @@
   box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
   padding-left: 2%;
   padding-right: 2%;
-  width: 80%;
-  height: 60%;
+  width: 85%;
+  height: 70%;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -61,14 +61,15 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 60%;
+  height: auto;
 }
 
 .profile-content{
-  height: 100%;
+  height: auto;
   display: flex;
   justify-content: space-between;
   width: 85%;
+
 }
 
 .social-container{
@@ -80,6 +81,8 @@
   display: flex;
   flex-direction: column;
   text-align: center;
+  padding-bottom: 30px;
+
 }
 
 .information-card-container{
@@ -90,6 +93,7 @@
   width: 58%;
   display: flex;
   flex-direction: column;
+  padding-bottom: 30px;
 }
 
 .other-student{
@@ -119,4 +123,8 @@ h2{
 
 h3{
   font-size: 1.4rem;
+}
+
+.gray-text{
+  color: #8A9099;
 }
