@@ -19,12 +19,12 @@
 
       <div class="table-container mat-elevation-z8">
 
-        <mat-table [dataSource]="dataSource" matSort>
+        <table mat-table [dataSource]="dataSource" matSort>
 
           <!-- Name Column -->
           <ng-container matColumnDef="studentname">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Student Name </mat-header-cell>
-            <mat-cell *matCellDef="let row">
+            <th style="white-space: nowrap" mat-header-cell *matHeaderCellDef mat-sort-header> Student Name </th>
+            <td mat-cell *matCellDef="let row">
               <div class="name-column-cell">
                 <div>
                   <img src="../assets/images/avatar.png">
@@ -34,31 +34,33 @@
                   <span class="gray-text mt-1">{{row.department}}</span>
                 </div>
               </div>
-            </mat-cell>
+            </td>
           </ng-container>
 
           <!-- Email Column -->
           <ng-container matColumnDef="email">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+            <td mat-cell *matCellDef="let row"> {{row.email}} </td>
           </ng-container>
 
           <!-- Preferences Column -->
           <ng-container matColumnDef="preferences">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Preferences </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.preferences}} </mat-cell>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Preferences </th>
+            <td mat-cell *matCellDef="let row"> {{row.preferences}} </td>
           </ng-container>
 
           <!-- Score Column -->
           <ng-container matColumnDef="score">
-            <mat-header-cell class="scoreColumn"  *matHeaderCellDef mat-sort-header> Score </mat-header-cell>
-            <mat-cell class="scoreColumn" *matCellDef="let row" [style.color]="row.color"> {{row.score}} </mat-cell>
+            <th mat-header-cell class="scoreColumn"  *matHeaderCellDef mat-sort-header> Score </th>
+            <td mat-cell class="scoreColumn" *matCellDef="let row" [style.color]="row.color"> {{row.score}} </td>
           </ng-container>
 
-          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;">
-          </mat-row>
-        </mat-table>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns; " (click)="selection.toggle(row)"
+                   [ngClass]="{hovered: row.hovered, highlighted: selection.isSelected(row)}"
+                   (mouseover)="row.hovered = true" (mouseout)="row.hovered = false">>
+          </tr>
+        </table>
 
         <mat-paginator [pageSizeOptions]="[10]"></mat-paginator>
       </div>
@@ -66,7 +68,7 @@
     <div class="preview-container">
       <div class="preview-header">
         <img src="../assets/images/avatar.png" class="mt-3">
-        <span class="mt-2 preview-name">Eda Orta</span>
+        <span class="mt-2 preview-name">{{selection.selected[0].name}}</span>
         <div class="preview-icons">
           <button mat-icon-button>
             <mat-icon svgIcon="mail"></mat-icon>
@@ -81,25 +83,24 @@
         <span class="info-title">Info</span>
         <div class="mt-2 preview-pair">
           <span class="gray-text">CGPA</span>
-          <span>3.87</span>
+          <span>{{selection.selected[0].cpga}}</span>
         </div>
         <mat-divider></mat-divider>
         <div class="mt-2 preview-pair">
           <span class="gray-text">Bilkent ID Number</span>
-          <span>22004921</span>
+          <span>{{selection.selected[0].id}}</span>
         </div>
         <mat-divider></mat-divider>
         <div class="mt-2 preview-pair">
           <span class="gray-text">Department</span>
-          <span>Computer Engineering</span>
+          <span>{{selection.selected[0].departmentFull}}</span>
         </div>
         <mat-divider></mat-divider>
         <div class="mt-2 preview-pair">
           <span class="gray-text">Preferred Term</span>
-          <span>2022-2023 Spring</span>
+          <span>{{selection.selected[0].prefTerm}}</span>
         </div>
       </div>
     </div>
   </div>
 </div>
-
