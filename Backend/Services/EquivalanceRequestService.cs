@@ -6,6 +6,7 @@ using AutoMapper;
 using Backend.DTOs;
 using Backend.Entities;
 using Backend.Interfaces;
+using Backend.Utilities.Enum;
 
 namespace Backend.Services
 {
@@ -81,6 +82,29 @@ namespace Backend.Services
             foreach (EquivalanceRequestDto request in equivalanceRequests)
             {
                 if (request.ExemptedCourse.CourseCode == courseCode)
+                {
+                    listToReturn.Add(request);
+                }
+            }
+
+            return listToReturn;
+        }
+
+        public async Task<ICollection<EquivalanceRequestDto>> GetEquivalanceRequestsByDepartmentForCoordinator(string userName)
+        {
+            var coordinator = await _userService.GetCoordinator(userName);
+            Department department = coordinator.Department.DepartmentName;
+            IEnumerable<EquivalanceRequestDto> equivalanceRequests = await GetEquivalanceRequests();
+            ICollection<EquivalanceRequestDto> listToReturn = new List<EquivalanceRequestDto>();
+
+            foreach (EquivalanceRequestDto request in equivalanceRequests)
+            {
+                var student = await _userService.GetStudent(request.StudentId);
+                if (student == null)
+                {
+                    continue;
+                }
+                if (student.Major.DepartmentName == department)
                 {
                     listToReturn.Add(request);
                 }

@@ -64,6 +64,17 @@ namespace Backend.Controllers
             return Ok(equivalanceRequests);
         }
 
+        [HttpGet("department/{userName}")]
+        public async Task<ActionResult<ICollection<EquivalanceRequestDto>>> GetEquivalanceRequestsByDepartmentForCoordinator(string userName)
+        {
+            var equivalanceRequests = await _equivalanceRequestService.GetEquivalanceRequestsByDepartmentForCoordinator(userName);
+            if (equivalanceRequests == null)
+            {
+                return NotFound();
+            }
+            return Ok(equivalanceRequests);
+        }
+
         [HttpGet("course/{courseCode}")]
         public async Task<ActionResult<ICollection<EquivalanceRequestDto>>> GetEquivalanceRequestByCourseCode(string courseCode)
         {

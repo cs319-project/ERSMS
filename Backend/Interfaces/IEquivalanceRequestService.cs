@@ -15,7 +15,7 @@ namespace Backend.Interfaces
         Task<bool> UpdateEquivalanceRequest(EquivalanceRequestDto equivalanceRequest);
         Task<ICollection<EquivalanceRequestDto>> GetEquivalanceRequestsOfStudent(string studentID);
         // No real use
-        //Task<ICollection<EquivalanceRequestDto>> GetEquivalanceRequestsByDepartment(string userName);
+        Task<ICollection<EquivalanceRequestDto>> GetEquivalanceRequestsByDepartmentForCoordinator(string userName);
         Task<ICollection<EquivalanceRequestDto>> GetEquivalanceRequestByCourseCode(string courseCode);
         Task<bool> ApproveRequest(Guid requestId, ApprovalDto approval);
     }
