@@ -52,9 +52,14 @@ namespace Backend.Controllers
         }
 
         [HttpGet("getAll")]
-        public async Task<IEnumerable<CTEFormDto>> GetCTEForms()
+        public async Task<ActionResult<IEnumerable<CTEFormDto>>> GetCTEForms()
         {
-            return await _cTEFormService.GetCTEForms();
+            var forms = await _cTEFormService.GetCTEForms();
+            if (forms == null || forms.Count() == 0)
+            {
+                return NotFound();
+            }
+            return Ok(forms);
         }
 
         [HttpDelete("{id}")]

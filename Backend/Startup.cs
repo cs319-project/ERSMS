@@ -52,6 +52,8 @@ namespace Backend
             services.AddScoped<IPreApprovalFormService, PreApprovalFormService>();
             services.AddScoped<IToDoItemRepository, ToDoItemRepository>();
             services.AddScoped<IToDoItemService, ToDoItemService>();
+            services.AddScoped<IEquivalanceRequestRepository, EquivalanceRequestRepository>();
+            services.AddScoped<IEquivalanceRequestService, EquivalanceRequestService>();
             //Automappper setup
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies().Where(p => !p.IsDynamic));
             services.AddControllers();

@@ -413,25 +413,35 @@ namespace Backend.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ExemptionRequestForm",
+                name: "EquivalanceRequests",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    SubjectStudentId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    SubmissionTime = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    ApprovalTime = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    CourseCodeHost = table.Column<string>(type: "TEXT", nullable: true),
-                    CourseCodeBilkent = table.Column<string>(type: "TEXT", nullable: true)
+                    StudentId = table.Column<string>(type: "TEXT", nullable: false),
+                    Syllabus = table.Column<byte[]>(type: "BLOB", nullable: true),
+                    ExemptedCourseId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    InstructorApprovalId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    AdditionalNotes = table.Column<string>(type: "TEXT", nullable: true),
+                    StudentId1 = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ExemptionRequestForm", x => x.Id);
+                    table.PrimaryKey("PK_EquivalanceRequests", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ExemptionRequestForm_Students_SubjectStudentId",
-                        column: x => x.SubjectStudentId,
+                        name: "FK_EquivalanceRequests_Approval_InstructorApprovalId",
+                        column: x => x.InstructorApprovalId,
+                        principalTable: "Approval",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_EquivalanceRequests_ExemptedCourse_ExemptedCourseId",
+                        column: x => x.ExemptedCourseId,
+                        principalTable: "ExemptedCourse",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_EquivalanceRequests_Students_StudentId1",
+                        column: x => x.StudentId1,
                         principalTable: "Students",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -679,9 +689,19 @@ namespace Backend.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_ExemptionRequestForm_SubjectStudentId",
-                table: "ExemptionRequestForm",
-                column: "SubjectStudentId");
+                name: "IX_EquivalanceRequests_ExemptedCourseId",
+                table: "EquivalanceRequests",
+                column: "ExemptedCourseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EquivalanceRequests_InstructorApprovalId",
+                table: "EquivalanceRequests",
+                column: "InstructorApprovalId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EquivalanceRequests_StudentId1",
+                table: "EquivalanceRequests",
+                column: "StudentId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PreApprovalForms_ExchangeCoordinatorApprovalId",
@@ -766,7 +786,7 @@ namespace Backend.Data.Migrations
                 name: "DeanDepartmentChairs");
 
             migrationBuilder.DropTable(
-                name: "ExemptionRequestForm");
+                name: "EquivalanceRequests");
 
             migrationBuilder.DropTable(
                 name: "OISEPs");

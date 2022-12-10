@@ -11,11 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-<<<<<<< HEAD:Backend/Data/Migrations/20221210190637_InitialMigration.Designer.cs
-    [Migration("20221210190637_InitialMigration")]
-=======
-    [Migration("20221210181013_InitialMigration")]
->>>>>>> 79a4082f7e2a49d8584b0879377cb78a049f8f8e:Backend/Data/Migrations/20221210181013_InitialMigration.Designer.cs
+    [Migration("20221210201331_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -197,6 +193,42 @@ namespace Backend.Data.Migrations
                     b.ToTable("DomainUsers");
                 });
 
+            modelBuilder.Entity("Backend.Entities.EquivalanceRequest", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AdditionalNotes")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("ExemptedCourseId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("InstructorApprovalId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("StudentId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("StudentId1")
+                        .HasColumnType("TEXT");
+
+                    b.Property<byte[]>("Syllabus")
+                        .HasColumnType("BLOB");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExemptedCourseId");
+
+                    b.HasIndex("InstructorApprovalId");
+
+                    b.HasIndex("StudentId1");
+
+                    b.ToTable("EquivalanceRequests");
+                });
+
             modelBuilder.Entity("Backend.Entities.ExemptedCourse", b =>
                 {
                     b.Property<Guid>("Id")
@@ -218,35 +250,6 @@ namespace Backend.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ExemptedCourse");
-                });
-
-            modelBuilder.Entity("Backend.Entities.ExemptionRequestForm", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("ApprovalTime")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CourseCodeBilkent")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CourseCodeHost")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("SubjectStudentId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("SubmissionTime")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SubjectStudentId");
-
-                    b.ToTable("ExemptionRequestForm");
                 });
 
             modelBuilder.Entity("Backend.Entities.PlacedStudent", b =>
@@ -733,15 +736,23 @@ namespace Backend.Data.Migrations
                     b.Navigation("IdentityUser");
                 });
 
-            modelBuilder.Entity("Backend.Entities.ExemptionRequestForm", b =>
+            modelBuilder.Entity("Backend.Entities.EquivalanceRequest", b =>
                 {
-                    b.HasOne("Backend.Entities.Student", "SubjectStudent")
-                        .WithMany("ExemptionRequestForms")
-                        .HasForeignKey("SubjectStudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("Backend.Entities.ExemptedCourse", "ExemptedCourse")
+                        .WithMany()
+                        .HasForeignKey("ExemptedCourseId");
 
-                    b.Navigation("SubjectStudent");
+                    b.HasOne("Backend.Entities.Approval", "InstructorApproval")
+                        .WithMany()
+                        .HasForeignKey("InstructorApprovalId");
+
+                    b.HasOne("Backend.Entities.Student", null)
+                        .WithMany("EquivalanceRequestForms")
+                        .HasForeignKey("StudentId1");
+
+                    b.Navigation("ExemptedCourse");
+
+                    b.Navigation("InstructorApproval");
                 });
 
             modelBuilder.Entity("Backend.Entities.PlacedStudent", b =>
@@ -1191,7 +1202,7 @@ namespace Backend.Data.Migrations
                 {
                     b.Navigation("CTEForms");
 
-                    b.Navigation("ExemptionRequestForms");
+                    b.Navigation("EquivalanceRequestForms");
 
                     b.Navigation("PreApprovalForms");
 

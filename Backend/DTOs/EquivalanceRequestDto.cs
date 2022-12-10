@@ -12,5 +12,6 @@ namespace Backend.DTOs
         public byte[] Syllabus { get; set; }
         public ExemptedCourseDto ExemptedCourse { get; set; }
         public ApprovalDto InstructorApproval { get; set; }
+        public string AdditionalNotes { get; set; }
     }
 }
