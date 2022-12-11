@@ -18,6 +18,7 @@ export class LoggingComponent{
   cteDataSource: MatTableDataSource<UserData>;
   courseEquivalenceDataSource: MatTableDataSource<UserData>;
 
+
   @ViewChild('paginator') paginator: MatPaginator;
   @ViewChild('paginator2') paginator2: MatPaginator;
   @ViewChild('paginator3') paginator3: MatPaginator;
@@ -133,7 +134,7 @@ export const NAMES = ['Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack',
 
 export const SCHOOLS = ['EPFL' , 'Saarland', 'AGH', 'Vrije', 'Roskilde', 'TU Dortmund', 'TU Berlin', 'ETH']
 export const TYPE = ['CTE Form', 'PreApproval Form', 'Course Eq. Request']
-export const STATUS = ['Processing', 'Rejected', 'Approved']
+export const STATUS = ['Rejected', 'Approved']
 
 export interface UserData {
   id: number;

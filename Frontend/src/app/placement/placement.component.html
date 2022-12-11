@@ -12,7 +12,7 @@
     <div style="width: 70%">
       <div class="table-header">
         <mat-form-field>
-          <mat-icon matPrefix>search</mat-icon>
+          <mat-icon matPrefix class="mr-3">search</mat-icon>
           <input type="search" matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
         </mat-form-field>
       </div>
@@ -58,7 +58,7 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns; " (click)="selection.toggle(row)"
               [ngClass]="{hovered: row.hovered, highlighted: selection.isSelected(row)}"
-              (mouseover)="row.hovered = true" (mouseout)="row.hovered = false">>
+              (mouseover)="row.hovered = true" (mouseout)="row.hovered = false">
           </tr>
         </table>
 
