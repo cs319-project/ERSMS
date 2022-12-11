@@ -27,7 +27,7 @@ export class LoggingComponent{
   @ViewChild('sorter2') sorter2: MatSort;
   @ViewChild('sorter3') sorter3: MatSort;
   @ViewChild('sorter4') sorter4: MatSort;
- 
+
   constructor() {
     // Create 100 users
     const users: UserData[] = [];
@@ -36,10 +36,10 @@ export class LoggingComponent{
     const courseequivalenceUsers: UserData[] = [];
 
     for (let i = 1; i <= 100; i++) { users.push(createNewUser(i))};
-    
+
     for(let k = 0; k < users.length; k++) {
 
-      
+
       if(users[k].type == 'PreApproval Form') {
 
         preapprovalUsers.push(users[k]);
@@ -54,13 +54,13 @@ export class LoggingComponent{
         courseequivalenceUsers.push(users[k]);
       }
     }
-   
+
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource(users);
     this.preapprovalDataSource = new MatTableDataSource(preapprovalUsers);
     this.cteDataSource = new MatTableDataSource(cteUsers);
     this.courseEquivalenceDataSource = new MatTableDataSource(courseequivalenceUsers);
-  
+
   }
 
   /**
@@ -120,20 +120,20 @@ function createNewUser(id: number): UserData {
     id: id,
     student: name,
     date: new Date("12/05/2022").toLocaleDateString('en-US'),
-    type: TYPE[Math.round(Math.random() * (TYPE.length - 1))], 
-    school: SCHOOLS[Math.round(Math.random() * (SCHOOLS.length - 1))], 
+    type: TYPE[Math.round(Math.random() * (TYPE.length - 1))],
+    school: SCHOOLS[Math.round(Math.random() * (SCHOOLS.length - 1))],
     status: STATUS[Math.round(Math.random() * (STATUS.length - 1))]
   };
 }
 
 /** Constants used to fill up our data base. */
-const NAMES = ['Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack',
+export const NAMES = ['Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack',
   'Charlotte', 'Theodore', 'Isla', 'Oliver', 'Isabella', 'Jasper',
   'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'];
 
-const SCHOOLS = ['EPFL' , 'Saarland', 'AGH', 'Vrije', 'Roskilde', 'TU Dortmund', 'TU Berlin', 'ETH']
-const TYPE = ['CTE Form', 'PreApproval Form', 'Course Eq. Request']
-const STATUS = ['Processing', 'Rejected', 'Approved']
+export const SCHOOLS = ['EPFL' , 'Saarland', 'AGH', 'Vrije', 'Roskilde', 'TU Dortmund', 'TU Berlin', 'ETH']
+export const TYPE = ['CTE Form', 'PreApproval Form', 'Course Eq. Request']
+export const STATUS = ['Processing', 'Rejected', 'Approved']
 
 export interface UserData {
   id: number;
