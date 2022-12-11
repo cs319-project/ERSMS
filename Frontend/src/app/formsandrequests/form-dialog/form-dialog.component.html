@@ -1,71 +1,73 @@
 <mat-tab-group dynamicHeight>
   <mat-tab label="Form Details">
-    <div class="dialog-details-card">
-      <h3>{{ data.formType }} <small style="color: gray">#{{ data.formId }}</small></h3>
-      <div class="dialog-student-data">
-        <h5>Student</h5>
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-          <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef> Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-          </ng-container>
+    <div class="custom-scroll-bar">
+      <div class="dialog-details-card">
+        <h3>{{ data.formType }} <small style="color: gray">#{{ data.formId }}</small></h3>
+        <div class="dialog-student-data">
+          <h5>Student</h5>
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Name </th>
+              <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
 
-          <!-- Name Column -->
-          <ng-container matColumnDef="email">
-            <th mat-header-cell *matHeaderCellDef> Email </th>
-            <td mat-cell *matCellDef="let element"> {{element.email}} </td>
-          </ng-container>
+            <!-- Name Column -->
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef> Email </th>
+              <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+            </ng-container>
 
-          <!-- Weight Column -->
-          <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef> Bilkent ID Number </th>
-            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-          </ng-container>
+            <!-- Weight Column -->
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef> Bilkent ID Number </th>
+              <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>
 
-          <!-- Symbol Column -->
-          <ng-container matColumnDef="school">
-            <th mat-header-cell *matHeaderCellDef> Exchange School </th>
-            <td mat-cell *matCellDef="let element"> {{element.school}} </td>
-          </ng-container>
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="school">
+              <th mat-header-cell *matHeaderCellDef> Exchange School </th>
+              <td mat-cell *matCellDef="let element"> {{element.school}} </td>
+            </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
+        <div class="dialog-summary">
+          <div class="dialog-student-summary">
+            <h4 class="dialog-summary-h4">Student Summary</h4>
+            <p><b>Department: </b> {{ data.studentDepartment }}</p>
+            <p><b>CGPA: </b> {{ data.studentCgpa }}</p>
+            <p><b>Entrance Year: </b> {{ data.studentEntranceYear }}</p>
+          </div>
+          <div class="dialog-exchange-summary">
+            <h4 class="dialog-summary-h4">Exchange Summary</h4>
+            <p><b>Exchange Program: </b> {{ data.exchangeProgram }}</p>
+            <p><b>Exchange School: </b> {{ data.exchangeSchool }}</p>
+            <p><b>Term: </b> {{ data.exchangeTerm }}</p>
+          </div>
+          <div class="dialog-form-status">
+            <p><b>Form Status: </b> {{ data.formStatus }}</p>
+          </div>
+        </div>
       </div>
-      <div class="dialog-summary">
-        <div class="dialog-student-summary">
-          <h4 class="dialog-summary-h4">Student Summary</h4>
-          <p><b>Department: </b> {{ data.studentDepartment }}</p>
-          <p><b>CGPA: </b> {{ data.studentCgpa }}</p>
-          <p><b>Entrance Year: </b> {{ data.studentEntranceYear }}</p>
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title><h4>Approval</h4></mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="expension-panel-container">
+          <div class="expension-panel-card">
+            <p><b>Name: </b> {{ data.formAssignedPrivilegedUser }}</p>
+            <p><b>Role: </b> {{ data.formAssignedPrivilegedUserRole }}</p>
+            <p><b>Date: </b> {{ data.formDate === null ? 'Form is not approved yet.' : data.formDate }}</p>
+          </div>
+          <div class="expension-panel-card">
+            <p><b>Signature: </b> {{ data.formSignature === null ? 'Form is not approved yet.' : data.formSignature }}</p>
+          </div>
         </div>
-        <div class="dialog-exchange-summary">
-          <h4 class="dialog-summary-h4">Exchange Summary</h4>
-          <p><b>Exchange Program: </b> {{ data.exchangeProgram }}</p>
-          <p><b>Exchange School: </b> {{ data.exchangeSchool }}</p>
-          <p><b>Term: </b> {{ data.exchangeTerm }}</p>
-        </div>
-        <div class="dialog-form-status">
-          <p><b>Form Status: </b> {{ data.formStatus }}</p>
-        </div>
-      </div>
+      </mat-expansion-panel>
     </div>
-    <mat-expansion-panel (opened)="panelOpenState = true"
-                         (closed)="panelOpenState = false">
-      <mat-expansion-panel-header>
-        <mat-panel-title><h4>Approval</h4></mat-panel-title>
-      </mat-expansion-panel-header>
-      <div class="expension-panel-container">
-        <div class="expension-panel-card">
-          <p><b>Name: </b> {{ data.formAssignedPrivilegedUser }}</p>
-          <p><b>Role: </b> {{ data.formAssignedPrivilegedUserRole }}</p>
-          <p><b>Date: </b> {{ data.formDate === null ? 'Form is not approved yet.' : data.formDate }}</p>
-        </div>
-        <div class="expension-panel-card">
-          <p><b>Signature: </b> {{ data.formSignature === null ? 'Form is not approved yet.' : data.formSignature }}</p>
-        </div>
-      </div>
-    </mat-expansion-panel>
   </mat-tab>
   <mat-tab label="Form Contents">
 
