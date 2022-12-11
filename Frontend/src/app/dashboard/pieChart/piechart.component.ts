@@ -9,7 +9,7 @@ import { single } from './data';
 export class PieChartComponent{
 
   single: any[];
-  view: any[] = [500, 200];
+  view: any[] = [Math.max(innerWidth / 2, 700), 400];
 
   // options
   gradient: boolean = true;
@@ -23,6 +23,11 @@ export class PieChartComponent{
 
   constructor() {
     Object.assign(this, { single });
+  }
+
+  onResize(event, width) {
+    console.log("Width: " + width);
+    this.view = [Math.max(event.target.innerWidth / 2, 700), 400];
   }
 
   onSelect(data): void {
