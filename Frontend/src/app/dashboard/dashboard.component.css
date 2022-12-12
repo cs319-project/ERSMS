@@ -23,9 +23,6 @@
 }
 
 .chart-content{
-  background-color: white;
-  border-radius: 4px;
-  box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
   font-size: 1.3rem;
   font-weight: bold;
   display: flex;
@@ -34,9 +31,6 @@
 }
 
 .todo-container{
-  background-color: white;
-  border-radius: 4px;
-  box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -52,6 +46,9 @@
 
 .other-container{
   width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .checkbox-container{
@@ -128,4 +125,74 @@
 .todo-item-container{
   display: flex;
   flex-direction: column;
+}
+
+.make-announcement-container{
+  height: 100px;
+}
+
+.recent-activity-container{
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.recent-activity-title{
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+.recent-activity-content{
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+}
+
+.day-activities{
+  display: flex;
+  flex-direction: column;
+}
+
+.activity-day{
+  font-size: 1.2rem;
+}
+
+.activity{
+  height: 80px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.activity img{
+  max-width: 50px;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.activity-description{
+  display: flex;
+  flex-direction: column;
+}
+
+.activity-user{
+  font-weight: bold;
+}
+
+.gray-text{
+  color: #8A9099;
+}
+
+.card-effect{
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+}
+
+.make-announcement-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

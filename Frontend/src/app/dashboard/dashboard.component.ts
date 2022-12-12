@@ -38,6 +38,17 @@ export interface todoItem{
   isStarred: boolean;
 };
 
+export interface activity{
+  name: string;
+  description: string;
+  time: string;
+};
+
+export interface dayActivities{
+  date: string;
+  activities: activity[];
+}
+
 @Component({
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
@@ -54,6 +65,20 @@ export class DashboardComponent implements OnInit{
     { description: "Check Atak Talay Yücel's Pre-approval Form", isCompleted: false, isStarred: true },
     { description: "Check Yiğit Yalın's Pre-approval Form", isCompleted: false, isStarred: true }
   ];
+
+  activities: dayActivities[] = [{date: "12 September",activities:
+[{name: "Kutay Tire", description: "Added a new pre-approval form.", time: "22:13"},
+  {name: "Berk Çakar", description: "Added a new pre-approval form.",  time: "12:13"},
+  {name: "Kutay Tire", description: "Added a new pre-approval form.",  time: "13:12"},
+  {name: "Berk Çakar", description: "Added a new pre-approval form.",  time: "09:44"}]},
+    {date: "15 September",activities:
+        [{name: "Atak Talay Yücel", description: "Added a new pre-approval form.", time: "10:15"},
+          {name: "Borga Haktan Bilen", description: "Added a new pre-approval form.", time: "07:07"},
+          {name: "Atak Talay Yücel", description: "Added a new pre-approval form.", time: "11:44"},
+          {name: "Borga Haktan Bilen", description: "Added a new pre-approval form.", time: "10:10"}]}
+  ];
+
+
 
   selectedTabIndex = 0;
 
