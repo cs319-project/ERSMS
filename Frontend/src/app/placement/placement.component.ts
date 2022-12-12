@@ -11,7 +11,7 @@ import  {SelectionModel} from "@angular/cdk/collections";
   templateUrl: './placement.component.html',
 })
 export class PlacementComponent{
-  displayedColumns = ['studentname', 'email', 'preferences', 'score'];
+  displayedColumns = ['name', 'email', 'preferences', 'score'];
   dataSource: MatTableDataSource<UserData>;
   page_index = 0;
 

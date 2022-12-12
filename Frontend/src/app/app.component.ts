@@ -8,7 +8,7 @@ import { LoginComponent } from "./login/login.component";
 })
 export class AppComponent {
   title = "ERSMS";
-  showLogin = true;
+  showLogin = false;
 
  
 }
