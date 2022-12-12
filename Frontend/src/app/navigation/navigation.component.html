@@ -31,9 +31,10 @@
   </button>
 
   <mat-menu #menuSettings="matMenu">
-    <button mat-menu-item >
+    <div mat-menu-item style="display: flex;align-items: center; height: 50px" (click)="logout()">
+      <mat-icon>logout</mat-icon>
       <span>Logout</span>
-    </button>
+    </div>
   </mat-menu>
 
 </mat-toolbar>

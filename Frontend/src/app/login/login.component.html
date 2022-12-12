@@ -14,13 +14,14 @@
             email>
           </mat-form-field>
           <mat-form-field class="full-width">
-            <input matInput [type]="hidePassword ? 'password' : 'text'" 
+            <input matInput [type]="hidePassword ? 'password' : 'text'"
             placeholder="Password"
             type = "password"
             id = "password"
             ngModel
             name = "password"
-            minlength = "6"
+             name = "password"
+              minlength = "6"
             >
             <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
               <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -28,13 +29,13 @@
           </mat-form-field>
           <div class="flex-space-between mt-2">
             <mat-checkbox>Remember Me</mat-checkbox>
-            <span><a href="#" style="text-decoration: underline;"> Forgot Password?</a></span>
+            <span><a (click)="goForgotPassword()" class="link"> Forgot Password?</a></span>
           </div>
           <button (click)="login()" mat-raised-button color="primary" class="full-width mt-2" type = "submit" [disabled] = "!authForm.valid">
             Login
           </button>
           <div class="flex-center">
-            <span class="mt-4">Don't have an account?<a href="#">  Sign Up</a></span>
+            <span class="mt-4">Don't have an account?<a (click)="goSignUp()" class="link">  Sign Up</a></span>
           </div>
         </form>
       </mat-card-content>

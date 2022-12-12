@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {AppScene} from "../app.component";
 
 @Component({
   selector: 'app-signup',
@@ -7,6 +8,9 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
+
+  @Input() currentScene!: AppScene;
+  @Output() currentSceneChange: EventEmitter<AppScene> = new EventEmitter<AppScene>();
 
   constructor(private _snackBar: MatSnackBar) { }
 
@@ -25,5 +29,9 @@ export class SignupComponent implements OnInit {
     this._snackBar.open(message, action, {
       duration: duration * 1000
     });
+  }
+  goLogin() {
+    this.currentScene = AppScene.Login;
+    this.currentSceneChange.emit(this.currentScene);
   }
 }

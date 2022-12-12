@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { MatIconRegistry} from "@angular/material/icon";
 import { DomSanitizer} from "@angular/platform-browser";
+import {AppScene} from "../app.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-navigation',
@@ -8,6 +10,10 @@ import { DomSanitizer} from "@angular/platform-browser";
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent implements OnInit {
+
+  @Input() currentScene!: AppScene;
+  @Output() currentSceneChange: EventEmitter<AppScene> = new EventEmitter<AppScene>();
+
   name :String  = "Kutay Tire";
 
   notifications :  {message: String, timeSent:String}[] = [
@@ -15,7 +21,8 @@ export class NavigationComponent implements OnInit {
     {message : "Talay has sent you a message", timeSent: "7 mins ago"},
   ];
   constructor(    private matIconRegistry: MatIconRegistry,
-                  private domSanitizer: DomSanitizer
+                  private domSanitizer: DomSanitizer,
+                  private router: Router
   ) {
     this.matIconRegistry.addSvgIcon(
       `dashboard`,
@@ -82,4 +89,9 @@ export class NavigationComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  logout() {
+    this.currentScene = AppScene.Login;
+    this.router.navigate([`../`]);
+    this.currentSceneChange.emit(this.currentScene);
+  }
 }

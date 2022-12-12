@@ -1,4 +1,7 @@
 
-<app-login *ngIf="showLogin"></app-login>
-<app-navigation *ngIf="!showLogin"></app-navigation>
+<app-login *ngIf="isLogin()" [(currentScene)]="currentScene"></app-login>
+<app-signup *ngIf="isSignUp()" [(currentScene)]="currentScene"></app-signup>
+<app-forgot-password *ngIf="isForgotMyPassword()" [(currentScene)]="currentScene"></app-forgot-password>
+<app-navigation *ngIf="isApp()" [(currentScene)]="currentScene"></app-navigation>
+
 
