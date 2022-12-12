@@ -46,3 +46,9 @@ form{
   margin: 0 20%;
   height: 100%;
 }
+
+.link{
+  text-decoration: underline;
+  color: #007bff;
+  cursor: pointer;
+}

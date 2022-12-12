@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AppScene} from "../app.component";
 
 
 @Component({
@@ -8,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ForgotPasswordComponent implements OnInit {
 
+  @Input() currentScene!: AppScene;
+  @Output() currentSceneChange: EventEmitter<AppScene> = new EventEmitter<AppScene>();
+
   constructor() {}
 
   ngOnInit(): void {
   }
 
+  goLogin() {
+    this.currentScene = AppScene.Login;
+    this.currentSceneChange.emit(this.currentScene);
+  }
 }

@@ -7,7 +7,8 @@ import { MessagesComponent } from "./messages/messages.component";
 import { PlacementComponent } from "./placement/placement.component";
 import { ProfileComponent} from "./profile/profile.component";
 
-const routes: Routes = [ {path: 'dashboard', component: DashboardComponent},
+const routes: Routes = [
+  {path: 'dashboard', component: DashboardComponent},
 {path: 'formsandrequests', component: FormsAndRequestsComponent},
 {path: 'logging', component: LoggingComponent},
 {path: 'messages', component: MessagesComponent},

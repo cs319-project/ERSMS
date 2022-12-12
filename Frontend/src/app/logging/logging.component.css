@@ -1,0 +1,75 @@
+.logging-header{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.logging-title{
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.logging-content{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+}
+
+.logging-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.table-content {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.table-header {
+  min-height: 64px;
+  padding: 8px 24px 0;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.mat-table {
+  overflow-y: scroll;
+  max-height: 700px;
+}
+
+.status-text{
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  border-radius: 5px;
+  color: #22422e;
+}
+
+
+.gray-text{
+  color: #8A9099;
+}
+
+.mat-column-status {
+  width: 120px;
+  text-align: center;
+  font-weight: bold;
+}
+
+table {
+  width: 100%;
+}
+.mat-row.hovered {
+  background: #eee;
+}
+
+.mat-row.highlighted {
+  background: #eee;
+}

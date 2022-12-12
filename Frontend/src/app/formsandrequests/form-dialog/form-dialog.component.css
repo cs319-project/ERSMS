@@ -1,0 +1,85 @@
+.dialog-details-card {
+  margin: 1.2rem;
+}
+
+.dialog-details-card h3 {
+  margin-top: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.dialog-student-data {
+  display: flex;
+  flex-direction: column;
+}
+
+.dialog-student-data h5 {
+  margin-bottom: 1.2rem;
+}
+
+.dialog-student-data table {
+  width: 100%;
+}
+
+.dialog-summary {
+  display: flex;
+  flex-direction: row;
+  margin-top: 2.4rem;
+  margin-bottom: 1.6rem;
+}
+
+.dialog-student-summary {
+  width: 35%;
+  margin-right: 1rem;
+}
+
+.dialog-exchange-summary {
+  width: 35%;
+  margin-right: 1rem;
+}
+
+.dialog-form-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dialog-summary-h4 {
+  margin-bottom: 1.2rem;
+}
+
+mat-panel-title h4 {
+  margin-top: 0.4rem;
+}
+
+.expension-panel-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.expension-panel-card:nth-child(1) {
+  width: 30%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  margin-right: 1rem;
+}
+
+.expension-panel-card:nth-child(2) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-scroll-bar{
+  height:70vh;
+  overflow-y:scroll;
+  overflow-x: hidden;
+}
+
+
+.custom-scroll-bar::-webkit-scrollbar{
+  width: 5px;
+}
+
+.custom-scroll-bar::-webkit-scrollbar-thumb{
+  background: rgba(0,0,0,.26);
+}
