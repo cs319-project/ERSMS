@@ -1,0 +1,15 @@
+* {
+    color: lighten(black, 25%);
+}
+
+.wrap {
+    display: flex;
+    height: 60vh;
+    width: 100%;
+    .container {
+      width: 100%;
+      background-color: white;
+        border-radius: 3px;
+        padding: 20px;
+    }
+}

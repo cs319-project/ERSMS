@@ -1,0 +1,11 @@
+<mat-form-field style="width: 100%">
+  <input matInput placeholder="Ex. Meeting with X at 14.30" [(ngModel)]="description">
+</mat-form-field>
+
+<div class="text-right">
+  <button mat-raised-button
+          (click)="closeForm.emit(true)">Cancel</button>&nbsp;
+
+  <button mat-raised-button color="primary"
+          (click)="submitNewTask(description)">Add Todo</button>
+</div>

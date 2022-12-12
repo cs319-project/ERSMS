@@ -1,0 +1,15 @@
+<div #container style="height: 100%; width: 100%">
+  <ngx-charts-advanced-pie-chart
+    (window:resize)="onResize($event, container.offsetWidth)"
+    [view]="[container.offsetWidth * 1.5, 400]"
+    [scheme]="colorScheme"
+    [results]="single"
+    [gradient]="gradient"
+    (select)="onSelect($event)"
+    (activate)="onActivate($event)"
+
+    (deactivate)="onDeactivate($event)"
+  >
+  </ngx-charts-advanced-pie-chart>
+</div>
+
