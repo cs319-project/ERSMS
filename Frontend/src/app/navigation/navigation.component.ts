@@ -73,6 +73,10 @@ export class NavigationComponent implements OnInit {
       `emoji`,
       this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/emoji.svg")
     );
+    this.matIconRegistry.addSvgIcon(
+      `delete`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/delete.svg")
+    );
   }
 
   ngOnInit(): void {

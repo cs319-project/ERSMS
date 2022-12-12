@@ -33,44 +33,6 @@
   text-align: center;
 }
 
-
-mat-grid-tile{
-  width: 70%;
-  margin: 0 !important;
-}
-
-mat-card-content{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-mat-grid-list{
-  height: 80%;
-}
-
-.grid-item{
-  margin: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.grid-container{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.title{
-  margin-top: 20px;
-  margin-left: 50px;
-}
-
-.title span{
-  font-size: 3rem;
-}
-
 .todo-container{
   background-color: white;
   border-radius: 4px;
@@ -84,7 +46,7 @@ mat-grid-list{
 .todo-content{
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 100%;
   flex-grow: 1;
 }
 
@@ -99,6 +61,7 @@ mat-grid-list{
   align-items: center;
   overflow-wrap: break-word;
   word-break: break-word;
+  flex-grow: 1;
 }
 
 .todo-title{
@@ -109,10 +72,11 @@ mat-grid-list{
 .todo-item{
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .todo-add-container{
-  height: 75px;
+  height: 50px;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -131,11 +95,13 @@ mat-grid-list{
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   height: 100%;
 }
 
 :host ::ng-deep .mat-tab-body-wrapper {
   height: 100%;
+  width: 100%;
 }
 
 .custom-scroll-bar{
@@ -151,4 +117,15 @@ mat-grid-list{
 
 .custom-scroll-bar::-webkit-scrollbar-thumb{
   background: rgba(0,0,0,.26);
+}
+
+.star-icon{
+  color: #ffd740;
+
+}
+
+
+.todo-item-container{
+  display: flex;
+  flex-direction: column;
 }
