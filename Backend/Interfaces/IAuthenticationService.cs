@@ -10,8 +10,8 @@ namespace Backend.Interfaces
 {
     public interface IAuthenticationService
     {
-        Task<IdentityResult> Register(RegisterDto registration);
-        Task<SignInResult> LogIn(LoginDto login);
+        Task<AuthenticationResultDto> Register(RegisterDto registration);
+        Task<AuthenticationResultDto> LogIn(LoginDto login);
         Task LogOut();
         Task CreateRoles();
         Task<IdentityResult> ChangePassword(AppUser user, string currentPassword, string newPassword);

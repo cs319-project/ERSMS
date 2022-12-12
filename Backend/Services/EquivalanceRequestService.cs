@@ -92,7 +92,7 @@ namespace Backend.Services
 
         public async Task<ICollection<EquivalanceRequestDto>> GetEquivalanceRequestsByDepartmentForCoordinator(string userName)
         {
-            var coordinator = await _userService.GetCoordinator(userName);
+            var coordinator = await _userService.GetExchangeCoordinator(userName);
             Department department = coordinator.Department.DepartmentName;
             IEnumerable<EquivalanceRequestDto> equivalanceRequests = await GetEquivalanceRequests();
             ICollection<EquivalanceRequestDto> listToReturn = new List<EquivalanceRequestDto>();

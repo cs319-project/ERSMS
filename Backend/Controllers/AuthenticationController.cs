@@ -29,15 +29,36 @@ namespace Backend.Controllers
         [HttpPost("register")]
         public async Task<ActionResult> Register(RegisterDto register)
         {
-            var result = await _authenticationService.Register(register);
-            return result.Succeeded ? Ok(result) : BadRequest(result);
+            try
+            {
+                var result = await _authenticationService.Register(register);
+                return (result != null) ? Ok(result) : BadRequest(result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpPost("login")]
         public async Task<ActionResult> LogIn(LoginDto login)
         {
-            var result = await _authenticationService.LogIn(login);
-            return result.Succeeded ? Ok(result) : Unauthorized(result);
+            try
+            {
+                var result = await _authenticationService.LogIn(login);
+                return (result != null) ? Ok(result) : Unauthorized(result);
+            }
+            catch (Exception e)
+            {
+                return Unauthorized(e.Message);
+            }
+        }
+
+        [HttpPost("logout")]
+        public async Task<ActionResult> LogOut()
+        {
+            await _authenticationService.LogOut();
+            return Ok();
         }
     }
 }

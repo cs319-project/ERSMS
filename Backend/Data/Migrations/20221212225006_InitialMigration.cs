@@ -380,6 +380,7 @@ namespace Backend.Data.Migrations
                     ExchangeCoordinatorApprovalId = table.Column<Guid>(type: "TEXT", nullable: true),
                     FacultyOfAdministrationBoardApprovalId = table.Column<Guid>(type: "TEXT", nullable: true),
                     ToDoItemId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    IsCanceled = table.Column<bool>(type: "INTEGER", nullable: false),
                     StudentId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
@@ -461,6 +462,7 @@ namespace Backend.Data.Migrations
                     ExchangeCoordinatorApprovalId = table.Column<Guid>(type: "TEXT", nullable: true),
                     FacultyAdministrationBoardApprovalId = table.Column<Guid>(type: "TEXT", nullable: true),
                     ToDoItemId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    IsCanceled = table.Column<bool>(type: "INTEGER", nullable: false),
                     StudentId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>

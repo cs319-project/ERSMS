@@ -12,6 +12,7 @@ using Backend.DTOs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Backend.Utilities;
+using Microsoft.EntityFrameworkCore;
 using Backend.Utilities.Enum;
 
 namespace Backend.Services
@@ -22,25 +23,33 @@ namespace Backend.Services
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<Role> _roleManager;
         private readonly IPlacementRepository _placementRepository;
+        private readonly ITokenService _tokenService;
 
         public AuthenticationService(
             DataContext dataContext,
             SignInManager<AppUser> signInManager,
             UserManager<AppUser> userManager,
             RoleManager<Role> roleManager,
-            IPlacementRepository placementRepository
+            IPlacementRepository placementRepository,
+            ITokenService tokenService
         ) : base(dataContext)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _roleManager = roleManager;
             _placementRepository = placementRepository;
+            _tokenService = tokenService;
         }
 
-        public async Task<IdentityResult> Register(RegisterDto register)
+        public async Task<AuthenticationResultDto> Register(RegisterDto register)
         {
             try
             {
+                if (await UserExists(register.UserName, register.Email)) throw new Exception("A user already exists with the same username or email address");
+
+                register.Email = register.Email.ToLower();
+                register.UserName = register.UserName.ToLower();
+
                 string actorType = register.ActorType;
                 AppUser user = new AppUser(register, actorType);
 
@@ -55,7 +64,7 @@ namespace Backend.Services
                             // If student is not placed, abort registration and return an informative error message
                             if (studentInfo.IsPlaced == false)
                             {
-                                return IdentityResult.Failed(new IdentityError() { Description = "Student has been found on the placement table, but he/she is not placed to a school yet" });
+                                throw new Exception("Student has been found on the placement table, but he/she is not placed to a school yet");
                             }
 
                             // Set entrance year according to first two digits of student ID
@@ -75,7 +84,7 @@ namespace Backend.Services
                         }
                         catch (Exception e)
                         {
-                            return IdentityResult.Failed(new IdentityError() { Description = String.Format("Student not found in placement repository: {0}", e.Message) });
+                            throw new Exception(String.Format("Student not found in placement repository: {0}", e.Message));
                         }
 
                         break;
@@ -107,21 +116,30 @@ namespace Backend.Services
                         throw new System.ArgumentException("Invalid actor type");
                 }
 
-                // if (register is CoordinatorRegisterDto)
-                // {
-                //     var department = EnumStringify.DepartmentEnumarator("CS");
-                //     if (user.DomainUser.GetType() == typeof(ExchangeCoordinator))
-                //     {
-                //         (user.DomainUser as ExchangeCoordinator).Department.DepartmentName = department;
-                //     }
-                // }
+                var dto = new AuthenticationResultDto
+                {
+                    UserName = register.UserName,
+                    Email = register.Email,
+                    ActorType = register.ActorType,
+                    Token = await _tokenService.CreateToken(user)
+                };
 
                 var result = await _userManager.CreateAsync(user, register.Password);
-                return result.Succeeded ? await AssignRole(user, actorType) : result;
+
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(user, actorType);
+                }
+
+                return result.Succeeded ? dto : null;
             }
             catch (System.ArgumentException e)
             {
-                return IdentityResult.Failed(new IdentityError { Description = e.Message });
+                throw new Exception(e.Message);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
             }
         }
 
@@ -130,12 +148,31 @@ namespace Backend.Services
             return _userManager.AddToRoleAsync(user, actorType);
         }
 
-        public async Task<SignInResult> LogIn(LoginDto login)
+        public async Task<AuthenticationResultDto> LogIn(LoginDto login)
         {
-            var user = await _userManager.FindByEmailAsync(login.Email);
-            if (user is null) return SignInResult.Failed;
+            try
+            {
+                var user = await _userManager.FindByEmailAsync(login.Email);
+                if (user is null) throw new Exception("User not found");
 
-            return await _signInManager.PasswordSignInAsync(user, login.Password, isPersistent: false, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(user, login.Password, isPersistent: false, lockoutOnFailure: false);
+
+                if (!result.Succeeded) throw new Exception("Invalid password");
+
+                var dto = new AuthenticationResultDto
+                {
+                    UserName = user.UserName,
+                    Email = user.Email,
+                    ActorType = _userManager.GetRolesAsync(user).Result[0],
+                    Token = await _tokenService.CreateToken(user)
+                };
+
+                return dto;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
         public Task LogOut()
@@ -170,6 +207,11 @@ namespace Backend.Services
         {
             _userManager.RemovePasswordAsync(user);
             return _userManager.AddPasswordAsync(user, newPassword);
+        }
+
+        private async Task<bool> UserExists(string username, string email)
+        {
+            return await _userManager.Users.AnyAsync(x => (x.UserName == username.ToLower() || x.Email == email.ToLower()));
         }
     }
 }
