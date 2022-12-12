@@ -102,8 +102,9 @@ mat-list-option{
 }
 .chat-messages-panel{
   flex-grow: 1;
+  display: flex;
+  flex-direction: column-reverse;
 }
-
 
 .send-message-panel{
   padding: 0 10px;

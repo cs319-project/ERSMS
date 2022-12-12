@@ -31,6 +31,10 @@
   </button>
 
   <mat-menu #menuSettings="matMenu">
+    <div mat-menu-item style="display: flex;align-items: center; height: 50px">
+      <mat-icon>campaign</mat-icon>
+      <span>Make Announcement</span>
+    </div>
     <div mat-menu-item style="display: flex;align-items: center; height: 50px" (click)="logout()">
       <mat-icon>logout</mat-icon>
       <span>Logout</span>

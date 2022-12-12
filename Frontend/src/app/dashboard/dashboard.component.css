@@ -191,8 +191,18 @@
   box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
 }
 
-.make-announcement-container{
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+.custom-activities-scroll-bar{
+  height:65vh;
+  overflow-y:scroll;
+  overflow-x: hidden;
+}
+
+
+.custom-activities-scroll-bar::-webkit-scrollbar{
+  width: 5px;
+}
+
+.custom-activities-scroll-bar::-webkit-scrollbar-thumb{
+  background: rgba(0,0,0,.26);
 }
