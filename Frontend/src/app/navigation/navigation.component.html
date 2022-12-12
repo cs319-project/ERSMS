@@ -25,9 +25,17 @@
     <span><strong>{{name}}</strong> </span>
     <span>Student</span>
   </div>
-  <button mat-icon-button class="m-2">
+
+   <button mat-icon-button [matMenuTriggerFor]="menuSettings">
     <mat-icon svgIcon="settings"></mat-icon>
   </button>
+
+  <mat-menu #menuSettings="matMenu">
+    <button mat-menu-item >
+      <span>Logout</span>
+    </button>
+  </mat-menu>
+
 </mat-toolbar>
 
 <mat-sidenav-container class="app-container">
