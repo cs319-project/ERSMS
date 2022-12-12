@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
     if (successful) {
       this.openSnackBar("Login successful!", "Close", 5000);
     }
+
   }
 
   openSnackBar(message: string, action: string, duration: number) {

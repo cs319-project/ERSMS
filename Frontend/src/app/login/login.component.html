@@ -2,13 +2,28 @@
   <div style="width: 45%; height: 60%;min-width: 700px">
     <mat-card style="height: 100%">
       <mat-card-content class="full-width flex-center full-height">
-        <form>
+        <form #authForm = "ngForm">
           <h1 class="login-header"><strong>ERSMS</strong></h1>
           <mat-form-field class="full-width mt-4">
-            <input matInput placeholder="Email">
+            <input matInput placeholder="Email"
+            type = "email"
+            id = "email"
+            class = "form-control"
+            ngModel
+            name = "email"
+            required
+            email>
           </mat-form-field>
           <mat-form-field class="full-width">
-            <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="Password">
+            <input matInput [type]="hidePassword ? 'password' : 'text'" 
+            placeholder="Password"
+            type = "password"
+            id = "password"
+            class = "form-control"
+            ngModel
+            name = "password"
+            minlength = "6"
+            >
             <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
               <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
@@ -17,7 +32,7 @@
             <mat-checkbox>Remember Me</mat-checkbox>
             <span><a href="#" style="text-decoration: underline;"> Forgot Password?</a></span>
           </div>
-          <button (click)="login()" mat-raised-button color="primary" class="full-width mt-2">
+          <button (click)="login()" mat-raised-button color="primary" class="full-width mt-2" type = "submit" [disabled] = "!authForm.valid">
             Login
           </button>
           <div class="flex-center">

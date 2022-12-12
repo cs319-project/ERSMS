@@ -1,1 +1,4 @@
-<app-navigation></app-navigation>
+
+<app-login *ngIf="showLogin"></app-login>
+<app-navigation *ngIf="!showLogin"></app-navigation>
+
