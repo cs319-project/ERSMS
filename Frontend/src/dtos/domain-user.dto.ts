@@ -6,5 +6,5 @@ export class DomainUserDto {
   actorType: string;
   firstName: string;
   lastName: string;
-  identityUser: AppUserDto
+  identityUser: AppUserDto;
 }
