@@ -52,6 +52,16 @@ export class DashboardComponent implements OnInit{
   todoList: todoItem[] = [{description:"Kutay Tire", isCompleted: false, isStarred:true},
     { description: "Meeting with Kutay Tire at 15.30", isCompleted: false, isStarred: false },
     { description: "Check Atak Talay Yücel's Pre-approval Form", isCompleted: false, isStarred: true },
+    { description: "Meeting with Kutay Tire at 15.30", isCompleted: false, isStarred: false },
+    { description: "Check Atak Talay Yücel's Pre-approval Form", isCompleted: false, isStarred: true },
+    { description: "Meeting with Kutay Tire at 15.30", isCompleted: false, isStarred: false },
+    { description: "Check Atak Talay Yücel's Pre-approval Form", isCompleted: false, isStarred: true },
+    { description: "Meeting with Kutay Tire at 15.30", isCompleted: false, isStarred: false },
+    { description: "Check Atak Talay Yücel's Pre-approval Form", isCompleted: false, isStarred: true },
+    { description: "Meeting with Kutay Tire at 15.30", isCompleted: false, isStarred: false },
+    { description: "Check Atak Talay Yücel's Pre-approval Form", isCompleted: false, isStarred: true },
+    { description: "Meeting with Kutay Tire at 15.30", isCompleted: false, isStarred: false },
+    { description: "Check Atak Talay Yücel's Pre-approval Form", isCompleted: false, isStarred: true },
     { description: "Check Yiğit Yalın's Pre-approval Form", isCompleted: false, isStarred: true }
   ];
 
