@@ -236,6 +236,9 @@ namespace Backend.Data.Migrations
                     b.Property<Guid?>("ExemptedCourseId")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("FileName")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("HostCourseName")
                         .HasColumnType("TEXT");
 

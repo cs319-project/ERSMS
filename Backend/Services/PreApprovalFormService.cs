@@ -175,14 +175,16 @@ namespace Backend.Services
         public async Task<bool> UpdatePreApprovalForm(PreApprovalFormDto preApprovalForm)
         {
             PreApprovalForm formEntity = _mapper.Map<PreApprovalForm>(preApprovalForm);
-
-            if (CheckIfFormIsOperable(formEntity))
+            PreApprovalForm oldForm = await _preApprovalFormRepository.GetPreApprovalForm(formEntity.Id);
+            if (CheckIfFormIsOperable(oldForm))
             {
                 // Don't update the approval
-                PreApprovalForm oldForm = await _preApprovalFormRepository.GetPreApprovalForm(formEntity.Id);
                 formEntity.ExchangeCoordinatorApproval = oldForm.ExchangeCoordinatorApproval;
                 formEntity.FacultyAdministrationBoardApproval = oldForm.FacultyAdministrationBoardApproval;
-
+                formEntity.IsApproved = oldForm.IsApproved;
+                formEntity.IsCanceled = oldForm.IsCanceled;
+                formEntity.IsArchived = oldForm.IsArchived;
+                formEntity.IsRejected = oldForm.IsRejected;
                 return await _preApprovalFormRepository.UpdatePreApprovalForm(formEntity);
             }
             return false;
@@ -212,11 +214,6 @@ namespace Backend.Services
                 return await _preApprovalFormRepository.UpdatePreApprovalForm(formEntity);
             }
             return false;
-        }
-
-        private bool CheckIfFormIsOperable(PreApprovalForm form)
-        {
-            return !form.IsApproved && !form.IsRejected && !form.IsArchived && !form.IsCanceled;
         }
 
         public async Task<bool> ArchivePreApprovalForm(Guid formId)
@@ -301,6 +298,11 @@ namespace Backend.Services
             }
 
             return forms;
+        }
+
+        private bool CheckIfFormIsOperable(PreApprovalForm form)
+        {
+            return !form.IsApproved && !form.IsRejected && !form.IsArchived && !form.IsCanceled;
         }
     }
 }

@@ -204,7 +204,10 @@ namespace Backend.Services
                 formEntity.ChairApproval = oldForm.ChairApproval;
                 formEntity.ExchangeCoordinatorApproval = oldForm.ExchangeCoordinatorApproval;
                 formEntity.FacultyOfAdministrationBoardApproval = oldForm.FacultyOfAdministrationBoardApproval;
-
+                formEntity.IsApproved = oldForm.IsApproved;
+                formEntity.IsRejected = oldForm.IsRejected;
+                formEntity.IsArchived = oldForm.IsArchived;
+                formEntity.IsCanceled = oldForm.IsCanceled;
                 return await _cTEFormRepository.UpdateCTEForm(formEntity);
             }
             return false;

@@ -437,6 +437,7 @@ namespace Backend.Data.Migrations
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     StudentId = table.Column<string>(type: "TEXT", nullable: false),
                     HostCourseName = table.Column<string>(type: "TEXT", nullable: true),
+                    FileName = table.Column<string>(type: "TEXT", nullable: true),
                     Syllabus = table.Column<byte[]>(type: "BLOB", nullable: true),
                     ExemptedCourseId = table.Column<Guid>(type: "TEXT", nullable: true),
                     InstructorApprovalId = table.Column<Guid>(type: "TEXT", nullable: true),
