@@ -31,9 +31,14 @@ import { FormsAndRequestsComponent } from './formsandrequests/formsandrequests.c
 import { ProfileComponent } from './profile/profile.component';
 import { LoggingModule } from './logging/logging.module';
 import { FormDialogComponent } from './formsandrequests/form-dialog/form-dialog.component';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatTableModule } from '@angular/material/table';
-import { MatExpansionModule } from '@angular/material/expansion';
+import {MatTabsModule} from "@angular/material/tabs";
+import {MatTableModule} from "@angular/material/table";
+import {MatExpansionModule} from "@angular/material/expansion";
+import { AnnouncementComponent } from './navigation/announcement/announcement.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatOptionModule} from "@angular/material/core";
+import {MatSelectModule} from "@angular/material/select";
+import { AppointmentsComponent } from './appointments/appointments.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +50,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
     ForgotPasswordComponent,
     ProfileComponent,
     MessagesComponent,
-    FormDialogComponent
+    FormDialogComponent,
+    AnnouncementComponent,
+    AppointmentsComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +79,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
     LoggingModule,
     MatTabsModule,
     MatTableModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDialogModule,
+    MatOptionModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -178,29 +178,24 @@
         </mat-tab>
       </mat-tab-group>
     </div>
-    <div class="other-container">
-      <div class="recent-activity-container card-effect">
-        <span class="recent-activity-title mt-1">Recent Activity</span>
-        <mat-divider style="width: 100%" class="mt-2"></mat-divider>
-        <div class="recent-activity-content mt-3 custom-scroll-bar">
-          <div class="day-activities" *ngFor="let dayActivities of activities">
-            <span class="activity-day mb-1 mt-2">{{dayActivities.date}}</span>
-            <div class="activities" *ngFor="let activity of dayActivities.activities">
-              <div class="activity">
-                <img src="../assets/images/avatar.png">
-                <div class="activity-description ml-3">
-                  <span class="activity-user">{{activity.name}}</span>
-                  <span class="gray-text">{{activity.description}}</span>
-                  <span><small>{{activity.time}}</small></span>
-                </div>
+    <div class="recent-activity-container card-effect">
+      <span class="recent-activity-title mt-1">Recent Activity</span>
+      <mat-divider style="width: 100%" class="mt-2"></mat-divider>
+      <div class="recent-activity-content mt-3 custom-activities-scroll-bar">
+        <div class="day-activities" *ngFor="let dayActivities of activities">
+          <span class="activity-day mb-1 mt-2">{{dayActivities.date}}</span>
+          <div class="activities" *ngFor="let activity of dayActivities.activities">
+            <div class="activity">
+              <img src="../assets/images/avatar.png">
+              <div class="activity-description ml-3">
+                <span class="activity-user">{{activity.name}}</span>
+                <span class="gray-text">{{activity.description}}</span>
+                <span><small>{{activity.time}}</small></span>
               </div>
             </div>
-            <div class="mb-4"></div>
           </div>
+          <div class="mb-4"></div>
         </div>
-      </div>
-      <div class="make-announcement-container mt-3 card-effect">
-        <button mat-raised-button color="accent">Make Announcement</button>
       </div>
     </div>
   </div>

@@ -3,6 +3,9 @@ import { MatIconRegistry} from "@angular/material/icon";
 import { DomSanitizer} from "@angular/platform-browser";
 import {AppScene} from "../app.component";
 import {Router} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {AnnouncementComponent} from "./announcement/announcement.component";
 
 @Component({
   selector: 'app-navigation',
@@ -14,7 +17,8 @@ export class NavigationComponent implements OnInit {
   @Input() currentScene!: AppScene;
   @Output() currentSceneChange: EventEmitter<AppScene> = new EventEmitter<AppScene>();
 
-  name :String  = "Kutay Tire";
+  announcement: string = "";
+  name :string  = "Kutay Tire";
 
   notifications :  {message: String, timeSent:String}[] = [
     {message : "Your Pre-Approval Form Has Been Approved!", timeSent: "3 mins ago"},
@@ -22,7 +26,9 @@ export class NavigationComponent implements OnInit {
   ];
   constructor(    private matIconRegistry: MatIconRegistry,
                   private domSanitizer: DomSanitizer,
-                  private router: Router
+                  private router: Router,
+                  private dialog: MatDialog,
+                  private _snackBar: MatSnackBar
   ) {
     this.matIconRegistry.addSvgIcon(
       `dashboard`,
@@ -93,5 +99,23 @@ export class NavigationComponent implements OnInit {
     this.currentScene = AppScene.Login;
     this.router.navigate([`../`]);
     this.currentSceneChange.emit(this.currentScene);
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(AnnouncementComponent, {data: {description: this.announcement}});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.openSnackBar("Announcement sent", 'Close', 5);
+        console.log(result);
+      }
+    });
+
+  }
+
+  openSnackBar(message: string, action: string, duration: number) {
+    this._snackBar.open(message, action, {
+      duration: duration * 1000
+    });
   }
 }

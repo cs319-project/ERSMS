@@ -31,6 +31,10 @@
   </button>
 
   <mat-menu #menuSettings="matMenu">
+    <div mat-menu-item style="display: flex;align-items: center; height: 50px" (click)="openDialog()">
+      <mat-icon>campaign</mat-icon>
+      <span>Make Announcement</span>
+    </div>
     <div mat-menu-item style="display: flex;align-items: center; height: 50px" (click)="logout()">
       <mat-icon>logout</mat-icon>
       <span>Logout</span>
@@ -48,6 +52,9 @@
       </mat-list-item>
       <mat-list-item routerLink="/formsandrequests">
           <mat-icon svgIcon="forms" class="m-2"></mat-icon><span>Forms and Requests</span>
+      </mat-list-item>
+      <mat-list-item routerLink="/appointments">
+        <mat-icon svgIcon="calendar" class="m-2"></mat-icon><span>Appointments</span>
       </mat-list-item>
       <mat-list-item routerLink="/logging">
         <mat-icon svgIcon="logging" class="m-2"></mat-icon><span>Logging</span>

@@ -102,8 +102,11 @@ mat-list-option{
 }
 .chat-messages-panel{
   flex-grow: 1;
+  display: flex;
+  flex-direction: column-reverse;
+  padding: 20px;
+  height: 70vh;
 }
-
 
 .send-message-panel{
   padding: 0 10px;
@@ -130,4 +133,53 @@ mat-list-option{
   font-size: 1.3rem;
 }
 
+.message-container{
+  margin: 3px 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
 
+.reverse-row{
+  flex-direction: row-reverse;
+}
+
+.message-received{
+  background-color: #b6d8ee;
+}
+
+.message-sent{
+  background-color: #dac9cc;
+}
+
+.message{
+
+  max-width: 300px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.message-time{
+  display: flex;
+  flex-direction: row-reverse;
+  font-size: 0.6rem;
+}
+
+
+.custom-scroll-bar{
+  height:65vh;
+  overflow-y:scroll;
+  overflow-x: hidden;
+}
+
+.custom-scroll-bar::-webkit-scrollbar{
+  width: 5px;
+}
+
+.custom-scroll-bar::-webkit-scrollbar-thumb{
+  background: rgba(0,0,0,.26);
+}
