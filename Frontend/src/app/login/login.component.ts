@@ -37,12 +37,14 @@ export class LoginComponent implements OnInit {
       next: _ => {
         //this.router.navigateByUrl('/members');
         this.model = {};
+
       }
     });
 
     this.currentScene = AppScene.App;
     this.router.navigate([`../dashboard`]);
     this.currentSceneChange.emit(this.currentScene);
+    this.openSnackBar("Successful login", 'Close', 1);
   }
 
   openSnackBar(message: string, action: string, duration: number) {
