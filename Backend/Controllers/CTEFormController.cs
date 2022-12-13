@@ -87,13 +87,57 @@ namespace Backend.Controllers
             {
                 return Ok(cTEForm);
             }
-            return BadRequest("Failed to get CTE Form");
+            return NotFound("Failed to get CTE Form");
         }
 
         [HttpGet("student/{studentID}")]
         public async Task<ActionResult<IEnumerable<CTEFormDto>>> GetCTEFormsOfStudent(string studentID)
         {
             var forms = await _cTEFormService.GetCTEFormsOfStudent(studentID);
+            if (forms == null || forms.Count() == 0)
+            {
+                return NotFound();
+            }
+            return Ok(forms);
+        }
+
+        [HttpGet("archived/all")]
+        public async Task<ActionResult<IEnumerable<CTEFormDto>>> GetArchivedCTEForms()
+        {
+            var forms = await _cTEFormService.GetArchivedCTEForms();
+            if (forms != null)
+            {
+                return Ok(forms);
+            }
+            return BadRequest("Failed to get CTE Forms of Student");
+        }
+
+        [HttpGet("archived/department/{userName}")]
+        public async Task<ActionResult<IEnumerable<CTEFormDto>>> GetArchivedCTEFormsByDepartment(string userName)
+        {
+            var forms = await _cTEFormService.GetArchivedCTEFormsByDepartment(userName);
+            if (forms != null)
+            {
+                return Ok(forms);
+            }
+            return BadRequest("Failed to get CTE Forms of Student");
+        }
+
+        [HttpGet("nonarchived/all")]
+        public async Task<ActionResult<IEnumerable<CTEFormDto>>> GetNonArchivedCTEForms()
+        {
+            var forms = await _cTEFormService.GetNonArchivedCTEForms();
+            if (forms != null)
+            {
+                return Ok(forms);
+            }
+            return BadRequest("Failed to get CTE Forms of Student");
+        }
+
+        [HttpGet("nonarchived/department/{userName}")]
+        public async Task<ActionResult<IEnumerable<CTEFormDto>>> GetNonArchivedCTEFormsByDepartment(string userName)
+        {
+            var forms = await _cTEFormService.GetNonArchivedCTEFormsByDepartment(userName);
             if (forms != null)
             {
                 return Ok(forms);
@@ -105,11 +149,11 @@ namespace Backend.Controllers
         public async Task<ActionResult<IEnumerable<CTEFormDto>>> GetCTEFormsByDepartment(string userName)
         {
             var forms = await _cTEFormService.GetCTEFormsByDepartment(userName);
-            if (forms != null)
+            if (forms == null || forms.Count() == 0)
             {
-                return Ok(forms);
+                return NotFound();
             }
-            return BadRequest("Failed to get CTE Forms of Student");
+            return Ok(forms);
         }
 
         [HttpPost("deanApprove/{formId}")]

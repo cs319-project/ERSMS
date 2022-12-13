@@ -27,5 +27,10 @@ namespace Backend.DTOs
         public ApprovalDto DeanApproval { get; set; }
         public ApprovalDto ExchangeCoordinatorApproval { get; set; }
         public ApprovalDto FacultyOfAdministrationBoardApproval { get; set; }
+
+        public bool IsCanceled { get; set; } = false;
+        public bool IsRejected { get; set; } = false;
+        public bool IsApproved { get; set; } = false;
+        public bool IsArchived { get; set; } = false;
     }
 }

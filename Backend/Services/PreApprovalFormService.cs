@@ -32,23 +32,72 @@ namespace Backend.Services
         public async Task<bool> ApproveFormCoordinator(Guid formId, ApprovalDto approval)
         {
             PreApprovalForm formEntity = _preApprovalFormRepository.GetPreApprovalForm(formId).Result;
-            Approval approvalEntity = _mapper.Map<Approval>(approval);
-            formEntity.ExchangeCoordinatorApproval = approvalEntity;
+            if (CheckIfFormIsOperable(formEntity))
+            {
+                Approval approvalEntity = _mapper.Map<Approval>(approval);
+                formEntity.ExchangeCoordinatorApproval = approvalEntity;
 
-            // Complete the ToDoItem
-            ToDoItemDto todo = await _toDoItemService.GetToDoItemByCascadeId(formEntity.ToDoItemId);
-            await _toDoItemService.ChangeCompleteToDoItem(todo.Id, true);
+                if (formEntity.ToDoItemId != null)
+                {
+                    // Complete the ToDoItem
+                    ToDoItemDto todo = await _toDoItemService.GetToDoItemByCascadeId(formEntity.ToDoItemId);
+                    await _toDoItemService.ChangeCompleteToDoItem(todo.Id, true);
+                }
 
-            return await _preApprovalFormRepository.UpdatePreApprovalForm(formEntity);
+                if (!approvalEntity.IsApproved)
+                {
+                    formEntity.IsRejected = true;
+                    formEntity.IsArchived = true;
+                }
+                else if (formEntity.FacultyAdministrationBoardApproval != null
+                            && formEntity.FacultyAdministrationBoardApproval.IsApproved)
+                {
+                    formEntity.IsApproved = true;
+                    formEntity.IsArchived = true;
+                }
+
+                return await _preApprovalFormRepository.UpdatePreApprovalForm(formEntity);
+            }
+            return false;
         }
 
         public async Task<bool> ApproveFormFacultyAdministrationBoard(Guid formId, ApprovalDto approval)
         {
             PreApprovalForm formEntity = _preApprovalFormRepository.GetPreApprovalForm(formId).Result;
-            Approval approvalEntity = _mapper.Map<Approval>(approval);
-            formEntity.FacultyAdministrationBoardApproval = approvalEntity;
+            if (CheckIfFormIsOperable(formEntity))
+            {
+                Approval approvalEntity = _mapper.Map<Approval>(approval);
+                formEntity.FacultyAdministrationBoardApproval = approvalEntity;
 
-            return await _preApprovalFormRepository.UpdatePreApprovalForm(formEntity);
+                if (!approvalEntity.IsApproved)
+                {
+                    formEntity.IsRejected = true;
+                    formEntity.IsArchived = true;
+
+                    if (formEntity.ToDoItemId != null)
+                    {
+                        // Complete the ToDoItem
+                        ToDoItemDto todo = await _toDoItemService.GetToDoItemByCascadeId(formEntity.ToDoItemId);
+                        await _toDoItemService.ChangeCompleteToDoItem(todo.Id, true);
+                    }
+                }
+                else if (formEntity.ExchangeCoordinatorApproval != null
+                            && formEntity.ExchangeCoordinatorApproval.IsApproved)
+                {
+                    formEntity.IsApproved = true;
+                    formEntity.IsArchived = true;
+
+                    if (formEntity.ToDoItemId != null)
+                    {
+                        // Complete the ToDoItem
+                        ToDoItemDto todo = await _toDoItemService.GetToDoItemByCascadeId(formEntity.ToDoItemId);
+                        await _toDoItemService.ChangeCompleteToDoItem(todo.Id, true);
+                    }
+                }
+
+                return await _preApprovalFormRepository.UpdatePreApprovalForm(formEntity);
+            }
+            return false;
         }
 
         public async Task<bool> DeletePreApprovalForm(Guid id)
@@ -111,20 +160,32 @@ namespace Backend.Services
             PreApprovalForm formEntity = _mapper.Map<PreApprovalForm>(preApprovalForm);
             formEntity.ToDoItemId = todo.CascadeId;
 
-            await _preApprovalFormRepository.SubmitPreApprovalForm(formEntity);
-            return await _toDoItemService.AddToDoItemToAll(todo);
+            var flag = await _preApprovalFormRepository.SubmitPreApprovalForm(formEntity);
+
+            if (flag)
+            {
+                Student student = await _userRepository.GetStudentByUserName(preApprovalForm.IDNumber);
+                if (student != null)
+                    await _toDoItemService.AddToDoItemToAllByDepartment(todo, student.Major.DepartmentName);
+            }
+
+            return flag;
         }
 
         public async Task<bool> UpdatePreApprovalForm(PreApprovalFormDto preApprovalForm)
         {
             PreApprovalForm formEntity = _mapper.Map<PreApprovalForm>(preApprovalForm);
 
-            // Don't update the approval
-            PreApprovalForm oldForm = await _preApprovalFormRepository.GetPreApprovalForm(formEntity.Id);
-            formEntity.ExchangeCoordinatorApproval = oldForm.ExchangeCoordinatorApproval;
-            formEntity.FacultyAdministrationBoardApproval = oldForm.FacultyAdministrationBoardApproval;
+            if (CheckIfFormIsOperable(formEntity))
+            {
+                // Don't update the approval
+                PreApprovalForm oldForm = await _preApprovalFormRepository.GetPreApprovalForm(formEntity.Id);
+                formEntity.ExchangeCoordinatorApproval = oldForm.ExchangeCoordinatorApproval;
+                formEntity.FacultyAdministrationBoardApproval = oldForm.FacultyAdministrationBoardApproval;
 
-            return await _preApprovalFormRepository.UpdatePreApprovalForm(formEntity);
+                return await _preApprovalFormRepository.UpdatePreApprovalForm(formEntity);
+            }
+            return false;
         }
 
         public async Task<bool> CancelPreApprovalForm(Guid id)
@@ -134,11 +195,112 @@ namespace Backend.Services
             if (formEntity == null)
                 return false;
 
-            // Delete the ToDoItem
-            await _toDoItemService.DeleteToDoItemByCascadeId(formEntity.ToDoItemId);
+            if (CheckIfFormIsOperable(formEntity))
+            {
+                // Delete the ToDoItem
+                await _toDoItemService.DeleteToDoItemByCascadeId(formEntity.ToDoItemId);
 
-            formEntity.IsCanceled = true;
-            return await _preApprovalFormRepository.UpdatePreApprovalForm(formEntity);
+                formEntity.IsCanceled = true;
+                formEntity.IsArchived = true;
+
+                if (formEntity.ToDoItemId != null)
+                {
+                    // Complete the ToDoItem
+                    ToDoItemDto todo = await _toDoItemService.GetToDoItemByCascadeId(formEntity.ToDoItemId);
+                    await _toDoItemService.ChangeCompleteToDoItem(todo.Id, true);
+                }
+                return await _preApprovalFormRepository.UpdatePreApprovalForm(formEntity);
+            }
+            return false;
+        }
+
+        private bool CheckIfFormIsOperable(PreApprovalForm form)
+        {
+            return !form.IsApproved && !form.IsRejected && !form.IsArchived && !form.IsCanceled;
+        }
+
+        public async Task<bool> ArchivePreApprovalForm(Guid formId)
+        {
+            PreApprovalForm formEntity = await _preApprovalFormRepository.GetPreApprovalForm(formId);
+
+            if (formEntity == null)
+                return false;
+
+            if (CheckIfFormIsOperable(formEntity))
+            {
+                formEntity.IsArchived = true;
+
+                if (formEntity.ToDoItemId != null)
+                {
+                    // Complete the ToDoItem
+                    ToDoItemDto todo = await _toDoItemService.GetToDoItemByCascadeId(formEntity.ToDoItemId);
+                    await _toDoItemService.ChangeCompleteToDoItem(todo.Id, true);
+                }
+                return await _preApprovalFormRepository.UpdatePreApprovalForm(formEntity);
+            }
+            return false;
+        }
+
+        public async Task<ICollection<PreApprovalFormDto>> GetArchivedPreApprovalForms()
+        {
+            IEnumerable<PreApprovalForm> formEntities = await _preApprovalFormRepository.GetPreApprovalForms();
+            ICollection<PreApprovalFormDto> listToReturn = new List<PreApprovalFormDto>();
+
+            foreach (PreApprovalForm form in formEntities)
+            {
+                if (form.IsArchived)
+                {
+                    listToReturn.Add(_mapper.Map<PreApprovalFormDto>(form));
+                }
+            }
+            return listToReturn;
+        }
+
+        public async Task<ICollection<PreApprovalFormDto>> GetNonArchivedPreApprovalForms()
+        {
+            IEnumerable<PreApprovalForm> formEntities = await _preApprovalFormRepository.GetPreApprovalForms();
+            ICollection<PreApprovalFormDto> listToReturn = new List<PreApprovalFormDto>();
+
+            foreach (PreApprovalForm form in formEntities)
+            {
+                if (!form.IsArchived)
+                {
+                    listToReturn.Add(_mapper.Map<PreApprovalFormDto>(form));
+                }
+            }
+            return listToReturn;
+        }
+
+        public async Task<ICollection<PreApprovalFormDto>> GetArchivedPreApprovalFormsByDepartment(string userName)
+        {
+            ExchangeCoordinator coordinator = await _userService.GetExchangeCoordinator(userName);
+            ICollection<PreApprovalFormDto> forms = await GetArchivedPreApprovalForms();
+            foreach (PreApprovalFormDto form in forms)
+            {
+                var student = await _userRepository.GetStudentByUserName(form.IDNumber);
+                if (student.Major.DepartmentName != coordinator.Department.DepartmentName)
+                {
+                    forms.Remove(form);
+                }
+            }
+
+            return forms;
+        }
+
+        public async Task<ICollection<PreApprovalFormDto>> GetNonArchivedPreApprovalFormsByDepartment(string userName)
+        {
+            ExchangeCoordinator coordinator = await _userService.GetExchangeCoordinator(userName);
+            ICollection<PreApprovalFormDto> forms = await GetNonArchivedPreApprovalForms();
+            foreach (PreApprovalFormDto form in forms)
+            {
+                var student = await _userRepository.GetStudentByUserName(form.IDNumber);
+                if (student.Major.DepartmentName != coordinator.Department.DepartmentName)
+                {
+                    forms.Remove(form);
+                }
+            }
+
+            return forms;
         }
     }
 }

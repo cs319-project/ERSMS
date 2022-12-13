@@ -53,6 +53,72 @@ namespace Backend.Controllers
             return BadRequest("Failed to delete Equivalance Request");
         }
 
+        [HttpGet("archived/all")]
+        public async Task<ActionResult<IEnumerable<EquivalanceRequestDto>>> GetArchivedEquivalanceRequests()
+        {
+            IEnumerable<EquivalanceRequestDto> equivalanceRequests = await _equivalanceRequestService.GetArchivedEquivalanceRequests();
+            if (equivalanceRequests == null || equivalanceRequests.Count() == 0)
+            {
+                return NotFound();
+            }
+            return Ok(equivalanceRequests);
+        }
+
+        [HttpGet("nonarchived/all")]
+        public async Task<ActionResult<IEnumerable<EquivalanceRequestDto>>> GetNonArchivedEquivalanceRequests()
+        {
+            IEnumerable<EquivalanceRequestDto> equivalanceRequests = await _equivalanceRequestService.GetNonArchivedEquivalanceRequests();
+            if (equivalanceRequests == null || equivalanceRequests.Count() == 0)
+            {
+                return NotFound();
+            }
+            return Ok(equivalanceRequests);
+        }
+
+        [HttpGet("archived/department/{userName}")]
+        public async Task<ActionResult<IEnumerable<EquivalanceRequestDto>>> GetArchivedEquivalanceRequestsByDepartment(string userName)
+        {
+            IEnumerable<EquivalanceRequestDto> equivalanceRequests = await _equivalanceRequestService.GetArchivedEquivalanceRequestsByDepartmentForCoordinator(userName);
+            if (equivalanceRequests == null || equivalanceRequests.Count() == 0)
+            {
+                return NotFound();
+            }
+            return Ok(equivalanceRequests);
+        }
+
+        [HttpGet("nonarchived/department/{userName}")]
+        public async Task<ActionResult<IEnumerable<EquivalanceRequestDto>>> GetNonArchivedEquivalanceRequestsByDepartment(string userName)
+        {
+            IEnumerable<EquivalanceRequestDto> equivalanceRequests = await _equivalanceRequestService.GetNonArchivedEquivalanceRequestsByDepartmentForCoordinator(userName);
+            if (equivalanceRequests == null || equivalanceRequests.Count() == 0)
+            {
+                return NotFound();
+            }
+            return Ok(equivalanceRequests);
+        }
+
+        [HttpGet("archived/course/{courseCode}")]
+        public async Task<ActionResult<IEnumerable<EquivalanceRequestDto>>> GetArchivedEquivalanceRequestsByCourseCode(string courseCode)
+        {
+            IEnumerable<EquivalanceRequestDto> equivalanceRequests = await _equivalanceRequestService.GetArchivedEquivalanceRequestsByCourseCode(courseCode);
+            if (equivalanceRequests == null || equivalanceRequests.Count() == 0)
+            {
+                return NotFound();
+            }
+            return Ok(equivalanceRequests);
+        }
+
+        [HttpGet("nonarchived/course/{courseCode}")]
+        public async Task<ActionResult<IEnumerable<EquivalanceRequestDto>>> GetNonArchivedEquivalanceRequestsByCourseCode(string courseCode)
+        {
+            IEnumerable<EquivalanceRequestDto> equivalanceRequests = await _equivalanceRequestService.GetNonArchivedEquivalanceRequestsByCourseCode(courseCode);
+            if (equivalanceRequests == null || equivalanceRequests.Count() == 0)
+            {
+                return NotFound();
+            }
+            return Ok(equivalanceRequests);
+        }
+
         [HttpGet("student/{studentID}")]
         public async Task<ActionResult<ICollection<EquivalanceRequestDto>>> GetEquivalanceRequestsOfStudent(string studentID)
         {
@@ -94,6 +160,16 @@ namespace Backend.Controllers
                 return Ok(true);
             }
             return BadRequest("Failed to approve request");
+        }
+
+        [HttpPatch("cancel/{requestId:Guid}")]
+        public async Task<ActionResult> CancelRequest(Guid requestId)
+        {
+            if (await _equivalanceRequestService.CancelEquivalanceRequest(requestId))
+            {
+                return Ok(true);
+            }
+            return BadRequest("Failed to cancel request");
         }
     }
 }

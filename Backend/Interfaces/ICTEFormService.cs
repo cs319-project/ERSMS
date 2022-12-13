@@ -20,5 +20,10 @@ namespace Backend.Interfaces
         Task<bool> ApproveFormCoordinator(Guid formId, ApprovalDto approval);
         Task<bool> ApproveFacultyOfAdministrationBoard(Guid formId, ApprovalDto approval);
         Task<bool> CancelCTEForm(Guid formId);
+        Task<bool> ArchiveCTEForm(Guid formId);
+        Task<ICollection<CTEFormDto>> GetArchivedCTEForms();
+        Task<ICollection<CTEFormDto>> GetNonArchivedCTEForms();
+        Task<ICollection<CTEFormDto>> GetArchivedCTEFormsByDepartment(string userName);
+        Task<ICollection<CTEFormDto>> GetNonArchivedCTEFormsByDepartment(string userName);
     }
 }

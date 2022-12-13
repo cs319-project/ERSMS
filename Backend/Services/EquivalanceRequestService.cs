@@ -112,5 +112,149 @@ namespace Backend.Services
 
             return listToReturn;
         }
+
+        public async Task<bool> CancelEquivalanceRequest(Guid requestId)
+        {
+            EquivalanceRequest request = _equivalanceRequestRepository.GetEquivalanceRequest(requestId).Result;
+            if (CheckIfFormIsOperable(request))
+            {
+                if (request == null)
+                {
+                    return false;
+                }
+
+                request.IsCanceled = true;
+                request.IsArchived = true;
+
+                return await _equivalanceRequestRepository.UpdateEquivalanceRequest(request);
+            }
+            return false;
+        }
+
+        public async Task<bool> ArchiveEquivalanceRequest(Guid requestId)
+        {
+            EquivalanceRequest request = _equivalanceRequestRepository.GetEquivalanceRequest(requestId).Result;
+
+            if (request == null)
+            {
+                return false;
+            }
+
+            if (CheckIfFormIsOperable(request))
+            {
+                request.IsArchived = true;
+                return await _equivalanceRequestRepository.UpdateEquivalanceRequest(request);
+            }
+            return false;
+        }
+
+        public async Task<ICollection<EquivalanceRequestDto>> GetArchivedEquivalanceRequests()
+        {
+            IEnumerable<EquivalanceRequest> requests = await _equivalanceRequestRepository.GetEquivalanceRequests();
+            ICollection<EquivalanceRequestDto> listToReturn = new List<EquivalanceRequestDto>();
+
+            foreach (EquivalanceRequest request in requests)
+            {
+                if (request.IsArchived)
+                {
+                    listToReturn.Add(_mapper.Map<EquivalanceRequestDto>(request));
+                }
+            }
+            return listToReturn;
+        }
+
+        public async Task<ICollection<EquivalanceRequestDto>> GetNonArchivedEquivalanceRequests()
+        {
+            IEnumerable<EquivalanceRequest> requests = await _equivalanceRequestRepository.GetEquivalanceRequests();
+            ICollection<EquivalanceRequestDto> listToReturn = new List<EquivalanceRequestDto>();
+
+            foreach (EquivalanceRequest request in requests)
+            {
+                if (!request.IsArchived)
+                {
+                    listToReturn.Add(_mapper.Map<EquivalanceRequestDto>(request));
+                }
+            }
+            return listToReturn;
+        }
+
+        public async Task<ICollection<EquivalanceRequestDto>> GetArchivedEquivalanceRequestsByDepartmentForCoordinator(string userName)
+        {
+            ExchangeCoordinator coordinator = await _userService.GetExchangeCoordinator(userName);
+            Department department = coordinator.Department.DepartmentName;
+            IEnumerable<EquivalanceRequestDto> equivalanceRequests = await GetArchivedEquivalanceRequests();
+            ICollection<EquivalanceRequestDto> listToReturn = new List<EquivalanceRequestDto>();
+
+            foreach (EquivalanceRequestDto request in equivalanceRequests)
+            {
+                var student = await _userService.GetStudent(request.StudentId);
+                if (student == null)
+                {
+                    continue;
+                }
+                if (student.Major.DepartmentName == department)
+                {
+                    listToReturn.Add(request);
+                }
+            }
+            return listToReturn;
+        }
+
+        public async Task<ICollection<EquivalanceRequestDto>> GetNonArchivedEquivalanceRequestsByDepartmentForCoordinator(string userName)
+        {
+            ExchangeCoordinator coordinator = await _userService.GetExchangeCoordinator(userName);
+            Department department = coordinator.Department.DepartmentName;
+            IEnumerable<EquivalanceRequestDto> equivalanceRequests = await GetNonArchivedEquivalanceRequests();
+            ICollection<EquivalanceRequestDto> listToReturn = new List<EquivalanceRequestDto>();
+
+            foreach (EquivalanceRequestDto request in equivalanceRequests)
+            {
+                var student = await _userService.GetStudent(request.StudentId);
+                if (student == null)
+                {
+                    continue;
+                }
+                if (student.Major.DepartmentName == department)
+                {
+                    listToReturn.Add(request);
+                }
+            }
+            return listToReturn;
+        }
+
+        public async Task<ICollection<EquivalanceRequestDto>> GetArchivedEquivalanceRequestsByCourseCode(string courseCode)
+        {
+            IEnumerable<EquivalanceRequestDto> equivalanceRequests = await GetArchivedEquivalanceRequests();
+            ICollection<EquivalanceRequestDto> listToReturn = new List<EquivalanceRequestDto>();
+
+            foreach (EquivalanceRequestDto request in equivalanceRequests)
+            {
+                if (request.ExemptedCourse.CourseCode == courseCode)
+                {
+                    listToReturn.Add(request);
+                }
+            }
+            return listToReturn;
+        }
+
+        public async Task<ICollection<EquivalanceRequestDto>> GetNonArchivedEquivalanceRequestsByCourseCode(string courseCode)
+        {
+            IEnumerable<EquivalanceRequestDto> equivalanceRequests = await GetNonArchivedEquivalanceRequests();
+            ICollection<EquivalanceRequestDto> listToReturn = new List<EquivalanceRequestDto>();
+
+            foreach (EquivalanceRequestDto request in equivalanceRequests)
+            {
+                if (request.ExemptedCourse.CourseCode == courseCode)
+                {
+                    listToReturn.Add(request);
+                }
+            }
+            return listToReturn;
+        }
+
+        private bool CheckIfFormIsOperable(EquivalanceRequest request)
+        {
+            return !request.IsArchived && !request.IsCanceled && !request.IsApproved && !request.IsRejected;
+        }
     }
 }
