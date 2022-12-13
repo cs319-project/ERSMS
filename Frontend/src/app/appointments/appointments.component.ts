@@ -61,7 +61,6 @@ export class AppointmentsComponent implements OnInit {
     dialogConfig.data = this.appointment;
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = false;
-    dialogConfig.data = {'text': 'Are you sure to reject this appointment request?'}
 
     const dialogRef = this.dialog.open(CreateAppointmentDialogComponent, dialogConfig);
 
