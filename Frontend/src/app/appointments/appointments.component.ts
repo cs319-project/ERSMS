@@ -39,6 +39,17 @@ export class AppointmentsComponent implements OnInit {
       ]
     }]
 
+  appointmentsList3: dayAppointments[] = [{
+    date: new Date("12/05/2022").toLocaleDateString('tr-TR'),
+    appointments: [{topic: "Kutay vs CSS", person: "Kutay Tire", time:"13:33"}, {topic: "Kutay vs HTML", person: "Kutay Tire", time:"13:33"},
+      {topic: "Kutay vs CSS", person: "Kutay Tire", time:"13:33"},{topic: "Kutay vs CSS", person: "Kutay Tire", time:"13:33"},]},
+    {
+      date: new Date('09/05/2022').toLocaleDateString('tr-TR'),
+      appointments: [{topic: "Kutay vs C#", person: "Kutay Tire", time:"13:33"}, {topic: "Kutay vs Angular", person: "Kutay Tire", time:"13:33"},
+        {topic: "Kutay vs Flex", person: "Kutay Tire", time:"13:33"},{topic: "Kutay vs Flex", person: "Kutay Tire", time:"13:33"},
+      ]
+    }];
+
 
 
   constructor(private dialog: MatDialog, private _snackBar: MatSnackBar) { }
@@ -50,6 +61,7 @@ export class AppointmentsComponent implements OnInit {
     dialogConfig.data = this.appointment;
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = false;
+    dialogConfig.data = {'text': 'Are you sure to reject this appointment request?'}
 
     const dialogRef = this.dialog.open(CreateAppointmentDialogComponent, dialogConfig);
 
@@ -63,6 +75,7 @@ export class AppointmentsComponent implements OnInit {
 
   deleteAppointment(dayAppointmentsIndex, appointmentIndex) {
     const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {'text': 'Are you sure to delete this appointment?'}
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(deleteItem => {
       if (deleteItem) {
@@ -75,14 +88,30 @@ export class AppointmentsComponent implements OnInit {
     });
   }
 
-  deletePendingAppointment(dayAppointmentsIndex, appointmentIndex) {
+  deleteReceivedAppointmentRequest(dayAppointmentsIndex, appointmentIndex) {
     const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {'text': 'Are you sure to delete this appointment request?'}
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(deleteItem => {
       if (deleteItem) {
         this.appointmentsList2[dayAppointmentsIndex]['appointments'].splice(appointmentIndex, 1);
         if (this.appointmentsList2[dayAppointmentsIndex]['appointments'].length == 0) {
           this.appointmentsList2.splice(appointmentIndex, 1);
+        }
+        this.openSnackBar("Appointment deleted", 'Close', 5);
+      }
+    });
+  }
+
+  deleteSentAppointmentRequest(dayAppointmentsIndex, appointmentIndex) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {'text': 'Are you sure to unsend this appointment request?'}
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(deleteItem => {
+      if (deleteItem) {
+        this.appointmentsList3[dayAppointmentsIndex]['appointments'].splice(appointmentIndex, 1);
+        if (this.appointmentsList3[dayAppointmentsIndex]['appointments'].length == 0) {
+          this.appointmentsList3.splice(appointmentIndex, 1);
         }
         this.openSnackBar("Appointment deleted", 'Close', 5);
       }

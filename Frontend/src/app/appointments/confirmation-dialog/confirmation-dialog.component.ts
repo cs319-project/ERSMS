@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {MatDialogRef} from "@angular/material/dialog";
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {AppointmentsComponent} from "../appointments.component";
 
 @Component({
@@ -8,8 +8,12 @@ import {AppointmentsComponent} from "../appointments.component";
   styleUrls: ['./confirmation-dialog.component.css']
 })
 export class ConfirmationDialogComponent implements OnInit {
+  text: string;
 
-  constructor(public dialogRef: MatDialogRef<AppointmentsComponent>) { }
+  constructor(public dialogRef: MatDialogRef<AppointmentsComponent>,
+              @Inject(MAT_DIALOG_DATA) public data) {
+    this.text = data.text;
+  }
 
   ngOnInit(): void {
   }
