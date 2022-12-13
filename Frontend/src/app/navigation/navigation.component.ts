@@ -3,9 +3,10 @@ import { MatIconRegistry} from "@angular/material/icon";
 import { DomSanitizer} from "@angular/platform-browser";
 import {AppScene} from "../app.component";
 import {Router} from "@angular/router";
-import {MatDialog} from "@angular/material/dialog";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {AnnouncementComponent} from "./announcement/announcement.component";
+import {createRandomDialogData} from "../logging/logging.component";
 
 @Component({
   selector: 'app-navigation',
@@ -102,7 +103,11 @@ export class NavigationComponent implements OnInit {
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(AnnouncementComponent, {data: {description: this.announcement}});
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = { data: { description: this.announcement } };
+    dialogConfig.disableClose = true;
+
+    const dialogRef = this.dialog.open(AnnouncementComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
