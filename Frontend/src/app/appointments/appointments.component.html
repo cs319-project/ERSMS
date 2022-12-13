@@ -1,1 +1,69 @@
-<p>appointments works!</p>
+<div class="appointments-container mt-5">
+  <div class="appointments-list-container card-effect">
+    <div class="appointments-list-header mt-3">
+      <span>Your Appointments</span>
+      <button mat-raised-button color="primary" (click)="openDialog()">Add New</button>
+    </div>
+    <mat-divider style="width: 100%" class="mt-3 mb-3"></mat-divider>
+    <div class="appointments-list-content mt-3 custom-appointments-list-scroll-bar">
+      <div class="day-appointments" *ngFor="let dayAppointments of appointmentsList">
+        <span class="appointment-day mb-1 mt-2">{{dayAppointments.date}}</span>
+        <div class="appointments" *ngFor="let appointment of dayAppointments.appointments">
+          <div class="appointment">
+            <div class="appointment-time">
+              <span>@{{appointment.time}}</span>
+            </div>
+            <div class="appointment-item ml-3 mr-3">
+              <div class="appointment-details">
+                <span class="activity-user"><strong>Topic: </strong>{{appointment.topic}}</span>
+                <span><strong>with: </strong>{{appointment.person}}</span>
+              </div>
+              <div class="request-actions">
+                <button  mat-icon-button >
+                  <mat-icon>close</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mb-4"></div>
+      </div>
+    </div>
+  </div>
+  <div class="arrange-appointments-container">
+    <div class="appointment-requests-container card-effect">
+      <div class="appoint-requests-header mt-3">
+        <span>Appointment Requests</span>
+      </div>
+      <mat-divider style="width: 100%" class="mt-3 mb-3"></mat-divider>
+      <div class="appointment-requests-content custom-appointment-requests-scroll-bar">
+        <div class="day-appointments" *ngFor="let dayAppointments of appointmentsList">
+          <span class="appointment-day mb-1 mt-2">{{dayAppointments.date}}</span>
+          <div class="appointments" *ngFor="let appointment of dayAppointments.appointments">
+            <div class="appointment">
+              <div class="appointment-time">
+                <span>@{{appointment.time}}</span>
+              </div>
+              <div class="appointment-item ml-3 mr-3">
+                <div class="appointment-details">
+                  <span class="activity-user"><strong>Topic: </strong>{{appointment.topic}}</span>
+                  <span><strong>with: </strong>{{appointment.person}}</span>
+                </div>
+                  <div class="request-actions">
+                  <button  mat-icon-button>
+                    <mat-icon>check</mat-icon>
+                  </button>
+                  <button  mat-icon-button>
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mb-4"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

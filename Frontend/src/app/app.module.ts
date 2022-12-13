@@ -41,6 +41,10 @@ import {MatSelectModule} from "@angular/material/select";
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { CreateAppointmentDialogComponent } from './appointments/create-appointment-dialog/create-appointment-dialog.component';
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+
 
 @NgModule({
   declarations: [
@@ -54,7 +58,8 @@ import { MatSortModule } from '@angular/material/sort';
     MessagesComponent,
     FormDialogComponent,
     AnnouncementComponent,
-    AppointmentsComponent
+    AppointmentsComponent,
+    CreateAppointmentDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -87,6 +92,8 @@ import { MatSortModule } from '@angular/material/sort';
     MatSelectModule,
     MatPaginatorModule,
     MatSortModule,
+    MatAutocompleteModule,
+    MatDatepickerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
