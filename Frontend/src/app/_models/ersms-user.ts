@@ -1,4 +1,4 @@
-export class ErsmsUserDto {
+export class ErsmsUser {
   email: string;
   token: string;
 }

@@ -1,4 +1,4 @@
-export class CourseDto {
+export class Course {
   courseCode: string;
   courseName: string;
 }

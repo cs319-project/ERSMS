@@ -1,4 +1,4 @@
-export class AppUserDto {
+export class AppUser {
   email: string;
   username: string;
 }

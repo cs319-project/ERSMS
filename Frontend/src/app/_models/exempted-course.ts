@@ -1,7 +1,6 @@
-import {GUID} from "../utils/guid";
+import { GUID } from '../../utils/guid';
 
-
-export class ExemptedCourseDto {
+export class ExemptedCourse {
   id: GUID;
   credits: number;
   courseCode: string;

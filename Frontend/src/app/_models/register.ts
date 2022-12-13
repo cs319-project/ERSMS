@@ -1,13 +1,13 @@
-import {DepartmentInfoDto} from "./department-info.dto";
+import { DepartmentInfo } from './department-info';
 
-export class RegisterDto {
+export class Register {
   actorType: Required<string>;
   email: string;
   userName: Required<string>;
   firstName: Required<string>;
   lastName: Required<string>;
   password: Required<string>;
-  department: DepartmentInfoDto;
+  department: DepartmentInfo;
   isDean: boolean;
   isCourseCoordinator: boolean;
 }

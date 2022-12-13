@@ -1,4 +1,4 @@
-export class SemesterInfoDto {
+export class SemesterInfo {
   academicYear: string;
   semester: string;
 }

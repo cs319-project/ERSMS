@@ -1,7 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {AppScene} from "../app.component";
-import {ActivatedRoute, Router} from "@angular/router";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AppScene } from '../app.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService } from '../_services/authentication.service';
+import { Login } from '../_models/login';
 
 @Component({
   selector: 'app-login',
@@ -9,22 +11,35 @@ import {ActivatedRoute, Router} from "@angular/router";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  model: any = {};
 
   @Input() currentScene!: AppScene;
-  @Output() currentSceneChange: EventEmitter<AppScene> = new EventEmitter<AppScene>();
+  @Output() currentSceneChange: EventEmitter<AppScene> =
+    new EventEmitter<AppScene>();
 
-  constructor(private _snackBar: MatSnackBar, private router: Router) { }
+  constructor(
+    public authenticationService: AuthenticationService,
+    private _snackBar: MatSnackBar,
+    private router: Router
+  ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   hidePassword = true;
 
-  login(){
-    let successful = true; // TODO: Add checks
-    if (successful) {
-      this.openSnackBar("Login successful!", "Close", 5000);
-    }
+  login() {
+    const loginInfo: Login = {
+      email: this.model.email,
+      password: this.model.password
+    };
+
+    this.authenticationService.login(loginInfo).subscribe({
+      next: _ => {
+        //this.router.navigateByUrl('/members');
+        this.model = {};
+      }
+    });
+
     this.currentScene = AppScene.App;
     this.router.navigate([`../dashboard`]);
     this.currentSceneChange.emit(this.currentScene);

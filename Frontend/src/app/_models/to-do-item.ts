@@ -1,7 +1,6 @@
-import {GUID} from "../utils/guid";
+import { GUID } from '../../utils/guid';
 
-
-export class ToDoItemDto {
+export class ToDoItem {
   id: GUID;
   cascadeId: GUID;
   title: string;

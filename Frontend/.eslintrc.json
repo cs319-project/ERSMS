@@ -33,7 +33,7 @@
         "prettier/prettier": [
           "error",
           {
-            "singleQuote": false,
+            "singleQuote": true,
             "trailingComma": "none"
           }
         ]

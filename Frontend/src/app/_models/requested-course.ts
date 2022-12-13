@@ -1,6 +1,6 @@
-import {GUID} from "../utils/guid";
+import { GUID } from '../../utils/guid';
 
-export class RequestedCourseDto {
+export class RequestedCourse {
   id: GUID;
   courseCode: string;
   courseName: string;

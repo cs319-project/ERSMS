@@ -1,4 +1,4 @@
-export class DepartmentInfoDto {
+export class DepartmentInfo {
   facultyName: string;
   departmentName: string;
 }
