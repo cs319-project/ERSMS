@@ -167,14 +167,14 @@ export function createRandomDialogData(row) {
 
 
 /** Builds and returns a new User. */
-export function createNewUser(id: number, status: string = null): UserData {
+export function createNewUser(id: number, status: string = null, student: string = null): UserData {
   const name =
       NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
       NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
 
   return {
     id: id,
-    student: name,
+    student: student || name,
     date: new Date("12/05/2022").toLocaleDateString('en-US'),
     type: TYPE[Math.round(Math.random() * (TYPE.length - 1))],
     school: SCHOOLS[Math.round(Math.random() * (SCHOOLS.length - 1))],

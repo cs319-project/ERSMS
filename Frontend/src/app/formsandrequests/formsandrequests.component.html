@@ -1,3 +1,4 @@
+<!--
 <div class="fnr-container mr-3 ml-3">
   <div class="fnr-header mt-3">
     <div style="width: 80%">
@@ -25,7 +26,7 @@
                 [dataSource]="dataSource"
                 matSort
                 #sorter1="matSort">
-                <!-- ID Column -->
+              
                 <ng-container matColumnDef="id">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
                   <td mat-cell *matCellDef="let row">
@@ -33,7 +34,6 @@
                   </td>
                 </ng-container>
 
-                <!-- Student Column -->
                 <ng-container matColumnDef="student">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>
                     Student
@@ -43,7 +43,6 @@
                   </td>
                 </ng-container>
 
-                <!-- Date Column -->
                 <ng-container matColumnDef="date">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>
                     Date
@@ -53,7 +52,7 @@
                   </td>
                 </ng-container>
 
-                <!-- Type Column -->
+            
                 <ng-container matColumnDef="type">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>
                     Type
@@ -63,7 +62,7 @@
                   </td>
                 </ng-container>
 
-                <!-- School Column -->
+        
                 <ng-container matColumnDef="school">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>
                     School
@@ -73,7 +72,7 @@
                   </td>
                 </ng-container>
 
-                <!-- Status Column -->
+              
                 <ng-container matColumnDef="status">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>
                     Status
@@ -131,7 +130,7 @@
                 [dataSource]="preapprovalDataSource"
                 matSort
                 #sorter2="matSort">
-                <!-- ID Column -->
+               
                 <ng-container matColumnDef="id">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
                   <td mat-cell *matCellDef="let row">
@@ -139,7 +138,7 @@
                   </td>
                 </ng-container>
 
-                <!-- Student Column -->
+             
                 <ng-container matColumnDef="student">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>
                     Student
@@ -149,7 +148,7 @@
                   </td>
                 </ng-container>
 
-                <!-- Date Column -->
+             
                 <ng-container matColumnDef="date">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>
                     Date
@@ -159,7 +158,7 @@
                   </td>
                 </ng-container>
 
-                <!-- School Column -->
+              
                 <ng-container matColumnDef="school">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>
                     School
@@ -169,7 +168,6 @@
                   </td>
                 </ng-container>
 
-                <!-- Status Column -->
                 <ng-container matColumnDef="status">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>
                     Status
@@ -224,7 +222,7 @@
                 [dataSource]="cteDataSource"
                 matSort
                 #sorter3="matSort">
-                <!-- ID Column -->
+      
                 <ng-container matColumnDef="id">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
                   <td mat-cell *matCellDef="let row">
@@ -232,7 +230,7 @@
                   </td>
                 </ng-container>
 
-                <!-- Student Column -->
+
                 <ng-container matColumnDef="student">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>
                     Student
@@ -242,7 +240,7 @@
                   </td>
                 </ng-container>
 
-                <!-- Date Column -->
+          
                 <ng-container matColumnDef="date">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>
                     Date
@@ -252,7 +250,6 @@
                   </td>
                 </ng-container>
 
-                <!-- School Column -->
                 <ng-container matColumnDef="school">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>
                     School
@@ -262,7 +259,7 @@
                   </td>
                 </ng-container>
 
-                <!-- Status Column -->
+             
                 <ng-container matColumnDef="status">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>
                     Status
@@ -317,7 +314,7 @@
                 [dataSource]="courseEquivalenceDataSource"
                 matSort
                 #sorter4="matSort">
-                <!-- ID Column -->
+            
                 <ng-container matColumnDef="id">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
                   <td mat-cell *matCellDef="let row">
@@ -325,7 +322,7 @@
                   </td>
                 </ng-container>
 
-                <!-- Student Column -->
+            
                 <ng-container matColumnDef="student">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>
                     Student
@@ -335,7 +332,6 @@
                   </td>
                 </ng-container>
 
-                <!-- Date Column -->
                 <ng-container matColumnDef="date">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>
                     Date
@@ -345,7 +341,7 @@
                   </td>
                 </ng-container>
 
-                <!-- School Column -->
+             
                 <ng-container matColumnDef="school">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>
                     School
@@ -354,8 +350,8 @@
                     {{ row.school }}
                   </td>
                 </ng-container>
-
-                <!-- Status Column -->
+      
+          
                 <ng-container matColumnDef="status">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>
                     Status
@@ -396,10 +392,10 @@
       </mat-tab-group>
     </div>
   </div>
-</div>
+</div> -->
 
 
-<!-- Student View
+
 <div class="forms-container mr-3 ml-3">
   <div class="forms-header mt-3">
     <div>
@@ -407,13 +403,14 @@
     </div>
   </div>
   <div class="forms-content">
-    <div class="form-submits"></div>
+    <div class="form-submits">
+        <button mat-raised-button color="primary">Create Form</button>
+        <button mat-raised-button color="primary">Submit</button>
+    </div>
+    
     <div class="form-tabs">
-      <div class="form-tabs-title">
-        <span class="old-submissions"> Old Submissions</span>
-      </div>
-      <div class="mt-2 table-container">
-        <div class="table-header">
+      <div class="mt-2 table-container-student">
+        <div class="table-header-student">
           <mat-form-field>
             <mat-icon matPrefix class="mr-3">search</mat-icon>
             <input
@@ -423,9 +420,9 @@
               placeholder="Search" />
           </mat-form-field>
         </div>
-        <div class="table-content mat-elevation-z8">
-          <table mat-table [dataSource]="dataSource" matSort #sorter1="matSort">
-            &lt;!&ndash; ID Column &ndash;&gt;
+        <div class="table-content-student mat-elevation-z8">
+          <table mat-table [dataSource]="studentDataSource" matSort #sorterS="matSort">
+       
             <ng-container matColumnDef="id">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
               <td mat-cell *matCellDef="let row">
@@ -433,15 +430,6 @@
               </td>
             </ng-container>
 
-            &lt;!&ndash; Student Column &ndash;&gt;
-            <ng-container matColumnDef="student">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Student</th>
-              <td mat-cell *matCellDef="let row">
-                {{ row.student }}
-              </td>
-            </ng-container>
-
-            &lt;!&ndash; Date Column &ndash;&gt;
             <ng-container matColumnDef="date">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
               <td mat-cell *matCellDef="let row">
@@ -449,7 +437,6 @@
               </td>
             </ng-container>
 
-            &lt;!&ndash; Type Column &ndash;&gt;
             <ng-container matColumnDef="type">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
               <td mat-cell *matCellDef="let row">
@@ -457,7 +444,7 @@
               </td>
             </ng-container>
 
-            &lt;!&ndash; School Column &ndash;&gt;
+      
             <ng-container matColumnDef="school">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>School</th>
               <td mat-cell *matCellDef="let row">
@@ -465,7 +452,7 @@
               </td>
             </ng-container>
 
-            &lt;!&ndash; Status Column &ndash;&gt;
+     
             <ng-container matColumnDef="status">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
               <td mat-cell *matCellDef="let row">
@@ -480,11 +467,11 @@
               </td>
             </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
 
             <tr
               mat-row
-              *matRowDef="let row; columns: displayedColumns"
+              *matRowDef="let row; columns: displayedColumns3"
               [ngClass]="{
                 hovered: row.hovered,
                 highlighted: selection.isSelected(row)
@@ -494,13 +481,13 @@
           </table>
 
           <mat-paginator
-            #paginator
-            [pageSizeOptions]="[10]"
-            [pageSize]="10"
+            #paginatorS
+            [pageSizeOptions]="[5]"
+            [pageSize]="5"
             [showFirstLastButtons]="true"
             [hidePageSize]="true"></mat-paginator>
         </div>
       </div>
     </div>
   </div>
-</div>-->
+</div>

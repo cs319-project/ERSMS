@@ -16,28 +16,19 @@ import {createNewUser, createRandomDialogData, NAMES, SCHOOLS, UserData} from ".
   })
 
 export class FormsAndRequestsComponent {
-  /* Student View
-  constructor(private dialog: MatDialog, private _snackBar: MatSnackBar) {
-    const users: UserData[] = [];
-
-    for (let i = 1; i <= 100; i++) { users.push(createNewUser(i))};
-    this.dataSource = new MatTableDataSource(users);
-
-  }
-
-  displayedColumns = ['id', 'student', 'date', 'type','school' ,'status'];
-  selection = new SelectionModel<UserData>(true, []);
-  dataSource: MatTableDataSource<UserData>;
-  @ViewChild('paginator') paginator: MatPaginator;
-  @ViewChild('sorter1') sorter1: MatSort;
-   */
-
+  
   displayedColumns = ['id', 'student', 'date', 'type', 'school', 'status'];
   displayedColumns2 = ['id', 'student', 'date', 'school', 'status'];
+  displayedColumns3 = ['id', 'date', 'type', 'school', 'status']
+
   dataSource: MatTableDataSource<UserData>;
   preapprovalDataSource: MatTableDataSource<UserData>;
   cteDataSource: MatTableDataSource<UserData>;
   courseEquivalenceDataSource: MatTableDataSource<UserData>;
+  studentDataSource: MatTableDataSource<UserData>;
+
+  @ViewChild('paginatorS') paginatorS: MatPaginator;
+  @ViewChild('sorterS') sorterS: MatSort;
 
   @ViewChild('paginator') paginator: MatPaginator;
   @ViewChild('paginator2') paginator2: MatPaginator;
@@ -58,8 +49,12 @@ export class FormsAndRequestsComponent {
     const preapprovalUsers: UserData[] = [];
     const cteUsers: UserData[] = [];
     const courseequivalenceUsers: UserData[] = [];
+    const studentUser: UserData[] = [];
+
 
     for (let i = 1; i <= 100; i++) {users.push(createNewUser(i, status='Processing'))}
+    for (let i = 1; i <= 10; i++) {studentUser.push(createNewUser(i))}
+
 
     for(let k = 0; k < users.length; k++) {
 
@@ -83,6 +78,8 @@ export class FormsAndRequestsComponent {
     this.preapprovalDataSource = new MatTableDataSource(preapprovalUsers);
     this.cteDataSource = new MatTableDataSource(cteUsers);
     this.courseEquivalenceDataSource = new MatTableDataSource(courseequivalenceUsers);
+    this.studentDataSource = new MatTableDataSource(studentUser);
+
 
   }
 
@@ -91,6 +88,9 @@ export class FormsAndRequestsComponent {
     this.preapprovalDataSource.paginator = this.paginator2;
     this.cteDataSource.paginator = this.paginator3;
     this.courseEquivalenceDataSource.paginator = this.paginator4;
+
+    this.studentDataSource.paginator = this.paginatorS;
+    this.studentDataSource.sort = this.sorterS;
 
     this.dataSource.sort = this.sorter1;
     this.preapprovalDataSource.sort = this.sorter2;
@@ -125,6 +125,7 @@ export class FormsAndRequestsComponent {
     this.preapprovalDataSource.filter = filterValue;
     this.cteDataSource.filter = filterValue;
     this.courseEquivalenceDataSource.filter = filterValue;
+    this.studentDataSource.filter = filterValue;
   }
 
   openDialog(row) {
@@ -147,18 +148,5 @@ export class FormsAndRequestsComponent {
     this._snackBar.open(message, action, {
       duration: duration * 1000
     });
-  }
-
-  /* Student View functions
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sorter1;
-  }
-
-  applyFilter(filterValue: string) {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
-  }
-   */
+  }  
 }
