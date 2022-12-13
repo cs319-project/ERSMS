@@ -11,6 +11,6 @@ namespace Backend.DTOs
         public string Title { get; set; }
         //[Required]
         public string Description { get; set; } = "Default description";
-        public DateTime CreationDate { get; set; }
+        public DateTime CreationDate { get; set; } = DateTime.Now;
     }
 }

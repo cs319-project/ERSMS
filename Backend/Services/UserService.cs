@@ -6,6 +6,7 @@ using Backend.Interfaces;
 using Backend.Entities;
 using Backend.DTOs;
 using AutoMapper;
+using Backend.Utilities.Enum;
 
 namespace Backend.Services
 {
@@ -73,14 +74,41 @@ namespace Backend.Services
             return null;
         }
 
+        public async Task<IEnumerable<ExchangeCoordinatorDto>> GetExchangeCoordinatorsByDepartmentAsync(Department department)
+        {
+            var users = await _userRepository.GetExchangeCoordinatorsAsync();
+            IEnumerable<ExchangeCoordinator> usersByDepartment = users.Where(x => x.Department.DepartmentName == department);
+            return _mapper.Map<IEnumerable<ExchangeCoordinatorDto>>(usersByDepartment);
+        }
+
+        public async Task<IEnumerable<DeanDepartmentChairDto>> GetDeanDepartmentChairsByDepartmentAsync(Department department)
+        {
+            var users = await _userRepository.GetDeanDepartmentChairsAsync();
+            IEnumerable<DeanDepartmentChair> usersByDepartment = users.Where(x => x.Department.DepartmentName == department);
+            return _mapper.Map<IEnumerable<DeanDepartmentChairDto>>(usersByDepartment);
+        }
+
+        public async Task<IEnumerable<CourseCoordinatorInstructorDto>> GetCourseCoordinatorsInstructorsByCourseCodeAsync(string courseCode)
+        {
+            var users = await _userRepository.GetCourseCoordinatorInstructorsAsync();
+            // TODO: check null
+            IEnumerable<CourseCoordinatorInstructor> usersByCourseCode = users.Where(x => x.Course.CourseCode == courseCode);
+            return _mapper.Map<IEnumerable<CourseCoordinatorInstructorDto>>(usersByCourseCode);
+        }
+
+        public async Task<IEnumerable<StudentDto>> GetStudentsAsync()
+        {
+            return _mapper.Map<IEnumerable<StudentDto>>(await _userRepository.GetStudentsAsync());
+        }
+
         public Task<AppUser> GetUserByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<AppUser> GetUserByUsernameAsync(string username)
+        public async Task<AppUser> GetUserByUsernameAsync(string username)
         {
-            throw new NotImplementedException();
+            return await _userRepository.GetUser(username);
         }
 
         public Task<IEnumerable<AppUser>> GetUsersAsync()

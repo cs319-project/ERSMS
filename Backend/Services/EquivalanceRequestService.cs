@@ -13,16 +13,19 @@ namespace Backend.Services
     public class EquivalanceRequestService : IEquivalanceRequestService
     {
         private readonly IEquivalanceRequestRepository _equivalanceRequestRepository;
+        private readonly INotificationService _notificationService;
         private readonly IUserRepository _userRepository;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
         // Constructor
         public EquivalanceRequestService(IEquivalanceRequestRepository equivalanceRequestRepository,
-                                            IUserRepository userRepository, IUserService userService, IMapper mapper)
+                                            IUserRepository userRepository, IUserService userService, IMapper mapper,
+                                            INotificationService notificationService)
         {
             _equivalanceRequestRepository = equivalanceRequestRepository;
             _userRepository = userRepository;
+            _notificationService = notificationService;
             _mapper = mapper;
             _userService = userService;
         }
@@ -32,7 +35,14 @@ namespace Backend.Services
         {
             EquivalanceRequest request = _mapper.Map<EquivalanceRequest>(equivalanceRequest);
             request.Syllabus = await SaveFile(file);
-            return await _equivalanceRequestRepository.AddEquivalanceRequestToStudent(equivalanceRequest.StudentId, request);
+            var flag = await _equivalanceRequestRepository.AddEquivalanceRequestToStudent(equivalanceRequest.StudentId, request);
+
+            if (flag)
+            {
+                await _notificationService.CreateNewFormNotification(request, FormType.EquivalanceRequest);
+            }
+
+            return flag;
         }
 
         public async Task<IEnumerable<EquivalanceRequestDto>> GetEquivalanceRequests()
@@ -105,6 +115,7 @@ namespace Backend.Services
                     request.IsArchived = true;
                 }
 
+                await _notificationService.CreateNewApprovalNotification(request, FormType.EquivalanceRequest);
                 return await _equivalanceRequestRepository.UpdateEquivalanceRequest(request);
             }
             return false;

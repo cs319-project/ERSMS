@@ -8,6 +8,7 @@ using Backend.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Backend.Controllers
 {
@@ -22,6 +23,7 @@ namespace Backend.Controllers
 
         [HttpPost("upload")]
         [Consumes("multipart/form-data")]
+        // [Authorize(Roles = "Office of International Students and Exchange Programs")]
         public async Task<ActionResult> UploadPlacementTable([FromQuery] String facultyName,
                                                                 [FromQuery] String departmentName,
                                                                 [FromForm(Name = "placementTable")] IFormFile placementTable)

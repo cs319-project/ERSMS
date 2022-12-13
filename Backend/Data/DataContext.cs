@@ -144,5 +144,6 @@ namespace Backend.Data
         public DbSet<PreApprovalForm> PreApprovalForms { get; set; }
         public DbSet<EquivalanceRequest> EquivalanceRequests { get; set; }
         public DbSet<Announcement> Announcements { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
     }
 }

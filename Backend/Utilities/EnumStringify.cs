@@ -331,5 +331,20 @@ namespace Backend.Utilities
                     throw new Exception("CourseType Exception");
             }
         }
+
+        public static string FormTypeStringify(FormType formType)
+        {
+            switch (formType)
+            {
+                case FormType.CTEForm:
+                    return "CTE Form";
+                case FormType.PreApprovalForm:
+                    return "Pre-Approval Form";
+                case FormType.EquivalanceRequest:
+                    return "Equivalance Request Form";
+                default:
+                    throw new Exception("FormType Exception");
+            }
+        }
     }
 }

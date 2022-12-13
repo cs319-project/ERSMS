@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace Backend.Entities
 {
-    public class Announcement
+    public class Notification
     {
         [Key]
         public Guid Id { get; set; }
-        public string Title { get; set; }
+        public bool read { get; set; } = false;
         [Required]
-        public string Description { get; set; } = "Default description";
-        public DateTime CreationDate { get; set; } = DateTime.Now;
+        public string content { get; set; } = "";
+        [Required]
+        public Guid userId { get; set; }
     }
 }

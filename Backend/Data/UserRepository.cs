@@ -36,9 +36,9 @@ namespace Backend.Data
             return await _context.Students.FirstOrDefaultAsync(x => x.IdentityUser.UserName == userName);
         }
 
-        public async Task<IEnumerable<Student>> GetAllStudents()
+        public async Task<IEnumerable<Student>> GetStudentsAsync()
         {
-            return (IEnumerable<Student>)await _context.Students.ToListAsync();
+            return await _context.Students.ToListAsync();
         }
 
         public async Task<Student> DeleteStudent(Guid id)
@@ -116,6 +116,21 @@ namespace Backend.Data
         {
             var coordinator = await _context.ExchangeCoordinators.FirstOrDefaultAsync(x => x.IdentityUser.UserName == username);
             return coordinator;
+        }
+
+        public async Task<IEnumerable<ExchangeCoordinator>> GetExchangeCoordinatorsAsync()
+        {
+            return await _context.ExchangeCoordinators.ToListAsync();
+        }
+
+        public async Task<IEnumerable<DeanDepartmentChair>> GetDeanDepartmentChairsAsync()
+        {
+            return await _context.DeanDepartmentChairs.ToListAsync();
+        }
+
+        public async Task<IEnumerable<CourseCoordinatorInstructor>> GetCourseCoordinatorInstructorsAsync()
+        {
+            return await _context.CourseCoordinatorInstructors.ToListAsync();
         }
     }
 }
