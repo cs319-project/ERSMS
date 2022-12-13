@@ -69,7 +69,7 @@
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                
+
                 <tr mat-row *matRowDef="let row; columns: displayedColumns; "[class.active]="activatedRow === row" (click)="openDialog(row)"
               [ngClass]="{hovered: row.hovered, highlighted: selection.isSelected(row)}"
               (mouseover)="row.hovered = true" (mouseout)="row.hovered = false">

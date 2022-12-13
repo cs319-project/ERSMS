@@ -1,103 +1,506 @@
-<!--button (click)="openDialog()">Dialog</button-->
+<div class="fnr-container mr-3 ml-3">
+  <div class="fnr-header mt-3">
+    <div style="width: 80%">
+      <span class="fnr-title">Forms and Requests</span>
+    </div>
+  </div>
+  <div class="fnr-content mt-4">
+    <div style="width: 80%">
+      <mat-tab-group #tabGroup (selectedIndexChange)="_setDataSource($event)">
+        <mat-tab label="All">
+          <div class="mt-2 table-container">
+            <div class="table-header">
+              <mat-form-field>
+                <mat-icon matPrefix class="mr-3">search</mat-icon>
+                <input
+                  type="search"
+                  matInput
+                  (keyup)="applyFilter($event.target.value)"
+                  placeholder="Search" />
+              </mat-form-field>
+            </div>
+            <div class="table-content mat-elevation-z8">
+              <table
+                mat-table
+                [dataSource]="dataSource"
+                matSort
+                #sorter1="matSort">
+                <!-- ID Column -->
+                <ng-container matColumnDef="id">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.id }}
+                  </td>
+                </ng-container>
+
+                <!-- Student Column -->
+                <ng-container matColumnDef="student">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Student
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.student }}
+                  </td>
+                </ng-container>
+
+                <!-- Date Column -->
+                <ng-container matColumnDef="date">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Date
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.date }}
+                  </td>
+                </ng-container>
+
+                <!-- Type Column -->
+                <ng-container matColumnDef="type">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Type
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.type }}
+                  </td>
+                </ng-container>
+
+                <!-- School Column -->
+                <ng-container matColumnDef="school">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    School
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.school }}
+                  </td>
+                </ng-container>
+
+                <!-- Status Column -->
+                <ng-container matColumnDef="status">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Status
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    <div
+                      class="status-text"
+                      [ngStyle]="{
+                        'background-color': row.status == 'Approved' ? '#49C96D' : (row.status == 'Processing' ? '#bec2c5' : '#FD7972')
+                      }">
+                      {{ row.status }}
+                    </div>
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: displayedColumns"
+                  [class.active]="activatedRow === row"
+                  (click)="openDialog(row)"
+                  [ngClass]="{
+                    hovered: row.hovered,
+                    highlighted: selection.isSelected(row)
+                  }"
+                  (mouseover)="row.hovered = true"
+                  (mouseout)="row.hovered = false"></tr>
+              </table>
+
+              <mat-paginator
+                #paginator
+                [pageSizeOptions]="[10]"
+                [pageSize]="10"
+                [showFirstLastButtons]="true"
+                [hidePageSize]="true"></mat-paginator>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Pre-Approval Forms">
+          <div class="mt-2 table-container">
+            <div class="table-header">
+              <mat-form-field>
+                <mat-icon matPrefix class="mr-3">search</mat-icon>
+                <input
+                  type="search"
+                  matInput
+                  (keyup)="applyFilter($event.target.value)"
+                  placeholder="Search" />
+              </mat-form-field>
+            </div>
+            <div class="table-content mat-elevation-z8">
+              <table
+                mat-table
+                [dataSource]="preapprovalDataSource"
+                matSort
+                #sorter2="matSort">
+                <!-- ID Column -->
+                <ng-container matColumnDef="id">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.id }}
+                  </td>
+                </ng-container>
+
+                <!-- Student Column -->
+                <ng-container matColumnDef="student">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Student
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.student }}
+                  </td>
+                </ng-container>
+
+                <!-- Date Column -->
+                <ng-container matColumnDef="date">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Date
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.date }}
+                  </td>
+                </ng-container>
+
+                <!-- School Column -->
+                <ng-container matColumnDef="school">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    School
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.school }}
+                  </td>
+                </ng-container>
+
+                <!-- Status Column -->
+                <ng-container matColumnDef="status">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Status
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    <div
+                      class="status-text"
+                      [ngStyle]="{
+                        'background-color':
+                          row.status === 'Approved' ? '#49C96D' : '#FD7972'
+                      }">
+                      {{ row.status }}
+                    </div>
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: displayedColumns2"
+                  [ngClass]="{ hovered: row.hovered }"
+                  [class.active]="activatedRow === row"
+                  (click)="openDialog(row)"
+                  (mouseover)="row.hovered = true"
+                  (mouseout)="row.hovered = false"></tr>
+              </table>
+
+              <mat-paginator
+                #paginator2
+                [pageSizeOptions]="[10]"
+                [pageSize]="10"
+                [showFirstLastButtons]="true"
+                [hidePageSize]="true"></mat-paginator>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="CTE Forms">
+          <div class="mt-2 table-container">
+            <div class="table-header">
+              <mat-form-field>
+                <mat-icon matPrefix class="mr-3">search</mat-icon>
+                <input
+                  type="search"
+                  matInput
+                  (keyup)="applyFilter($event.target.value)"
+                  placeholder="Search" />
+              </mat-form-field>
+            </div>
+            <div class="table-content mat-elevation-z8">
+              <table
+                mat-table
+                [dataSource]="cteDataSource"
+                matSort
+                #sorter3="matSort">
+                <!-- ID Column -->
+                <ng-container matColumnDef="id">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.id }}
+                  </td>
+                </ng-container>
+
+                <!-- Student Column -->
+                <ng-container matColumnDef="student">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Student
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.student }}
+                  </td>
+                </ng-container>
+
+                <!-- Date Column -->
+                <ng-container matColumnDef="date">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Date
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.date }}
+                  </td>
+                </ng-container>
+
+                <!-- School Column -->
+                <ng-container matColumnDef="school">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    School
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.school }}
+                  </td>
+                </ng-container>
+
+                <!-- Status Column -->
+                <ng-container matColumnDef="status">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Status
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    <div
+                      class="status-text"
+                      [ngStyle]="{
+                        'background-color':
+                          row.status === 'Approved' ? '#49C96D' : '#FD7972'
+                      }">
+                      {{ row.status }}
+                    </div>
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: displayedColumns2"
+                  [class.active]="activatedRow === row"
+                  (click)="openDialog(row)"
+                  [ngClass]="{ hovered: row.hovered }"
+                  (mouseover)="row.hovered = true"
+                  (mouseout)="row.hovered = false"></tr>
+              </table>
+
+              <mat-paginator
+                #paginator3
+                [pageSizeOptions]="[10]"
+                [pageSize]="10"
+                [showFirstLastButtons]="true"
+                [hidePageSize]="true"></mat-paginator>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Course Equivalence Request">
+          <div class="mt-2 table-container">
+            <div class="table-header">
+              <mat-form-field>
+                <mat-icon matPrefix class="mr-3">search</mat-icon>
+                <input
+                  type="search"
+                  matInput
+                  (keyup)="applyFilter($event.target.value)"
+                  placeholder="Search" />
+              </mat-form-field>
+            </div>
+            <div class="table-content mat-elevation-z8">
+              <table
+                mat-table
+                [dataSource]="courseEquivalenceDataSource"
+                matSort
+                #sorter4="matSort">
+                <!-- ID Column -->
+                <ng-container matColumnDef="id">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.id }}
+                  </td>
+                </ng-container>
+
+                <!-- Student Column -->
+                <ng-container matColumnDef="student">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Student
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.student }}
+                  </td>
+                </ng-container>
+
+                <!-- Date Column -->
+                <ng-container matColumnDef="date">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Date
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.date }}
+                  </td>
+                </ng-container>
+
+                <!-- School Column -->
+                <ng-container matColumnDef="school">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    School
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.school }}
+                  </td>
+                </ng-container>
+
+                <!-- Status Column -->
+                <ng-container matColumnDef="status">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Status
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    <div
+                      class="status-text"
+                      [ngStyle]="{
+                        'background-color':
+                          row.status === 'Approved' ? '#49C96D' : '#FD7972'
+                      }">
+                      {{ row.status }}
+                    </div>
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: displayedColumns2"
+                  [class.active]="activatedRow === row"
+                  (click)="openDialog(row)"
+                  [ngClass]="{ hovered: row.hovered }"
+                  (mouseover)="row.hovered = true"
+                  (mouseout)="row.hovered = false"
+                  class="table-row"></tr>
+              </table>
+
+              <mat-paginator
+                #paginator4
+                [pageSizeOptions]="[10]"
+                [pageSize]="10"
+                [showFirstLastButtons]="true"
+                [hidePageSize]="true"></mat-paginator>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>
 
 
+<!-- Student View
 <div class="forms-container mr-3 ml-3">
-    <div class="forms-header mt-3">
-      <div>
-        <span class="forms-title">Forms & Requests</span>
+  <div class="forms-header mt-3">
+    <div>
+      <span class="forms-title">Forms & Requests</span>
+    </div>
+  </div>
+  <div class="forms-content">
+    <div class="form-submits"></div>
+    <div class="form-tabs">
+      <div class="form-tabs-title">
+        <span class="old-submissions"> Old Submissions</span>
+      </div>
+      <div class="mt-2 table-container">
+        <div class="table-header">
+          <mat-form-field>
+            <mat-icon matPrefix class="mr-3">search</mat-icon>
+            <input
+              type="search"
+              matInput
+              (keyup)="applyFilter($event.target.value)"
+              placeholder="Search" />
+          </mat-form-field>
+        </div>
+        <div class="table-content mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource" matSort #sorter1="matSort">
+            &lt;!&ndash; ID Column &ndash;&gt;
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+              <td mat-cell *matCellDef="let row">
+                {{ row.id }}
+              </td>
+            </ng-container>
+
+            &lt;!&ndash; Student Column &ndash;&gt;
+            <ng-container matColumnDef="student">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Student</th>
+              <td mat-cell *matCellDef="let row">
+                {{ row.student }}
+              </td>
+            </ng-container>
+
+            &lt;!&ndash; Date Column &ndash;&gt;
+            <ng-container matColumnDef="date">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+              <td mat-cell *matCellDef="let row">
+                {{ row.date }}
+              </td>
+            </ng-container>
+
+            &lt;!&ndash; Type Column &ndash;&gt;
+            <ng-container matColumnDef="type">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+              <td mat-cell *matCellDef="let row">
+                {{ row.type }}
+              </td>
+            </ng-container>
+
+            &lt;!&ndash; School Column &ndash;&gt;
+            <ng-container matColumnDef="school">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>School</th>
+              <td mat-cell *matCellDef="let row">
+                {{ row.school }}
+              </td>
+            </ng-container>
+
+            &lt;!&ndash; Status Column &ndash;&gt;
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+              <td mat-cell *matCellDef="let row">
+                <div
+                  class="status-text"
+                  [ngStyle]="{
+                    'background-color':
+                      row.status === 'Approved' ? '#49C96D' : '#FD7972'
+                  }">
+                  {{ row.status }}
+                </div>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+            <tr
+              mat-row
+              *matRowDef="let row; columns: displayedColumns"
+              [ngClass]="{
+                hovered: row.hovered,
+                highlighted: selection.isSelected(row)
+              }"
+              (mouseover)="row.hovered = true"
+              (mouseout)="row.hovered = false"></tr>
+          </table>
+
+          <mat-paginator
+            #paginator
+            [pageSizeOptions]="[10]"
+            [pageSize]="10"
+            [showFirstLastButtons]="true"
+            [hidePageSize]="true"></mat-paginator>
+        </div>
       </div>
     </div>
-    <div class="forms-content">
-            <div class="form-submits">
-
-            </div>
-            <div class="form-tabs">
-                <div class="form-tabs-title">
-                    <span class = "old-submissions"> Old Submissions</span>
-                </div>
-                <div class="mt-2 table-container">
-                    <div class="table-header">
-                      <mat-form-field>
-                        <mat-icon matPrefix class="mr-3">search</mat-icon>
-                        <input type="search" matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
-                      </mat-form-field>
-                    </div>
-                    <div class="table-content mat-elevation-z8">
-                      <table mat-table [dataSource]="dataSource" matSort #sorter1 = "matSort">
-        
-                        <!-- ID Column -->
-                        <ng-container matColumnDef="id">
-                          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-                          <td mat-cell *matCellDef="let row">
-                            {{row.id}}
-                          </td>
-                        </ng-container>
-        
-                        <!-- Student Column -->
-                        <ng-container matColumnDef="student">
-                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Student </th>
-                          <td mat-cell *matCellDef="let row">
-                            {{row.student}}
-                          </td>
-                        </ng-container>
-        
-                        <!-- Date Column -->
-                        <ng-container matColumnDef="date">
-                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
-                          <td mat-cell *matCellDef="let row">
-                            {{row.date}}
-                          </td>
-                        </ng-container>
-        
-                        <!-- Type Column -->
-                        <ng-container matColumnDef="type">
-                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
-                          <td mat-cell *matCellDef="let row">
-                            {{row.type}}
-                          </td>
-                        </ng-container>
-        
-                        <!-- School Column -->
-                        <ng-container matColumnDef="school">
-                          <th mat-header-cell *matHeaderCellDef mat-sort-header> School </th>
-                          <td mat-cell *matCellDef="let row">
-                            {{row.school}}
-                          </td>
-                        </ng-container>
-        
-                        <!-- Status Column -->
-                        <ng-container  matColumnDef="status">
-                          <th mat-header-cell  *matHeaderCellDef mat-sort-header> Status </th>
-                          <td mat-cell *matCellDef="let row">
-                            <div class="status-text" [ngStyle]="{'background-color': row.status == 'Approved' ? '#49C96D' : '#FD7972'}">
-                              {{row.status}}
-                            </div>
-                          </td>
-                        </ng-container>
-        
-                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                        
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns; "
-                      [ngClass]="{hovered: row.hovered, highlighted: selection.isSelected(row)}"
-                      (mouseover)="row.hovered = true" (mouseout)="row.hovered = false">
-                        </tr>
-                      </table>
-        
-                      <mat-paginator
-                      #paginator
-                      [pageSizeOptions]="[10]"
-                      [pageSize]="10"
-                      [showFirstLastButtons]="true"
-                      [hidePageSize]="true"
-        
-                      ></mat-paginator>
-                    </div>
-                  </div>
-
-
-
-            </div>
-    </div>
-
-    
-</div>
+  </div>
+</div>-->

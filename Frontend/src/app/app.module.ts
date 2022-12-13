@@ -86,7 +86,7 @@ import { MatSortModule } from '@angular/material/sort';
     MatOptionModule,
     MatSelectModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -68,6 +68,7 @@ table {
 }
 .mat-row.hovered {
   background: #eee;
+  cursor: pointer !important;
 }
 
 .mat-row.highlighted {
