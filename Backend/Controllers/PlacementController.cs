@@ -87,7 +87,7 @@ namespace Backend.Controllers
             return (result != null) ? Ok(result) : NotFound();
         }
 
-        [HttpGet("placeStudents/{id:guid}")]
+        [HttpPost("placeStudents/{id:guid}")]
         public async Task<ActionResult<IEnumerable<PlacedStudentDto>>> PlaceStudents(Guid id)
         {
             var result = await _placementService.PlaceStudents(id);

@@ -6,6 +6,7 @@ using AutoMapper;
 using Backend.DTOs;
 using Backend.Entities;
 using Backend.Interfaces;
+using Backend.Utilities.Enum;
 
 namespace Backend.Services
 {
@@ -39,10 +40,10 @@ namespace Backend.Services
             return await _toDoItemRepository.AddToDoItem(departmentEntity, itemEntity);
         }
 
-        public async Task<bool> AddToDoItemToAll(ToDoItemDto toDoItem)
+        public async Task<bool> AddToDoItemToAllByDepartment(ToDoItemDto toDoItem, Department department)
         {
             ToDoItem itemEntity = _mapper.Map<ToDoItem>(toDoItem);
-            return await _toDoItemRepository.AddToDoItemToAll(itemEntity);
+            return await _toDoItemRepository.AddToDoItemToAllByDepartment(itemEntity, department);
         }
 
         public Task<bool> ChangeStarToDoItem(Guid id, bool isStarred)

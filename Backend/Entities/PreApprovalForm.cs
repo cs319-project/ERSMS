@@ -39,6 +39,9 @@ namespace Backend.Entities
         public Approval ExchangeCoordinatorApproval { get; set; }
         public Approval FacultyAdministrationBoardApproval { get; set; }
         public Guid ToDoItemId { get; set; }
-        public bool IsCanceled { get; set; }
+        public bool IsCanceled { get; set; } = false;
+        public bool IsRejected { get; set; } = false;
+        public bool IsApproved { get; set; } = false;
+        public bool IsArchived { get; set; } = false;
     }
 }

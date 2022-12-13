@@ -44,7 +44,9 @@ namespace Backend.Services
 
             if (flag)
             {
-                flag = await _toDoItemService.AddToDoItemToAll(todo);
+                Student student = await _userService.GetStudent(cTEForm.IDNumber);
+                if (student != null)
+                    flag = await _toDoItemService.AddToDoItemToAllByDepartment(todo, student.Major.DepartmentName);
             }
 
             return flag;
@@ -53,32 +55,123 @@ namespace Backend.Services
         public async Task<bool> ApproveFormDean(Guid formId, ApprovalDto approval)
         {
             CTEForm formEntity = _cTEFormRepository.GetCTEForm(formId).Result;
-            Approval approvalEntity = _mapper.Map<Approval>(approval);
-            formEntity.DeanApproval = approvalEntity;
+            if (CheckIfFormIsOperable(formEntity))
+            {
+                Approval approvalEntity = _mapper.Map<Approval>(approval);
+                formEntity.DeanApproval = approvalEntity;
 
-            return await _cTEFormRepository.UpdateCTEForm(formEntity);
+                if (!approvalEntity.IsApproved)
+                {
+                    formEntity.IsRejected = true;
+                    formEntity.IsArchived = true;
+
+                    if (formEntity.ToDoItemId != null)
+                    {
+                        // Complete todo
+                        ToDoItemDto todo = await _toDoItemService.GetToDoItemByCascadeId(formEntity.ToDoItemId);
+                        await _toDoItemService.ChangeCompleteToDoItem(todo.Id, true);
+                    }
+                }
+                else if (formEntity.ChairApproval != null
+                            && formEntity.ExchangeCoordinatorApproval != null
+                            && formEntity.FacultyOfAdministrationBoardApproval != null
+                            && formEntity.ChairApproval.IsApproved
+                            && formEntity.ExchangeCoordinatorApproval.IsApproved
+                            && formEntity.FacultyOfAdministrationBoardApproval.IsApproved)
+                {
+                    formEntity.IsApproved = true;
+                    formEntity.IsArchived = true;
+
+                    if (formEntity.ToDoItemId != null)
+                    {
+                        // Complete todo
+                        ToDoItemDto todo = await _toDoItemService.GetToDoItemByCascadeId(formEntity.ToDoItemId);
+                        await _toDoItemService.ChangeCompleteToDoItem(todo.Id, true);
+                    }
+                }
+
+                return await _cTEFormRepository.UpdateCTEForm(formEntity);
+            }
+            return false;
         }
 
         public async Task<bool> ApproveFormChair(Guid formId, ApprovalDto approval)
         {
             CTEForm formEntity = _cTEFormRepository.GetCTEForm(formId).Result;
-            Approval approvalEntity = _mapper.Map<Approval>(approval);
-            formEntity.ChairApproval = approvalEntity;
+            if (CheckIfFormIsOperable(formEntity))
+            {
+                Approval approvalEntity = _mapper.Map<Approval>(approval);
+                formEntity.ChairApproval = approvalEntity;
 
-            return await _cTEFormRepository.UpdateCTEForm(formEntity);
+                if (!approvalEntity.IsApproved)
+                {
+                    formEntity.IsRejected = true;
+                    formEntity.IsArchived = true;
+
+                    if (formEntity.ToDoItemId != null)
+                    {
+                        // Complete todo
+                        ToDoItemDto todo = await _toDoItemService.GetToDoItemByCascadeId(formEntity.ToDoItemId);
+                        await _toDoItemService.ChangeCompleteToDoItem(todo.Id, true);
+                    }
+                }
+                else if (formEntity.DeanApproval != null
+                            && formEntity.ExchangeCoordinatorApproval != null
+                            && formEntity.FacultyOfAdministrationBoardApproval != null
+                            && formEntity.DeanApproval.IsApproved
+                            && formEntity.ExchangeCoordinatorApproval.IsApproved
+                            && formEntity.FacultyOfAdministrationBoardApproval.IsApproved)
+                {
+                    formEntity.IsApproved = true;
+                    formEntity.IsArchived = true;
+
+                    if (formEntity.ToDoItemId != null)
+                    {
+                        // Complete todo
+                        ToDoItemDto todo = await _toDoItemService.GetToDoItemByCascadeId(formEntity.ToDoItemId);
+                        await _toDoItemService.ChangeCompleteToDoItem(todo.Id, true);
+                    }
+                }
+
+                return await _cTEFormRepository.UpdateCTEForm(formEntity);
+            }
+            return false;
         }
 
         public async Task<bool> ApproveFormCoordinator(Guid formId, ApprovalDto approval)
         {
             CTEForm formEntity = _cTEFormRepository.GetCTEForm(formId).Result;
-            Approval approvalEntity = _mapper.Map<Approval>(approval);
-            formEntity.ExchangeCoordinatorApproval = approvalEntity;
+            if (CheckIfFormIsOperable(formEntity))
+            {
+                Approval approvalEntity = _mapper.Map<Approval>(approval);
+                formEntity.ExchangeCoordinatorApproval = approvalEntity;
 
-            // Complete todo
-            ToDoItemDto todo = await _toDoItemService.GetToDoItemByCascadeId(formEntity.ToDoItemId);
-            await _toDoItemService.ChangeCompleteToDoItem(todo.Id, true);
+                if (formEntity.ToDoItemId != null)
+                {
+                    // Complete todo
+                    ToDoItemDto todo = await _toDoItemService.GetToDoItemByCascadeId(formEntity.ToDoItemId);
+                    await _toDoItemService.ChangeCompleteToDoItem(todo.Id, true);
+                }
 
-            return await _cTEFormRepository.UpdateCTEForm(formEntity);
+                if (!approvalEntity.IsApproved)
+                {
+                    formEntity.IsRejected = true;
+                    formEntity.IsArchived = true;
+                }
+                else if (formEntity.DeanApproval != null
+                            && formEntity.ChairApproval != null
+                            && formEntity.FacultyOfAdministrationBoardApproval != null
+                            && formEntity.DeanApproval.IsApproved
+                            && formEntity.ChairApproval.IsApproved
+                            && formEntity.FacultyOfAdministrationBoardApproval.IsApproved)
+                {
+                    formEntity.IsApproved = true;
+                    formEntity.IsArchived = true;
+                }
+
+                return await _cTEFormRepository.UpdateCTEForm(formEntity);
+            }
+            return false;
         }
 
         public async Task<bool> DeleteCTEForm(Guid id)
@@ -98,19 +191,23 @@ namespace Backend.Services
         {
             CTEForm formEntity = _mapper.Map<CTEForm>(cTEForm);
 
-            CTEForm oldForm = await _cTEFormRepository.GetCTEForm(formEntity.Id);
-            if (oldForm == null)
+            if (CheckIfFormIsOperable(formEntity))
             {
-                return false;
+                CTEForm oldForm = await _cTEFormRepository.GetCTEForm(formEntity.Id);
+                if (oldForm == null)
+                {
+                    return false;
+                }
+
+                // Don't allow the approval to be updated
+                formEntity.DeanApproval = oldForm.DeanApproval;
+                formEntity.ChairApproval = oldForm.ChairApproval;
+                formEntity.ExchangeCoordinatorApproval = oldForm.ExchangeCoordinatorApproval;
+                formEntity.FacultyOfAdministrationBoardApproval = oldForm.FacultyOfAdministrationBoardApproval;
+
+                return await _cTEFormRepository.UpdateCTEForm(formEntity);
             }
-
-            // Don't allow the approval to be updated
-            formEntity.DeanApproval = oldForm.DeanApproval;
-            formEntity.ChairApproval = oldForm.ChairApproval;
-            formEntity.ExchangeCoordinatorApproval = oldForm.ExchangeCoordinatorApproval;
-            formEntity.FacultyOfAdministrationBoardApproval = oldForm.FacultyOfAdministrationBoardApproval;
-
-            return await _cTEFormRepository.UpdateCTEForm(formEntity);
+            return false;
         }
 
         public async Task<CTEFormDto> GetCTEForm(Guid id)
@@ -135,10 +232,44 @@ namespace Backend.Services
         public async Task<bool> ApproveFacultyOfAdministrationBoard(Guid formId, ApprovalDto approval)
         {
             CTEForm formEntity = _cTEFormRepository.GetCTEForm(formId).Result;
-            Approval approvalEntity = _mapper.Map<Approval>(approval);
-            formEntity.FacultyOfAdministrationBoardApproval = approvalEntity;
+            if (CheckIfFormIsOperable(formEntity))
+            {
+                Approval approvalEntity = _mapper.Map<Approval>(approval);
+                formEntity.FacultyOfAdministrationBoardApproval = approvalEntity;
 
-            return await _cTEFormRepository.UpdateCTEForm(formEntity);
+                if (!approvalEntity.IsApproved)
+                {
+                    formEntity.IsRejected = true;
+                    formEntity.IsArchived = true;
+
+                    if (formEntity.ToDoItemId != null)
+                    {
+                        // Complete todo
+                        ToDoItemDto todo = await _toDoItemService.GetToDoItemByCascadeId(formEntity.ToDoItemId);
+                        await _toDoItemService.ChangeCompleteToDoItem(todo.Id, true);
+                    }
+                }
+                else if (formEntity.DeanApproval != null
+                            && formEntity.ExchangeCoordinatorApproval != null
+                            && formEntity.ChairApproval != null
+                            && formEntity.DeanApproval.IsApproved
+                            && formEntity.ExchangeCoordinatorApproval.IsApproved
+                            && formEntity.ChairApproval.IsApproved)
+                {
+                    formEntity.IsApproved = true;
+                    formEntity.IsArchived = true;
+
+                    if (formEntity.ToDoItemId != null)
+                    {
+                        // Complete todo
+                        ToDoItemDto todo = await _toDoItemService.GetToDoItemByCascadeId(formEntity.ToDoItemId);
+                        await _toDoItemService.ChangeCompleteToDoItem(todo.Id, true);
+                    }
+                }
+
+                return await _cTEFormRepository.UpdateCTEForm(formEntity);
+            }
+            return false;
         }
 
         public async Task<ICollection<CTEFormDto>> GetCTEFormsByDepartment(string userName)
@@ -159,7 +290,96 @@ namespace Backend.Services
             return formsToReturn;
         }
 
+        public async Task<ICollection<CTEFormDto>> GetArchivedCTEForms()
+        {
+            IEnumerable<CTEForm> forms = await _cTEFormRepository.GetCTEForms();
+            ICollection<CTEFormDto> formsToReturn = new List<CTEFormDto>();
+
+            foreach (CTEForm form in forms)
+            {
+                if (form.IsArchived)
+                {
+                    formsToReturn.Add(_mapper.Map<CTEFormDto>(form));
+                }
+            }
+
+            return formsToReturn;
+        }
+
+        public async Task<ICollection<CTEFormDto>> GetNonArchivedCTEForms()
+        {
+            IEnumerable<CTEForm> forms = await _cTEFormRepository.GetCTEForms();
+            ICollection<CTEFormDto> formsToReturn = new List<CTEFormDto>();
+
+            foreach (CTEForm form in forms)
+            {
+                if (!form.IsArchived)
+                {
+                    formsToReturn.Add(_mapper.Map<CTEFormDto>(form));
+                }
+            }
+
+            return formsToReturn;
+        }
+
+        public async Task<ICollection<CTEFormDto>> GetArchivedCTEFormsByDepartment(string userName)
+        {
+            ExchangeCoordinator coordinator = await _userService.GetExchangeCoordinator(userName);
+            ICollection<CTEFormDto> forms = await GetArchivedCTEForms();
+            foreach (CTEFormDto form in forms)
+            {
+                var student = await _userRepository.GetStudentByUserName(form.IDNumber);
+                if (student.Major.DepartmentName != coordinator.Department.DepartmentName)
+                {
+                    forms.Remove(form);
+                }
+            }
+
+            return forms;
+        }
+
+        public async Task<ICollection<CTEFormDto>> GetNonArchivedCTEFormsByDepartment(string userName)
+        {
+            ExchangeCoordinator coordinator = await _userService.GetExchangeCoordinator(userName);
+            ICollection<CTEFormDto> forms = await GetNonArchivedCTEForms();
+            foreach (CTEFormDto form in forms)
+            {
+                var student = await _userRepository.GetStudentByUserName(form.IDNumber);
+                if (student.Major.DepartmentName != coordinator.Department.DepartmentName)
+                {
+                    forms.Remove(form);
+                }
+            }
+            return forms;
+        }
+
         public async Task<bool> CancelCTEForm(Guid formId)
+        {
+            CTEForm formEntity = _cTEFormRepository.GetCTEForm(formId).Result;
+
+            if (CheckIfFormIsOperable(formEntity))
+            {
+                if (formEntity == null)
+                {
+                    return false;
+                }
+
+                formEntity.IsCanceled = true;
+                formEntity.IsArchived = true;
+
+                if (formEntity.ToDoItemId != null)
+                {
+                    // Complete todo
+                    ToDoItemDto todo = await _toDoItemService.GetToDoItemByCascadeId(formEntity.ToDoItemId);
+                    await _toDoItemService.ChangeCompleteToDoItem(todo.Id, true);
+                }
+
+                return await _cTEFormRepository.UpdateCTEForm(formEntity);
+            }
+            return false;
+        }
+
+        public async Task<bool> ArchiveCTEForm(Guid formId)
         {
             CTEForm formEntity = _cTEFormRepository.GetCTEForm(formId).Result;
 
@@ -168,9 +388,25 @@ namespace Backend.Services
                 return false;
             }
 
-            formEntity.IsCanceled = true;
+            if (CheckIfFormIsOperable(formEntity))
+            {
+                formEntity.IsArchived = true;
 
-            return await _cTEFormRepository.UpdateCTEForm(formEntity);
+                if (formEntity.ToDoItemId != null)
+                {
+                    // Complete todo
+                    ToDoItemDto todo = await _toDoItemService.GetToDoItemByCascadeId(formEntity.ToDoItemId);
+                    await _toDoItemService.ChangeCompleteToDoItem(todo.Id, true);
+                }
+
+                return await _cTEFormRepository.UpdateCTEForm(formEntity);
+            }
+            return false;
+        }
+
+        private bool CheckIfFormIsOperable(CTEForm form)
+        {
+            return !form.IsApproved && !form.IsRejected && !form.IsArchived && !form.IsCanceled;
         }
     }
 }

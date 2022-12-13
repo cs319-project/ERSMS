@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Backend.Entities;
+using Backend.Utilities.Enum;
 
 namespace Backend.Interfaces
 {
@@ -15,7 +16,7 @@ namespace Backend.Interfaces
         Task<bool> UpdateToDoItem(ToDoItem toDoItem);
         Task<bool> ChangeCompleteToDoItem(Guid id, bool isComplete);
         Task<bool> ChangeStarToDoItem(Guid id, bool isStarred);
-        Task<bool> AddToDoItemToAll(ToDoItem toDoItem);
+        Task<bool> AddToDoItemToAllByDepartment(ToDoItem toDoItem, Department department);
         Task<ToDoItem> GetToDoItemByCascadeId(Guid cascadeId);
     }
 }

@@ -18,5 +18,13 @@ namespace Backend.Interfaces
         Task<ICollection<EquivalanceRequestDto>> GetEquivalanceRequestsByDepartmentForCoordinator(string userName);
         Task<ICollection<EquivalanceRequestDto>> GetEquivalanceRequestByCourseCode(string courseCode);
         Task<bool> ApproveRequest(Guid requestId, ApprovalDto approval);
+        Task<bool> CancelEquivalanceRequest(Guid requestId);
+        Task<bool> ArchiveEquivalanceRequest(Guid requestId);
+        Task<ICollection<EquivalanceRequestDto>> GetArchivedEquivalanceRequests();
+        Task<ICollection<EquivalanceRequestDto>> GetNonArchivedEquivalanceRequests();
+        Task<ICollection<EquivalanceRequestDto>> GetArchivedEquivalanceRequestsByDepartmentForCoordinator(string userName);
+        Task<ICollection<EquivalanceRequestDto>> GetNonArchivedEquivalanceRequestsByDepartmentForCoordinator(string userName);
+        Task<ICollection<EquivalanceRequestDto>> GetArchivedEquivalanceRequestsByCourseCode(string courseCode);
+        Task<ICollection<EquivalanceRequestDto>> GetNonArchivedEquivalanceRequestsByCourseCode(string courseCode);
     }
 }

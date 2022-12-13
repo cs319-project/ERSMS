@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Backend.DTOs;
 using Backend.Entities.Exceptions;
 using Backend.Interfaces;
+using Backend.Utilities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
@@ -99,12 +100,13 @@ namespace Backend.Controllers
             return BadRequest("Failed to star to do item");
         }
 
-        [HttpPost("addToAll")]
-        public async Task<ActionResult<ToDoItemDto>> AddToDoItemToAll(ToDoItemDto toDoItem)
+        // TODO: Check this endpoint
+        [HttpPost("addToAllToDepartment/{department}")]
+        public async Task<ActionResult<ToDoItemDto>> AddToDoItemToAll(ToDoItemDto toDoItem, string department)
         {
             try
             {
-                if (await _toDoItemService.AddToDoItemToAll(toDoItem))
+                if (await _toDoItemService.AddToDoItemToAllByDepartment(toDoItem, EnumStringify.DepartmentEnumarator(department)))
                 {
                     return Ok(toDoItem);
                 }

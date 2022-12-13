@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Backend.Entities;
 using Backend.Entities.Exceptions;
 using Backend.Interfaces;
+using Backend.Utilities.Enum;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Data
@@ -47,7 +48,8 @@ namespace Backend.Data
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<bool> AddToDoItemToAll(ToDoItem toDoItem)
+        // TODO: Check this function
+        public async Task<bool> AddToDoItemToAllByDepartment(ToDoItem toDoItem, Department department)
         {
             List<ExchangeCoordinator> coordinators = _context.ExchangeCoordinators.ToList();
 
@@ -58,12 +60,15 @@ namespace Backend.Data
 
             foreach (var coordinator in coordinators)
             {
-                if (coordinator.ToDoList == null)
+                if (coordinator.Department.DepartmentName == department)
                 {
-                    coordinator.ToDoList = new List<ToDoItem>();
-                }
+                    if (coordinator.ToDoList == null)
+                    {
+                        coordinator.ToDoList = new List<ToDoItem>();
+                    }
 
-                coordinator.ToDoList.Add(toDoItem);
+                    coordinator.ToDoList.Add(toDoItem);
+                }
             }
 
             return await _context.SaveChangesAsync() > 0;

@@ -44,6 +44,17 @@ namespace Backend.Entities
         public Approval FacultyOfAdministrationBoardApproval { get; set; }
 
         public Guid ToDoItemId { get; set; }
-        public bool IsCanceled { get; set; }
+
+        /*
+         * IsCanceled = canceled
+         * IsRejected = rejected
+         * IsApproved = approved
+         * IsArchived = archived
+         * otherwise = pending
+         */
+        public bool IsCanceled { get; set; } = false;
+        public bool IsRejected { get; set; } = false;
+        public bool IsApproved { get; set; } = false;
+        public bool IsArchived { get; set; } = false;
     }
 }

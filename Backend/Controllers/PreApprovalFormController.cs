@@ -94,29 +94,73 @@ namespace Backend.Controllers
             {
                 return Ok(preApprovalForm);
             }
-            return BadRequest("Failed to get Pre-Approval Form");
+            return NotFound("Failed to get Pre-Approval Form");
+        }
+
+        [HttpGet("archived/all")]
+        public async Task<ActionResult<IEnumerable<PreApprovalFormDto>>> GetArchivedPreApprovalForms()
+        {
+            var forms = await _preApprovalFormService.GetArchivedPreApprovalForms();
+            if (forms == null || forms.Count() == 0)
+            {
+                return NotFound();
+            }
+            return Ok(forms);
+        }
+
+        [HttpGet("archived/department/{userName}")]
+        public async Task<ActionResult<IEnumerable<PreApprovalFormDto>>> GetArchivedPreApprovalFormsByDepartment(string userName)
+        {
+            var forms = await _preApprovalFormService.GetArchivedPreApprovalFormsByDepartment(userName);
+            if (forms == null || forms.Count() == 0)
+            {
+                return NotFound();
+            }
+            return Ok(forms);
+        }
+
+        [HttpGet("nonarchived/all")]
+        public async Task<ActionResult<IEnumerable<PreApprovalFormDto>>> GetNonArchivedPreApprovalForms()
+        {
+            var forms = await _preApprovalFormService.GetNonArchivedPreApprovalForms();
+            if (forms == null || forms.Count() == 0)
+            {
+                return NotFound();
+            }
+            return Ok(forms);
+        }
+
+        [HttpGet("nonarchived/department/{userName}")]
+        public async Task<ActionResult<IEnumerable<PreApprovalFormDto>>> GetNonArchivedPreApprovalFormsByDepartment(string userName)
+        {
+            var forms = await _preApprovalFormService.GetNonArchivedPreApprovalFormsByDepartment(userName);
+            if (forms == null || forms.Count() == 0)
+            {
+                return NotFound();
+            }
+            return Ok(forms);
         }
 
         [HttpGet("student/{studentId}")]
         public async Task<ActionResult<IEnumerable<PreApprovalFormDto>>> GetPreApprovalFormsOfStudent(string studentId)
         {
             var preApprovalForms = await _preApprovalFormService.GetPreApprovalFormsOfStudent(studentId);
-            if (preApprovalForms != null)
+            if (preApprovalForms == null || preApprovalForms.Count() == 0)
             {
-                return Ok(preApprovalForms);
+                return NotFound();
             }
-            return BadRequest("Failed to get Pre-Approval Form");
+            return Ok(preApprovalForms);
         }
 
         [HttpGet("department/{userName}")]
         public async Task<ActionResult<IEnumerable<PreApprovalFormDto>>> GetPreApprovalFormsByDepartment(string userName)
         {
             var preApprovalForms = await _preApprovalFormService.GetPreApprovalFormsByDepartment(userName);
-            if (preApprovalForms != null)
+            if (preApprovalForms == null || preApprovalForms.Count() == 0)
             {
-                return Ok(preApprovalForms);
+                return NotFound();
             }
-            return BadRequest("Failed to get Pre-Approval Form");
+            return Ok(preApprovalForms);
         }
 
         [HttpPost("coordinatorApprove/{formId}")]
