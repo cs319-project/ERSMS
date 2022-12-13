@@ -6,8 +6,10 @@ import { LoggingComponent } from "./logging/logging.component";
 import { MessagesComponent } from "./messages/messages.component";
 import { PlacementComponent } from "./placement/placement.component";
 import { ProfileComponent} from "./profile/profile.component";
+import {AppointmentsComponent} from "./appointments/appointments.component";
 
 const routes: Routes = [
+  {path: 'appointments', component: AppointmentsComponent},
   {path: 'dashboard', component: DashboardComponent},
 {path: 'formsandrequests', component: FormsAndRequestsComponent},
 {path: 'logging', component: LoggingComponent},

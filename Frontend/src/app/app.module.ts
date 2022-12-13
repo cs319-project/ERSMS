@@ -38,6 +38,7 @@ import { AnnouncementComponent } from './navigation/announcement/announcement.co
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
+import { AppointmentsComponent } from './appointments/appointments.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import {MatSelectModule} from "@angular/material/select";
     ProfileComponent,
     MessagesComponent,
     FormDialogComponent,
-    AnnouncementComponent
+    AnnouncementComponent,
+    AppointmentsComponent
   ],
   imports: [
     BrowserModule,
