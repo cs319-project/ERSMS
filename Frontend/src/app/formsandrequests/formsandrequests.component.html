@@ -1,4 +1,4 @@
-<!--
+
 <div class="fnr-container mr-3 ml-3">
   <div class="fnr-header mt-3">
     <div style="width: 80%">
@@ -176,8 +176,7 @@
                     <div
                       class="status-text"
                       [ngStyle]="{
-                        'background-color':
-                          row.status === 'Approved' ? '#49C96D' : '#FD7972'
+                        'background-color': row.status == 'Approved' ? '#49C96D' : (row.status == 'Processing' ? '#FF965D' : '#FD7972')
                       }">
                       {{ row.status }}
                     </div>
@@ -268,8 +267,7 @@
                     <div
                       class="status-text"
                       [ngStyle]="{
-                        'background-color':
-                          row.status === 'Approved' ? '#49C96D' : '#FD7972'
+                        'background-color': row.status == 'Approved' ? '#49C96D' : (row.status == 'Processing' ? '#FF965D' : '#FD7972')
                       }">
                       {{ row.status }}
                     </div>
@@ -360,8 +358,7 @@
                     <div
                       class="status-text"
                       [ngStyle]="{
-                        'background-color':
-                          row.status === 'Approved' ? '#49C96D' : '#FD7972'
+                        'background-color': row.status == 'Approved' ? '#49C96D' : (row.status == 'Processing' ? '#FF965D' : '#FD7972')
                       }">
                       {{ row.status }}
                     </div>
@@ -392,9 +389,9 @@
       </mat-tab-group>
     </div>
   </div>
-</div> -->
+</div> 
 
-
+<!--
 
 <div class="forms-container mr-3 ml-3">
   <div class="forms-header mt-3">
@@ -490,4 +487,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

@@ -16,6 +16,7 @@ import {
 export type PieChartOptions = {
   series: ApexNonAxisChartSeries;
   chart: ApexChart;
+  colors: string[];
   responsive: ApexResponsive[];
   labels: any;
 };
@@ -110,6 +111,11 @@ export class DashboardComponent implements OnInit{
           show: true
         }
       },
+      colors: [ 
+        "#FF965D",
+        "#49C96D",
+        "#FD7972"
+      ],
       labels: ["Processing", "Accepted  ", "Rejected"],
       responsive: [
         {
