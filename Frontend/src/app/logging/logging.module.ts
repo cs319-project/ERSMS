@@ -7,6 +7,7 @@ import { LoggingComponent } from './logging.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MaterialExampleModule } from './material.module';
+import { FormDialogComponent } from '../formsandrequests/form-dialog/form-dialog.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { MaterialExampleModule } from './material.module';
     ReactiveFormsModule,
     MaterialExampleModule
   ],
-  declarations: [LoggingComponent 
+  declarations: [LoggingComponent
   ],
+  
 })
 export class LoggingModule { }

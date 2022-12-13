@@ -2,6 +2,12 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort, Sort} from '@angular/material/sort';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { FormDialogComponent } from '../formsandrequests/form-dialog/form-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormsAndRequestsComponent } from '../formsandrequests/formsandrequests.component';
+
 
 @Component({
     selector: 'app-logging',
@@ -29,7 +35,11 @@ export class LoggingComponent{
   @ViewChild('sorter3') sorter3: MatSort;
   @ViewChild('sorter4') sorter4: MatSort;
 
-  constructor() {
+  selection = new SelectionModel<UserData>(true, []);
+
+  activatedRow = null;
+
+  constructor(private dialog: MatDialog, private _snackBar: MatSnackBar) {
     // Create 100 users
     const users: UserData[] = [];
     const preapprovalUsers: UserData[] = [];
@@ -109,7 +119,52 @@ export class LoggingComponent{
     this.courseEquivalenceDataSource.filter = filterValue;
   }
 
+  openDialog(row) {
+    
+    this.activatedRow = row;
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = createRandomDialogData(this.activatedRow);
+
+    const dialogRef = this.dialog.open(FormDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        let message = result ? 'Form is successfully signed.' : 'Form is rejected.';
+        this.openSnackBar(message, 'Close', 5);
+      }
+    });
+  }
+
+  openSnackBar(message: string, action: string, duration: number) {
+    this._snackBar.open(message, action, {
+      duration: duration * 1000
+    });
+  }
+  
 }
+
+function createRandomDialogData(row) {
+  return {
+    'studentName': row.student,
+    'studentEmail': row.student + '@ug.bilkent.edu.tr',
+    'studentId': Math.round(Math.random() * 100000000),
+    'studentCgpa': Math.random() * 4,
+    'studentEntranceYear': '2020',
+    'studentDepartment': 'CS',
+    'exchangeProgram': 'ERASMUS',
+    'exchangeSchool': row.school,
+    'exchangeTerm': '2022-2023 Spring',
+    'formId': Math.round(Math.random() * 10000000),
+    'formType': row.type,
+    'formStatus': row.status,
+    'formAssignedPrivilegedUser': 'Can Alkan',
+    'formAssignedPrivilegedUserRole': 'Exchange Coordinator',
+    'formDate': null,
+    'formSignature': null,
+  }
+}
+
+
 
 /** Builds and returns a new User. */
 function createNewUser(id: number): UserData {
