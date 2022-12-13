@@ -16,10 +16,10 @@ import {createNewUser, createRandomDialogData, NAMES, SCHOOLS, UserData} from ".
   })
 
 export class FormsAndRequestsComponent {
-  
+
   displayedColumns = ['id', 'student', 'date', 'type', 'school', 'status'];
   displayedColumns2 = ['id', 'student', 'date', 'school', 'status'];
-  displayedColumns3 = ['id', 'date', 'type', 'school', 'status']
+  displayedColumns3 = ['id', 'date', 'type', 'status']
 
   dataSource: MatTableDataSource<UserData>;
   preapprovalDataSource: MatTableDataSource<UserData>;
@@ -148,5 +148,5 @@ export class FormsAndRequestsComponent {
     this._snackBar.open(message, action, {
       duration: duration * 1000
     });
-  }  
+  }
 }

@@ -1,4 +1,4 @@
-.forms-container{
+  .forms-container{
     height: 100%;
     display: flex;
     justify-content: center;
@@ -27,20 +27,20 @@
 
   .form-submits {
 
-    flex-grow:1; 
+    flex-grow:1;
     display: flex;
     width: 20%;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    
+
   }
 
   .form-tabs {
 
     display: flex;
     justify-content: center;
-   
+
   }
 
   .form-title {
@@ -49,7 +49,7 @@
     justify-content: center;
     width: 100%;
     height: 90%;
-    
+
   }
 
   .table-container-student {
@@ -57,10 +57,10 @@
     flex-direction: column;
     width: 70%;
 }
-  
+
   .old-submissions {
 
-    font-size: 2rem;
+    font-size: 1.3rem;
     font-weight: bold;
 
   }
@@ -78,7 +78,7 @@
     width: 100%;
     height: auto;
   }
-  
+
   .table-header {
     min-height: 64px;
     padding: 8px 24px 0;
@@ -89,47 +89,47 @@
     padding: 30px 40px 0;
   }
 
-  
-  
+
+
   .fnr-header{
     display: flex;
     justify-content: center;
     width: 100%;
   }
-  
+
   .fnr-title{
     font-size: 2rem;
     font-weight: bold;
   }
-  
+
   .fnr-content{
     display: flex;
     justify-content: center;
     width: 100%;
     height: auto;
   }
-  
+
   .fnr-container{
     display: flex;
     flex-direction: column;
   }
-  
-  
+
+
   .table-header {
     min-height: 64px;
     padding: 8px 24px 0;
   }
-  
+
   .mat-form-field {
     font-size: 14px;
     width: 100%;
   }
-  
+
   .mat-table {
     overflow-y: scroll;
     max-height: 700px;
   }
-  
+
   .status-text{
     width: 100px;
     display: flex;
@@ -139,27 +139,32 @@
     border-radius: 5px;
     color: #22422e;
   }
-  
-  
+
+
   .gray-text{
     color: #8A9099;
   }
-  
+
   .mat-column-status {
     width: 120px;
     text-align: center;
     font-weight: bold;
   }
-  
+
   table {
     width: 100%;
   }
-  
+
   .mat-row.hovered {
     background: #eee;
     cursor: pointer !important;
   }
-  
+
   .mat-row.highlighted {
     background: #eee;
   }
+
+  .student-form-buttons{
+    display: flex;
+  }
+
