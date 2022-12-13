@@ -12,6 +12,14 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Backend.Entities;
+using Backend.Data;
+using Backend.Interfaces;
+using Backend.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Backend
 {
@@ -30,8 +38,38 @@ namespace Backend
             {
                 options.UseSqlite(_config.GetConnectionString("DefaultConnection"));
             });
+            services.AddIdentity<AppUser, Role>().AddEntityFrameworkStores<Backend.Data.DataContext>().AddDefaultTokenProviders();
+            services.AddScoped<IPasswordHasher<AppUser>, Backend.Utilities.BCryptPasswordHasher>();
+
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IPlacementRepository, PlacementRepository>();
+            services.AddScoped<IPlacementService, PlacementService>();
+            services.AddScoped<ICTEFormRepository, CTEFormRepository>();
+            services.AddScoped<ICTEFormService, CTEFormService>();
+            services.AddScoped<IPreApprovalFormRepository, PreApprovalFormRepository>();
+            services.AddScoped<IPreApprovalFormService, PreApprovalFormService>();
+            services.AddScoped<IToDoItemRepository, ToDoItemRepository>();
+            services.AddScoped<IToDoItemService, ToDoItemService>();
+            services.AddScoped<IEquivalanceRequestRepository, EquivalanceRequestRepository>();
+            services.AddScoped<IEquivalanceRequestService, EquivalanceRequestService>();
+            //Automappper setup
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies().Where(p => !p.IsDynamic));
             services.AddControllers();
             services.AddCors();
+            // services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            //     .AddJwtBearer(options =>
+            //     {
+            //         options.TokenValidationParameters = new TokenValidationParameters
+            //         {
+            //             ValidateIssuerSigningKey = true,
+            //             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["TokenKey"])),
+            //             ValidateIssuer = false,
+            //             ValidateAudience = false
+            //         };
+            //     });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPIv5", Version = "v1" });
@@ -41,6 +79,11 @@ namespace Backend
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                scope.ServiceProvider.GetRequiredService<IAuthenticationService>().CreateRoles().Wait();
+            }
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -54,12 +97,15 @@ namespace Backend
 
             app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
         }
     }
 }
