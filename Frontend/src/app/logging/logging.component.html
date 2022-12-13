@@ -70,7 +70,7 @@
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 
-                <tr mat-row *matRowDef="let row; columns: displayedColumns; " (click)="openDialog(row)"
+                <tr mat-row *matRowDef="let row; columns: displayedColumns; "[class.active]="activatedRow === row" (click)="openDialog(row)"
               [ngClass]="{hovered: row.hovered, highlighted: selection.isSelected(row)}"
               (mouseover)="row.hovered = true" (mouseout)="row.hovered = false">
                 </tr>
@@ -141,7 +141,7 @@
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns2; "
-                    [ngClass]="{hovered: row.hovered}"
+                    [ngClass]="{hovered: row.hovered}" [class.active]="activatedRow === row" (click)="openDialog(row)"
                     (mouseover)="row.hovered = true" (mouseout)="row.hovered = false">
                 </tr>
               </table>
@@ -210,7 +210,7 @@
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns2; "
+                <tr mat-row *matRowDef="let row; columns: displayedColumns2; " [class.active]="activatedRow === row" (click)="openDialog(row)"
                     [ngClass]="{hovered: row.hovered}"
                     (mouseover)="row.hovered = true" (mouseout)="row.hovered = false">
                 </tr>
@@ -280,7 +280,7 @@
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns2; "
+                <tr mat-row *matRowDef="let row; columns: displayedColumns2; " [class.active]="activatedRow === row" (click)="openDialog(row)"
                     [ngClass]="{hovered: row.hovered}"
                     (mouseover)="row.hovered = true" (mouseout)="row.hovered = false">
                 </tr>
