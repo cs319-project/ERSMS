@@ -1,7 +1,7 @@
 {
   "tabWidth": 2,
   "useTabs": false,
-  "singleQuote": false,
+  "singleQuote": true,
   "semi": true,
   "bracketSpacing": true,
   "arrowParens": "avoid",
@@ -13,6 +13,12 @@
       "files": "*.json",
       "options": {
         "parser": "json"
+      }
+    },
+    {
+      "files": "*.html",
+      "options": {
+        "singleQuote": false
       }
     },
     {
