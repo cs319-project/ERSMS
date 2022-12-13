@@ -105,7 +105,7 @@ export class NavigationComponent implements OnInit {
     const dialogRef = this.dialog.open(AnnouncementComponent, {data: {description: this.announcement}});
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result != "") {
+      if (result) {
         this.openSnackBar("Announcement sent", 'Close', 5);
         console.log(result);
       }

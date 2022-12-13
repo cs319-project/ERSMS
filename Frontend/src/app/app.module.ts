@@ -40,11 +40,6 @@ import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
-  declarations: [AppComponent, NavigationComponent, LoginComponent, SignupComponent, FormsAndRequestsComponent, ForgotPasswordComponent, ProfileComponent, MessagesComponent, FormDialogComponent, AnnouncementComponent],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, MatSidenavModule, MatListModule, MatIconModule, MatToolbarModule, MatButtonModule, MatGridListModule, HttpClientModule, MatMenuModule, MatBadgeModule, DashboardModule, NgxChartsModule,
-    PlacementModule, MatCheckboxModule, MatCardModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, LoggingModule, MatTabsModule, MatTableModule, MatExpansionModule, MatDialogModule, MatOptionModule, MatSelectModule],
-
-@NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
@@ -54,7 +49,8 @@ import {MatSelectModule} from "@angular/material/select";
     ForgotPasswordComponent,
     ProfileComponent,
     MessagesComponent,
-    FormDialogComponent
+    FormDialogComponent,
+    AnnouncementComponent
   ],
   imports: [
     BrowserModule,
@@ -81,7 +77,10 @@ import {MatSelectModule} from "@angular/material/select";
     LoggingModule,
     MatTabsModule,
     MatTableModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDialogModule,
+    MatOptionModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
