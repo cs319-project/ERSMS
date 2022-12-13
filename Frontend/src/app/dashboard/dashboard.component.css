@@ -210,3 +210,20 @@
 .custom-activities-scroll-bar::-webkit-scrollbar-thumb{
   background: rgba(0,0,0,.26);
 }
+
+
+.student-dashboard-container{
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+}
+
+.student-todo-container{
+  width: 60%;
+}
+
+.student-dashboard-content{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
