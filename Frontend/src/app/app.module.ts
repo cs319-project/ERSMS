@@ -34,11 +34,15 @@ import { FormDialogComponent } from './formsandrequests/form-dialog/form-dialog.
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatTableModule} from "@angular/material/table";
 import {MatExpansionModule} from "@angular/material/expansion";
+import { AnnouncementComponent } from './navigation/announcement/announcement.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatOptionModule} from "@angular/material/core";
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
-  declarations: [AppComponent, NavigationComponent, LoginComponent, SignupComponent, FormsAndRequestsComponent, ForgotPasswordComponent, ProfileComponent, MessagesComponent, FormDialogComponent],
+  declarations: [AppComponent, NavigationComponent, LoginComponent, SignupComponent, FormsAndRequestsComponent, ForgotPasswordComponent, ProfileComponent, MessagesComponent, FormDialogComponent, AnnouncementComponent],
   imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, MatSidenavModule, MatListModule, MatIconModule, MatToolbarModule, MatButtonModule, MatGridListModule, HttpClientModule, MatMenuModule, MatBadgeModule, DashboardModule, NgxChartsModule,
-    PlacementModule, MatCheckboxModule, MatCardModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, LoggingModule, MatTabsModule, MatTableModule, MatExpansionModule],
+    PlacementModule, MatCheckboxModule, MatCardModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, LoggingModule, MatTabsModule, MatTableModule, MatExpansionModule, MatDialogModule, MatOptionModule, MatSelectModule],
   providers: [],
   bootstrap: [AppComponent]
 })

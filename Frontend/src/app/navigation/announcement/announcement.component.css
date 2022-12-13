@@ -1,0 +1,19 @@
+.header-container{
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.content-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.announcement-buttons{
+  display: flex;
+  justify-content: space-around;
+}
+
+mat-form-field{
+  
+}
