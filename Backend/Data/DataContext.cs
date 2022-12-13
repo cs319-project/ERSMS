@@ -143,5 +143,6 @@ namespace Backend.Data
         public DbSet<CTEForm> CTEForms { get; set; }
         public DbSet<PreApprovalForm> PreApprovalForms { get; set; }
         public DbSet<EquivalanceRequest> EquivalanceRequests { get; set; }
+        public DbSet<Announcement> Announcements { get; set; }
     }
 }

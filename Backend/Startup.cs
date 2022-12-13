@@ -55,6 +55,8 @@ namespace Backend
             services.AddScoped<IToDoItemService, ToDoItemService>();
             services.AddScoped<IEquivalanceRequestRepository, EquivalanceRequestRepository>();
             services.AddScoped<IEquivalanceRequestService, EquivalanceRequestService>();
+            services.AddScoped<IAnnouncementRepository, AnnouncementRepository>();
+            services.AddScoped<IAnnouncementService, AnnouncementService>();
             //Automappper setup
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies().Where(p => !p.IsDynamic));
             services.AddControllers();

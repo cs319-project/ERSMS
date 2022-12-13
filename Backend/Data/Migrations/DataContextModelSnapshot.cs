@@ -17,6 +17,27 @@ namespace Backend.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.10");
 
+            modelBuilder.Entity("Backend.Entities.Announcement", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Announcements");
+                });
+
             modelBuilder.Entity("Backend.Entities.Approval", b =>
                 {
                     b.Property<Guid>("Id")
@@ -138,7 +159,16 @@ namespace Backend.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsArchived")
+                        .HasColumnType("INTEGER");
+
                     b.Property<bool>("IsCanceled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsRejected")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("LastName")
@@ -206,8 +236,23 @@ namespace Backend.Data.Migrations
                     b.Property<Guid?>("ExemptedCourseId")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("HostCourseName")
+                        .HasColumnType("TEXT");
+
                     b.Property<Guid?>("InstructorApprovalId")
                         .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsArchived")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsCanceled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsRejected")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("StudentId")
                         .IsRequired()
@@ -342,7 +387,16 @@ namespace Backend.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsArchived")
+                        .HasColumnType("INTEGER");
+
                     b.Property<bool>("IsCanceled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsRejected")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("LastName")

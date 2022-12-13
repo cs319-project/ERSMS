@@ -38,7 +38,7 @@ namespace Backend.Data
 
         public async Task<IEnumerable<Student>> GetAllStudents()
         {
-            return (IEnumerable<Student>)_context.Students.ToListAsync();
+            return (IEnumerable<Student>)await _context.Students.ToListAsync();
         }
 
         public async Task<Student> DeleteStudent(Guid id)

@@ -12,6 +12,7 @@ namespace Backend.Entities
         public Guid Id { get; set; }
         [Required]
         public string StudentId { get; set; }
+        public string HostCourseName { get; set; }
         public byte[] Syllabus { get; set; }
         public ExemptedCourse ExemptedCourse { get; set; }
         public Approval InstructorApproval { get; set; }

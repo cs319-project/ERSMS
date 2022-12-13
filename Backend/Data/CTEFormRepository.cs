@@ -54,7 +54,7 @@ namespace Backend.Data
 
         public async Task<bool> UpdateCTEForm(CTEForm cTEForm)
         {
-            var form = _context.CTEForms.Update(cTEForm);
+            _context.CTEForms.Update(cTEForm);
             return await _context.SaveChangesAsync() > 0;
         }
     }
