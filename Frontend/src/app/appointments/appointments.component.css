@@ -1,0 +1,179 @@
+.appointments-container{
+  margin-right: 3%;
+  margin-left: 3%;
+  height: 90%;
+  width: 94%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.appointments-list-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 35%;
+}
+
+.appointments-list-header{
+  align-items: center;
+  width: 80%;
+  font-weight: bold;
+  font-size: 1.3rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.appointments-list-content{
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+}
+
+.day-appointments{
+  display: flex;
+  flex-direction: column;
+}
+
+.appointment-day{
+  font-size: 1.2rem;
+}
+
+.appointment{
+  padding: 7px;
+  display: flex;
+}
+
+.appointment-time{
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+
+.appointment-details{
+  display: flex;
+  flex-direction: column;
+}
+
+.card-effect{
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+}
+
+
+.custom-appointments-list-scroll-bar{
+  height:65vh;
+  overflow-y:scroll;
+  overflow-x: hidden;
+}
+
+
+.custom-appointments-list-scroll-bar::-webkit-scrollbar{
+  width: 5px;
+}
+
+.custom-appointments-list-scroll-bar::-webkit-scrollbar-thumb{
+  background: rgba(0,0,0,.26);
+}
+
+.arrange-appointments-container{
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.appointment-requests-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.create-appointment-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 55%;
+}
+
+.appoint-requests-header{
+  align-items: center;
+  width: 80%;
+  font-weight: bold;
+  font-size: 1.3rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.appointment-requests-content{
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+}
+
+.custom-appointment-requests-scroll-bar{
+  height:65vh;
+  overflow-y:scroll;
+  overflow-x: hidden;
+}
+
+
+.custom-appointment-requests-scroll-bar::-webkit-scrollbar{
+  width: 5px;
+}
+
+.custom-appointment-requests-scroll-bar::-webkit-scrollbar-thumb{
+  background: rgba(0,0,0,.26);
+}
+
+.appointment-item{
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+}
+
+.request-actions{
+  display: flex;
+}
+
+.create-appointment-header{
+  width: 80%;
+  font-weight: bold;
+  font-size: 1.3rem;
+  display: flex;
+  justify-content: center;
+}
+
+.create-appointment-content{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.appointment-info-container{
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+}
+.create-button-container{
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.topic-user-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.date-time-container{
+  display: flex;
+  flex-direction: column;
+}
