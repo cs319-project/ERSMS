@@ -144,12 +144,14 @@ mat-list-option{
   flex-direction: row-reverse;
 }
 
+/*b6d8ee*/
+
 .message-received{
   background-color: #b6d8ee;
 }
 
 .message-sent{
-  background-color: #dac9cc;
+  background-color: #dcf8c6	;
 }
 
 .message{

@@ -16,6 +16,7 @@
 }
 
 .appointments-list-header{
+  height: 40px;
   align-items: center;
   width: 80%;
   font-weight: bold;
@@ -102,6 +103,7 @@
 }
 
 .appoint-requests-header{
+  height: 40px;
   align-items: center;
   width: 80%;
   font-weight: bold;
@@ -113,7 +115,7 @@
 .appointment-requests-content{
   display: flex;
   flex-direction: column;
-  width: 85%;
+  width: 100%;
 }
 
 .custom-appointment-requests-scroll-bar{
@@ -176,4 +178,12 @@
 .date-time-container{
   display: flex;
   flex-direction: column;
+}
+
+mat-tab-group {
+  width: 80%;
+}
+
+::ng-deep.mat-tab-label, ::ng-deep.mat-tab-label-active{
+  width: 50%;
 }

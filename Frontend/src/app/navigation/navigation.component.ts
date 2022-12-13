@@ -106,6 +106,7 @@ export class NavigationComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = { data: { description: this.announcement } };
     dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = false;
 
     const dialogRef = this.dialog.open(AnnouncementComponent, dialogConfig);
 

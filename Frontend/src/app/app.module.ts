@@ -44,6 +44,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { CreateAppointmentDialogComponent } from './appointments/create-appointment-dialog/create-appointment-dialog.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import { ConfirmationDialogComponent } from './appointments/confirmation-dialog/confirmation-dialog.component';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
     FormDialogComponent,
     AnnouncementComponent,
     AppointmentsComponent,
-    CreateAppointmentDialogComponent
+    CreateAppointmentDialogComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,

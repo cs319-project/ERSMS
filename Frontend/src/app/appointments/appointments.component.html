@@ -4,11 +4,12 @@
       <span>Your Appointments</span>
       <button mat-raised-button color="primary" (click)="openDialog()">Add New</button>
     </div>
-    <mat-divider style="width: 100%" class="mt-3 mb-3"></mat-divider>
+    <mat-divider style="width: 100%" class="mt-3 mb-2"></mat-divider>
     <div class="appointments-list-content mt-3 custom-appointments-list-scroll-bar">
-      <div class="day-appointments" *ngFor="let dayAppointments of appointmentsList">
-        <span class="appointment-day mb-1 mt-2">{{dayAppointments.date}}</span>
-        <div class="appointments" *ngFor="let appointment of dayAppointments.appointments">
+      <div class="day-appointments" *ngFor="let dayAppointments of appointmentsList; let i = index;">
+        <span class="appointment-day mb-1 mt-2"><b>{{dayAppointments.date}}</b></span>
+        <mat-divider style="width: 100%" class="mt-1 mb-3"></mat-divider>
+        <div class="appointments" *ngFor="let appointment of dayAppointments.appointments; let j = index;">
           <div class="appointment">
             <div class="appointment-time">
               <span>@{{appointment.time}}</span>
@@ -19,12 +20,13 @@
                 <span><strong>with: </strong>{{appointment.person}}</span>
               </div>
               <div class="request-actions">
-                <button  mat-icon-button >
+                <button (click)="deleteAppointment(i, j)" mat-icon-button>
                   <mat-icon>close</mat-icon>
                 </button>
               </div>
             </div>
           </div>
+          <mat-divider style="width: 100%" class="mt-3 mb-3"></mat-divider>
         </div>
         <div class="mb-4"></div>
       </div>
@@ -36,33 +38,67 @@
         <span>Appointment Requests</span>
       </div>
       <mat-divider style="width: 100%" class="mt-3 mb-3"></mat-divider>
-      <div class="appointment-requests-content custom-appointment-requests-scroll-bar">
-        <div class="day-appointments" *ngFor="let dayAppointments of appointmentsList">
-          <span class="appointment-day mb-1 mt-2">{{dayAppointments.date}}</span>
-          <div class="appointments" *ngFor="let appointment of dayAppointments.appointments">
-            <div class="appointment">
-              <div class="appointment-time">
-                <span>@{{appointment.time}}</span>
-              </div>
-              <div class="appointment-item ml-3 mr-3">
-                <div class="appointment-details">
-                  <span class="activity-user"><strong>Topic: </strong>{{appointment.topic}}</span>
-                  <span><strong>with: </strong>{{appointment.person}}</span>
+      <mat-tab-group>
+        <mat-tab label="Received">
+          <div class="appointment-requests-content mt-2 custom-appointment-requests-scroll-bar">
+            <div class="day-appointments" *ngFor="let dayAppointments of appointmentsList2; let i = index;">
+              <span class="appointment-day mb-1 mt-2"><b>{{dayAppointments.date}}</b></span>
+              <mat-divider style="width: 100%" class="mt-1 mb-3"></mat-divider>
+              <div class="appointments" *ngFor="let appointment of dayAppointments.appointments; let j = index;">
+                <div class="appointment">
+                  <div class="appointment-time">
+                    <span>@{{appointment.time}}</span>
+                  </div>
+                  <div class="appointment-item ml-3 mr-3">
+                    <div class="appointment-details">
+                      <span class="activity-user"><strong>Topic: </strong>{{appointment.topic}}</span>
+                      <span><strong>with: </strong>{{appointment.person}}</span>
+                    </div>
+                    <div class="request-actions">
+                      <button mat-icon-button>
+                        <mat-icon>check</mat-icon>
+                      </button>
+                      <button (click)="deleteReceivedAppointmentRequest(i, j)" mat-icon-button>
+                        <mat-icon>close</mat-icon>
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                  <div class="request-actions">
-                  <button  mat-icon-button>
-                    <mat-icon>check</mat-icon>
-                  </button>
-                  <button  mat-icon-button>
-                    <mat-icon>close</mat-icon>
-                  </button>
-                </div>
+                <mat-divider style="width: 100%" class="mt-3 mb-3"></mat-divider>
               </div>
+              <div class="mb-4"></div>
             </div>
           </div>
-          <div class="mb-4"></div>
-        </div>
-      </div>
+        </mat-tab>
+        <mat-tab label="Sent">
+          <div class="appointment-requests-content mt-2 custom-appointment-requests-scroll-bar">
+            <div class="day-appointments" *ngFor="let dayAppointments of appointmentsList3; let i = index;">
+              <span class="appointment-day mb-1 mt-2"><b>{{dayAppointments.date}}</b></span>
+              <mat-divider style="width: 100%" class="mt-1 mb-3"></mat-divider>
+              <div class="appointments" *ngFor="let appointment of dayAppointments.appointments; let j = index;">
+                <div class="appointment">
+                  <div class="appointment-time">
+                    <span>@{{appointment.time}}</span>
+                  </div>
+                  <div class="appointment-item ml-3 mr-3">
+                    <div class="appointment-details">
+                      <span class="activity-user"><strong>Topic: </strong>{{appointment.topic}}</span>
+                      <span><strong>with: </strong>{{appointment.person}}</span>
+                    </div>
+                    <div class="request-actions">
+                      <button (click)="deleteSentAppointmentRequest(i, j)" mat-icon-button>
+                        <mat-icon>close</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <mat-divider style="width: 100%" class="mt-3 mb-3"></mat-divider>
+              </div>
+              <div class="mb-4"></div>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
     </div>
 
   </div>
