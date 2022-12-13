@@ -1,8 +1,12 @@
-import { Component} from '@angular/core';
+import { Component, ViewChild} from '@angular/core';
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { FormDialogComponent } from "./form-dialog/form-dialog.component"
-import { NAMES, SCHOOLS } from "../logging/logging.component";
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { SelectionModel } from '@angular/cdk/collections';
 
 
 @Component({
@@ -12,7 +16,21 @@ import { NAMES, SCHOOLS } from "../logging/logging.component";
   })
 
 export class FormsAndRequestsComponent {
-  constructor(private dialog: MatDialog, private _snackBar: MatSnackBar) {}
+  constructor(private dialog: MatDialog, private _snackBar: MatSnackBar) {
+    const users: UserData[] = [];
+  
+    for (let i = 1; i <= 100; i++) { users.push(createNewUser(i))};
+    this.dataSource = new MatTableDataSource(users);
+
+  }
+
+
+
+  displayedColumns = ['id', 'student', 'date', 'type','school' ,'status'];
+  selection = new SelectionModel<UserData>(true, []);
+  dataSource: MatTableDataSource<UserData>;
+  @ViewChild('paginator') paginator: MatPaginator;
+  @ViewChild('sorter1') sorter1: MatSort;
 
   openDialog() {
     const dialogConfig = new MatDialogConfig();
@@ -29,10 +47,23 @@ export class FormsAndRequestsComponent {
 
   }
 
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    
+    this.dataSource.sort = this.sorter1;
+  }
+
   openSnackBar(message: string, action: string, duration: number) {
     this._snackBar.open(message, action, {
       duration: duration * 1000
     });
+  }
+
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
+    
   }
 }
 
@@ -58,4 +89,45 @@ function createRandomDialogData() {
     'formDate': null,
     'formSignature': null,
   }
+}
+  
+
+  /**
+   * Set the paginator and sort after the view init since this component will
+   * be able to query its view for the initialized paginator and sort.
+   */
+
+
+/** Builds and returns a new User. */
+function createNewUser(id: number): UserData {
+  const name =
+      NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
+      NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
+
+  return {
+    id: id,
+    student: name,
+    date: new Date("12/05/2022").toLocaleDateString('en-US'),
+    type: TYPE[Math.round(Math.random() * (TYPE.length - 1))],
+    school: SCHOOLS[Math.round(Math.random() * (SCHOOLS.length - 1))],
+    status: STATUS[Math.round(Math.random() * (STATUS.length - 1))]
+  };
+}
+
+/** Constants used to fill up our data base. */
+export const NAMES = ['Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack',
+  'Charlotte', 'Theodore', 'Isla', 'Oliver', 'Isabella', 'Jasper',
+  'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'];
+
+export const SCHOOLS = ['EPFL' , 'Saarland', 'AGH', 'Vrije', 'Roskilde', 'TU Dortmund', 'TU Berlin', 'ETH']
+export const TYPE = ['CTE Form', 'PreApproval Form', 'Course Eq. Request']
+export const STATUS = ['Rejected', 'Approved']
+
+export interface UserData {
+  id: number;
+  student: string,
+  date: string;
+  type: string;
+  school: string;
+  status: string;
 }

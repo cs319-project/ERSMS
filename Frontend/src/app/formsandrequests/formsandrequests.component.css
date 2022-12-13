@@ -1,0 +1,50 @@
+.forms-container{
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+.forms-header{
+    display: flex;
+    width: 100%;
+  }
+
+.forms-title {
+
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.forms-content{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: brown;
+  }
+
+  .form-submits {
+
+    flex-grow: 1;
+  display: flex;
+  width: 20%;
+  flex-direction: column;
+  align-items: center;
+    background-color: blue;
+  }
+
+  .form-tabs {
+
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 90%;
+    background-color: green;
+  }
+  .old-submissions {
+
+    font-size: 2rem;
+    font-weight: bold;
+
+  }
