@@ -96,7 +96,8 @@ namespace Backend.Services
                 }
 
                 // send notification
-                await _notificationService.CreateNewApprovalNotification(formEntity, FormType.CTEForm);
+                await _notificationService.CreateNewApprovalNotification(formEntity, FormType.CTEForm,
+                                                                            approvalEntity.IsApproved, approvalEntity.Name);
 
                 return await _cTEFormRepository.UpdateCTEForm(formEntity);
             }
@@ -142,7 +143,8 @@ namespace Backend.Services
                 }
 
                 // send notification
-                await _notificationService.CreateNewApprovalNotification(formEntity, FormType.CTEForm);
+                await _notificationService.CreateNewApprovalNotification(formEntity, FormType.CTEForm,
+                                                                            approvalEntity.IsApproved, approvalEntity.Name);
                 return await _cTEFormRepository.UpdateCTEForm(formEntity);
             }
             return false;
@@ -280,6 +282,8 @@ namespace Backend.Services
                     }
                 }
 
+                await _notificationService.CreateNewApprovalNotification(formEntity, FormType.CTEForm,
+                                                                            approvalEntity.IsApproved, approvalEntity.Name);
                 return await _cTEFormRepository.UpdateCTEForm(formEntity);
             }
             return false;

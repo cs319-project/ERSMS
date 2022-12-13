@@ -115,7 +115,8 @@ namespace Backend.Services
                     request.IsArchived = true;
                 }
 
-                await _notificationService.CreateNewApprovalNotification(request, FormType.EquivalanceRequest);
+                await _notificationService.CreateNewApprovalNotification(request, FormType.EquivalanceRequest,
+                                                                            approvalEntity.IsApproved, approvalEntity.Name);
                 return await _equivalanceRequestRepository.UpdateEquivalanceRequest(request);
             }
             return false;

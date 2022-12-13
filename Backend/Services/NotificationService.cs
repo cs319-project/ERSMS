@@ -29,7 +29,8 @@ namespace Backend.Services
 
         // Methods
         // Notify only the sender CTEForm -> Exchange Coordinator, PreApprovalForm -> Student, EquivalanceRequest -> Student
-        public async Task<bool> CreateNewApprovalNotification(object formObject, FormType formType)
+        public async Task<bool> CreateNewApprovalNotification(object formObject, FormType formType,
+                                                                 bool isApproved, string approverName)
         {
             string formId = "";
             if (formType == FormType.CTEForm)
@@ -44,6 +45,12 @@ namespace Backend.Services
             {
                 formId = (formObject as EquivalanceRequest).Id.ToString();
             }
+            else
+            {
+                return false;
+            }
+
+            string finalContent = ContentCreationApproval(formId, formType, approverName, isApproved);
 
             if (formType == FormType.CTEForm)
             {
@@ -55,11 +62,10 @@ namespace Backend.Services
                 foreach (var exchangeCoordinator in exchangeCoordinators)
                 {
 
+                    // new object must be created because of primary key uniqueness
                     var notification = new Notification
                     {
-                        content = "Approval status of a "
-                                    + EnumStringify.FormTypeStringify(formType)
-                                    + " with id " + formId + " has been changed",
+                        content = finalContent,
                         read = false
                     };
                     notification.userId = exchangeCoordinator.Id;
@@ -73,9 +79,7 @@ namespace Backend.Services
 
                 var notification = new Notification
                 {
-                    content = "Approval status of a "
-                                + EnumStringify.FormTypeStringify(formType)
-                                + " with id " + formId + " has been changed",
+                    content = finalContent,
                     read = false
                 };
                 notification.userId = student.Id;
@@ -88,9 +92,7 @@ namespace Backend.Services
 
                 var notification = new Notification
                 {
-                    content = "Approval status of a "
-                                + EnumStringify.FormTypeStringify(formType)
-                                + " with id " + formId + " has been changed",
+                    content = finalContent,
                     read = false
                 };
                 notification.userId = student.Id;
@@ -135,17 +137,14 @@ namespace Backend.Services
             if (student == null)
                 return false;
             Department departmentOfStudent = student.Major.DepartmentName;
-
+            string finalContent = ContentCreationNewForm(formType, firstName, lastName, studentIdNumber);
             // Create Notification for Exchange Coordinators
             var exchangeCoordinators = await _userService.GetExchangeCoordinatorsByDepartmentAsync(departmentOfStudent);
             foreach (var exchangeCoordinator in exchangeCoordinators)
             {
                 var notification = new Notification
                 {
-                    content = "New " + EnumStringify.FormTypeStringify(formType) + " has been submitted by "
-                            + firstName + " "
-                            + lastName + " ("
-                            + studentIdNumber + ")",
+                    content = finalContent,
                     read = false
                 };
 
@@ -162,10 +161,7 @@ namespace Backend.Services
                 {
                     var notification = new Notification
                     {
-                        content = "New " + EnumStringify.FormTypeStringify(formType) + " has been submitted by "
-                            + firstName + " "
-                            + lastName + " ("
-                            + studentIdNumber + ")",
+                        content = finalContent,
                         read = false
                     };
 
@@ -182,10 +178,7 @@ namespace Backend.Services
                 {
                     var notification = new Notification
                     {
-                        content = "New " + EnumStringify.FormTypeStringify(formType) + " has been submitted by "
-                            + firstName + " "
-                            + lastName + " ("
-                            + studentIdNumber + ")",
+                        content = finalContent,
                         read = false
                     };
 
@@ -238,6 +231,21 @@ namespace Backend.Services
                 return false;
             notification.read = true;
             return await _notificationRepository.UpdateNotification(notification);
+        }
+
+        private string ContentCreationApproval(string formId, FormType formType,
+                                        string approverName, bool isApproved)
+        {
+            return EnumStringify.FormTypeStringify(formType) + " with id " + formId + " has been "
+                    + (isApproved ? "approved" : "rejected") + " by " + approverName;
+        }
+
+        private string ContentCreationNewForm(FormType formType, string firstName, string lastName, string studentIdNumber)
+        {
+            return "New " + EnumStringify.FormTypeStringify(formType) + " has been submitted by "
+                            + firstName + " "
+                            + lastName + " ("
+                            + studentIdNumber + ")";
         }
     }
 }
