@@ -16,6 +16,7 @@
 }
 
 .appointments-list-header{
+  height: 40px;
   align-items: center;
   width: 80%;
   font-weight: bold;
@@ -102,6 +103,7 @@
 }
 
 .appoint-requests-header{
+  height: 40px;
   align-items: center;
   width: 80%;
   font-weight: bold;
