@@ -1,8 +1,5 @@
-<app-login *ngIf="isLogin()" [(currentScene)]="currentScene"></app-login>
-<app-signup *ngIf="isSignUp()" [(currentScene)]="currentScene"></app-signup>
-<app-forgot-password
-  *ngIf="isForgotMyPassword()"
-  [(currentScene)]="currentScene"></app-forgot-password>
-<app-navigation
-  *ngIf="isApp()"
-  [(currentScene)]="currentScene"></app-navigation>
+<app-login></app-login>
+
+<div class="container" style="margin-top: 100px">
+  <router-outlet></router-outlet>
+</div>

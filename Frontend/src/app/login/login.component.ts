@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { AppScene } from '../app.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from '../_services/authentication.service';
 import { Login } from '../_models/login';
 
@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     public authenticationService: AuthenticationService,
-    private _snackBar: MatSnackBar,
+    private toastr: ToastrService,
     private router: Router
   ) {}
 
@@ -34,22 +34,21 @@ export class LoginComponent implements OnInit {
     };
 
     this.authenticationService.login(loginInfo).subscribe({
-      next: _ => {
-        //this.router.navigateByUrl('/members');
-        this.model = {};
+      next: () => {
+        this.toastr.success('Login successful');
       }
     });
 
-    this.currentScene = AppScene.App;
-    this.router.navigate([`../dashboard`]);
-    this.currentSceneChange.emit(this.currentScene);
+    // this.currentScene = AppScene.App;
+    // this.router.navigate([`../dashboard`]);
+    // this.currentSceneChange.emit(this.currentScene);
   }
 
-  openSnackBar(message: string, action: string, duration: number) {
-    this._snackBar.open(message, action, {
-      duration: duration * 1000
-    });
-  }
+  // openSnackBar(message: string, action: string, duration: number) {
+  //   this._snackBar.open(message, action, {
+  //     duration: duration * 1000
+  //   });
+  // }
 
   goForgotPassword() {
     this.currentScene = AppScene.ForgotPassword;
