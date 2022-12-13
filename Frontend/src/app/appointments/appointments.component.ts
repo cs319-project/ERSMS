@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MatDialog} from "@angular/material/dialog";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {
   AppointmentDialogData,
@@ -29,12 +29,17 @@ export class AppointmentsComponent implements OnInit {
 
 
 
-  constructor(private dialog: MatDialog,private _snackBar: MatSnackBar) { }
+  constructor(private dialog: MatDialog, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
   openDialog() {
-    const dialogRef = this.dialog.open(CreateAppointmentDialogComponent, {data: this.appointment});
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = this.appointment;
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = false;
+    
+    const dialogRef = this.dialog.open(CreateAppointmentDialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
