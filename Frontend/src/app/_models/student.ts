@@ -5,7 +5,7 @@ import { PreApprovalForm } from './pre-approval-form';
 import { EquivalanceRequest } from './equivalance-request';
 import { DomainUser } from './domain-user';
 
-export class Student extends DomainUser {
+export interface Student extends DomainUser {
   entranceYear: number;
   major: DepartmentInfo;
   minors: ArrayLike<DepartmentInfo>;

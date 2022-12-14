@@ -1,6 +1,6 @@
-export class AuthenticationResult {
+export interface AuthenticationResult {
   userName: string;
+  userDetails: any;
   email: string;
-  actorType: string;
   token: string;
 }

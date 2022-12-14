@@ -1,7 +1,8 @@
 import { ActorsType } from '../_types/actors-type';
 
-export class LoggedInUser {
+export interface LoggedInUser {
   userName: string;
+  userDetails: any;
   roles: string[];
   token: string;
 }

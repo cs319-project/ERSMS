@@ -1,4 +1,4 @@
-export class SemesterInfo {
+export interface SemesterInfo {
   academicYear: string;
   semester: string;
 }

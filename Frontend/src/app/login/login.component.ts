@@ -5,7 +5,9 @@ import { first } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from '../_services/authentication.service';
 import { Login } from '../_models/login';
-
+import { AuthenticationResult } from '../_models/authentication-result';
+import { UserService } from '../_services/user.service';
+import { LoggedInUser } from '../_models/logged-in-user';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,6 +19,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     public authenticationService: AuthenticationService,
+    private userService: UserService,
     private toastr: ToastrService,
     private router: Router
   ) {}

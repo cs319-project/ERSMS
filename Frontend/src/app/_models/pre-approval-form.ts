@@ -2,7 +2,7 @@ import { GUID } from '../../utils/guid';
 import { RequestedCourseGroup } from './requested-course-group';
 import { Approval } from './approval';
 
-export class PreApprovalForm {
+export interface PreApprovalForm {
   id: GUID;
   firstName: string;
   lastName: string;

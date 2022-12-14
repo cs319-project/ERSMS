@@ -1,6 +1,6 @@
 import { GUID } from '../../utils/guid';
 
-export class Approval {
+export interface Approval {
   id: GUID;
   name: string;
   dateOfApproval: Date;

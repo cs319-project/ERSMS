@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Backend.DTOs
@@ -13,7 +14,7 @@ namespace Backend.DTOs
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public AppUserDto IdentityUser { get; set; }
-        public List<MessageDto> MessagesSent { get; set; }
-        public List<MessageDto> MessagesReceived { get; set; }
+        [JsonIgnore] public List<MessageDto> MessagesSent { get; set; }
+        [JsonIgnore] public List<MessageDto> MessagesReceived { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-export class Login {
+export interface Login {
   email: string;
   password: Required<string>;
 }

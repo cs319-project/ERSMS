@@ -24,7 +24,7 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  getUserDetails(userName: string, roles: any): Promise<any> {
-    return this.http.get(this.baseUrl + userName).toPromise();
+  getUserDetails(userName: string, roles: any) {
+    return this.http.get(this.baseUrl + userName);
   }
 }

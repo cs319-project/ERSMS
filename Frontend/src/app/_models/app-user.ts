@@ -1,4 +1,4 @@
-export class AppUser {
+export interface AppUser {
   email: string;
   userName: string;
 }

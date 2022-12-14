@@ -43,6 +43,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { AppointmentsComponent } from './appointments/appointments.component';
+import { ScoreTableUploadDialogComponent } from './dashboard/score-table-upload-dialog/score-table-upload-dialog.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { AppointmentsComponent } from './appointments/appointments.component';
     MessagesComponent,
     FormDialogComponent,
     AnnouncementComponent,
-    AppointmentsComponent
+    AppointmentsComponent,
+    ScoreTableUploadDialogComponent
   ],
   imports: [
     BrowserModule,

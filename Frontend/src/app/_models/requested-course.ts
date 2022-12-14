@@ -1,6 +1,6 @@
 import { GUID } from '../../utils/guid';
 
-export class RequestedCourse {
+export interface RequestedCourse {
   id: GUID;
   courseCode: string;
   courseName: string;

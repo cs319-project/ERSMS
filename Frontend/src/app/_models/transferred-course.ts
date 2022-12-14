@@ -1,6 +1,6 @@
 import { GUID } from '../../utils/guid';
 
-export class TransferredCourse {
+export interface TransferredCourse {
   id: GUID;
   courseCode: string;
   courseName: string;

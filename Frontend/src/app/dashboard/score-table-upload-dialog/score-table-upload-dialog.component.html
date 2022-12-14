@@ -1,0 +1,27 @@
+<div class="p-1" style="width: 540px">
+  <div class="header-container">
+    <b class="text-center" style="font-size: 22px" mat-dialog-title>{{
+      this.text
+    }}</b>
+    <b class="text-center" style="font-size: 18px" mat-dialog-title>{{
+      this.fileName
+    }}</b>
+  </div>
+  <div mat-dialog-actions class="confirmation-buttons">
+    <button
+      (click)="getResponse(false)"
+      mat-button
+      mat-dialog-close
+      mat-raised-button
+      color="warn">
+      Cancel
+    </button>
+    <button
+      (click)="getResponse(true)"
+      mat-button
+      mat-raised-button
+      color="primary">
+      Upload
+    </button>
+  </div>
+</div>

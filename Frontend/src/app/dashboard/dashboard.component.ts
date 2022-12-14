@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import {
   ApexNonAxisChartSeries,
   ApexResponsive,
@@ -11,11 +11,21 @@ import {
   ApexAxisChartSeries,
   ApexGrid,
   ApexLegend
-} from "ng-apexcharts";
+} from 'ng-apexcharts';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { createNewUser, UserData } from '../placement/placement.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ScoreTableUploadDialogComponent } from './score-table-upload-dialog/score-table-upload-dialog.component';
+import { FormBuilder } from '@angular/forms';
+import { ActorsEnum } from '../_models/enum/actors-enum';
 
 export type PieChartOptions = {
   series: ApexNonAxisChartSeries;
   chart: ApexChart;
+  colors: string[];
   responsive: ApexResponsive[];
   labels: any;
 };
@@ -32,53 +42,188 @@ export type BarChartOptions = {
   legend: ApexLegend;
 };
 
-export interface todoItem{
+export interface todoItem {
   description: string;
   isCompleted: boolean;
   isStarred: boolean;
-};
+}
 
-export interface activity{
+export interface activity {
   name: string;
   description: string;
   time: string;
-};
+}
 
-export interface dayActivities{
+export interface dayActivities {
   date: string;
   activities: activity[];
 }
 
 @Component({
-    selector: 'app-dashboard',
-    templateUrl: './dashboard.component.html',
-    styleUrls: ['./dashboard.component.css']
-  })
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.css']
+})
+export class DashboardComponent implements OnInit {
+  actorsEnum = ActorsEnum;
+  role: string;
+  departments = [
+    'ADA',
+    'AMER',
+    'ARCH',
+    'BF',
+    'BTE',
+    'CHEM',
+    'CI',
+    'CINT',
+    'COMD',
+    'CS',
+    'CTIS',
+    'ECON',
+    'EDEB',
+    'EEE',
+    'EEPS',
+    'ELIT',
+    'ELS',
+    'EMBA',
+    'ENG',
+    'ETE',
+    'FA',
+    'GE',
+    'GRA',
+    'HART',
+    'HCIV',
+    'HIST',
+    'HUM',
+    'IAED',
+    'IE',
+    'IELTS',
+    'IR',
+    'LAUD',
+    'LAW',
+    'LNG',
+    'MAN',
+    'MATH',
+    'MBA',
+    'MBG',
+    'ME',
+    'MIAPP',
+    'MSC',
+    'MSN',
+    'MTE',
+    'MUS',
+    'NSC',
+    'PE',
+    'PHIL',
+    'PHYS',
+    'POLS',
+    'PREP',
+    'PSYC',
+    'SFL',
+    'SOC',
+    'TE',
+    'TEFL',
+    'THEA',
+    'THM',
+    'THR',
+    'TRIN',
+    'TURK'
+  ];
 
-export class DashboardComponent implements OnInit{
-  @ViewChild("chart") chart: ChartComponent;
+  @ViewChild(MatTable) scoreTable: MatTable<UserData>;
+
+  stateForm = this._formBuilder.group({
+    stateGroup: ''
+  });
+
+  @Input()
+  requiredFileType: string;
+
+  fileName: string;
+  displayedColumns = ['name', 'email', 'preferences', 'score'];
+  public dataSource: MatTableDataSource<UserData>;
+  page_index = 0;
+
+  department: string = 'CS';
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
+  @ViewChild('chart') chart: ChartComponent;
   public pieChartOptions: Partial<PieChartOptions>;
   public barChartOptions: Partial<BarChartOptions>;
 
-  todoList: todoItem[] = [{description:"Kutay Tire", isCompleted: false, isStarred:true},
-    { description: "Meeting with Kutay Tire at 15.30", isCompleted: false, isStarred: false },
-    { description: "Check Atak Talay Yücel's Pre-approval Form", isCompleted: false, isStarred: true },
-    { description: "Check Yiğit Yalın's Pre-approval Form", isCompleted: false, isStarred: true }
+  todoList: todoItem[] = [
+    { description: 'Kutay Tire', isCompleted: false, isStarred: true },
+    {
+      description: 'Meeting with Kutay Tire at 15.30',
+      isCompleted: false,
+      isStarred: false
+    },
+    {
+      description: "Check Atak Talay Yücel's Pre-approval Form",
+      isCompleted: false,
+      isStarred: true
+    },
+    {
+      description: "Check Yiğit Yalın's Pre-approval Form",
+      isCompleted: false,
+      isStarred: true
+    }
   ];
 
-  activities: dayActivities[] = [{date: "12 September",activities:
-[{name: "Kutay Tire", description: "Added a new pre-approval form.", time: "22:13"},
-  {name: "Berk Çakar", description: "Added a new pre-approval form.",  time: "12:13"},
-  {name: "Kutay Tire", description: "Added a new pre-approval form.",  time: "13:12"},
-  {name: "Berk Çakar", description: "Added a new pre-approval form.",  time: "09:44"}]},
-    {date: "15 September",activities:
-        [{name: "Atak Talay Yücel", description: "Added a new pre-approval form.", time: "10:15"},
-          {name: "Borga Haktan Bilen", description: "Added a new pre-approval form.", time: "07:07"},
-          {name: "Atak Talay Yücel", description: "Added a new pre-approval form.", time: "11:44"},
-          {name: "Borga Haktan Bilen", description: "Added a new pre-approval form.", time: "10:10"}]}
+  activities: dayActivities[] = [
+    {
+      date: '12 September',
+      activities: [
+        {
+          name: 'Kutay Tire',
+          description: 'Added a new pre-approval form.',
+          time: '22:13'
+        },
+        {
+          name: 'Berk Çakar',
+          description: 'Added a new pre-approval form.',
+          time: '12:13'
+        },
+        {
+          name: 'Kutay Tire',
+          description: 'Added a new pre-approval form.',
+          time: '13:12'
+        },
+        {
+          name: 'Berk Çakar',
+          description: 'Added a new pre-approval form.',
+          time: '09:44'
+        }
+      ]
+    },
+    {
+      date: '15 September',
+      activities: [
+        {
+          name: 'Atak Talay Yücel',
+          description: 'Added a new pre-approval form.',
+          time: '10:15'
+        },
+        {
+          name: 'Borga Haktan Bilen',
+          description: 'Added a new pre-approval form.',
+          time: '07:07'
+        },
+        {
+          name: 'Atak Talay Yücel',
+          description: 'Added a new pre-approval form.',
+          time: '11:44'
+        },
+        {
+          name: 'Borga Haktan Bilen',
+          description: 'Added a new pre-approval form.',
+          time: '10:10'
+        }
+      ]
+    }
   ];
-
-
 
   selectedTabIndex = 0;
 
@@ -91,9 +236,9 @@ export class DashboardComponent implements OnInit{
 
   addingValue: string;
 
-  editing = true;
-  value = "Todo Item";
+  value = 'Todo Item';
   isAdding = false;
+  departmentTables;
 
   ngOnInit(): void {
     this.waitingList = this.todoList.filter(todoItem => !todoItem.isCompleted);
@@ -101,16 +246,23 @@ export class DashboardComponent implements OnInit{
     this.completedList = this.todoList.filter(todoItem => todoItem.isCompleted);
   }
 
-  constructor(){
+  constructor(
+    private dialog: MatDialog,
+    private _snackBar: MatSnackBar,
+    private _formBuilder: FormBuilder
+  ) {
+    this.role = JSON.parse(localStorage.getItem('user')).roles[0];
+
     this.pieChartOptions = {
       series: [44, 55, 13],
       chart: {
-        type: "donut",
+        type: 'donut',
         toolbar: {
           show: true
         }
       },
-      labels: ["Processing", "Accepted  ", "Rejected"],
+      colors: ['#FF965D', '#49C96D', '#FD7972'],
+      labels: ['Processing', 'Accepted  ', 'Rejected'],
       responsive: [
         {
           breakpoint: 480,
@@ -119,7 +271,7 @@ export class DashboardComponent implements OnInit{
               width: 200
             },
             legend: {
-              position: "bottom"
+              position: 'bottom'
             }
           }
         }
@@ -129,26 +281,23 @@ export class DashboardComponent implements OnInit{
     this.barChartOptions = {
       series: [
         {
-          name: "submission",
+          name: 'submission',
           data: [21, 22, 10, 28, 16, 21, 13]
         }
       ],
       chart: {
         height: 350,
-        type: "bar",
+        type: 'bar',
         events: {
-          click: function(chart, w, e) {
+          click: function (chart, w, e) {
             // console.log(chart, w, e)
           }
         }
       },
-      colors: [
-        "#008FFB",
-        "#00E396",
-      ],
+      colors: ['#008FFB', '#00E396'],
       plotOptions: {
         bar: {
-          columnWidth: "45%",
+          columnWidth: '45%',
           distributed: true
         }
       },
@@ -162,29 +311,45 @@ export class DashboardComponent implements OnInit{
         show: true
       },
       xaxis: {
-        categories: [
-          "Mon",
-          "Tue",
-          "Wed",
-          "Thur",
-          "Fri",
-          "Sat",
-          "Sun"
-        ],
+        categories: ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'],
         labels: {
           style: {
-            colors: [
-            ],
-            fontSize: "12px"
+            colors: [],
+            fontSize: '12px'
           }
         }
       }
     };
+
+    const csUsers: UserData[] = [];
+    for (let i = 1; i <= 100; i++) {
+      csUsers.push(createNewUser());
+    }
+
+    const mathUsers: UserData[] = [];
+    for (let i = 1; i <= 100; i++) {
+      mathUsers.push(createNewUser());
+    }
+
+    this.departmentTables = {
+      CS: csUsers,
+      MATH: mathUsers,
+      PHYS: []
+    };
+
+    // Assign the data to the data source for the table to render
+    this.dataSource = new MatTableDataSource(
+      this.departmentTables[this.department]
+    );
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   toggleEditing() {
     this.editingItem = null;
-
   }
 
   OnTabChange(index) {
@@ -221,7 +386,7 @@ export class DashboardComponent implements OnInit{
   }
 
   startAdding() {
-    this.addingValue = "";
+    this.addingValue = '';
     this.isAdding = true;
   }
 
@@ -230,19 +395,95 @@ export class DashboardComponent implements OnInit{
   }
 
   addItem() {
-    this.todoList.push({description: this.addingValue, isCompleted: false, isStarred: false});
+    this.todoList.push({
+      description: this.addingValue,
+      isCompleted: false,
+      isStarred: false
+    });
     this.waitingList = this.todoList.filter(todoItem => !todoItem.isCompleted);
-    this.addingValue = "";
+    this.addingValue = '';
     this.isAdding = false;
     this.selectedTabIndex = 0;
   }
 
   deleteItem(todoItem: todoItem) {
-    let index:number = this.todoList.indexOf(todoItem);
-    this.todoList.splice(index,1);
+    let index: number = this.todoList.indexOf(todoItem);
+    this.todoList.splice(index, 1);
     this.waitingList = this.todoList.filter(todoItem => !todoItem.isCompleted);
     this.starredList = this.todoList.filter(todoItem => todoItem.isStarred);
     this.completedList = this.todoList.filter(todoItem => todoItem.isCompleted);
   }
-}
 
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
+  }
+
+  openSnackBar(message: string, action: string, duration: number) {
+    this._snackBar.open(message, action, {
+      duration: duration * 1000
+    });
+  }
+
+  // deleteScoreTable(department: string) {
+  //   const dialogConfig = new MatDialogConfig();
+  //   dialogConfig.data = {
+  //     text: `Are you sure to delete the score table for ${department} department?`
+  //   };
+  //   const dialogRef = this.dialog.open(
+  //     ConfirmationDialogComponent,
+  //     dialogConfig
+  //   );
+  //   dialogRef.afterClosed().subscribe(deleteItem => {
+  //     if (deleteItem) {
+  //       this.openSnackBar(
+  //         `Score table for ${department} department is deleted`,
+  //         'Close',
+  //         5
+  //       );
+  //     }
+  //   });
+  // }
+
+  onFileSelected(event, department) {
+    const file: File = event.target.files[0];
+
+    if (file) {
+      this.fileName = file.name;
+      const formData = new FormData();
+      formData.append('thumbnail', file);
+    }
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      text: `Are you sure to upload this score table for  ${department} department?`,
+      fileName: this.fileName
+    };
+    const dialogRef = this.dialog.open(
+      ScoreTableUploadDialogComponent,
+      dialogConfig
+    );
+
+    dialogRef.afterClosed().subscribe(uploadItem => {
+      if (uploadItem) {
+        this.openSnackBar(
+          `Score table for ${department} department is uploaded`,
+          'Close',
+          5
+        );
+        // TODO: add upload table logic
+      }
+    });
+  }
+
+  onDepartmentSelect() {
+    this.dataSource = new MatTableDataSource(
+      this.departmentTables[this.department]
+    );
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.scoreTable.renderRows();
+    console.log(this.department);
+  }
+}

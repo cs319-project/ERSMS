@@ -1,6 +1,6 @@
 import { GUID } from '../../utils/guid';
 
-export class ToDoItem {
+export interface ToDoItem {
   id: GUID;
   cascadeId: GUID;
   title: string;

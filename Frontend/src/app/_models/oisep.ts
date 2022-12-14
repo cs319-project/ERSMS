@@ -1,3 +1,3 @@
 import { DomainUser } from './domain-user';
 
-export class OISEP extends DomainUser {}
+export interface OISEP extends DomainUser {}

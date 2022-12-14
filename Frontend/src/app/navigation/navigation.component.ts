@@ -7,6 +7,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AnnouncementComponent } from './announcement/announcement.component';
 import { AuthenticationService } from '../_services/authentication.service';
+import { UserService } from '../_services/user.service';
+import { ActorsEnum } from '../_models/enum/actors-enum';
 
 @Component({
   selector: 'app-navigation',
@@ -14,9 +16,11 @@ import { AuthenticationService } from '../_services/authentication.service';
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent implements OnInit {
-  announcement: string = '';
-  name: string = '';
-  role: string = '';
+  actorsEnum = ActorsEnum;
+  announcement: string;
+  name: string;
+  role: string;
+  userName: string;
 
   notifications: { message: String; timeSent: String }[] = [
     {
@@ -32,12 +36,14 @@ export class NavigationComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog,
     private _snackBar: MatSnackBar,
-    public authenticationService: AuthenticationService
+    public authenticationService: AuthenticationService,
+    public userService: UserService
   ) {
-    const user: any = JSON.parse(localStorage.getItem('userDetails'));
-
-    this.name = user['firstName'] + ' ' + user['lastName'];
-    this.role = user['actorType'];
+    this.authenticationService.currentUser$.subscribe(user => {
+      this.role = user.roles[0];
+      this.userName = user.userName;
+      this.name = user.userDetails.firstName + ' ' + user.userDetails.lastName;
+    });
 
     this.matIconRegistry.addSvgIcon(
       `dashboard`,
