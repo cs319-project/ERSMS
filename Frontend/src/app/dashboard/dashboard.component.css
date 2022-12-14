@@ -325,3 +325,7 @@
   display: flex;
   justify-content: center;
 }
+
+.dep-select{
+  width: 75px!important;text-align: center
+}

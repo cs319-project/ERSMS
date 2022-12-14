@@ -474,4 +474,8 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
+
+  onDepartmentSelect() {
+    console.log(this.department);
+  }
 }

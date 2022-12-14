@@ -1,24 +1,16 @@
-<!--<div class="st-container m-3 p-2">
+<div class="st-container m-3 p-2">
   <div style="width: 90%">
     <div>
       <span class="dashboard-title">Exchange Score Tables</span>
     </div>
     <div class="st-department-form-container mt-3">
       <span>Selected Department: </span>
-      <mat-form-field class="full-width ml-2">
-        <input
-          type="text"
-          matInput
-          [matAutocomplete]="autoGroup"
-          [value]="this.department"
-        />
-        <mat-autocomplete #autoGroup="matAutocomplete">
-          <mat-option
-            *ngFor="let department of departments"
-            [value]="department">
-            {{ department }}
+      <mat-form-field class="dep-select">
+        <mat-select [(ngModel)]="department" (ngModelChange)="onDepartmentSelect()">
+          <mat-option *ngFor="let dep of departments" [value]="dep">
+            {{dep}}
           </mat-option>
-        </mat-autocomplete>
+        </mat-select>
       </mat-form-field>
     </div>
     <div class="button-container mt-2">
@@ -65,7 +57,7 @@
 
           <div class="table-container mat-elevation-z8">
             <table mat-table [dataSource]="dataSource" matSort>
-              &lt;!&ndash; Name Column &ndash;&gt;
+              <!-- Name Column -->
               <ng-container matColumnDef="name">
                 <th
                   style="white-space: nowrap"
@@ -87,13 +79,13 @@
                 </td>
               </ng-container>
 
-              &lt;!&ndash; Email Column &ndash;&gt;
+              <!-- Email Column -->
               <ng-container matColumnDef="email">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
                 <td mat-cell *matCellDef="let row">{{ row.email }}</td>
               </ng-container>
 
-              &lt;!&ndash; Preferences Column &ndash;&gt;
+              <!-- Preferences Column -->
               <ng-container matColumnDef="preferences">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>
                   Preferences
@@ -101,7 +93,7 @@
                 <td mat-cell *matCellDef="let row">{{ row.preferences }}</td>
               </ng-container>
 
-              &lt;!&ndash; Score Column &ndash;&gt;
+              <!-- Score Column -->
               <ng-container matColumnDef="score">
                 <th
                   mat-header-cell
@@ -139,9 +131,11 @@
       </div>
     </div>
   </div>
-</div>-->
+</div>
 
+<!--
 <app-admin-dashboard></app-admin-dashboard>
+-->
 
 <!--<div class="dashboard-container m-3">
   <div>

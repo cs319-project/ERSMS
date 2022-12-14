@@ -119,7 +119,7 @@
 }
 
 .custom-appointment-requests-scroll-bar{
-  height:65vh;
+  height:60vh;
   overflow-y:scroll;
   overflow-x: hidden;
 }
@@ -187,3 +187,5 @@ mat-tab-group {
 ::ng-deep.mat-tab-label, ::ng-deep.mat-tab-label-active{
   width: 50%;
 }
+
+mat-tab-body-content { height: 100% !important;}
