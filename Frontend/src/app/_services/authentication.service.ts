@@ -5,6 +5,7 @@ import { map, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { AuthenticationResult } from '../_models/authentication-result';
 import { LoggedInUser } from '../_models/logged-in-user';
+import { ActorsType } from '../_types/actors-type';
 import { UserService } from './user.service';
 
 @Injectable({
@@ -31,20 +32,12 @@ export class AuthenticationService {
           if (!Array.isArray(roles)) roles = [roles];
 
           if (user) {
-            const appUser = this.userService.getUserDetails(
-              user.userName,
-              roles
-            );
-
-            let loggedInUser = new LoggedInUser();
-            loggedInUser.userDetail = appUser;
+            const loggedInUser = new LoggedInUser();
+            loggedInUser.userName = user.userName;
             loggedInUser.token = token;
             loggedInUser.roles = roles;
 
-            console.log('loggedInUser: ', loggedInUser);
-            console.log('appUser: ', appUser);
-
-            this.setCurrentUser(loggedInUser, appUser);
+            this.setCurrentUser(loggedInUser);
           }
         })
       );
@@ -62,18 +55,32 @@ export class AuthenticationService {
   //     );
   // }
 
-  setCurrentUser(user: LoggedInUser, appUser: any) {
-    console.log('loggedInUser2: ', user);
-    console.log('appUser2: ', appUser);
+  setCurrentUser(user: LoggedInUser) {
+    this.userService
+      .getUserDetails(user.userName, user.roles)
+      .then(
+        (response: any) => {
+          localStorage.setItem('userDetails', JSON.stringify(response));
+          localStorage.setItem('user', JSON.stringify(user));
+          this.currentUser = user;
+          this.currentUserSource.next(user);
+        },
+        error => {
+          console.log('hata');
+          console.log(error);
+        }
+      )
+      .then(() => {
+        return;
+      });
 
-    localStorage.setItem('userInfo', JSON.stringify(appUser));
-    localStorage.setItem('user', JSON.stringify(user));
-    this.currentUser = user;
-    this.currentUserSource.next(user);
+    // wait until the user details are retrieved
+    // then set the current user
   }
 
   logout() {
     localStorage.removeItem('user');
+    localStorage.removeItem('userDetails');
     this.currentUser = null;
     this.currentUserSource.next(null);
     this.http.post(this.baseUrl + 'authentication/logout', {});

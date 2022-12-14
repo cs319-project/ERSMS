@@ -34,7 +34,10 @@ export class NavigationComponent implements OnInit {
     private _snackBar: MatSnackBar,
     public authenticationService: AuthenticationService
   ) {
-    //console.log(this.authenticationService.currentUser);
+    const user: any = JSON.parse(localStorage.getItem('userDetails'));
+
+    this.name = user['firstName'] + ' ' + user['lastName'];
+    this.role = user['actorType'];
 
     this.matIconRegistry.addSvgIcon(
       `dashboard`,

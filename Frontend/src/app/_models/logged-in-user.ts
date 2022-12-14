@@ -1,7 +1,7 @@
 import { ActorsType } from '../_types/actors-type';
 
 export class LoggedInUser {
-  userDetail: Array<ActorsType> = [];
+  userName: string;
   roles: string[];
   token: string;
 }

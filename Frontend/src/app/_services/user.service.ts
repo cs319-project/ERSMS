@@ -13,6 +13,8 @@ import { DeanDepartmentChair } from '../_models/dean-department-chair';
 import { CourseCoordinatorInstructor } from '../_models/course-coordinator-instructor';
 import { ActorsType } from '../_types/actors-type';
 import { ActorsEnum } from '../_models/enum/actors-enum';
+import { of } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -22,19 +24,7 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  getUserDetails(userName: string, roles: any) {
-    let userDetail: any;
-
-    this.http.get(this.baseUrl + userName).subscribe(
-      (response: any) => {
-        console.log('response: ', response);
-        userDetail = response;
-      },
-      error => {
-        console.log(error);
-      }
-    );
-
-    return userDetail;
+  getUserDetails(userName: string, roles: any): Promise<any> {
+    return this.http.get(this.baseUrl + userName).toPromise();
   }
 }
