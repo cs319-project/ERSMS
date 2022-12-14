@@ -3,8 +3,9 @@ import { SemesterInfo } from './semester-info';
 import { CteForm } from './cte-form';
 import { PreApprovalForm } from './pre-approval-form';
 import { EquivalanceRequest } from './equivalance-request';
+import { DomainUser } from './domain-user';
 
-export class Student {
+export interface Student extends DomainUser {
   entranceYear: number;
   major: DepartmentInfo;
   minors: ArrayLike<DepartmentInfo>;

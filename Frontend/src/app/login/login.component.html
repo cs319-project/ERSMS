@@ -52,11 +52,16 @@
             mat-raised-button
             color="primary"
             class="full-width mt-2"
-            type="submit">
+            type="submit"
+            [disabled]="!authForm.valid">
+            <span
+              *ngIf="loading"
+              class="spinner-border spinner-border-sm mr-1"></span>
             Login
           </button>
           <div class="flex-center">
-            <span class="mt-4">Don't have an account?
+            <span class="mt-4"
+              >Don't have an account?
               <a (click)="goSignUp()" class="link">Sign Up</a></span
             >
           </div>

@@ -21,6 +21,70 @@ namespace Backend.Controllers
         }
 
         // Endpoints
+        [HttpPost]
+        [Consumes("multipart/form-data")]
+        public async Task<ActionResult> SubmitEquivalanceForm([FromForm] string studentId,
+                                                                [FromForm] string hostCourseName,
+                                                                [FromForm] string additionalNotes,
+                                                                [FromForm] int exemptedCourseCredit,
+                                                                [FromForm] string exemptedCourseCode,
+                                                                [FromForm] string exemptedCourseName,
+                                                                [FromForm] string exemptedCourseType,
+                                                                [FromForm] IFormFile Syllabus)
+        {
+            if (Syllabus == null)
+            {
+                return BadRequest("No file uploaded");
+            }
+
+            if (Path.GetExtension(Syllabus.FileName) == ".pdf"
+                    || Path.GetExtension(Syllabus.FileName) == ".docx")
+            {
+                EquivalanceRequestDto request = new EquivalanceRequestDto
+                {
+                    StudentId = studentId,
+                    HostCourseName = hostCourseName,
+                    AdditionalNotes = additionalNotes,
+                    InstructorApproval = null,
+                    FileName = Syllabus.FileName
+                };
+                request.ExemptedCourse = new ExemptedCourseDto
+                {
+                    Credits = exemptedCourseCredit,
+                    CourseCode = exemptedCourseCode,
+                    CourseName = exemptedCourseName,
+                    CourseType = exemptedCourseType
+                };
+
+                return await _equivalanceRequestService.AddEquivalanceRequestToStudent(request, Syllabus)
+                                ? Ok(request) : BadRequest("Failed to add Equivalance Request");
+            }
+            return BadRequest("Wrong formated syllabus");
+        }
+
+        [HttpGet("download/{id:Guid}")]
+        public async Task<ActionResult> DownloadSyllabus(Guid id)
+        {
+            var result = await _equivalanceRequestService.DownloadSyllabus(id);
+
+            if (Path.GetExtension(result.Item2) == ".pdf")
+            {
+                return (result != (null, null))
+                            ? File(result.Item1, "application/pdf", result.Item2)
+                            : NotFound();
+            }
+            else if (Path.GetExtension(result.Item2) == ".docx")
+            {
+                return (result != (null, null))
+                            ? File(result.Item1, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", result.Item2)
+                            : NotFound();
+            }
+            else
+            {
+                return BadRequest("Wrong file format");
+            }
+        }
+
         [HttpGet("getAll")]
         public async Task<ActionResult<IEnumerable<EquivalanceRequestDto>>> GetEquivalanceRequests()
         {
@@ -51,6 +115,33 @@ namespace Backend.Controllers
                 return Ok(true);
             }
             return BadRequest("Failed to delete Equivalance Request");
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> UpdateEquivalanceRequest(EquivalanceRequestDto equivalanceRequest)
+        {
+            if (await _equivalanceRequestService.UpdateEquivalanceRequest(equivalanceRequest))
+            {
+                return Ok(true);
+            }
+            return BadRequest("Failed to update Equivalance Request");
+        }
+
+        [HttpPatch("syllabus/{id:Guid}")]
+        public async Task<ActionResult> UpdateSyllabus(Guid id, IFormFile Syllabus)
+        {
+            if (Syllabus == null)
+            {
+                return BadRequest("No file uploaded");
+            }
+
+            if (Path.GetExtension(Syllabus.FileName) == ".pdf"
+                    || Path.GetExtension(Syllabus.FileName) == ".docx")
+            {
+                return await _equivalanceRequestService.UpdateEquivalanceRequestSyllabus(id, Syllabus)
+                                ? Ok(true) : BadRequest("Failed to update Syllabus");
+            }
+            return BadRequest("Wrong formated syllabus");
         }
 
         [HttpGet("archived/all")]

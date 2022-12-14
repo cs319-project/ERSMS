@@ -26,5 +26,7 @@ namespace Backend.Entities
         [Required] public string LastName { get; set; }
         [Required] public Guid AppUserId { get; private set; }
         public AppUser IdentityUser { get; set; }
+        public List<Message> MessagesSent { get; set; } = new List<Message>();
+        public List<Message> MessagesReceived { get; set; } = new List<Message>();
     }
 }

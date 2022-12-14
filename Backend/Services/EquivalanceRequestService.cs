@@ -13,25 +13,36 @@ namespace Backend.Services
     public class EquivalanceRequestService : IEquivalanceRequestService
     {
         private readonly IEquivalanceRequestRepository _equivalanceRequestRepository;
+        private readonly INotificationService _notificationService;
         private readonly IUserRepository _userRepository;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
         // Constructor
         public EquivalanceRequestService(IEquivalanceRequestRepository equivalanceRequestRepository,
-                                            IUserRepository userRepository, IUserService userService, IMapper mapper)
+                                            IUserRepository userRepository, IUserService userService, IMapper mapper,
+                                            INotificationService notificationService)
         {
             _equivalanceRequestRepository = equivalanceRequestRepository;
             _userRepository = userRepository;
+            _notificationService = notificationService;
             _mapper = mapper;
             _userService = userService;
         }
 
         // Method
-        public async Task<bool> AddEquivalanceRequestToStudent(EquivalanceRequestDto equivalanceRequest)
+        public async Task<bool> AddEquivalanceRequestToStudent(EquivalanceRequestDto equivalanceRequest, IFormFile file)
         {
-            // change if necessary for files
-            return await _equivalanceRequestRepository.AddEquivalanceRequestToStudent(equivalanceRequest.StudentId, _mapper.Map<EquivalanceRequest>(equivalanceRequest));
+            EquivalanceRequest request = _mapper.Map<EquivalanceRequest>(equivalanceRequest);
+            request.Syllabus = await SaveFile(file);
+            var flag = await _equivalanceRequestRepository.AddEquivalanceRequestToStudent(equivalanceRequest.StudentId, request);
+
+            if (flag)
+            {
+                await _notificationService.CreateNewFormNotification(request, FormType.EquivalanceRequest);
+            }
+
+            return flag;
         }
 
         public async Task<IEnumerable<EquivalanceRequestDto>> GetEquivalanceRequests()
@@ -51,7 +62,27 @@ namespace Backend.Services
 
         public async Task<bool> UpdateEquivalanceRequest(EquivalanceRequestDto equivalanceRequest)
         {
-            return await _equivalanceRequestRepository.UpdateEquivalanceRequest(_mapper.Map<EquivalanceRequest>(equivalanceRequest));
+            var oldRequest = await _equivalanceRequestRepository.GetEquivalanceRequest(equivalanceRequest.Id);
+            if (CheckIfRequestIsOperable(oldRequest))
+            {
+                EquivalanceRequest request = _mapper.Map<EquivalanceRequest>(equivalanceRequest);
+                request.InstructorApproval = oldRequest.InstructorApproval;
+                request.IsCanceled = oldRequest.IsCanceled;
+                request.IsRejected = oldRequest.IsRejected;
+                request.IsApproved = oldRequest.IsApproved;
+                request.IsArchived = oldRequest.IsArchived;
+                request.FileName = oldRequest.FileName;
+                return await _equivalanceRequestRepository.UpdateEquivalanceRequest(request);
+            }
+            return false;
+        }
+
+        public async Task<bool> UpdateEquivalanceRequestSyllabus(Guid id, IFormFile file)
+        {
+            EquivalanceRequest request = await _equivalanceRequestRepository.GetEquivalanceRequest(id);
+            request.Syllabus = await SaveFile(file);
+            request.FileName = file.FileName;
+            return await _equivalanceRequestRepository.UpdateEquivalanceRequest(request);
         }
 
         public async Task<ICollection<EquivalanceRequestDto>> GetEquivalanceRequestsOfStudent(string studentID)
@@ -68,10 +99,27 @@ namespace Backend.Services
             {
                 return false;
             }
-            Approval approvalEntity = _mapper.Map<Approval>(approval);
-            request.InstructorApproval = approvalEntity;
+            if (CheckIfRequestIsOperable(request))
+            {
+                Approval approvalEntity = _mapper.Map<Approval>(approval);
+                request.InstructorApproval = approvalEntity;
 
-            return await _equivalanceRequestRepository.UpdateEquivalanceRequest(request);
+                if (!approvalEntity.IsApproved)
+                {
+                    request.IsArchived = true;
+                    request.IsRejected = true;
+                }
+                else
+                {
+                    request.IsApproved = true;
+                    request.IsArchived = true;
+                }
+
+                await _notificationService.CreateNewApprovalNotification(request, FormType.EquivalanceRequest,
+                                                                            approvalEntity.IsApproved, approvalEntity.Name);
+                return await _equivalanceRequestRepository.UpdateEquivalanceRequest(request);
+            }
+            return false;
         }
 
         public async Task<ICollection<EquivalanceRequestDto>> GetEquivalanceRequestByCourseCode(string courseCode)
@@ -116,7 +164,7 @@ namespace Backend.Services
         public async Task<bool> CancelEquivalanceRequest(Guid requestId)
         {
             EquivalanceRequest request = _equivalanceRequestRepository.GetEquivalanceRequest(requestId).Result;
-            if (CheckIfFormIsOperable(request))
+            if (CheckIfRequestIsOperable(request))
             {
                 if (request == null)
                 {
@@ -140,7 +188,7 @@ namespace Backend.Services
                 return false;
             }
 
-            if (CheckIfFormIsOperable(request))
+            if (CheckIfRequestIsOperable(request))
             {
                 request.IsArchived = true;
                 return await _equivalanceRequestRepository.UpdateEquivalanceRequest(request);
@@ -252,9 +300,34 @@ namespace Backend.Services
             return listToReturn;
         }
 
-        private bool CheckIfFormIsOperable(EquivalanceRequest request)
+        public async Task<(byte[], string)> DownloadSyllabus(Guid id)
         {
-            return !request.IsArchived && !request.IsCanceled && !request.IsApproved && !request.IsRejected;
+            var request = await _equivalanceRequestRepository.GetEquivalanceRequest(id);
+
+            if (request == null)
+            {
+                return (null, null);
+            }
+            return (request.Syllabus, request.FileName);
+        }
+
+        private async Task<byte[]> SaveFile(IFormFile file)
+        {
+            // convert file to byte array
+            byte[] fileBytes;
+
+            using (var ms = new MemoryStream())
+            {
+                await file.CopyToAsync(ms);
+                fileBytes = ms.ToArray();
+            }
+
+            return fileBytes;
+        }
+
+        private bool CheckIfRequestIsOperable(EquivalanceRequest request)
+        {
+            return !request.IsApproved && !request.IsRejected && !request.IsArchived && !request.IsCanceled;
         }
     }
 }

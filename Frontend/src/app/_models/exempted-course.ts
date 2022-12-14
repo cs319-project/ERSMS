@@ -1,6 +1,6 @@
 import { GUID } from '../../utils/guid';
 
-export class ExemptedCourse {
+export interface ExemptedCourse {
   id: GUID;
   credits: number;
   courseCode: string;

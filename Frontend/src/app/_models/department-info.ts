@@ -1,4 +1,4 @@
-export class DepartmentInfo {
+export interface DepartmentInfo {
   facultyName: string;
   departmentName: string;
 }

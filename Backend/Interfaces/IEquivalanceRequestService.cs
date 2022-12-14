@@ -8,11 +8,13 @@ namespace Backend.Interfaces
 {
     public interface IEquivalanceRequestService
     {
-        Task<bool> AddEquivalanceRequestToStudent(EquivalanceRequestDto equivalanceRequest);
+        Task<(byte[], string)> DownloadSyllabus(Guid id);
+        Task<bool> AddEquivalanceRequestToStudent(EquivalanceRequestDto equivalanceRequest, IFormFile syllabus);
         Task<IEnumerable<EquivalanceRequestDto>> GetEquivalanceRequests();
         Task<bool> DeleteEquivalanceRequest(Guid id);
         Task<EquivalanceRequestDto> GetEquivalanceRequest(Guid id);
         Task<bool> UpdateEquivalanceRequest(EquivalanceRequestDto equivalanceRequest);
+        Task<bool> UpdateEquivalanceRequestSyllabus(Guid id, IFormFile syllabus);
         Task<ICollection<EquivalanceRequestDto>> GetEquivalanceRequestsOfStudent(string studentID);
         // No real use
         Task<ICollection<EquivalanceRequestDto>> GetEquivalanceRequestsByDepartmentForCoordinator(string userName);

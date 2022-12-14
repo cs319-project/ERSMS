@@ -18,11 +18,13 @@ namespace Backend.Controllers
     public class AuthenticationController : BaseApiController
     {
         private readonly IAuthenticationService _authenticationService;
+        private readonly IUserService _userService;
         private readonly DataContext _context;
 
-        public AuthenticationController(IAuthenticationService authenticationService, DataContext context)
+        public AuthenticationController(IAuthenticationService authenticationService, IUserService userService, DataContext context)
         {
             _authenticationService = authenticationService;
+            _userService = userService;
             _context = context;
         }
 
@@ -46,6 +48,10 @@ namespace Backend.Controllers
             try
             {
                 var result = await _authenticationService.LogIn(login);
+
+                var user = _userService.GetUser(result.UserName).Result;
+                result.UserDetails = user;
+
                 return (result != null) ? Ok(result) : Unauthorized(result);
             }
             catch (Exception e)

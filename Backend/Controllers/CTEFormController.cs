@@ -21,7 +21,7 @@ namespace Backend.Controllers
             _userService = userService;
         }
 
-        [HttpPost("submit")]
+        [HttpPost]
         public async Task<ActionResult<CTEFormDto>> AddCTEFormToStudent(CTEFormDto cTEForm)
         {
             //cTEForm.Id = Guid.NewGuid();

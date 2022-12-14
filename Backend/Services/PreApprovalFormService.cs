@@ -6,6 +6,7 @@ using AutoMapper;
 using Backend.DTOs;
 using Backend.Entities;
 using Backend.Interfaces;
+using Backend.Utilities.Enum;
 
 namespace Backend.Services
 {
@@ -13,6 +14,7 @@ namespace Backend.Services
     {
         private readonly IPreApprovalFormRepository _preApprovalFormRepository;
         private readonly IUserRepository _userRepository;
+        private readonly INotificationService _notificationService;
         private readonly IUserService _userService;
         private readonly IToDoItemService _toDoItemService;
         private readonly IMapper _mapper;
@@ -20,9 +22,11 @@ namespace Backend.Services
         // Constructor
         public PreApprovalFormService(IPreApprovalFormRepository preApprovalFormRepository,
                                         IMapper mapper, IUserRepository userRepository,
-                                        IToDoItemService toDoItemService, IUserService userService)
+                                        IToDoItemService toDoItemService, IUserService userService,
+                                        INotificationService notificationService)
         {
             _toDoItemService = toDoItemService;
+            _notificationService = notificationService;
             _userService = userService;
             _preApprovalFormRepository = preApprovalFormRepository;
             _mapper = mapper;
@@ -56,6 +60,8 @@ namespace Backend.Services
                     formEntity.IsArchived = true;
                 }
 
+                await _notificationService.CreateNewApprovalNotification(formEntity, FormType.PreApprovalForm,
+                                                                            approvalEntity.IsApproved, approvalEntity.Name);
                 return await _preApprovalFormRepository.UpdatePreApprovalForm(formEntity);
             }
             return false;
@@ -95,6 +101,8 @@ namespace Backend.Services
                     }
                 }
 
+                await _notificationService.CreateNewApprovalNotification(formEntity, FormType.PreApprovalForm,
+                                                                            approvalEntity.IsApproved, approvalEntity.Name);
                 return await _preApprovalFormRepository.UpdatePreApprovalForm(formEntity);
             }
             return false;
@@ -167,6 +175,8 @@ namespace Backend.Services
                 Student student = await _userRepository.GetStudentByUserName(preApprovalForm.IDNumber);
                 if (student != null)
                     await _toDoItemService.AddToDoItemToAllByDepartment(todo, student.Major.DepartmentName);
+
+                await _notificationService.CreateNewFormNotification(formEntity, FormType.PreApprovalForm);
             }
 
             return flag;
@@ -175,14 +185,16 @@ namespace Backend.Services
         public async Task<bool> UpdatePreApprovalForm(PreApprovalFormDto preApprovalForm)
         {
             PreApprovalForm formEntity = _mapper.Map<PreApprovalForm>(preApprovalForm);
-
-            if (CheckIfFormIsOperable(formEntity))
+            PreApprovalForm oldForm = await _preApprovalFormRepository.GetPreApprovalForm(formEntity.Id);
+            if (CheckIfFormIsOperable(oldForm))
             {
                 // Don't update the approval
-                PreApprovalForm oldForm = await _preApprovalFormRepository.GetPreApprovalForm(formEntity.Id);
                 formEntity.ExchangeCoordinatorApproval = oldForm.ExchangeCoordinatorApproval;
                 formEntity.FacultyAdministrationBoardApproval = oldForm.FacultyAdministrationBoardApproval;
-
+                formEntity.IsApproved = oldForm.IsApproved;
+                formEntity.IsCanceled = oldForm.IsCanceled;
+                formEntity.IsArchived = oldForm.IsArchived;
+                formEntity.IsRejected = oldForm.IsRejected;
                 return await _preApprovalFormRepository.UpdatePreApprovalForm(formEntity);
             }
             return false;
@@ -212,11 +224,6 @@ namespace Backend.Services
                 return await _preApprovalFormRepository.UpdatePreApprovalForm(formEntity);
             }
             return false;
-        }
-
-        private bool CheckIfFormIsOperable(PreApprovalForm form)
-        {
-            return !form.IsApproved && !form.IsRejected && !form.IsArchived && !form.IsCanceled;
         }
 
         public async Task<bool> ArchivePreApprovalForm(Guid formId)
@@ -301,6 +308,11 @@ namespace Backend.Services
             }
 
             return forms;
+        }
+
+        private bool CheckIfFormIsOperable(PreApprovalForm form)
+        {
+            return !form.IsApproved && !form.IsRejected && !form.IsArchived && !form.IsCanceled;
         }
     }
 }

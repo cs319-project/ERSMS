@@ -6,16 +6,18 @@ using System.Threading.Tasks;
 
 namespace Backend.Entities
 {
-    public class EquivalanceRequest
+    public class EquivalanceRequest : Form
     {
         [Key]
         public Guid Id { get; set; }
         [Required]
         public string StudentId { get; set; }
+        public string HostCourseName { get; set; }
+        public string FileName { get; set; }
         public byte[] Syllabus { get; set; }
         public ExemptedCourse ExemptedCourse { get; set; }
         public Approval InstructorApproval { get; set; }
-        public string AdditionalNotes { get; set; }
+        public string AdditionalNotes { get; set; } = "";
         public bool IsCanceled { get; set; } = false;
         public bool IsRejected { get; set; } = false;
         public bool IsApproved { get; set; } = false;

@@ -1,77 +1,120 @@
-<mat-toolbar style="background-color: white">
-  <button mat-icon-button (click)="sidenav.toggle()">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>ERSMS</span>
-  <span class="toolbar-item-spacer"></span>
-    <button mat-icon-button [matMenuTriggerFor]="menu">
-    <mat-icon svgIcon="notification-idle" matBadge="2"></mat-icon>
-  </button>
-
-  <mat-menu #menu="matMenu" xPosition="before" >
-    <div style="display: flex">
-      <span class="mat-h1 m-3"> Notifications</span>
-    </div>
-    <mat-divider></mat-divider>
-    <button mat-menu-item *ngFor="let notification of notifications">
-      <span> <strong>{{notification.message}}</strong></span><br/>
-      <span>{{notification.timeSent}}</span>
+<mat-toolbar>
+  <mat-toolbar-row style="background: white">
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
     </button>
-  </mat-menu>
+    <span>ERSMS</span>
+    <span class="toolbar-item-spacer"></span>
+    <!-- <button mat-icon-button [matMenuTriggerFor]="notificationsMenu">
+      <mat-icon svgIcon="notification-idle" matBadge="2"></mat-icon>
+    </button> -->
+    <mat-icon
+      matBadge="2"
+      matBadgeColor="warn"
+      [matMenuTriggerFor]="notificationsMenu"
+      >notifications</mat-icon
+    >
 
-  <button mat-icon-button routerLink="/profile" style="background-image: url('../assets/images/doggy.jpg');background-size: cover; background-position: center" class="m-2">
-  </button>
-  <div class="username">
-    <span><strong>{{name}}</strong> </span>
-    <span>Student</span>
-  </div>
-
-   <button mat-icon-button [matMenuTriggerFor]="menuSettings">
-    <mat-icon svgIcon="settings"></mat-icon>
-  </button>
-
-  <mat-menu #menuSettings="matMenu">
-    <div mat-menu-item style="display: flex;align-items: center; height: 50px" (click)="openDialog()">
-      <mat-icon>campaign</mat-icon>
-      <span>Make Announcement</span>
+    <button
+      mat-icon-button
+      routerLink="/profile"
+      style="
+        background-image: url('../assets/images/doggy.jpg');
+        background-size: cover;
+        background-position: center;
+      "
+      class="m-2"></button>
+    <div class="username">
+      <span
+        ><strong>{{ name }}</strong>
+      </span>
+      <span>{{ role }}</span>
     </div>
-    <div mat-menu-item style="display: flex;align-items: center; height: 50px" (click)="logout()">
-      <mat-icon>logout</mat-icon>
-      <span>Logout</span>
-    </div>
-  </mat-menu>
 
+    <button mat-icon-button [matMenuTriggerFor]="settingsMenu">
+      <mat-icon>settings</mat-icon>
+    </button>
+  </mat-toolbar-row>
 </mat-toolbar>
 
-<mat-sidenav-container class="app-container">
-  <mat-sidenav #sidenav mode="side" [class.mat-elevation-z4]="true" class="app-sidenav">
-    <mat-nav-list>
+<mat-menu #notificationsMenu="matMenu" xPosition="before">
+  <div style="display: flex">
+    <span class="mat-h1 m-3"> Notifications</span>
+  </div>
+  <mat-divider></mat-divider>
+  <button mat-menu-item *ngFor="let notification of notifications">
+    <span>
+      <strong>{{ notification.message }}</strong></span
+    ><br />
+    <span>{{ notification.timeSent }}</span>
+  </button>
+</mat-menu>
+
+<mat-menu #settingsMenu="matMenu">
+  <div
+    mat-menu-item
+    style="display: flex; align-items: center; height: 50px"
+    (click)="openDialog()">
+    <mat-icon>campaign</mat-icon>
+    <span>Make Announcement</span>
+  </div>
+  <div
+    mat-menu-item
+    style="display: flex; align-items: center; height: 50px"
+    (click)="logout()">
+    <mat-icon>logout</mat-icon>
+    <span>Logout</span>
+  </div>
+</mat-menu>
+
+<mat-sidenav-container>
+  <mat-sidenav
+    #sidenav
+    mode="side"
+    [class.mat-elevation-z4]="true"
+    class="app-sidenav">
+    <mat-nav-list *ngIf="this.role === actorsEnum.OISEP">
+      <mat-list-item routerLink="/dashboard">
+        <mat-icon svgIcon="dashboard" class="m-2"></mat-icon>
+        <span>Dashboard</span>
+      </mat-list-item>
+    </mat-nav-list>
+
+    <mat-nav-list *ngIf="this.role !== actorsEnum.OISEP">
       <mat-list-item routerLink="/dashboard">
         <mat-icon svgIcon="dashboard" class="m-2"></mat-icon>
         <span>Dashboard</span>
       </mat-list-item>
       <mat-list-item routerLink="/formsandrequests">
-          <mat-icon svgIcon="forms" class="m-2"></mat-icon><span>Forms and Requests</span>
+        <mat-icon svgIcon="forms" class="m-2"></mat-icon
+        ><span>Forms and Requests</span>
       </mat-list-item>
       <mat-list-item routerLink="/appointments">
-        <mat-icon svgIcon="calendar" class="m-2"></mat-icon><span>Appointments</span>
+        <mat-icon svgIcon="calendar" class="m-2"></mat-icon
+        ><span>Appointments</span>
       </mat-list-item>
       <mat-list-item routerLink="/logging">
         <mat-icon svgIcon="logging" class="m-2"></mat-icon><span>Logging</span>
       </mat-list-item>
       <mat-list-item routerLink="/placements">
-        <mat-icon svgIcon="placements" class="m-2"></mat-icon><span>Placements</span>
+        <mat-icon svgIcon="placements" class="m-2"></mat-icon
+        ><span>Placements</span>
       </mat-list-item>
       <mat-list-item routerLink="/messages">
-        <mat-icon svgIcon="messages" style="border-color: red" class="m-2"></mat-icon><span>Messages</span>
+        <mat-icon
+          svgIcon="messages"
+          style="border-color: red"
+          class="m-2"></mat-icon
+        ><span>Messages</span>
       </mat-list-item>
-
+      <mat-list-item routerLink="/login">
+        <mat-icon svgIcon="reports" class="m-2"></mat-icon><span>Reports</span>
+      </mat-list-item>
     </mat-nav-list>
   </mat-sidenav>
-  <!-- <mat-sidenav opened="true" position="end"  mode="side" [class.mat-elevation-z4]="true" class="app-sidenav">
-
-  </mat-sidenav>-->
-  <mat-sidenav-content style="background-color: #F8F8F8">
-    <router-outlet></router-outlet>
+  <mat-sidenav-content>
+    <div style="height: 91vh; width: 120vh">
+      <router-outlet></router-outlet>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

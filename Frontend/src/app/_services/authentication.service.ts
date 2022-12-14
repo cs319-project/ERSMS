@@ -1,116 +1,55 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, catchError, switchMap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { DomainUser } from '../_models/domain-user';
-import { Admin } from '../_models/admin';
 import { AuthenticationResult } from '../_models/authentication-result';
-import { Student } from '../_models/student';
-import { OISEP } from '../_models/oisep';
-import { ExchangeCoordinator } from '../_models/exchange-coordinator';
-import { DeanDepartmentChair } from '../_models/dean-department-chair';
-import { CourseCoordinatorInstructor } from '../_models/course-coordinator-instructor';
+import { LoggedInUser } from '../_models/logged-in-user';
+import { ActorsType } from '../_types/actors-type';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  token = '';
   baseUrl = environment.apiUrl;
-  private currentUserSource = new BehaviorSubject<
-    | Admin
-    | Student
-    | OISEP
-    | ExchangeCoordinator
-    | DeanDepartmentChair
-    | CourseCoordinatorInstructor
-    | null
-  >(null);
+  private currentUserSource = new BehaviorSubject<LoggedInUser | null>(null);
   currentUser$ = this.currentUserSource.asObservable();
 
   constructor(private http: HttpClient) {}
 
   login(model: any) {
-    return this.http
-      .post<AuthenticationResult>(this.baseUrl + 'authentication/login', model)
-      .pipe(
-        map((response: AuthenticationResult) => {
-          const actorType = response.actorType;
-          this.token = response.token;
-          console.log(response.actorType);
+    return this.http.post(this.baseUrl + 'authentication/login', model).pipe(
+      map((response: AuthenticationResult) => {
+        const user = response;
+        if (user) {
+          const loggedInUser: LoggedInUser = {
+            userName: user.userName,
+            roles: [],
+            token: user.token,
+            userDetails: user.userDetails
+          };
 
-          if (actorType === 'Admin') {
-            this.http
-              .get<Admin>(this.baseUrl + 'user/' + response.userName)
-              .subscribe(data => {
-                this.setCurrentUser(data);
-              });
-          } else if (actorType === 'Student') {
-            this.http
-              .get<Student>(this.baseUrl + 'user/' + response.userName)
-              .subscribe(data => {
-                this.setCurrentUser(data);
-              });
-          } else if (
-            actorType ===
-            'Office of International Students and Exchange Programs'
-          ) {
-            this.http
-              .get<OISEP>(this.baseUrl + 'user/' + response.userName)
-              .subscribe(data => {
-                this.setCurrentUser(data);
-              });
-          } else if (actorType === 'Exchange Coordinator') {
-            this.http
-              .get<ExchangeCoordinator>(
-                this.baseUrl + 'user/' + response.userName
-              )
-              .subscribe(data => {
-                this.setCurrentUser(data);
-              });
-          } else if (actorType === 'Dean Department Chair') {
-            this.http
-              .get<DeanDepartmentChair>(
-                this.baseUrl + 'user/' + response.userName
-              )
-              .subscribe(data => {
-                this.setCurrentUser(data);
-              });
-          } else if (actorType === 'Course Coordinator Instructor') {
-            this.http
-              .get<CourseCoordinatorInstructor>(
-                this.baseUrl + 'user/' + response.userName
-              )
-              .subscribe(data => {
-                this.setCurrentUser(data);
-              });
-          }
-        })
-      );
+          this.setCurrentUser(loggedInUser);
+        }
+      })
+    );
   }
 
-  register(model: any) {
-    return this.http
-      .post<DomainUser>(this.baseUrl + 'account/register', model)
-      .pipe(
-        map(user => {
-          if (user) {
-            this.setCurrentUser(user);
-          }
-        })
-      );
-  }
+  // register(model: any) {
+  //   return this.http.post<User>(this.baseUrl + 'account/register', model).pipe(
+  //     map(user => {
+  //       if (user) {
+  //         this.setCurrentUser(user);
+  //       }
+  //     })
+  //   );
+  //  }
 
-  setCurrentUser(
-    user:
-      | Student
-      | Admin
-      | OISEP
-      | ExchangeCoordinator
-      | DeanDepartmentChair
-      | CourseCoordinatorInstructor
-  ) {
+  setCurrentUser(user: LoggedInUser) {
+    user.roles = [];
+    const roles = this.getDecodedToken(user.token).role;
+    Array.isArray(roles) ? (user.roles = roles) : user.roles.push(roles);
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user);
   }
@@ -118,5 +57,9 @@ export class AuthenticationService {
   logout() {
     localStorage.removeItem('user');
     this.currentUserSource.next(null);
+  }
+
+  getDecodedToken(token: string) {
+    return JSON.parse(atob(token.split('.')[1]));
   }
 }

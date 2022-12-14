@@ -65,6 +65,8 @@ export interface dayActivities {
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  actorsEnum = ActorsEnum;
+  role: string;
   departments = [
     'ADA',
     'AMER',
@@ -247,8 +249,10 @@ export class DashboardComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private _snackBar: MatSnackBar,
-    private _formBuilder: FormBuilder,
+    private _formBuilder: FormBuilder
   ) {
+    this.role = JSON.parse(localStorage.getItem('user')).roles[0];
+
     this.pieChartOptions = {
       series: [44, 55, 13],
       chart: {
@@ -419,7 +423,7 @@ export class DashboardComponent implements OnInit {
   handlePageEvent(e: PageEvent) {
     this.page_index = e.pageIndex;
   }
-
+  
   openSnackBar(message: string, action: string, duration: number) {
     this._snackBar.open(message, action, {
       duration: duration * 1000
@@ -478,6 +482,9 @@ export class DashboardComponent implements OnInit {
   }
 
   onDepartmentSelect() {
+    this.dataSource = new MatTableDataSource(
+      this.departmentTables[this.department]
+    );
     this.dataSource = new MatTableDataSource(this.departmentTables[this.department]);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;

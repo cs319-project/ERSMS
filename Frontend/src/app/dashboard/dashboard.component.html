@@ -1,14 +1,18 @@
-<div class="st-container m-3 p-2">
+<div *ngIf="this.role === actorsEnum.OISEP" class="st-container m-3 p-2">
   <div style="width: 90%">
     <div>
       <span class="dashboard-title">Exchange Score Tables</span>
     </div>
     <div class="st-department-form-container mt-3">
       <span>Selected Department: </span>
-      <mat-form-field style="width: 100px!important; text-align: center" class="ml-2">
-        <mat-select [(ngModel)]="department" (ngModelChange)="onDepartmentSelect()" >
+      <mat-form-field
+        style="width: 100px !important; text-align: center"
+        class="ml-2">
+        <mat-select
+          [(ngModel)]="department"
+          (ngModelChange)="onDepartmentSelect()">
           <mat-option *ngFor="let dep of departments" [value]="dep">
-            {{dep}}
+            {{ dep }}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -28,10 +32,7 @@
           ><mat-icon class="ml-2">attach_file</mat-icon>
         </button>
       </div>
-      <button
-        mat-raised-button
-        class="ml-3 mr-3"
-        (click)="deleteScoreTable(this.department)">
+      <button mat-raised-button class="ml-3 mr-3">
         <span>Delete Score Table</span
         ><mat-icon class="ml-2">delete_outlined</mat-icon>
       </button>
@@ -56,7 +57,7 @@
           </div>
 
           <div class="table-container mat-elevation-z8">
-            <table #scoreTable mat-table [dataSource]="dataSource" matSort>
+            <table #scoreTable mat-table matSort>
               <!-- Name Column -->
               <ng-container matColumnDef="name">
                 <th
@@ -119,13 +120,6 @@
                 (mouseover)="row.hovered = true"
                 (mouseout)="row.hovered = false"></tr>
             </table>
-
-            <mat-paginator
-              (page)="handlePageEvent($event)"
-              [pageSizeOptions]="[7]"
-              [showFirstLastButtons]="true"
-              [pageIndex]="page_index"
-              [hidePageSize]="true"></mat-paginator>
           </div>
         </div>
       </div>

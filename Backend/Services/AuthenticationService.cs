@@ -116,22 +116,25 @@ namespace Backend.Services
                         throw new System.ArgumentException("Invalid actor type");
                 }
 
-                var dto = new AuthenticationResultDto
-                {
-                    UserName = register.UserName,
-                    Email = register.Email,
-                    ActorType = register.ActorType,
-                    Token = await _tokenService.CreateToken(user)
-                };
-
                 var result = await _userManager.CreateAsync(user, register.Password);
 
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, actorType);
                 }
+                else
+                {
+                    throw new Exception("User creation failed: " + result.Errors.First().Description);
+                }
 
-                return result.Succeeded ? dto : null;
+                var dto = new AuthenticationResultDto
+                {
+                    UserName = register.UserName,
+                    Email = register.Email,
+                    Token = await _tokenService.CreateToken(user)
+                };
+
+                return dto;
             }
             catch (System.ArgumentException e)
             {
@@ -163,8 +166,8 @@ namespace Backend.Services
                 {
                     UserName = user.UserName,
                     Email = user.Email,
-                    ActorType = _userManager.GetRolesAsync(user).Result[0],
-                    Token = await _tokenService.CreateToken(user)
+                    Token = await _tokenService.CreateToken(user),
+                    UserDetails = null
                 };
 
                 return dto;

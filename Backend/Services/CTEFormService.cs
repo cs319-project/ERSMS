@@ -7,6 +7,7 @@ using Backend.DTOs;
 using Backend.Entities;
 using Backend.Interfaces;
 using Backend.Utilities;
+using Backend.Utilities.Enum;
 
 namespace Backend.Services
 {
@@ -15,14 +16,17 @@ namespace Backend.Services
         private readonly ICTEFormRepository _cTEFormRepository;
         private readonly IUserRepository _userRepository;
         private readonly IToDoItemService _toDoItemService;
+        private readonly INotificationService _notificationService;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
         // Constructor
         public CTEFormService(ICTEFormRepository cTEFormRepository, IMapper mapper,
-                                IUserRepository userRepository, IToDoItemService toDoItemService, IUserService userService)
+                                IUserRepository userRepository, IToDoItemService toDoItemService,
+                                IUserService userService, INotificationService notificationService)
         {
             _toDoItemService = toDoItemService;
+            _notificationService = notificationService;
             _userService = userService;
             _cTEFormRepository = cTEFormRepository;
             _mapper = mapper;
@@ -47,6 +51,7 @@ namespace Backend.Services
                 Student student = await _userService.GetStudent(cTEForm.IDNumber);
                 if (student != null)
                     flag = await _toDoItemService.AddToDoItemToAllByDepartment(todo, student.Major.DepartmentName);
+                await _notificationService.CreateNewFormNotification(formEntity, FormType.CTEForm);
             }
 
             return flag;
@@ -89,6 +94,10 @@ namespace Backend.Services
                         await _toDoItemService.ChangeCompleteToDoItem(todo.Id, true);
                     }
                 }
+
+                // send notification
+                await _notificationService.CreateNewApprovalNotification(formEntity, FormType.CTEForm,
+                                                                            approvalEntity.IsApproved, approvalEntity.Name);
 
                 return await _cTEFormRepository.UpdateCTEForm(formEntity);
             }
@@ -133,6 +142,9 @@ namespace Backend.Services
                     }
                 }
 
+                // send notification
+                await _notificationService.CreateNewApprovalNotification(formEntity, FormType.CTEForm,
+                                                                            approvalEntity.IsApproved, approvalEntity.Name);
                 return await _cTEFormRepository.UpdateCTEForm(formEntity);
             }
             return false;
@@ -204,7 +216,10 @@ namespace Backend.Services
                 formEntity.ChairApproval = oldForm.ChairApproval;
                 formEntity.ExchangeCoordinatorApproval = oldForm.ExchangeCoordinatorApproval;
                 formEntity.FacultyOfAdministrationBoardApproval = oldForm.FacultyOfAdministrationBoardApproval;
-
+                formEntity.IsApproved = oldForm.IsApproved;
+                formEntity.IsRejected = oldForm.IsRejected;
+                formEntity.IsArchived = oldForm.IsArchived;
+                formEntity.IsCanceled = oldForm.IsCanceled;
                 return await _cTEFormRepository.UpdateCTEForm(formEntity);
             }
             return false;
@@ -267,6 +282,8 @@ namespace Backend.Services
                     }
                 }
 
+                await _notificationService.CreateNewApprovalNotification(formEntity, FormType.CTEForm,
+                                                                            approvalEntity.IsApproved, approvalEntity.Name);
                 return await _cTEFormRepository.UpdateCTEForm(formEntity);
             }
             return false;

@@ -21,7 +21,12 @@ namespace Backend.Data
             base.OnModelCreating(builder);
 
             builder.Entity<DomainUser>().Navigation(u => u.IdentityUser).AutoInclude();
+            builder.Entity<DomainUser>().Navigation(m => m.MessagesSent).AutoInclude();
+            builder.Entity<DomainUser>().Navigation(m => m.MessagesReceived).AutoInclude();
             builder.Entity<AppUser>().Navigation(u => u.DomainUser).AutoInclude();
+
+            builder.Entity<DomainUser>().HasMany<Message>(m => m.MessagesSent);
+            builder.Entity<DomainUser>().HasMany<Message>(m => m.MessagesReceived);
 
             builder.Entity<ExchangeCoordinator>().Navigation(c => c.ToDoList).AutoInclude();
             builder.Entity<ExchangeCoordinator>().HasMany<ToDoItem>(c => c.ToDoList);
@@ -34,13 +39,11 @@ namespace Backend.Data
             builder.Entity<CTEForm>().Navigation(c => c.ChairApproval).AutoInclude();
             builder.Entity<CTEForm>().Navigation(c => c.ExchangeCoordinatorApproval).AutoInclude();
             builder.Entity<CTEForm>().Navigation(c => c.FacultyOfAdministrationBoardApproval).AutoInclude();
-            // builder.Entity<CTEForm>().Navigation(c => c.SubjectStudent).AutoInclude();
             builder.Entity<TransferredCourseGroup>().Navigation(c => c.TransferredCourses).AutoInclude();
             builder.Entity<TransferredCourseGroup>().Navigation(c => c.ExemptedCourse).AutoInclude();
             builder.Entity<PreApprovalForm>().Navigation(c => c.RequestedCourseGroups).AutoInclude();
             builder.Entity<PreApprovalForm>().Navigation(c => c.ExchangeCoordinatorApproval).AutoInclude();
             builder.Entity<PreApprovalForm>().Navigation(c => c.FacultyAdministrationBoardApproval).AutoInclude();
-            // builder.Entity<PreApprovalForm>().Navigation(c => c.SubjectStudent).AutoInclude();
             builder.Entity<RequestedCourseGroup>().Navigation(c => c.RequestedCourses).AutoInclude();
             builder.Entity<RequestedCourseGroup>().Navigation(c => c.RequestedExemptedCourse).AutoInclude();
 
@@ -65,9 +68,6 @@ namespace Backend.Data
             builder.Entity<PlacedStudent>().OwnsOne<SemesterInfo>(c => c.PreferredSemester);
 
             // FORMS
-            // builder.Entity<CTEForm>().HasOne<Student>(c => c.SubjectStudent);
-            // builder.Entity<PreApprovalForm>().HasOne<Student>(c => c.SubjectStudent);
-
             builder.Entity<CTEForm>().HasMany<TransferredCourseGroup>(c => c.TransferredCourseGroups);
             builder.Entity<CTEForm>().HasOne<Approval>(c => c.DeanApproval);
             builder.Entity<CTEForm>().HasOne<Approval>(c => c.ChairApproval);
@@ -143,5 +143,8 @@ namespace Backend.Data
         public DbSet<CTEForm> CTEForms { get; set; }
         public DbSet<PreApprovalForm> PreApprovalForms { get; set; }
         public DbSet<EquivalanceRequest> EquivalanceRequests { get; set; }
+        public DbSet<Announcement> Announcements { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<Message> Messages { get; set; }
     }
 }

@@ -22,7 +22,7 @@ namespace Backend.Controllers
         }
 
         // Endpoints
-        [HttpPost()]
+        [HttpPost]
         public async Task<ActionResult<PreApprovalFormDto>> SubmitPreApprovalForm(PreApprovalFormDto preApprovalForm)
         {
             try

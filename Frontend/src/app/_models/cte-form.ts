@@ -2,7 +2,7 @@ import { GUID } from '../../utils/guid';
 import { Approval } from './approval';
 import { TransferredCourseGroup } from './transferred-course-group';
 
-export class CteForm {
+export interface CteForm {
   id: GUID;
   firstName: string;
   lastName: string;

@@ -1,4 +1,4 @@
-export class ErsmsUser {
+export interface ErsmsUser {
   email: string;
   token: string;
 }

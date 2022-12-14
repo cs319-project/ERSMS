@@ -10,6 +10,21 @@ namespace Backend.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Announcements",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Sender = table.Column<string>(type: "TEXT", nullable: true),
+                    Title = table.Column<string>(type: "TEXT", nullable: true),
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Announcements", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Approval",
                 columns: table => new
                 {
@@ -75,6 +90,20 @@ namespace Backend.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ExemptedCourse", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Notifications",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    read = table.Column<bool>(type: "INTEGER", nullable: false),
+                    content = table.Column<string>(type: "TEXT", nullable: false),
+                    userId = table.Column<Guid>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notifications", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -321,6 +350,33 @@ namespace Backend.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Messages",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    SenderUsername = table.Column<string>(type: "TEXT", nullable: true),
+                    RecipientUsername = table.Column<string>(type: "TEXT", nullable: true),
+                    Content = table.Column<string>(type: "TEXT", nullable: true),
+                    MessageSent = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    DomainUserId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    DomainUserId1 = table.Column<Guid>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Messages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Messages_DomainUsers_DomainUserId",
+                        column: x => x.DomainUserId,
+                        principalTable: "DomainUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Messages_DomainUsers_DomainUserId1",
+                        column: x => x.DomainUserId1,
+                        principalTable: "DomainUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OISEPs",
                 columns: table => new
                 {
@@ -381,6 +437,9 @@ namespace Backend.Data.Migrations
                     FacultyOfAdministrationBoardApprovalId = table.Column<Guid>(type: "TEXT", nullable: true),
                     ToDoItemId = table.Column<Guid>(type: "TEXT", nullable: false),
                     IsCanceled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsRejected = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsApproved = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsArchived = table.Column<bool>(type: "INTEGER", nullable: false),
                     StudentId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
@@ -419,10 +478,16 @@ namespace Backend.Data.Migrations
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     StudentId = table.Column<string>(type: "TEXT", nullable: false),
+                    HostCourseName = table.Column<string>(type: "TEXT", nullable: true),
+                    FileName = table.Column<string>(type: "TEXT", nullable: true),
                     Syllabus = table.Column<byte[]>(type: "BLOB", nullable: true),
                     ExemptedCourseId = table.Column<Guid>(type: "TEXT", nullable: true),
                     InstructorApprovalId = table.Column<Guid>(type: "TEXT", nullable: true),
                     AdditionalNotes = table.Column<string>(type: "TEXT", nullable: true),
+                    IsCanceled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsRejected = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsApproved = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsArchived = table.Column<bool>(type: "INTEGER", nullable: false),
                     StudentId1 = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
@@ -463,6 +528,9 @@ namespace Backend.Data.Migrations
                     FacultyAdministrationBoardApprovalId = table.Column<Guid>(type: "TEXT", nullable: true),
                     ToDoItemId = table.Column<Guid>(type: "TEXT", nullable: false),
                     IsCanceled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsRejected = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsApproved = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsArchived = table.Column<bool>(type: "INTEGER", nullable: false),
                     StudentId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
@@ -706,6 +774,16 @@ namespace Backend.Data.Migrations
                 column: "StudentId1");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Messages_DomainUserId",
+                table: "Messages",
+                column: "DomainUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Messages_DomainUserId1",
+                table: "Messages",
+                column: "DomainUserId1");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PreApprovalForms_ExchangeCoordinatorApprovalId",
                 table: "PreApprovalForms",
                 column: "ExchangeCoordinatorApprovalId");
@@ -767,6 +845,9 @@ namespace Backend.Data.Migrations
                 name: "Admins");
 
             migrationBuilder.DropTable(
+                name: "Announcements");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
             migrationBuilder.DropTable(
@@ -789,6 +870,12 @@ namespace Backend.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "EquivalanceRequests");
+
+            migrationBuilder.DropTable(
+                name: "Messages");
+
+            migrationBuilder.DropTable(
+                name: "Notifications");
 
             migrationBuilder.DropTable(
                 name: "OISEPs");

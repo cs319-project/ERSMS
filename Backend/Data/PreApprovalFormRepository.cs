@@ -53,7 +53,7 @@ namespace Backend.Data
 
         public async Task<bool> UpdatePreApprovalForm(PreApprovalForm preApprovalForm)
         {
-            var form = _context.PreApprovalForms.Update(preApprovalForm);
+            _context.PreApprovalForms.Update(preApprovalForm);
             return await _context.SaveChangesAsync() > 0;
         }
     }

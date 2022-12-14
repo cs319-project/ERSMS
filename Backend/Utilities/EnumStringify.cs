@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Backend.Entities.Enums;
 using Backend.Utilities.Enum;
 
 namespace Backend.Utilities
@@ -329,6 +328,21 @@ namespace Backend.Utilities
                     return CourseTypes.ArtsCoreElective;
                 default:
                     throw new Exception("CourseType Exception");
+            }
+        }
+
+        public static string FormTypeStringify(FormType formType)
+        {
+            switch (formType)
+            {
+                case FormType.CTEForm:
+                    return "CTE Form";
+                case FormType.PreApprovalForm:
+                    return "Pre-Approval Form";
+                case FormType.EquivalanceRequest:
+                    return "Equivalance Request Form";
+                default:
+                    throw new Exception("FormType Exception");
             }
         }
     }

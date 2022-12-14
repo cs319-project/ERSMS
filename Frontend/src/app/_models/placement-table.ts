@@ -1,7 +1,7 @@
 import { GUID } from '../../utils/guid';
 import { DepartmentInfo } from './department-info';
 
-export class PlacementTable {
+export interface PlacementTable {
   id: GUID;
   department: DepartmentInfo;
   fileName: string;

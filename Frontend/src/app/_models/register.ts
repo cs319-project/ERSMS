@@ -1,6 +1,6 @@
 import { DepartmentInfo } from './department-info';
 
-export class Register {
+export interface Register {
   actorType: Required<string>;
   email: string;
   userName: Required<string>;

@@ -11,13 +11,37 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221212225006_InitialMigration")]
+    [Migration("20221214192907_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.10");
+
+            modelBuilder.Entity("Backend.Entities.Announcement", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Sender")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Announcements");
+                });
 
             modelBuilder.Entity("Backend.Entities.Approval", b =>
                 {
@@ -140,7 +164,16 @@ namespace Backend.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsArchived")
+                        .HasColumnType("INTEGER");
+
                     b.Property<bool>("IsCanceled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsRejected")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("LastName")
@@ -208,8 +241,26 @@ namespace Backend.Data.Migrations
                     b.Property<Guid?>("ExemptedCourseId")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("FileName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("HostCourseName")
+                        .HasColumnType("TEXT");
+
                     b.Property<Guid?>("InstructorApprovalId")
                         .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsArchived")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsCanceled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsRejected")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("StudentId")
                         .IsRequired()
@@ -253,6 +304,60 @@ namespace Backend.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ExemptedCourse");
+                });
+
+            modelBuilder.Entity("Backend.Entities.Message", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("DomainUserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("DomainUserId1")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("MessageSent")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("RecipientUsername")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SenderUsername")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DomainUserId");
+
+                    b.HasIndex("DomainUserId1");
+
+                    b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("Backend.Entities.Notification", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("content")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("read")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid>("userId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("Backend.Entities.PlacedStudent", b =>
@@ -344,7 +449,16 @@ namespace Backend.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsArchived")
+                        .HasColumnType("INTEGER");
+
                     b.Property<bool>("IsCanceled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsRejected")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("LastName")
@@ -759,6 +873,17 @@ namespace Backend.Data.Migrations
                     b.Navigation("ExemptedCourse");
 
                     b.Navigation("InstructorApproval");
+                });
+
+            modelBuilder.Entity("Backend.Entities.Message", b =>
+                {
+                    b.HasOne("Backend.Entities.DomainUser", null)
+                        .WithMany("MessagesReceived")
+                        .HasForeignKey("DomainUserId");
+
+                    b.HasOne("Backend.Entities.DomainUser", null)
+                        .WithMany("MessagesSent")
+                        .HasForeignKey("DomainUserId1");
                 });
 
             modelBuilder.Entity("Backend.Entities.PlacedStudent", b =>
@@ -1182,6 +1307,13 @@ namespace Backend.Data.Migrations
             modelBuilder.Entity("Backend.Entities.CTEForm", b =>
                 {
                     b.Navigation("TransferredCourseGroups");
+                });
+
+            modelBuilder.Entity("Backend.Entities.DomainUser", b =>
+                {
+                    b.Navigation("MessagesReceived");
+
+                    b.Navigation("MessagesSent");
                 });
 
             modelBuilder.Entity("Backend.Entities.PreApprovalForm", b =>

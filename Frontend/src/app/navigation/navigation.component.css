@@ -5,12 +5,8 @@
   flex: 1 1 auto;
 }
 
-.app-container {
-  height: 90%;
-  margin: 0;
-}
 .app-sidenav {
-  width: 270px;
+  width: 180px;
 }
 .app-sidenav-content {
   display: flex;
@@ -47,4 +43,26 @@
   max-lines: 3;
   word-wrap: break-word;
   white-space: pre-wrap;
+}
+
+.fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+}
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.example-sidenav-container {
+  /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+     causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+  flex: 1;
 }
