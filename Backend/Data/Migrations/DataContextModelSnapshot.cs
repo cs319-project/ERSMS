@@ -30,6 +30,9 @@ namespace Backend.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Sender")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Title")
                         .HasColumnType("TEXT");
 
@@ -299,6 +302,39 @@ namespace Backend.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ExemptedCourse");
+                });
+
+            modelBuilder.Entity("Backend.Entities.Message", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("DomainUserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("DomainUserId1")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("MessageSent")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("RecipientUsername")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SenderUsername")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DomainUserId");
+
+                    b.HasIndex("DomainUserId1");
+
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("Backend.Entities.Notification", b =>
@@ -837,6 +873,17 @@ namespace Backend.Data.Migrations
                     b.Navigation("InstructorApproval");
                 });
 
+            modelBuilder.Entity("Backend.Entities.Message", b =>
+                {
+                    b.HasOne("Backend.Entities.DomainUser", null)
+                        .WithMany("MessagesReceived")
+                        .HasForeignKey("DomainUserId");
+
+                    b.HasOne("Backend.Entities.DomainUser", null)
+                        .WithMany("MessagesSent")
+                        .HasForeignKey("DomainUserId1");
+                });
+
             modelBuilder.Entity("Backend.Entities.PlacedStudent", b =>
                 {
                     b.OwnsOne("Backend.Entities.DepartmentInfo", "Department", b1 =>
@@ -1258,6 +1305,13 @@ namespace Backend.Data.Migrations
             modelBuilder.Entity("Backend.Entities.CTEForm", b =>
                 {
                     b.Navigation("TransferredCourseGroups");
+                });
+
+            modelBuilder.Entity("Backend.Entities.DomainUser", b =>
+                {
+                    b.Navigation("MessagesReceived");
+
+                    b.Navigation("MessagesSent");
                 });
 
             modelBuilder.Entity("Backend.Entities.PreApprovalForm", b =>

@@ -14,6 +14,7 @@ namespace Backend.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Sender = table.Column<string>(type: "TEXT", nullable: true),
                     Title = table.Column<string>(type: "TEXT", nullable: true),
                     Description = table.Column<string>(type: "TEXT", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "TEXT", nullable: false)
@@ -346,6 +347,33 @@ namespace Backend.Data.Migrations
                         principalTable: "DomainUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Messages",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    SenderUsername = table.Column<string>(type: "TEXT", nullable: true),
+                    RecipientUsername = table.Column<string>(type: "TEXT", nullable: true),
+                    Content = table.Column<string>(type: "TEXT", nullable: true),
+                    MessageSent = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    DomainUserId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    DomainUserId1 = table.Column<Guid>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Messages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Messages_DomainUsers_DomainUserId",
+                        column: x => x.DomainUserId,
+                        principalTable: "DomainUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Messages_DomainUsers_DomainUserId1",
+                        column: x => x.DomainUserId1,
+                        principalTable: "DomainUsers",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -746,6 +774,16 @@ namespace Backend.Data.Migrations
                 column: "StudentId1");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Messages_DomainUserId",
+                table: "Messages",
+                column: "DomainUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Messages_DomainUserId1",
+                table: "Messages",
+                column: "DomainUserId1");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PreApprovalForms_ExchangeCoordinatorApprovalId",
                 table: "PreApprovalForms",
                 column: "ExchangeCoordinatorApprovalId");
@@ -832,6 +870,9 @@ namespace Backend.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "EquivalanceRequests");
+
+            migrationBuilder.DropTable(
+                name: "Messages");
 
             migrationBuilder.DropTable(
                 name: "Notifications");

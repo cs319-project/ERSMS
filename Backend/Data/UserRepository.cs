@@ -132,5 +132,11 @@ namespace Backend.Data
         {
             return await _context.CourseCoordinatorInstructors.ToListAsync();
         }
+
+        public async Task<bool> UpdateDomainUser(DomainUser domainUser)
+        {
+            _context.DomainUsers.Update(domainUser);
+            return await _context.SaveChangesAsync() > 0;
+        }
     }
 }

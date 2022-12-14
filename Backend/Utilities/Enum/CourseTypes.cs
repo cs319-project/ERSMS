@@ -1,4 +1,4 @@
-﻿namespace Backend.Entities.Enums
+﻿namespace Backend.Utilities.Enum
 {
     public enum CourseTypes
     {

@@ -1,12 +1,11 @@
-﻿using Backend.Entities.Enums;
-using Backend.Utilities.Enum;
+﻿using Backend.Utilities.Enum;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend.Entities
 {
-    public class CTEForm
+    public class CTEForm : Form
     {
         [Key]
         public Guid Id { get; set; }

@@ -120,5 +120,11 @@ namespace Backend.Services
         {
             throw new NotImplementedException();
         }
+
+        public async Task<DomainUser> GetDomainUser(string username)
+        {
+            var user = await _userRepository.GetDomainUser(username);
+            return user;
+        }
     }
 }

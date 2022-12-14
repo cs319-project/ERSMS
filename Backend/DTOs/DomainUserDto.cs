@@ -13,5 +13,7 @@ namespace Backend.DTOs
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public AppUserDto IdentityUser { get; set; }
+        public List<MessageDto> MessagesSent { get; set; }
+        public List<MessageDto> MessagesReceived { get; set; }
     }
 }

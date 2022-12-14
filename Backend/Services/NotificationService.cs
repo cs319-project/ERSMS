@@ -29,7 +29,7 @@ namespace Backend.Services
 
         // Methods
         // Notify only the sender CTEForm -> Exchange Coordinator, PreApprovalForm -> Student, EquivalanceRequest -> Student
-        public async Task<bool> CreateNewApprovalNotification(object formObject, FormType formType,
+        public async Task<bool> CreateNewApprovalNotification(Form formObject, FormType formType,
                                                                  bool isApproved, string approverName)
         {
             string formId = "";
@@ -102,7 +102,7 @@ namespace Backend.Services
             return true;
         }
 
-        public async Task<bool> CreateNewFormNotification(object formObject, FormType formType)
+        public async Task<bool> CreateNewFormNotification(Form formObject, FormType formType)
         {
             string firstName = "";
             string lastName = "";
