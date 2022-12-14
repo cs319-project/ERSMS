@@ -1,6 +1,84 @@
+<div class="st-container m-3 p-2">
+  <div style="width: 90%">
+    <div>
+      <span class="dashboard-title">Exchange Score Tables</span>
+    </div>
+    <div class="button-container mt-4">
+      <button mat-raised-button><span>Upload Score Table</span><mat-icon class="ml-2">attach_file</mat-icon></button>
+      <button mat-raised-button class="ml-3 mr-3"><span>Delete Score Table</span><mat-icon class="ml-2">delete_outlined</mat-icon></button>
+      <button mat-raised-button><span>Download Score Table</span><mat-icon class="ml-2">download</mat-icon></button>
+    </div>
+    <div class="dashboard-content mt-3">
+      <div class="st-content mt-4">
+        <div style="width: 100% !important">
+          <div class="table-header">
+            <mat-form-field>
+              <mat-icon matPrefix class="mr-3">search</mat-icon>
+              <input type="search" matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+            </mat-form-field>
+          </div>
+
+          <div class="table-container mat-elevation-z8">
+
+            <table mat-table [dataSource]="dataSource" matSort>
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="name">
+                <th style="white-space: nowrap" mat-header-cell *matHeaderCellDef mat-sort-header> Student Name </th>
+                <td mat-cell *matCellDef="let row">
+                  <div class="name-column-cell">
+                    <div>
+                      <img src="../assets/images/avatar.png">
+                    </div>
+                    <div class="name-dep-pair ml-3">
+                      <span>{{row.name}}</span>
+                      <span class="gray-text mt-1">{{row.department}}</span>
+                    </div>
+                  </div>
+                </td>
+              </ng-container>
+
+              <!-- Email Column -->
+              <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+                <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+              </ng-container>
+
+              <!-- Preferences Column -->
+              <ng-container matColumnDef="preferences">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Preferences </th>
+                <td mat-cell *matCellDef="let row"> {{row.preferences}} </td>
+              </ng-container>
+
+              <!-- Score Column -->
+              <ng-container matColumnDef="score">
+                <th mat-header-cell class="scoreColumn"  *matHeaderCellDef mat-sort-header> Score </th>
+                <td mat-cell class="scoreColumn" *matCellDef="let row" [style.color]="row.color"> {{row.score}} </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns; "
+                  [ngClass]="{hovered: row.hovered}"
+                  (mouseover)="row.hovered = true" (mouseout)="row.hovered = false">
+              </tr>
+            </table>
+
+            <mat-paginator (page)="handlePageEvent($event)"
+                           [pageSizeOptions]="[10]"
+                           [showFirstLastButtons]="true"
+                           [pageIndex]="page_index"
+                           [hidePageSize]="true"
+
+            ></mat-paginator>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
-<div class="dashboard-container m-3">
+<!--<div class="dashboard-container m-3">
   <div>
     <span class="dashboard-title">Dashboard</span>
   </div>
@@ -201,7 +279,7 @@
     </div>
   </div>
 
-</div>
+</div>-->
 
 <!--
 <div class="student-dashboard-container m-3">

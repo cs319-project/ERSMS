@@ -12,6 +12,10 @@ import {
   ApexGrid,
   ApexLegend
 } from "ng-apexcharts";
+import {MatTableDataSource} from "@angular/material/table";
+import {MatPaginator, PageEvent} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
+import {createNewUser, UserData} from "../placement/placement.component";
 
 export type PieChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -57,6 +61,13 @@ export interface dayActivities{
   })
 
 export class DashboardComponent implements OnInit{
+  displayedColumns = ['name', 'email', 'preferences', 'score'];
+  dataSource: MatTableDataSource<UserData>;
+  page_index = 0;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
   @ViewChild("chart") chart: ChartComponent;
   public pieChartOptions: Partial<PieChartOptions>;
   public barChartOptions: Partial<BarChartOptions>;
@@ -186,6 +197,17 @@ export class DashboardComponent implements OnInit{
         }
       }
     };
+
+    const users: UserData[] = [];
+    for (let i = 1; i <= 100; i++) { users.push(createNewUser()); }
+
+    // Assign the data to the data source for the table to render
+    this.dataSource = new MatTableDataSource(users);
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   toggleEditing() {
@@ -244,11 +266,21 @@ export class DashboardComponent implements OnInit{
   }
 
   deleteItem(todoItem: todoItem) {
-    let index:number = this.todoList.indexOf(todoItem);
+    let index: number = this.todoList.indexOf(todoItem);
     this.todoList.splice(index,1);
     this.waitingList = this.todoList.filter(todoItem => !todoItem.isCompleted);
     this.starredList = this.todoList.filter(todoItem => todoItem.isStarred);
     this.completedList = this.todoList.filter(todoItem => todoItem.isCompleted);
+  }
+
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
+  }
+
+  handlePageEvent(e: PageEvent) {
+    this.page_index = e.pageIndex;
   }
 }
 

@@ -51,7 +51,7 @@ export class PlacementComponent{
 }
 
 /** Builds and returns a new User. */
-function createNewUser(): UserData {
+export function createNewUser(): UserData {
   const name =
     NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
     NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
