@@ -5,8 +5,8 @@
     </div>
     <div class="st-department-form-container mt-3">
       <span>Selected Department: </span>
-      <mat-form-field class="dep-select">
-        <mat-select [(ngModel)]="department" (ngModelChange)="onDepartmentSelect()">
+      <mat-form-field style="width: 100px!important; text-align: center" class="ml-2">
+        <mat-select [(ngModel)]="department" (ngModelChange)="onDepartmentSelect()" >
           <mat-option *ngFor="let dep of departments" [value]="dep">
             {{dep}}
           </mat-option>
