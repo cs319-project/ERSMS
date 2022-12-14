@@ -1,5 +1,103 @@
+.st-container{
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.st-department-form-container mat-form-field {
+  display: inline-block !important;
+  width: 50px !important;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.table-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.table-header {
+  min-height: 64px;
+  padding: 8px 24px 0;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.mat-table {
+  overflow-y: scroll;
+  max-height: 700px;
+}
+
+.placement-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.placement-header{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.placement-buttons-container{
+  display: flex;
+  justify-content: end;
+}
+
+.placement-title{
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+
+.placement-buttons-container button{
+  border-radius: 25px;
+}
+
+.name-column-cell{
+  display: flex;
+  align-items: center;
+}
+
+.name-column-cell img{
+  max-width: 30px;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.name-dep-pair{
+  display: flex;
+  flex-direction: column;
+  line-height: 13px;
+}
+
+.gray-text{
+  color: #8A9099;
+}
+
+.scoreColumn{
+  max-width: 100px;
+}
+
+.st-content{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: auto;
+}
+
 .dashboard-container{
-  height: 80vh;
+  height: 80%;
   display: flex;
   flex-direction: column;
 }
@@ -210,3 +308,22 @@
 .custom-activities-scroll-bar::-webkit-scrollbar-thumb{
   background: rgba(0,0,0,.26);
 }
+
+
+.student-dashboard-container{
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+}
+
+.student-todo-container{
+  width: 60%;
+}
+
+.student-dashboard-content{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+

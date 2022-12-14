@@ -120,7 +120,7 @@ export class LoggingComponent{
   }
 
   openDialog(row) {
-    
+
     this.activatedRow = row;
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = createRandomDialogData(this.activatedRow);
@@ -140,10 +140,10 @@ export class LoggingComponent{
       duration: duration * 1000
     });
   }
-  
+
 }
 
-function createRandomDialogData(row) {
+export function createRandomDialogData(row) {
   return {
     'studentName': row.student,
     'studentEmail': row.student + '@ug.bilkent.edu.tr',
@@ -167,18 +167,18 @@ function createRandomDialogData(row) {
 
 
 /** Builds and returns a new User. */
-function createNewUser(id: number): UserData {
+export function createNewUser(id: number, status: string = null, student: string = null): UserData {
   const name =
       NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
       NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
 
   return {
     id: id,
-    student: name,
+    student: student || name,
     date: new Date("12/05/2022").toLocaleDateString('en-US'),
     type: TYPE[Math.round(Math.random() * (TYPE.length - 1))],
     school: SCHOOLS[Math.round(Math.random() * (SCHOOLS.length - 1))],
-    status: STATUS[Math.round(Math.random() * (STATUS.length - 1))]
+    status: status || STATUS[Math.round(Math.random() * (STATUS.length - 1))]
   };
 }
 
@@ -187,9 +187,9 @@ export const NAMES = ['Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack',
   'Charlotte', 'Theodore', 'Isla', 'Oliver', 'Isabella', 'Jasper',
   'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'];
 
-export const SCHOOLS = ['EPFL' , 'Saarland', 'AGH', 'Vrije', 'Roskilde', 'TU Dortmund', 'TU Berlin', 'ETH']
-export const TYPE = ['CTE Form', 'PreApproval Form', 'Course Eq. Request']
-export const STATUS = ['Rejected', 'Approved']
+export const SCHOOLS = ['EPFL' , 'Saarland', 'AGH', 'Vrije', 'Roskilde', 'TU Dortmund', 'TU Berlin', 'ETH'];
+export const TYPE = ['CTE Form', 'PreApproval Form', 'Course Eq. Request'];
+export const STATUS = ['Rejected', 'Approved'];
 
 export interface UserData {
   id: number;

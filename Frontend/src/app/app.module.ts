@@ -44,6 +44,13 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { ScoreTableUploadDialogComponent } from './dashboard/score-table-upload-dialog/score-table-upload-dialog.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { CreateAppointmentDialogComponent } from './appointments/create-appointment-dialog/create-appointment-dialog.component';
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import { ConfirmationDialogComponent } from './appointments/confirmation-dialog/confirmation-dialog.component';
+import { ScoreTableUploadDialogComponent } from './dashboard/score-table-upload-dialog/score-table-upload-dialog.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +65,8 @@ import { ScoreTableUploadDialogComponent } from './dashboard/score-table-upload-
     FormDialogComponent,
     AnnouncementComponent,
     AppointmentsComponent,
+    CreateAppointmentDialogComponent,
+    ConfirmationDialogComponent,
     ScoreTableUploadDialogComponent
   ],
   imports: [
@@ -89,6 +98,10 @@ import { ScoreTableUploadDialogComponent } from './dashboard/score-table-upload-
     MatDialogModule,
     MatOptionModule,
     MatSelectModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatAutocompleteModule,
+    MatDatepickerModule
     SharedModule
   ],
   providers: [
