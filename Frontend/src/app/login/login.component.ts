@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AppScene } from '../app.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { first } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from '../_services/authentication.service';
 import { Login } from '../_models/login';
@@ -12,10 +13,7 @@ import { Login } from '../_models/login';
 })
 export class LoginComponent implements OnInit {
   model: any = {};
-
-  @Input() currentScene!: AppScene;
-  @Output() currentSceneChange: EventEmitter<AppScene> =
-    new EventEmitter<AppScene>();
+  loading = false;
 
   constructor(
     public authenticationService: AuthenticationService,
@@ -28,35 +26,34 @@ export class LoginComponent implements OnInit {
   hidePassword = true;
 
   login() {
+    this.loading = true;
+
     const loginInfo: Login = {
       email: this.model.email,
       password: this.model.password
     };
 
-    this.authenticationService.login(loginInfo).subscribe({
-      next: () => {
-        this.toastr.success('Login successful');
-      }
-    });
+    this.authenticationService
+      .login(loginInfo)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.toastr.success('Login successful');
+          this.router.navigate(['/']);
+        },
+        error => {
+          this.loading = false;
+        }
+      );
+  }
 
-    // this.currentScene = AppScene.App;
-    // this.router.navigate([`../dashboard`]);
+  goForgotPassword() {
+    // this.currentScene = AppScene.ForgotPassword;
     // this.currentSceneChange.emit(this.currentScene);
   }
 
-  // openSnackBar(message: string, action: string, duration: number) {
-  //   this._snackBar.open(message, action, {
-  //     duration: duration * 1000
-  //   });
-  // }
-
-  goForgotPassword() {
-    this.currentScene = AppScene.ForgotPassword;
-    this.currentSceneChange.emit(this.currentScene);
-  }
-
   goSignUp() {
-    this.currentScene = AppScene.SignUp;
-    this.currentSceneChange.emit(this.currentScene);
+    // this.currentScene = AppScene.SignUp;
+    // this.currentSceneChange.emit(this.currentScene);
   }
 }

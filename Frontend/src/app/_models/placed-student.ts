@@ -1,7 +1,7 @@
 import { DepartmentInfo } from './department-info';
 import { SemesterInfo } from './semester-info';
 
-export class PlacedStudents {
+export class PlacedStudent {
   firstName: string;
   lastName: string;
   userName: string;

@@ -15,6 +15,7 @@ export class AuthenticationService {
   baseUrl = environment.apiUrl;
   private currentUserSource = new BehaviorSubject<LoggedInUser | null>(null);
   currentUser$ = this.currentUserSource.asObservable();
+  currentUser: LoggedInUser | null = null;
 
   constructor(private http: HttpClient, private userService: UserService) {}
 
@@ -35,14 +36,15 @@ export class AuthenticationService {
               roles
             );
 
-            const loggedInUser = new LoggedInUser();
+            let loggedInUser = new LoggedInUser();
             loggedInUser.userDetail = appUser;
             loggedInUser.token = token;
             loggedInUser.roles = roles;
 
             console.log('loggedInUser: ', loggedInUser);
+            console.log('appUser: ', appUser);
 
-            this.setCurrentUser(loggedInUser);
+            this.setCurrentUser(loggedInUser, appUser);
           }
         })
       );
@@ -60,14 +62,21 @@ export class AuthenticationService {
   //     );
   // }
 
-  setCurrentUser(user: LoggedInUser) {
+  setCurrentUser(user: LoggedInUser, appUser: any) {
+    console.log('loggedInUser2: ', user);
+    console.log('appUser2: ', appUser);
+
+    localStorage.setItem('userInfo', JSON.stringify(appUser));
     localStorage.setItem('user', JSON.stringify(user));
+    this.currentUser = user;
     this.currentUserSource.next(user);
   }
 
   logout() {
     localStorage.removeItem('user');
+    this.currentUser = null;
     this.currentUserSource.next(null);
+    this.http.post(this.baseUrl + 'authentication/logout', {});
   }
 
   getDecodedToken(token: string) {

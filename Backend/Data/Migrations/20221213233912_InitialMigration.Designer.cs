@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221213181902_InitialMigration")]
+    [Migration("20221213233912_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -301,6 +301,27 @@ namespace Backend.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ExemptedCourse");
+                });
+
+            modelBuilder.Entity("Backend.Entities.Notification", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("content")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("read")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid>("userId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("Backend.Entities.PlacedStudent", b =>

@@ -23,50 +23,18 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   getUserDetails(userName: string, roles: any) {
-    const userDetail = Array<ActorsType>();
-    for (let role in roles) {
-      const actualRole = roles[role];
-      switch (actualRole) {
-        case ActorsEnum.Admin:
-          this.http.get<Admin>(this.baseUrl + userName).subscribe(response => {
-            userDetail.push(response);
-          });
-          break;
-        case ActorsEnum.Student:
-          this.http
-            .get<Student>(this.baseUrl + userName)
-            .subscribe(response => {
-              userDetail.push(response);
-            });
-          break;
-        case ActorsEnum.OISEP:
-          this.http.get<OISEP>(this.baseUrl + userName).subscribe(response => {
-            userDetail.push(response);
-          });
-          break;
-        case ActorsEnum.ExchangeCoordinator:
-          this.http
-            .get<ExchangeCoordinator>(this.baseUrl + userName)
-            .subscribe(response => {
-              userDetail.push(response);
-            });
-          break;
-        case ActorsEnum.DeanDepartmentChair:
-          this.http
-            .get<DeanDepartmentChair>(this.baseUrl + userName)
-            .subscribe(response => {
-              userDetail.push(response);
-            });
-          break;
-        case ActorsEnum.CourseCoordinatorInstructor:
-          this.http
-            .get<CourseCoordinatorInstructor>(this.baseUrl + userName)
-            .subscribe(response => {
-              userDetail.push(response);
-            });
-          break;
+    let userDetail: any;
+
+    this.http.get(this.baseUrl + userName).subscribe(
+      (response: any) => {
+        console.log('response: ', response);
+        userDetail = response;
+      },
+      error => {
+        console.log(error);
       }
-    }
+    );
+
     return userDetail;
   }
 }

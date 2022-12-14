@@ -8,10 +8,13 @@ import { PlacementComponent } from './placement/placement.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { LoginComponent } from './login/login.component';
+import { NavigationComponent } from './navigation/navigation.component';
 import { AuthGuard } from './_guards/auth.guard';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent }
+  { path: 'login', component: LoginComponent },
+  { path: '', component: NavigationComponent, canActivate: [AuthGuard] }
+  //{ path: '**', redirectTo: '' }
   // {
   //   path: '',
   //   runGuardsAndResolvers: 'always',

@@ -54,6 +54,9 @@
             class="full-width mt-2"
             type="submit"
             [disabled]="!authForm.valid">
+            <span
+              *ngIf="loading"
+              class="spinner-border spinner-border-sm mr-1"></span>
             Login
           </button>
           <div class="flex-center">
