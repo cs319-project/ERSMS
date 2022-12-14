@@ -19,10 +19,8 @@ import { createNewUser, UserData } from '../placement/placement.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../appointments/confirmation-dialog/confirmation-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { HttpClient, HttpEventType } from '@angular/common/http';
-import { finalize } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
-import {ScoreTableUploadDialogComponent} from "./score-table-upload-dialog/score-table-upload-dialog.component";
+import { ScoreTableUploadDialogComponent } from './score-table-upload-dialog/score-table-upload-dialog.component';
+import {FormBuilder} from "@angular/forms";
 
 export type PieChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -67,14 +65,82 @@ export interface dayActivities {
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  departments = [
+    'ADA',
+    'AMER',
+    'ARCH',
+    'BF',
+    'BTE',
+    'CHEM',
+    'CI',
+    'CINT',
+    'COMD',
+    'CS',
+    'CTIS',
+    'ECON',
+    'EDEB',
+    'EEE',
+    'EEPS',
+    'ELIT',
+    'ELS',
+    'EMBA',
+    'ENG',
+    'ETE',
+    'FA',
+    'GE',
+    'GRA',
+    'HART',
+    'HCIV',
+    'HIST',
+    'HUM',
+    'IAED',
+    'IE',
+    'IELTS',
+    'IR',
+    'LAUD',
+    'LAW',
+    'LNG',
+    'MAN',
+    'MATH',
+    'MBA',
+    'MBG',
+    'ME',
+    'MIAPP',
+    'MSC',
+    'MSN',
+    'MTE',
+    'MUS',
+    'NSC',
+    'PE',
+    'PHIL',
+    'PHYS',
+    'POLS',
+    'PREP',
+    'PSYC',
+    'SFL',
+    'SOC',
+    'TE',
+    'TEFL',
+    'THEA',
+    'THM',
+    'THR',
+    'TRIN',
+    'TURK'
+  ];
+
+  stateForm = this._formBuilder.group({
+    stateGroup: '',
+  });
+
   @Input()
   requiredFileType: string;
+
   fileName: string;
-  uploadProgress;
-  private uploadSub: Subscription;
   displayedColumns = ['name', 'email', 'preferences', 'score'];
   dataSource: MatTableDataSource<UserData>;
   page_index = 0;
+
+  department: string = 'CS';
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -166,9 +232,9 @@ export class DashboardComponent implements OnInit {
 
   addingValue: string;
 
-  editing = true;
   value = 'Todo Item';
   isAdding = false;
+  departmentTables;
 
   ngOnInit(): void {
     this.waitingList = this.todoList.filter(todoItem => !todoItem.isCompleted);
@@ -179,7 +245,7 @@ export class DashboardComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private _snackBar: MatSnackBar,
-    private http: HttpClient
+    private _formBuilder: FormBuilder,
   ) {
     this.pieChartOptions = {
       series: [44, 55, 13],
@@ -249,13 +315,26 @@ export class DashboardComponent implements OnInit {
       }
     };
 
-    const users: UserData[] = [];
+    const csUsers: UserData[] = [];
     for (let i = 1; i <= 100; i++) {
-      users.push(createNewUser());
+      csUsers.push(createNewUser());
     }
 
+    const mathUsers: UserData[] = [];
+    for (let i = 1; i <= 100; i++) {
+      mathUsers.push(createNewUser());
+    }
+
+    this.departmentTables = {
+      CS: csUsers,
+      MATH: mathUsers,
+      PHYS: []
+    };
+
     // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
+    this.dataSource = new MatTableDataSource(
+      this.departmentTables[this.department]
+    );
   }
 
   ngAfterViewInit() {

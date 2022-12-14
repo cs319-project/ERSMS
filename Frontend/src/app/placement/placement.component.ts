@@ -51,7 +51,7 @@ export class PlacementComponent{
 }
 
 /** Builds and returns a new User. */
-export function createNewUser(): UserData {
+export function createNewUser(dep: string = null): UserData {
   const name =
     NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
     NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
@@ -61,7 +61,7 @@ export function createNewUser(): UserData {
   const id = IDS[Math.round(Math.random() * (IDS.length - 1))];
   return {
     name: name,
-    department: department,
+    department: dep || department,
     departmentFull: departmentFull,
     id: id,
     cpga: Math.round(Math.random() * 4 * 100) / 100,

@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { DashboardComponent } from "./dashboard.component";
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from "@angular/platform-browser";
 
@@ -17,10 +17,12 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {MatOptionModule} from "@angular/material/core";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
 
 
 @NgModule({
-  imports: [FormsModule, BrowserAnimationsModule, BrowserModule, MatGridListModule, MatCardModule, MatDividerModule, NgApexchartsModule, MatCheckboxModule, MatButtonModule, MatIconModule, MatFormFieldModule, MatInputModule, MatTabsModule, MatTableModule, MatPaginatorModule, MatProgressBarModule],
+  imports: [FormsModule, BrowserAnimationsModule, BrowserModule, MatGridListModule, MatCardModule, MatDividerModule, NgApexchartsModule, MatCheckboxModule, MatButtonModule, MatIconModule, MatFormFieldModule, MatInputModule, MatTabsModule, MatTableModule, MatPaginatorModule, MatProgressBarModule, MatOptionModule, MatAutocompleteModule, ReactiveFormsModule],
   exports: [],
   declarations: [ DashboardComponent],
   providers: [],

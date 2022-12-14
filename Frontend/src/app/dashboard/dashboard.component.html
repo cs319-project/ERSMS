@@ -3,17 +3,35 @@
     <div>
       <span class="dashboard-title">Exchange Score Tables</span>
     </div>
-    <div class="button-container mt-4">
+    <div class="st-department-form-container mt-3">
+      <span>Selected Department: </span>
+      <mat-form-field class="full-width ml-2">
+        <input
+          type="text"
+          matInput
+          [matAutocomplete]="autoGroup"
+          [value]="this.department"
+        />
+        <mat-autocomplete #autoGroup="matAutocomplete">
+          <mat-option
+            *ngFor="let department of departments"
+            [value]="department">
+            {{ department }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+    <div class="button-container mt-2">
       <input
         type="file"
         class="file-input"
         [accept]="requiredFileType"
-        (change)="onFileSelected($event, 'CS')"
+        (change)="onFileSelected($event, this.department)"
         #fileUpload
         hidden />
 
       <div class="file-upload">
-        <button mat-raised-button (click)="(fileUpload.click())">
+        <button mat-raised-button (click)="fileUpload.click()">
           <span>Upload Score Table</span
           ><mat-icon class="ml-2">attach_file</mat-icon>
         </button>
@@ -21,7 +39,7 @@
       <button
         mat-raised-button
         class="ml-3 mr-3"
-        (click)="deleteScoreTable('CS')">
+        (click)="deleteScoreTable(this.department)">
         <span>Delete Score Table</span
         ><mat-icon class="ml-2">delete_outlined</mat-icon>
       </button>
@@ -112,7 +130,7 @@
 
             <mat-paginator
               (page)="handlePageEvent($event)"
-              [pageSizeOptions]="[10]"
+              [pageSizeOptions]="[7]"
               [showFirstLastButtons]="true"
               [pageIndex]="page_index"
               [hidePageSize]="true"></mat-paginator>

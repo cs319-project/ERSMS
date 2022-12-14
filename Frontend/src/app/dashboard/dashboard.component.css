@@ -5,6 +5,11 @@
   align-items: center;
 }
 
+.st-department-form-container mat-form-field {
+  display: inline-block !important;
+  width: 50px !important;
+}
+
 .button-container {
   display: flex;
   flex-direction: row;
