@@ -1,22 +1,22 @@
-  .forms-container{
+  .forms-container {
     height: 100%;
     display: flex;
     justify-content: center;
     flex-direction: column;
   }
 
-.forms-header{
+  .forms-header {
     display: flex;
     width: 100%;
   }
 
-.forms-title {
+  .forms-title {
 
     font-size: 2rem;
     font-weight: bold;
-}
+  }
 
-.forms-content{
+  .forms-content {
     height: 100%;
     padding: 30px;
     display: flex;
@@ -27,7 +27,7 @@
 
   .form-submits {
 
-    flex-grow:1;
+    flex-grow: 1;
     display: flex;
     width: 20%;
     flex-direction: row;
@@ -56,7 +56,7 @@
     display: flex;
     flex-direction: column;
     width: 70%;
-}
+  }
 
   .old-submissions {
 
@@ -91,25 +91,25 @@
 
 
 
-  .fnr-header{
+  .fnr-header {
     display: flex;
     justify-content: center;
     width: 100%;
   }
 
-  .fnr-title{
+  .fnr-title {
     font-size: 2rem;
     font-weight: bold;
   }
 
-  .fnr-content{
+  .fnr-content {
     display: flex;
     justify-content: center;
     width: 100%;
     height: auto;
   }
 
-  .fnr-container{
+  .fnr-container {
     display: flex;
     flex-direction: column;
   }
@@ -130,7 +130,7 @@
     max-height: 700px;
   }
 
-  .status-text{
+  .status-text {
     width: 100px;
     display: flex;
     justify-content: center;
@@ -141,7 +141,7 @@
   }
 
 
-  .gray-text{
+  .gray-text {
     color: #8A9099;
   }
 
@@ -164,7 +164,25 @@
     background: #eee;
   }
 
-  .student-form-buttons{
+  .student-form-buttons {
     display: flex;
   }
 
+  .table-entry {
+    display: flex;
+    align-items: center;
+  }
+
+  .space-btw {
+
+    justify-content: space-between;
+  }
+
+  .status-edit {
+
+    display: flex;
+    flex-direction: row;
+
+    justify-content: space-between;
+
+  }

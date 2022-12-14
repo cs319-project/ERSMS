@@ -442,6 +442,7 @@
                 Status
               </th>
               <td mat-cell *matCellDef="let row">
+                <div class="status-edit">
                 <div
                   class="status-text"
                   [ngStyle]="{
@@ -449,6 +450,12 @@
                       }">
                   {{ row.status }}
                 </div>
+                <div class="table-entry space-btw">
+                  <button mat-icon-button>
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                </div>
+              </div>
               </td>
             </ng-container>
 
@@ -478,6 +485,3 @@
     </div>
   </div>
 </div>
-
-
-
