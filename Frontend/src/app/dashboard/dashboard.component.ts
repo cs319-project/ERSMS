@@ -479,6 +479,8 @@ export class DashboardComponent implements OnInit {
 
   onDepartmentSelect() {
     this.dataSource = new MatTableDataSource(this.departmentTables[this.department]);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
     this.scoreTable.renderRows();
     console.log(this.department);
   }

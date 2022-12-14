@@ -56,7 +56,7 @@
           </div>
 
           <div class="table-container mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource" matSort>
+            <table #scoreTable mat-table [dataSource]="dataSource" matSort>
               <!-- Name Column -->
               <ng-container matColumnDef="name">
                 <th
