@@ -11,7 +11,7 @@ namespace Backend.Interfaces
     public interface INotificationService
     {
         Task<bool> CreateNewFormNotification(object formObject, FormType formType);
-        Task<bool> CreateNewApprovalNotification(object formObject, FormType formType);
+        Task<bool> CreateNewApprovalNotification(object formObject, FormType formType, bool isApproved, string approverName);
         Task<bool> MarkAsRead(Guid id);
         Task<bool> MarkAllAsRead(string userId);
         Task<List<NotificationDto>> GetNotifications(string userId, bool unread = false);

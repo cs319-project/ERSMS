@@ -60,7 +60,8 @@ namespace Backend.Services
                     formEntity.IsArchived = true;
                 }
 
-                await _notificationService.CreateNewApprovalNotification(formEntity, FormType.PreApprovalForm);
+                await _notificationService.CreateNewApprovalNotification(formEntity, FormType.PreApprovalForm,
+                                                                            approvalEntity.IsApproved, approvalEntity.Name);
                 return await _preApprovalFormRepository.UpdatePreApprovalForm(formEntity);
             }
             return false;
@@ -100,7 +101,8 @@ namespace Backend.Services
                     }
                 }
 
-                await _notificationService.CreateNewApprovalNotification(formEntity, FormType.PreApprovalForm);
+                await _notificationService.CreateNewApprovalNotification(formEntity, FormType.PreApprovalForm,
+                                                                            approvalEntity.IsApproved, approvalEntity.Name);
                 return await _preApprovalFormRepository.UpdatePreApprovalForm(formEntity);
             }
             return false;

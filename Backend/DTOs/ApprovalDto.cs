@@ -9,7 +9,7 @@ namespace Backend.DTOs
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public DateTime DateOfApproval { get; set; }
+        public DateTime DateOfApproval { get; set; } = DateTime.Now;
         public Boolean IsApproved { get; set; } = false;
     }
 }

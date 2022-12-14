@@ -57,7 +57,7 @@ namespace Backend.Controllers
                 };
 
                 return await _equivalanceRequestService.AddEquivalanceRequestToStudent(request, Syllabus)
-                                ? Ok(true) : BadRequest("Failed to add Equivalance Request");
+                                ? Ok(request) : BadRequest("Failed to add Equivalance Request");
             }
             return BadRequest("Wrong formated syllabus");
         }
