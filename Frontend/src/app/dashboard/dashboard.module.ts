@@ -19,12 +19,15 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatOptionModule} from "@angular/material/core";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import {MatSortModule} from "@angular/material/sort";
+
 
 
 @NgModule({
-  imports: [FormsModule, BrowserAnimationsModule, BrowserModule, MatGridListModule, MatCardModule, MatDividerModule, NgApexchartsModule, MatCheckboxModule, MatButtonModule, MatIconModule, MatFormFieldModule, MatInputModule, MatTabsModule, MatTableModule, MatPaginatorModule, MatProgressBarModule, MatOptionModule, MatAutocompleteModule, ReactiveFormsModule],
+  imports: [FormsModule, BrowserAnimationsModule, BrowserModule, MatGridListModule, MatCardModule, MatDividerModule, NgApexchartsModule, MatCheckboxModule, MatButtonModule, MatIconModule, MatFormFieldModule, MatInputModule, MatTabsModule, MatTableModule, MatPaginatorModule, MatProgressBarModule, MatSortModule, MatOptionModule, MatAutocompleteModule, ReactiveFormsModule],
   exports: [],
-  declarations: [ DashboardComponent],
+  declarations: [ DashboardComponent, AdminDashboardComponent],
   providers: [],
 })
 export class DashboardModule {}
