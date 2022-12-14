@@ -12,7 +12,7 @@ import {
   ApexGrid,
   ApexLegend
 } from 'ng-apexcharts';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { createNewUser, UserData } from '../placement/placement.component';
@@ -127,6 +127,8 @@ export class DashboardComponent implements OnInit {
     'TRIN',
     'TURK'
   ];
+
+  @ViewChild(MatTable) scoreTable: MatTable<UserData>;
 
   stateForm = this._formBuilder.group({
     stateGroup: '',
@@ -476,6 +478,8 @@ export class DashboardComponent implements OnInit {
   }
 
   onDepartmentSelect() {
+    this.dataSource = new MatTableDataSource(this.departmentTables[this.department]);
+    this.scoreTable.renderRows();
     console.log(this.department);
   }
 }
