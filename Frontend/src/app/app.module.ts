@@ -45,6 +45,7 @@ import { CreateAppointmentDialogComponent } from './appointments/create-appointm
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import { ConfirmationDialogComponent } from './appointments/confirmation-dialog/confirmation-dialog.component';
+import { ScoreTableUploadDialogComponent } from './dashboard/score-table-upload-dialog/score-table-upload-dialog.component';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import { ConfirmationDialogComponent } from './appointments/confirmation-dialog/
     AnnouncementComponent,
     AppointmentsComponent,
     CreateAppointmentDialogComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    ScoreTableUploadDialogComponent
   ],
   imports: [
     BrowserModule,
