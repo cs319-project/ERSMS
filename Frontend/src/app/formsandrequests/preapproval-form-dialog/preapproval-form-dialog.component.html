@@ -1,0 +1,85 @@
+<div class="form-container ">
+  <div class="form-header">
+    <h1 mat-dialog-title style="font-size: 1.6rem; font-weight: bold">Submit Pre-Approval Form</h1>
+  </div>
+  <div mat-dialog-content class="form-content custom-scroll-bar">
+    <div class="course-groups" *ngFor="let courseGroup of requestedCourseGroups; let groupIndex = index">
+      <div class="course-group mb-4">
+        <div class="course-group-header">
+          <span>Group {{groupIndex + 1}}</span>
+          <button mat-raised-button color="warn" class="ml-4" (click)="onGroupDelete(groupIndex)">Delete</button>
+        </div>
+        <mat-divider style="width: 100%" class="mt-2 mb-2"></mat-divider>
+        <div class="host-courses-container">
+          <div>
+            <span class="course-group-subtitle">Host Institution Courses</span>
+            <button mat-raised-button color="primary" class="ml-3" (click)="onAddCourse(courseGroup)">Add Course</button>
+          </div>
+          <div class="host-courses" *ngFor="let requestedCourse of courseGroup.requestedCourses; let courseIndex = index">
+            <div class="group-course mt-2">
+              <mat-form-field style="width: 150px" appearance="outline">
+                <mat-label>Course Code</mat-label>
+                <input type="search" matInput [(ngModel)]="requestedCourse.courseCode">
+              </mat-form-field>
+              <mat-form-field style="flex-grow: 1" class="mr-5 ml-5" appearance="outline">
+                <mat-label>Course Name</mat-label>
+                <input type="search" matInput [(ngModel)]="requestedCourse.courseName">
+              </mat-form-field >
+              <mat-form-field style="width:85px" appearance="outline">
+                <mat-label>Credits</mat-label>
+                <input type="search" matInput [(ngModel)]="requestedCourse.credits">
+              </mat-form-field>
+              <div class="delete-course-btn">
+                <button mat-icon-button *ngIf="courseGroup.requestedCourses.length > 1" (click)="onCourseDelete(groupIndex, courseIndex)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bilkent-course-container">
+          <span class="course-group-subtitle">Bilkent Requirement</span>
+          <div class="bilkent-requirement">
+            <div class="course-info">
+              <span class="mr-3">Course Type:</span>
+              <mat-form-field
+                style="flex-grow: 1; text-align: center"
+                class="ml-2">
+                <mat-select
+                  [(ngModel)]="courseGroup.requestedExemptedCourse.courseType">
+                  <mat-option *ngFor="let dep of courseTypes" [value]="dep">
+                    {{ dep }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="course-info">
+              <mat-form-field style="width: 150px" appearance="outline">
+                <mat-label>Course Code</mat-label>
+                <input type="search" matInput [(ngModel)]="courseGroup.requestedExemptedCourse.courseCode">
+              </mat-form-field>
+              <mat-form-field style="flex-grow: 1" class="mr-5 ml-5" appearance="outline">
+                <mat-label>Course Name</mat-label>
+                <input type="search" matInput [(ngModel)]="courseGroup.requestedExemptedCourse.courseName">
+              </mat-form-field >
+              <mat-form-field style="width:85px" appearance="outline" >
+                <mat-label>Credits</mat-label>
+                <input type="search" matInput [(ngModel)]="courseGroup.requestedExemptedCourse.credits">
+              </mat-form-field>
+              <div style="width: 40px"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <button mat-raised-button color="primary" (click)="onAddGroup()">Add Group</button>
+  </div>
+  <div class="form-footer mt-4">
+    <button mat-raised-button color="primary" mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" class="ml-5" (click)="onSubmit()">Submit</button>
+
+  </div>
+</div>
+

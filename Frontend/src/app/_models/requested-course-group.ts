@@ -4,6 +4,6 @@ import { ExemptedCourse } from './exempted-course';
 
 export interface RequestedCourseGroup {
   id: GUID;
-  requestedCourses: ArrayLike<RequestedCourse>;
+  requestedCourses: Array<RequestedCourse>;
   requestedExemptedCourse: ExemptedCourse;
 }

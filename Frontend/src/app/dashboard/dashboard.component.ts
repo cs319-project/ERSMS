@@ -21,6 +21,7 @@ import { ConfirmationDialogComponent } from '../appointments/confirmation-dialog
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ScoreTableUploadDialogComponent } from './score-table-upload-dialog/score-table-upload-dialog.component';
 import {FormBuilder} from "@angular/forms";
+import {ActorsEnum} from "../_models/enum/actors-enum";
 
 export type PieChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -423,7 +424,7 @@ export class DashboardComponent implements OnInit {
   handlePageEvent(e: PageEvent) {
     this.page_index = e.pageIndex;
   }
-  
+
   openSnackBar(message: string, action: string, duration: number) {
     this._snackBar.open(message, action, {
       duration: duration * 1000

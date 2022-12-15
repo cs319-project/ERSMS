@@ -7,6 +7,10 @@ import {MatSort, Sort} from '@angular/material/sort';
 import { FormDialogComponent } from "./form-dialog/form-dialog.component"
 import { SelectionModel } from '@angular/cdk/collections';
 import {createNewUser, createRandomDialogData, NAMES, SCHOOLS, UserData} from "../logging/logging.component";
+import {PreApprovalForm} from "../_models/pre-approval-form";
+import {PreapprovalFormDialogComponent} from "./preapproval-form-dialog/preapproval-form-dialog.component";
+import {GUID} from "../../utils/guid";
+
 
 
 @Component({
@@ -43,6 +47,8 @@ export class FormsAndRequestsComponent {
   selection = new SelectionModel<UserData>(true, []);
 
   activatedRow = null;
+
+  preApprovalForm: PreApprovalForm;
 
   constructor(private dialog: MatDialog, private _snackBar: MatSnackBar) {
     const users: UserData[] = [];
@@ -148,5 +154,15 @@ export class FormsAndRequestsComponent {
     this._snackBar.open(message, action, {
       duration: duration * 1000
     });
+  }
+
+  openCreatePreapprovalFormDialog(){
+    const dialogConfig = new MatDialogConfig();
+    this.preApprovalForm = {id: new GUID(), firstName:"", lastName:"", idNumber: "", department: "", hostUniversityName: "",
+    academicYear: "", semester:"", submissionTime:null, approvalTime: null, requestedCourseGroups: null,
+      exchangeCoordinatorApproval: null, facultyAdministrationBoardApproval: null}
+    dialogConfig.data = this.preApprovalForm;
+
+    const dialogRef = this.dialog.open(PreapprovalFormDialogComponent, dialogConfig);
   }
 }

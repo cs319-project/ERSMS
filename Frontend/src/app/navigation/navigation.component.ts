@@ -3,7 +3,7 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AppScene } from '../app.component';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AnnouncementComponent } from './announcement/announcement.component';
 import { AuthenticationService } from '../_services/authentication.service';
