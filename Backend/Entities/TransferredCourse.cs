@@ -16,9 +16,9 @@ namespace Backend.Entities
         [Required]
         public string CourseName { get; set; }
         [Required]
-        public int Credits { get; set; }
+        public double ECTS { get; set; }
         [Required]
-        public string  Grade { get; set; }
+        public string Grade { get; set; }
         // Can be added for flagging the transfer status of the course
         //public Boolean IsPassed { get; set; }
     }

@@ -16,6 +16,7 @@ namespace Backend.Services
         private readonly ICTEFormRepository _cTEFormRepository;
         private readonly IUserRepository _userRepository;
         private readonly IToDoItemService _toDoItemService;
+        private readonly ILoggedCourseService _loggedCourseService;
         private readonly INotificationService _notificationService;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
@@ -23,10 +24,12 @@ namespace Backend.Services
         // Constructor
         public CTEFormService(ICTEFormRepository cTEFormRepository, IMapper mapper,
                                 IUserRepository userRepository, IToDoItemService toDoItemService,
-                                IUserService userService, INotificationService notificationService)
+                                IUserService userService, INotificationService notificationService,
+                                ILoggedCourseService loggedCourseService)
         {
             _toDoItemService = toDoItemService;
             _notificationService = notificationService;
+            _loggedCourseService = loggedCourseService;
             _userService = userService;
             _cTEFormRepository = cTEFormRepository;
             _mapper = mapper;
@@ -93,6 +96,11 @@ namespace Backend.Services
                         ToDoItemDto todo = await _toDoItemService.GetToDoItemByCascadeId(formEntity.ToDoItemId);
                         await _toDoItemService.ChangeCompleteToDoItem(todo.Id, true);
                     }
+
+                    // TODO: save the form to the database
+                    var form = new LoggedTransferredCourse
+                    {
+                    };
                 }
 
                 // send notification

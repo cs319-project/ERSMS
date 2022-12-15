@@ -82,7 +82,8 @@ namespace Backend.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Credits = table.Column<int>(type: "INTEGER", nullable: false),
+                    BilkentCredits = table.Column<int>(type: "INTEGER", nullable: false),
+                    ECTS = table.Column<double>(type: "REAL", nullable: false),
                     CourseCode = table.Column<string>(type: "TEXT", nullable: true),
                     CourseName = table.Column<string>(type: "TEXT", nullable: true),
                     CourseType = table.Column<int>(type: "INTEGER", nullable: false)
@@ -90,6 +91,44 @@ namespace Backend.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ExemptedCourse", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LoggedEquivalantCourses",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    HostCourseCode = table.Column<string>(type: "TEXT", nullable: true),
+                    HostCourseName = table.Column<string>(type: "TEXT", nullable: true),
+                    HostCourseECTS = table.Column<double>(type: "REAL", nullable: false),
+                    BilkentCourseCode = table.Column<string>(type: "TEXT", nullable: true),
+                    BilkentCourseName = table.Column<string>(type: "TEXT", nullable: true),
+                    BilkentCourseECTS = table.Column<double>(type: "REAL", nullable: false),
+                    BilkentCourseCredits = table.Column<int>(type: "INTEGER", nullable: false),
+                    BilkentCourseType = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LoggedEquivalantCourses", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LoggedTransferredCourses",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    HostCourseCode = table.Column<string>(type: "TEXT", nullable: true),
+                    HostCourseName = table.Column<string>(type: "TEXT", nullable: true),
+                    HostCourseECTS = table.Column<double>(type: "REAL", nullable: false),
+                    BilkentCourseCode = table.Column<string>(type: "TEXT", nullable: true),
+                    BilkentCourseName = table.Column<string>(type: "TEXT", nullable: true),
+                    BilkentCourseECTS = table.Column<double>(type: "REAL", nullable: false),
+                    BilkentCourseCredits = table.Column<int>(type: "INTEGER", nullable: false),
+                    BilkentCourseType = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LoggedTransferredCourses", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -656,7 +695,7 @@ namespace Backend.Data.Migrations
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     CourseCode = table.Column<string>(type: "TEXT", nullable: false),
                     CourseName = table.Column<string>(type: "TEXT", nullable: false),
-                    Credits = table.Column<int>(type: "INTEGER", nullable: false),
+                    ECTS = table.Column<double>(type: "REAL", nullable: false),
                     Grade = table.Column<string>(type: "TEXT", nullable: false),
                     TransferredCourseGroupId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
@@ -677,7 +716,8 @@ namespace Backend.Data.Migrations
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     CourseCode = table.Column<string>(type: "TEXT", nullable: false),
                     CourseName = table.Column<string>(type: "TEXT", nullable: false),
-                    Credits = table.Column<int>(type: "INTEGER", nullable: false),
+                    ECTS = table.Column<double>(type: "REAL", nullable: false),
+                    CourseType = table.Column<string>(type: "TEXT", nullable: false),
                     RequestedCourseGroupId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
@@ -870,6 +910,12 @@ namespace Backend.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "EquivalanceRequests");
+
+            migrationBuilder.DropTable(
+                name: "LoggedEquivalantCourses");
+
+            migrationBuilder.DropTable(
+                name: "LoggedTransferredCourses");
 
             migrationBuilder.DropTable(
                 name: "Messages");

@@ -5,8 +5,6 @@ namespace Backend.Entities
 {
     public class RequestedCourseGroup
     {
-        //[ForeignKey("PreApprovalForm")]
-        //public Guid PreApprovalFormId { get; set; }
         [Key]
         public Guid Id { get; set; }
 

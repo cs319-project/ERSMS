@@ -146,5 +146,7 @@ namespace Backend.Data
         public DbSet<Announcement> Announcements { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<LoggedEquivalantCourse> LoggedEquivalantCourses { get; set; }
+        public DbSet<LoggedTransferredCourse> LoggedTransferredCourses { get; set; }
     }
 }

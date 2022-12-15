@@ -287,6 +287,9 @@ namespace Backend.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("BilkentCredits")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("CourseCode")
                         .HasColumnType("TEXT");
 
@@ -296,12 +299,82 @@ namespace Backend.Data.Migrations
                     b.Property<int>("CourseType")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Credits")
-                        .HasColumnType("INTEGER");
+                    b.Property<double>("ECTS")
+                        .HasColumnType("REAL");
 
                     b.HasKey("Id");
 
                     b.ToTable("ExemptedCourse");
+                });
+
+            modelBuilder.Entity("Backend.Entities.LoggedEquivalantCourse", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("BilkentCourseCode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("BilkentCourseCredits")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("BilkentCourseECTS")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("BilkentCourseName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("BilkentCourseType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("HostCourseCode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("HostCourseECTS")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("HostCourseName")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LoggedEquivalantCourses");
+                });
+
+            modelBuilder.Entity("Backend.Entities.LoggedTransferredCourse", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("BilkentCourseCode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("BilkentCourseCredits")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("BilkentCourseECTS")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("BilkentCourseName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("BilkentCourseType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("HostCourseCode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("HostCourseECTS")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("HostCourseName")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LoggedTransferredCourses");
                 });
 
             modelBuilder.Entity("Backend.Entities.Message", b =>
@@ -500,8 +573,12 @@ namespace Backend.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Credits")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("CourseType")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("ECTS")
+                        .HasColumnType("REAL");
 
                     b.Property<Guid?>("RequestedCourseGroupId")
                         .HasColumnType("TEXT");
@@ -612,8 +689,8 @@ namespace Backend.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Credits")
-                        .HasColumnType("INTEGER");
+                    b.Property<double>("ECTS")
+                        .HasColumnType("REAL");
 
                     b.Property<string>("Grade")
                         .IsRequired()
