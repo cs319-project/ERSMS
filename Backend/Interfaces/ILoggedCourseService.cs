@@ -8,15 +8,15 @@ namespace Backend.Interfaces
 {
     public interface ILoggedCourseService
     {
-        Task<bool> CreateLoggedEquivalantCourse(LoggedEquivalantCourseDto loggedEquivalantCourse);
+        Task<bool> CreateLoggedEquivalantCourse(LoggedEquivalentCourseDto loggedEquivalantCourse);
         Task<bool> CreateLoggedTransferredCourse(LoggedTransferredCourseDto loggedTransferredCourse);
-        Task<LoggedEquivalantCourseDto> GetLoggedEquivalantCourse(Guid id);
+        Task<LoggedEquivalentCourseDto> GetLoggedEquivalantCourse(Guid id);
         Task<LoggedTransferredCourseDto> GetLoggedTransferredCourse(Guid id);
-        Task<IEnumerable<LoggedEquivalantCourseDto>> GetLoggedEquivalantCourses();
+        Task<IEnumerable<LoggedEquivalentCourseDto>> GetLoggedEquivalantCourses();
         Task<IEnumerable<LoggedTransferredCourseDto>> GetLoggedTransferredCourses();
         Task<bool> DeleteLoggedEquivalantCourse(Guid id);
         Task<bool> DeleteLoggedTransferredCourse(Guid id);
-        Task<bool> UpdateLoggedEquivalantCourse(LoggedEquivalantCourseDto loggedEquivalantCourse);
+        Task<bool> UpdateLoggedEquivalantCourse(LoggedEquivalentCourseDto loggedEquivalantCourse);
         Task<bool> UpdateLoggedTransferredCourse(LoggedTransferredCourseDto loggedTransferredCourse);
     }
 }

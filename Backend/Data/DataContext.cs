@@ -34,8 +34,8 @@ namespace Backend.Data
             builder.Entity<Student>().Navigation(c => c.ToDoList).AutoInclude();
             builder.Entity<Student>().HasMany<ToDoItem>(c => c.ToDoList);
 
-            builder.Entity<LoggedEquivalantCourse>().Navigation(c => c.ExemptedCourse).AutoInclude();
-            builder.Entity<LoggedEquivalantCourse>().HasOne<ExemptedCourse>(c => c.ExemptedCourse);
+            builder.Entity<LoggedEquivalentCourse>().Navigation(c => c.ExemptedCourse).AutoInclude();
+            builder.Entity<LoggedEquivalentCourse>().HasOne<ExemptedCourse>(c => c.ExemptedCourse);
 
             builder.Entity<LoggedTransferredCourse>().Navigation(c => c.TransferredCourseGroups).AutoInclude();
             builder.Entity<LoggedTransferredCourse>().HasMany<TransferredCourseGroup>(c => c.TransferredCourseGroups);
@@ -152,7 +152,7 @@ namespace Backend.Data
         public DbSet<Announcement> Announcements { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Message> Messages { get; set; }
-        public DbSet<LoggedEquivalantCourse> LoggedEquivalantCourses { get; set; }
+        public DbSet<LoggedEquivalentCourse> LoggedEquivalantCourses { get; set; }
         public DbSet<LoggedTransferredCourse> LoggedTransferredCourses { get; set; }
     }
 }

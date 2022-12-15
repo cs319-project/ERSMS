@@ -20,7 +20,7 @@ namespace Backend.Controllers
 
         // Endpoints
         [HttpGet("logged-equivalent-courses")]
-        public async Task<ActionResult<IEnumerable<LoggedEquivalantCourseDto>>> GetLoggedEquivalentCourses()
+        public async Task<ActionResult<IEnumerable<LoggedEquivalentCourseDto>>> GetLoggedEquivalentCourses()
         {
             var loggedEquivalantCourses = await _loggedCourseService.GetLoggedEquivalantCourses();
             return loggedEquivalantCourses == null || loggedEquivalantCourses.Count() <= 0

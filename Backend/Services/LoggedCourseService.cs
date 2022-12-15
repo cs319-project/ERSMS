@@ -22,9 +22,9 @@ namespace Backend.Services
         }
 
         // Methods
-        public async Task<bool> CreateLoggedEquivalantCourse(LoggedEquivalantCourseDto loggedEquivalantCourse)
+        public async Task<bool> CreateLoggedEquivalantCourse(LoggedEquivalentCourseDto loggedEquivalantCourse)
         {
-            var loggedEquivalantCourseEntity = _mapper.Map<LoggedEquivalantCourse>(loggedEquivalantCourse);
+            var loggedEquivalantCourseEntity = _mapper.Map<LoggedEquivalentCourse>(loggedEquivalantCourse);
 
             // dont allow duplicates
             var loggedCourses = await _loggedCourseRepository.GetLoggedEquivalantCourses();
@@ -55,15 +55,15 @@ namespace Backend.Services
         {
             return await _loggedCourseRepository.DeleteLoggedTransferredCourse(id);
         }
-        public async Task<LoggedEquivalantCourseDto> GetLoggedEquivalantCourse(Guid id)
+        public async Task<LoggedEquivalentCourseDto> GetLoggedEquivalantCourse(Guid id)
         {
             var loggedEquivalantCourse = await _loggedCourseRepository.GetLoggedEquivalantCourse(id);
-            return _mapper.Map<LoggedEquivalantCourseDto>(loggedEquivalantCourse);
+            return _mapper.Map<LoggedEquivalentCourseDto>(loggedEquivalantCourse);
         }
-        public async Task<IEnumerable<LoggedEquivalantCourseDto>> GetLoggedEquivalantCourses()
+        public async Task<IEnumerable<LoggedEquivalentCourseDto>> GetLoggedEquivalantCourses()
         {
             var loggedEquivalantCourses = await _loggedCourseRepository.GetLoggedEquivalantCourses();
-            return _mapper.Map<IEnumerable<LoggedEquivalantCourseDto>>(loggedEquivalantCourses);
+            return _mapper.Map<IEnumerable<LoggedEquivalentCourseDto>>(loggedEquivalantCourses);
         }
         public async Task<LoggedTransferredCourseDto> GetLoggedTransferredCourse(Guid id)
         {
@@ -76,9 +76,9 @@ namespace Backend.Services
             return _mapper.Map<IEnumerable<LoggedTransferredCourseDto>>(loggedTransferredCourses);
         }
 
-        public async Task<bool> UpdateLoggedEquivalantCourse(LoggedEquivalantCourseDto loggedEquivalantCourse)
+        public async Task<bool> UpdateLoggedEquivalantCourse(LoggedEquivalentCourseDto loggedEquivalantCourse)
         {
-            return await _loggedCourseRepository.UpdateLoggedEquivalantCourse(_mapper.Map<LoggedEquivalantCourse>(loggedEquivalantCourse));
+            return await _loggedCourseRepository.UpdateLoggedEquivalantCourse(_mapper.Map<LoggedEquivalentCourse>(loggedEquivalantCourse));
         }
 
         public async Task<bool> UpdateLoggedTransferredCourse(LoggedTransferredCourseDto loggedTransferredCourse)

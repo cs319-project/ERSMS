@@ -338,7 +338,7 @@ namespace Backend.Services
 
         private async Task<bool> LogTheEquivalentCourse(EquivalenceRequestDto equivalentRequest)
         {
-            var form = new LoggedEquivalantCourseDto
+            var form = new LoggedEquivalentCourseDto
             {
                 ExemptedCourse = equivalentRequest.ExemptedCourse,
                 HostCourseCode = equivalentRequest.HostCourseCode,

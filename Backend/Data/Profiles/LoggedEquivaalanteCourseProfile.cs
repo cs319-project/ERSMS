@@ -14,10 +14,10 @@ namespace Backend.Data.Profiles
         // Constructor
         public LoggedEquivaalanteCourseProfile()
         {
-            CreateMap<LoggedEquivalantCourse, LoggedEquivalantCourseDto>();
+            CreateMap<LoggedEquivalentCourse, LoggedEquivalentCourseDto>();
             // .ForMember(d => d.BilkentCourseType,
             // op => op.MapFrom(o => EnumStringify.CourseTypeStringify(o.BilkentCourseType)));
-            CreateMap<LoggedEquivalantCourseDto, LoggedEquivalantCourse>();
+            CreateMap<LoggedEquivalentCourseDto, LoggedEquivalentCourse>();
             // .ForMember(d => d.BilkentCourseType,
             //     op => op.MapFrom(o => EnumStringify.CourseTypeEnumarator(o.BilkentCourseType)));
         }

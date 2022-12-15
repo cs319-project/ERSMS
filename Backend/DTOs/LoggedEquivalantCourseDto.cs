@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Backend.DTOs
 {
-    public class LoggedEquivalantCourseDto : LoggedCourseDto
+    public class LoggedEquivalentCourseDto : LoggedCourseDto
     {
         public ExemptedCourseDto ExemptedCourse { get; set; }
         public string HostCourseCode { get; set; }
