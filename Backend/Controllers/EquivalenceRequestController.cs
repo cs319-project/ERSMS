@@ -8,13 +8,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
 {
-    public class EquivalanceRequestController : BaseApiController
+    public class EquivalenceRequestController : BaseApiController
     {
         private readonly IEquivalanceRequestService _equivalanceRequestService;
         private readonly IUserService _userService;
 
         // Constructor
-        public EquivalanceRequestController(IEquivalanceRequestService equivalanceRequestService, IUserService userService)
+        public EquivalenceRequestController(IEquivalanceRequestService equivalanceRequestService, IUserService userService)
         {
             _equivalanceRequestService = equivalanceRequestService;
             _userService = userService;
@@ -23,7 +23,7 @@ namespace Backend.Controllers
         // Endpoints
         [HttpPost]
         [Consumes("multipart/form-data")]
-        public async Task<ActionResult> SubmitEquivalanceForm([FromForm] string studentId,
+        public async Task<ActionResult<EquivalanceRequestDto>> SubmitEquivalanceForm([FromForm] string studentId,
                                                                 [FromForm] string hostCourseName,
                                                                 [FromForm] string hostCourseCode,
                                                                 [FromForm] string additionalNotes,

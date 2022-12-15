@@ -100,7 +100,7 @@ namespace Backend.Controllers
             return BadRequest("Failed to star to do item");
         }
 
-        [HttpPost("addToAllToDepartment/{department}")]
+        [HttpPost("addToAllDepartment/{department}")]
         public async Task<ActionResult<ToDoItemDto>> AddToDoItemToAll(ToDoItemDto toDoItem, string department)
         {
             try

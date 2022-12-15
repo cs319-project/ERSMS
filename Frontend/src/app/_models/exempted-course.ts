@@ -3,7 +3,7 @@ import { GUID } from '../../utils/guid';
 export interface ExemptedCourse {
   id: GUID;
   bilkentCredits: number;
-  ECTS: number;
+  ects: number;
   courseCode: string;
   courseName: string;
   courseType: string;

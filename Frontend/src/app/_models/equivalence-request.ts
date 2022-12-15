@@ -2,12 +2,12 @@ import { GUID } from '../../utils/guid';
 import { ExemptedCourse } from './exempted-course';
 import { Approval } from './approval';
 
-export interface EquivalanceRequest {
+export interface EquivalenceRequest {
   id: GUID;
   studentId: string;
   hostCourseName: string;
   hostCourseCode: string;
-  hostCourseECTS: number;
+  hostCourseEcts: number;
   fileName: string;
   exemptedCourse: ExemptedCourse;
   instructorApproval: Approval;
