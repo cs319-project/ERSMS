@@ -6,9 +6,14 @@ export interface EquivalanceRequest {
   id: GUID;
   studentId: string;
   hostCourseName: string;
+  hostCourseCode: string;
+  hostCourseEcts: number;
   fileName: string;
   exemptedCourse: ExemptedCourse;
   instructorApproval: Approval;
   additionalNotes: string;
-
+  isCanceled: boolean;
+  isApproved: boolean;
+  isRejected: boolean;
+  isArchived: boolean;
 }

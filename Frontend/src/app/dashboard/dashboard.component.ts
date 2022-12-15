@@ -26,7 +26,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../appointments/confirmation-dialog/confirmation-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ScoreTableUploadDialogComponent } from './score-table-upload-dialog/score-table-upload-dialog.component';
-import {FormBuilder} from "@angular/forms";
+import { FormBuilder } from '@angular/forms';
 import { ActorsEnum } from '../_models/enum/actors-enum';
 import { DepartmentsEnum } from '../_models/enum/departments-enum';
 import { ToastrService } from 'ngx-toastr';
