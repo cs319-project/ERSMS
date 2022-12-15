@@ -12,6 +12,8 @@ import {PreapprovalFormDialogComponent} from "./preapproval-form-dialog/preappro
 import {GUID} from "../../utils/guid";
 import {EquivalanceRequest} from "../_models/equivalance-request";
 import {EquivalanceRequestDialogComponent} from "./equivalance-request-dialog/equivalance-request-dialog.component";
+import {CteForm} from "../_models/cte-form";
+import {CteFormDialogComponent} from "./cte-form-dialog/cte-form-dialog.component";
 
 
 
@@ -52,6 +54,7 @@ export class FormsAndRequestsComponent {
 
   preApprovalForm: PreApprovalForm;
   equivalanceRequest: EquivalanceRequest;
+  cteForm: CteForm;
 
   constructor(private dialog: MatDialog, private _snackBar: MatSnackBar) {
     const users: UserData[] = [];
@@ -177,5 +180,19 @@ export class FormsAndRequestsComponent {
     dialogConfig.data = this.equivalanceRequest;
 
     const dialogRef = this.dialog.open(EquivalanceRequestDialogComponent, dialogConfig);
+  }
+
+  openCreateCTEFormDialog() {
+    const dialogConfig = new MatDialogConfig();
+    this.cteForm = {id: null, firstName:"", lastName:"", idNumber: "", department: "", hostUniversityName: "",
+      submissionTime:null, approvalTime: null, transferredCourseGroup: null,
+      exchangeCoordinatorApproval: null,
+      facultyOfAdministrationBoardApproval: null,
+      deanApproval: null,
+    chairApproval: null};
+    dialogConfig.data = this.cteForm;
+
+    const dialogRef = this.dialog.open(CteFormDialogComponent, dialogConfig);
+
   }
 }

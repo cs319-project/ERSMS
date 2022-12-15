@@ -52,6 +52,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import { ConfirmationDialogComponent } from './appointments/confirmation-dialog/confirmation-dialog.component';
 import { PreapprovalFormDialogComponent } from './formsandrequests/preapproval-form-dialog/preapproval-form-dialog.component';
 import { EquivalanceRequestDialogComponent } from './formsandrequests/equivalance-request-dialog/equivalance-request-dialog.component';
+import { CteFormDialogComponent } from './formsandrequests/cte-form-dialog/cte-form-dialog.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { EquivalanceRequestDialogComponent } from './formsandrequests/equivalanc
     ConfirmationDialogComponent,
     ScoreTableUploadDialogComponent,
     PreapprovalFormDialogComponent,
-    EquivalanceRequestDialogComponent
+    EquivalanceRequestDialogComponent,
+    CteFormDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -4,6 +4,7 @@ import {RequestedCourseGroup} from "../../_models/requested-course-group";
 import {PreApprovalForm} from "../../_models/pre-approval-form";
 import {GUID} from "../../../utils/guid";
 import {RequestedCourse} from "../../_models/requested-course";
+import {TransferredCourseGroup} from "../../_models/transferred-course-group";
 
 @Component({
   selector: 'app-preapproval-form-dialog',
@@ -11,9 +12,8 @@ import {RequestedCourse} from "../../_models/requested-course";
   styleUrls: ['./preapproval-form-dialog.component.css']
 })
 export class PreapprovalFormDialogComponent implements OnInit {
-  requestedCourseGroups: RequestedCourseGroup[] = [];
-  courseTypes: string[] = ["Mandatory", "Techincal Elective", "General Elective"];
-  courseType: string;
+  courseTypes: string[] = ["Mandatory Course", "Techincal Elective", "General Elective",
+    "Project Elective", "Social Science Core Elective", "Arts Core Elective", "Additional Course"];
 
   constructor(
     public dialogRef: MatDialogRef<PreapprovalFormDialogComponent>,
@@ -34,7 +34,10 @@ export class PreapprovalFormDialogComponent implements OnInit {
     let newGroup: RequestedCourseGroup = {id: null,
       requestedCourses: [{id:null, courseCode: null, courseName:null,credits:null}],
       requestedExemptedCourse: {id: null, courseCode: null, courseName: null, courseType: null, credits: null}};
-    this.requestedCourseGroups.push(newGroup);
+    if(this.data.requestedCourseGroups){
+      this.data.requestedCourseGroups.push(newGroup);
+    }
+    this.data.requestedCourseGroups = [newGroup];
   }
 
   onAddCourse(courseGroup: RequestedCourseGroup) {
@@ -43,16 +46,16 @@ export class PreapprovalFormDialogComponent implements OnInit {
   }
 
   onGroupDelete(groupIndex: number) {
-    this.requestedCourseGroups.splice(groupIndex, 1);
+    this.data.requestedCourseGroups.splice(groupIndex, 1);
   }
 
   onCourseDelete(groupIndex: number, courseIndex: number) {
-    this.requestedCourseGroups[groupIndex].requestedCourses.splice(courseIndex,1);
+    this.data.requestedCourseGroups[groupIndex].requestedCourses.splice(courseIndex,1);
   }
 
   onSubmit() {
-    console.log(this.requestedCourseGroups);
-    this.dialogRef.close(this.requestedCourseGroups);
+    console.log(this.data);
+    this.dialogRef.close(this.data);
   }
 
 }
