@@ -15,6 +15,8 @@ namespace Backend.Entities
         [Required]
         public string CourseName { get; set; }
         [Required]
-        public int Credits { get; set; }
+        public double ECTS { get; set; }
+        [Required]
+        public string CourseType { get; set; }
     }
 }

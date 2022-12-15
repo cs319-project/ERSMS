@@ -50,7 +50,9 @@ import { CreateAppointmentDialogComponent } from './appointments/create-appointm
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import { ConfirmationDialogComponent } from './appointments/confirmation-dialog/confirmation-dialog.component';
-import { ScoreTableUploadDialogComponent } from './dashboard/score-table-upload-dialog/score-table-upload-dialog.component';
+import { PreapprovalFormDialogComponent } from './formsandrequests/preapproval-form-dialog/preapproval-form-dialog.component';
+import { EquivalanceRequestDialogComponent } from './formsandrequests/equivalance-request-dialog/equivalance-request-dialog.component';
+import { CteFormDialogComponent } from './formsandrequests/cte-form-dialog/cte-form-dialog.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +69,10 @@ import { ScoreTableUploadDialogComponent } from './dashboard/score-table-upload-
     AppointmentsComponent,
     CreateAppointmentDialogComponent,
     ConfirmationDialogComponent,
-    ScoreTableUploadDialogComponent
+    ScoreTableUploadDialogComponent,
+    PreapprovalFormDialogComponent,
+    EquivalanceRequestDialogComponent,
+    CteFormDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -101,7 +106,7 @@ import { ScoreTableUploadDialogComponent } from './dashboard/score-table-upload-
     MatPaginatorModule,
     MatSortModule,
     MatAutocompleteModule,
-    MatDatepickerModule
+    MatDatepickerModule,
     SharedModule
   ],
   providers: [

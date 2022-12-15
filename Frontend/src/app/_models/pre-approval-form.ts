@@ -13,7 +13,7 @@ export interface PreApprovalForm {
   semester: string;
   submissionTime: Date;
   approvalTime: Date;
-  requestedCourseGroups: ArrayLike<RequestedCourseGroup>;
+  requestedCourseGroups: RequestedCourseGroup[];
   exchangeCoordinatorApproval: Approval;
   facultyAdministrationBoardApproval: Approval;
 }

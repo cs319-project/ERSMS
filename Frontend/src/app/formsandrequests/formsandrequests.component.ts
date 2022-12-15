@@ -7,6 +7,14 @@ import {MatSort, Sort} from '@angular/material/sort';
 import { FormDialogComponent } from "./form-dialog/form-dialog.component"
 import { SelectionModel } from '@angular/cdk/collections';
 import {createNewUser, createRandomDialogData, NAMES, SCHOOLS, UserData} from "../logging/logging.component";
+import {PreApprovalForm} from "../_models/pre-approval-form";
+import {PreapprovalFormDialogComponent} from "./preapproval-form-dialog/preapproval-form-dialog.component";
+import {GUID} from "../../utils/guid";
+import {EquivalanceRequest} from "../_models/equivalance-request";
+import {EquivalanceRequestDialogComponent} from "./equivalance-request-dialog/equivalance-request-dialog.component";
+import {CteForm} from "../_models/cte-form";
+import {CteFormDialogComponent} from "./cte-form-dialog/cte-form-dialog.component";
+
 
 
 @Component({
@@ -43,6 +51,10 @@ export class FormsAndRequestsComponent {
   selection = new SelectionModel<UserData>(true, []);
 
   activatedRow = null;
+
+  preApprovalForm: PreApprovalForm;
+  equivalanceRequest: EquivalanceRequest;
+  cteForm: CteForm;
 
   constructor(private dialog: MatDialog, private _snackBar: MatSnackBar) {
     const users: UserData[] = [];
@@ -148,5 +160,39 @@ export class FormsAndRequestsComponent {
     this._snackBar.open(message, action, {
       duration: duration * 1000
     });
+  }
+
+  openCreatePreapprovalFormDialog(){
+    const dialogConfig = new MatDialogConfig();
+    this.preApprovalForm = {id: null, firstName:"", lastName:"", idNumber: "", department: "", hostUniversityName: "",
+    academicYear: "", semester:"", submissionTime:null, approvalTime: null, requestedCourseGroups: null,
+      exchangeCoordinatorApproval: null, facultyAdministrationBoardApproval: null}
+    dialogConfig.data = this.preApprovalForm;
+
+    const dialogRef = this.dialog.open(PreapprovalFormDialogComponent, dialogConfig);
+  }
+
+  openCreateEquivalanceRequestDialog(){
+    const dialogConfig = new MatDialogConfig();
+    this.equivalanceRequest = {id: null, studentId: null, fileName: null,
+      exemptedCourse: {id:null, courseName: "", courseCode: "", courseType: null, credits: null},
+    instructorApproval: null, additionalNotes: null, hostCourseName: ""};
+    dialogConfig.data = this.equivalanceRequest;
+
+    const dialogRef = this.dialog.open(EquivalanceRequestDialogComponent, dialogConfig);
+  }
+
+  openCreateCTEFormDialog() {
+    const dialogConfig = new MatDialogConfig();
+    this.cteForm = {id: null, firstName:"", lastName:"", idNumber: "", department: "", hostUniversityName: "",
+      submissionTime:null, approvalTime: null, transferredCourseGroup: null,
+      exchangeCoordinatorApproval: null,
+      facultyOfAdministrationBoardApproval: null,
+      deanApproval: null,
+    chairApproval: null};
+    dialogConfig.data = this.cteForm;
+
+    const dialogRef = this.dialog.open(CteFormDialogComponent, dialogConfig);
+
   }
 }

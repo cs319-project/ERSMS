@@ -9,7 +9,8 @@ namespace Backend.DTOs
     {
         public Guid Id { get; set; }
 
-        public int Credits { get; set; }
+        public int BilkentCredits { get; set; }
+        public double ECTS { get; set; } = 0.0;
         public string CourseCode { get; set; }
         public string CourseName { get; set; }
         public string CourseType { get; set; }

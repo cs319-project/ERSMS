@@ -9,7 +9,7 @@ export interface CteForm {
   idNumber: string;
   department: string;
   hostUniversityName: string;
-  transferredCourseGroup: ArrayLike<TransferredCourseGroup>;
+  transferredCourseGroup: TransferredCourseGroup[];
   submissionTime: Date;
   approvalTime: Date;
   chairApproval: Approval;

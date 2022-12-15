@@ -7,6 +7,7 @@
   </div>
   <div class="fnr-content mt-4">
     <div style="width: 80%">
+      <button mat-raised-button color="primary" class="mb-3 mt-3" (click)="openCreateCTEFormDialog()">Create CTE Form</button>
       <mat-tab-group #tabGroup (selectedIndexChange)="_setDataSource($event)">
         <mat-tab label="All">
           <div class="mt-2 table-container">
@@ -105,8 +106,8 @@
 
               <mat-paginator
                 #paginator
-                [pageSizeOptions]="[10]"
-                [pageSize]="10"
+                [pageSizeOptions]="[7]"
+                [pageSize]="7"
                 [showFirstLastButtons]="true"
                 [hidePageSize]="true"></mat-paginator>
             </div>
@@ -402,8 +403,8 @@
     <div style="width: 80%">
       <div class="mt-2 table-container">
         <div class="student-form-buttons mt-3 mb-3">
-          <button mat-raised-button color="primary" class="mr-3">Create PreApproval Form</button>
-          <button mat-raised-button color="accent">Create Course Equivalence Request</button>
+          <button mat-raised-button color="primary" class="mr-3" (click)="openCreatePreapprovalFormDialog()">Create PreApproval Form</button>
+          <button mat-raised-button color="accent" (click)="openCreateEquivalanceRequestDialog()">Create Course Equivalence Request</button>
         </div>
         <div class="mt-5 mb-3">
           <span class="mt-3 old-submissions">Old Submissions</span>

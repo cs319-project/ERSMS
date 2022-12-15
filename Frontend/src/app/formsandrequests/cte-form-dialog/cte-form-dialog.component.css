@@ -1,0 +1,95 @@
+.form-container{
+  height: 70vh;
+  width: 850px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-header{
+  text-align: center;
+}
+
+.form-content{
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.course-group-header{
+  display: flex;
+}
+
+.course-group-header span{
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
+.course-group-subtitle{
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.host-courses-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.group-course{
+  display: flex;
+  align-items: center;
+}
+
+.bilkent-course-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.bilkent-requirement{
+  display: flex;
+  flex-direction: column;
+}
+
+
+input.mat-input-element {
+  font-size: 1.2rem;
+}
+
+.delete-course-btn{
+  display: flex;
+  align-items: center;
+  width: 40px;
+}
+
+.custom-scroll-bar{
+  height:60vh;
+  overflow-y:scroll;
+  overflow-x: hidden;
+}
+
+
+.custom-scroll-bar::-webkit-scrollbar{
+  width: 5px;
+}
+
+.custom-scroll-bar::-webkit-scrollbar-thumb{
+  background: rgba(0,0,0,.26);
+}
+
+.form-footer{
+  bottom: 0;
+  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.course-info{
+  display: flex;
+  align-items: center;
+}
+
+.host-courses{
+  display: flex;
+  flex-direction: column;
+}

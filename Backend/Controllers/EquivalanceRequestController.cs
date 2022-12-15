@@ -27,6 +27,7 @@ namespace Backend.Controllers
                                                                 [FromForm] string hostCourseName,
                                                                 [FromForm] string additionalNotes,
                                                                 [FromForm] int exemptedCourseCredit,
+                                                                [FromForm] double exemptedCourseECTS,
                                                                 [FromForm] string exemptedCourseCode,
                                                                 [FromForm] string exemptedCourseName,
                                                                 [FromForm] string exemptedCourseType,
@@ -50,7 +51,8 @@ namespace Backend.Controllers
                 };
                 request.ExemptedCourse = new ExemptedCourseDto
                 {
-                    Credits = exemptedCourseCredit,
+                    BilkentCredits = exemptedCourseCredit,
+                    ECTS = exemptedCourseECTS,
                     CourseCode = exemptedCourseCode,
                     CourseName = exemptedCourseName,
                     CourseType = exemptedCourseType

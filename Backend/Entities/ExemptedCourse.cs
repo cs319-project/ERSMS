@@ -5,15 +5,15 @@ using Backend.Utilities.Enum;
 namespace Backend.Entities
 {
     // This can be divided into inheritance relations as exemptedelective, exemptedgeneric rather than using enum and nullables
+    // Course in Bilkent
     public class ExemptedCourse
     {
-        //[ForeignKey("TransferredCourse")]
-        //public Guid TransferredCourseId { get; set; }
         [Key]
         public Guid Id { get; set; }
 
         [Required]
-        public int Credits { get; set; }
+        public int BilkentCredits { get; set; }
+        public double ECTS { get; set; } = 0.0;
         public string? CourseCode { get; set; }
         public string? CourseName { get; set; }
         [Required]
