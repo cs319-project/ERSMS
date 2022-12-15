@@ -40,7 +40,7 @@ namespace Backend.Controllers
                 return BadRequest();
             }
 
-            return NoContent();
+            return Ok();
         }
 
         [HttpPatch("markAsRead/{id:guid}")]
@@ -52,7 +52,7 @@ namespace Backend.Controllers
                 return BadRequest();
             }
 
-            return NoContent();
+            return Ok();
         }
     }
 }

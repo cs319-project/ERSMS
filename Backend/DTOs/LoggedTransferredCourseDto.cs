@@ -7,6 +7,6 @@ namespace Backend.DTOs
 {
     public class LoggedTransferredCourseDto : LoggedCourseDto
     {
-
+        public ICollection<TransferredCourseGroupDto> TransferredCourseGroups { get; set; }
     }
 }

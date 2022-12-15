@@ -27,6 +27,7 @@ namespace Backend.Controllers
                                                                 [FromForm] string hostCourseName,
                                                                 [FromForm] string hostCourseCode,
                                                                 [FromForm] string additionalNotes,
+                                                                [FromForm] double hostCourseECTS,
                                                                 [FromForm] int exemptedCourseCredit,
                                                                 [FromForm] double exemptedCourseECTS,
                                                                 [FromForm] string exemptedCourseCode,
@@ -45,6 +46,7 @@ namespace Backend.Controllers
                 EquivalanceRequestDto request = new EquivalanceRequestDto
                 {
                     StudentId = studentId,
+                    HostCourseECTS = hostCourseECTS,
                     HostCourseName = hostCourseName,
                     HostCourseCode = hostCourseCode,
                     AdditionalNotes = additionalNotes,

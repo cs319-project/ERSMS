@@ -21,13 +21,27 @@ namespace Backend.Services
             _mapper = mapper;
         }
 
-        // TODO: Rethink the functions to prevent duplicates
         // Methods
         public async Task<bool> CreateLoggedEquivalantCourse(LoggedEquivalantCourseDto loggedEquivalantCourse)
         {
             var loggedEquivalantCourseEntity = _mapper.Map<LoggedEquivalantCourse>(loggedEquivalantCourse);
+
+            // dont allow duplicates
+            var loggedCourses = await _loggedCourseRepository.GetLoggedEquivalantCourses();
+            foreach (var loggedCourse in loggedCourses)
+            {
+                if (loggedCourse.HostCourseCode == loggedEquivalantCourseEntity.HostCourseCode
+                        && loggedCourse.ExemptedCourse.CourseCode == loggedEquivalantCourseEntity.ExemptedCourse.CourseCode)
+                {
+                    return false;
+                }
+            }
+
             return await _loggedCourseRepository.CreateLoggedEquivalantCourse(loggedEquivalantCourseEntity);
         }
+
+        // This method will allow duplicates to show whether the same course has been transferred multiple times
+        // for many different exchange periods
         public async Task<bool> CreateLoggedTransferredCourse(LoggedTransferredCourseDto loggedTransferredCourse)
         {
             var loggedTransferredCourseEntity = _mapper.Map<LoggedTransferredCourse>(loggedTransferredCourse);
