@@ -10,8 +10,10 @@ import { AppointmentsComponent } from './appointments/appointments.component';
 import { LoginComponent } from './login/login.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { SignupComponent } from './signup/signup.component';
 
 const routes: Routes = [
+  { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
   {
     path: '',

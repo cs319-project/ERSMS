@@ -34,6 +34,10 @@ namespace Backend.Controllers
             try
             {
                 var result = await _authenticationService.Register(register);
+
+                var user = _userService.GetUser(result.UserName).Result;
+                result.UserDetails = user;
+
                 return (result != null) ? Ok(result) : BadRequest(result);
             }
             catch (Exception e)

@@ -56,7 +56,6 @@ export class LoginComponent implements OnInit {
   }
 
   goSignUp() {
-    // this.currentScene = AppScene.SignUp;
-    // this.currentSceneChange.emit(this.currentScene);
+    this.router.navigate(['/signup']);
   }
 }

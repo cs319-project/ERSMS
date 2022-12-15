@@ -1,6 +1,14 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {AppScene} from "../app.component";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import {
+  FormControl,
+  FormGroup,
+  Validators,
+  FormBuilder
+} from '@angular/forms';
+import { AuthenticationService } from '../_services/authentication.service';
+import { ActorsEnum } from '../_models/enum/actors-enum';
 
 @Component({
   selector: 'app-signup',
@@ -8,30 +16,50 @@ import {AppScene} from "../app.component";
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
+  requiredForm: FormGroup;
+  hidePassword = true;
 
-  @Input() currentScene!: AppScene;
-  @Output() currentSceneChange: EventEmitter<AppScene> = new EventEmitter<AppScene>();
-
-  constructor(private _snackBar: MatSnackBar) { }
-
-  ngOnInit(): void {
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private authService: AuthenticationService,
+    private toastr: ToastrService
+  ) {
+    this.buildForm();
   }
 
-  hidePassword = true;
-  signUp(){
-    let successful = true; // TODO: Add checks
-    if (successful) {
-      this.openSnackBar("Signup successful!", "Close", 5000);
+  ngOnInit(): void {}
+
+  signUp() {
+    if (this.requiredForm.valid) {
+      this.authService.register(this.requiredForm.value).subscribe(
+        (response: any) => {
+          this.toastr.success('Registration successful');
+          this.router.navigate(['/login']);
+        },
+        error => {
+          const errorMsg = error.error ? error.error : error;
+          this.toastr.error('Registration failed: ' + errorMsg);
+        }
+      );
     }
   }
 
-  openSnackBar(message: string, action: string, duration: number) {
-    this._snackBar.open(message, action, {
-      duration: duration * 1000
+  buildForm() {
+    this.requiredForm = this.formBuilder.group({
+      actorType: [ActorsEnum.Student.toString(), Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      userName: ['', Validators.required],
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required]
     });
   }
+
+  onSubmit() {}
+
   goLogin() {
-    this.currentScene = AppScene.Login;
-    this.currentSceneChange.emit(this.currentScene);
+    this.router.navigate(['/login']);
   }
 }

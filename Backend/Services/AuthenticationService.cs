@@ -131,7 +131,8 @@ namespace Backend.Services
                 {
                     UserName = register.UserName,
                     Email = register.Email,
-                    Token = await _tokenService.CreateToken(user)
+                    Token = null,
+                    UserDetails = null
                 };
 
                 return dto;

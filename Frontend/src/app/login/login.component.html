@@ -40,8 +40,8 @@
             </button>
           </mat-form-field>
           <div class="flex-space-between mt-2">
-            <mat-checkbox>Remember Me</mat-checkbox>
-            <span
+            <mat-checkbox [hidden]="true">Remember Me</mat-checkbox>
+            <span [hidden]="true"
               ><a (click)="goForgotPassword()" class="link">
                 Forgot Password?</a
               ></span

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map, catchError, switchMap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { AuthenticationResult } from '../_models/authentication-result';
@@ -36,15 +36,12 @@ export class AuthenticationService {
     );
   }
 
-  // register(model: any) {
-  //   return this.http.post<User>(this.baseUrl + 'account/register', model).pipe(
-  //     map(user => {
-  //       if (user) {
-  //         this.setCurrentUser(user);
-  //       }
-  //     })
-  //   );
-  //  }
+  register(model: any): Observable<AuthenticationResult> {
+    return this.http.post<AuthenticationResult>(
+      this.baseUrl + 'authentication/register',
+      model
+    );
+  }
 
   setCurrentUser(user: LoggedInUser) {
     user.roles = [];
