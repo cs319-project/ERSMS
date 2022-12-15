@@ -213,7 +213,7 @@ namespace Backend.Services
             return _userManager.AddPasswordAsync(user, newPassword);
         }
 
-        private async Task<bool> UserExists(string username, string email)
+        public async Task<bool> UserExists(string username, string email)
         {
             return await _userManager.Users.AnyAsync(x => (x.UserName == username.ToLower() || x.Email == email.ToLower()));
         }

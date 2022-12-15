@@ -16,5 +16,6 @@ namespace Backend.Interfaces
         Task CreateRoles();
         Task<IdentityResult> ChangePassword(AppUser user, string currentPassword, string newPassword);
         Task<IdentityResult> ForceChangePassword(AppUser user, string newPassword);
+        Task<bool> UserExists(string username, string email);
     }
 }

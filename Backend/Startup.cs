@@ -20,6 +20,7 @@ using Backend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Backend.DTOs;
 
 namespace Backend
 {
@@ -85,7 +86,7 @@ namespace Backend
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             using (var scope = app.ApplicationServices.CreateScope())
             {
@@ -114,6 +115,110 @@ namespace Backend
                 endpoints.MapControllers();
             });
 
+
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                var authService = scope.ServiceProvider.GetRequiredService<IAuthenticationService>();
+
+                if (!authService.UserExists("22002900", "oisep@bilkent.edu.tr").GetAwaiter().GetResult())
+                {
+                    authService.Register(new DTOs.RegisterDto
+                    {
+                        ActorType = "Office of International Students and Exchange Programs",
+                        UserName = "22002900",
+                        Email = "oisep@bilkent.edu.tr",
+                        Password = "Test123_",
+                        FirstName = "Erkin",
+                        LastName = "Tarhan",
+                    }
+                    ).Wait();
+                }
+
+                if (!authService.UserExists("22002901", "instructor@bilkent.edu.tr").GetAwaiter().GetResult())
+                {
+                    authService.Register(new DTOs.RegisterDto
+                    {
+                        ActorType = "Course Coordinator Instructor",
+                        UserName = "22002901",
+                        Email = "instructor@bilkent.edu.tr",
+                        Password = "Test123_",
+                        FirstName = "Eray",
+                        LastName = "Tüzün",
+                        Department = new DTOs.DepartmentInfoDto
+                        {
+                            DepartmentName = "Department of Computer Engineering",
+                            FacultyName = "Faculty of Engineering",
+                        }
+                    }).Wait();
+                }
+
+                if (!authService.UserExists("1", "admin@bilkent.edu.tr").GetAwaiter().GetResult())
+                {
+                    authService.Register(new DTOs.RegisterDto
+                    {
+                        ActorType = "Admin",
+                        UserName = "1",
+                        Email = "admin@bilkent.edu.tr",
+                        Password = "Test123_",
+                        FirstName = "Edward",
+                        LastName = "Snowden"
+                    }).Wait();
+                }
+
+                if (!authService.UserExists("22002902", "coordinator@bilkent.edu.tr").GetAwaiter().GetResult())
+                {
+                    authService.Register(new DTOs.RegisterDto
+                    {
+                        ActorType = "Exchange Coordinator",
+                        UserName = "22002902",
+                        Email = "coordinator@bilkent.edu.tr",
+                        Password = "Test123_",
+                        FirstName = "Can",
+                        LastName = "Alkan",
+                        Department = new DTOs.DepartmentInfoDto
+                        {
+                            DepartmentName = "Department of Computer Engineering",
+                            FacultyName = "Faculty of Engineering",
+                        }
+                    }).Wait();
+                }
+
+                if (!authService.UserExists("22002903", "dean@bilkent.edu.tr").GetAwaiter().GetResult())
+                {
+                    authService.Register(new DTOs.RegisterDto
+                    {
+                        ActorType = "Dean Department Chair",
+                        UserName = "22002903",
+                        Email = "dean@bilkent.edu.tr",
+                        Password = "Test123_",
+                        FirstName = "Nail",
+                        LastName = "Akar",
+                        Department = new DTOs.DepartmentInfoDto
+                        {
+                            DepartmentName = "Department of Computer Engineering",
+                            FacultyName = "Faculty of Engineering",
+                        }
+                    }).Wait();
+                }
+
+                if (!authService.UserExists("22002904", "chair@bilkent.edu.tr").GetAwaiter().GetResult())
+                {
+                    authService.Register(new DTOs.RegisterDto
+                    {
+                        ActorType = "Dean Department Chair",
+                        UserName = "22002904",
+                        Email = "chair@bilkent.edu.tr",
+                        Password = "Test123_",
+                        FirstName = "Selim",
+                        LastName = "Aksoy",
+                        Department = new DTOs.DepartmentInfoDto
+                        {
+                            DepartmentName = "Department of Computer Engineering",
+                            FacultyName = "Faculty of Engineering",
+                        }
+                    }).Wait();
+                }
+            }
         }
     }
 }
