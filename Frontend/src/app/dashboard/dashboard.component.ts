@@ -88,7 +88,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   });
 
   @Input()
-  requiredFileType: string;
+  requiredFileType: string; // TODO: set file type
 
   fileName: string;
   displayedColumns = ['name', 'email', 'preferences', 'score'];

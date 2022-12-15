@@ -164,6 +164,8 @@ export class FormsAndRequestsComponent {
 
   openCreatePreapprovalFormDialog(){
     const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = false;
     this.preApprovalForm = {id: null, firstName:"", lastName:"", idNumber: "", department: "", hostUniversityName: "",
     academicYear: "", semester:"", submissionTime:null, approvalTime: null, requestedCourseGroups: null,
       exchangeCoordinatorApproval: null, facultyAdministrationBoardApproval: null}
@@ -174,6 +176,8 @@ export class FormsAndRequestsComponent {
 
   openCreateEquivalanceRequestDialog(){
     const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = false;
     this.equivalanceRequest = {id: null, studentId: null, fileName: null,
       exemptedCourse: {id:null, courseName: "", courseCode: "", courseType: null, credits: null},
     instructorApproval: null, additionalNotes: null, hostCourseName: ""};
@@ -184,6 +188,8 @@ export class FormsAndRequestsComponent {
 
   openCreateCTEFormDialog() {
     const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = false;
     this.cteForm = {id: null, firstName:"", lastName:"", idNumber: "", department: "", hostUniversityName: "",
       submissionTime:null, approvalTime: null, transferredCourseGroup: null,
       exchangeCoordinatorApproval: null,

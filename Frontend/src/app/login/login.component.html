@@ -12,8 +12,6 @@
               id="email"
               ngModel
               name="email"
-              required
-              email
               [(ngModel)]="model.email" />
           </mat-form-field>
           <mat-form-field class="full-width">
@@ -25,10 +23,9 @@
               id="password"
               ngModel
               name="password"
-              name="password"
-              minlength="6"
               [(ngModel)]="model.password" />
             <button
+              type="button"
               mat-icon-button
               matSuffix
               (click)="hidePassword = !hidePassword"
@@ -48,6 +45,7 @@
             >
           </div>
           <button
+            (keyup.enter)="login()"
             (click)="login()"
             mat-raised-button
             color="primary"

@@ -1,5 +1,5 @@
 .request-container{
-  height: 50vh;
+  height: 70vh;
   width: 750px;
   display: flex;
   flex-direction: column;
@@ -35,4 +35,9 @@
 .course-info{
   display: flex;
   align-items: center;
+}
+
+.notes-container {
+  display: flex;
+  flex-direction: column;
 }

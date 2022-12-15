@@ -18,17 +18,21 @@
       <input
         type="file"
         class="file-input"
+        [accept]="requiredFileType"
+        (change)="onFileSelected($event)"
         #fileUpload
         hidden />
 
+      <!--TODO: reconsider button disable logic. course code?-->
       <div class="file-upload">
-        <button mat-raised-button (click)="fileUpload.click()">
+        <button [disabled]="data.hostCourseName === ''" class="mr-2" mat-raised-button (click)="fileUpload.click()">
           <span>Upload Syllabus</span
           ><mat-icon class="ml-2">attach_file</mat-icon>
         </button>
+        <span>{{ data.hostCourseName === '' ? "Enter the course name first to upload syllabus." : fileName || "No file uploaded." }}</span>
       </div>
     </div>
-    <div class="course-container">
+    <div class="course-container mb-4">
       <span class="request-subtitle">Bilkent University Course</span>
       <div class="course-info">
         <mat-form-field style="width: 150px" appearance="outline">
@@ -40,6 +44,12 @@
           <input type="search" matInput [(ngModel)]="data.exemptedCourse.courseName">
         </mat-form-field >
       </div>
+    </div>
+    <div class="notes-container">
+      <span class="request-subtitle">Additional Notes</span>
+      <mat-form-field appearance="outline">
+        <textarea class="custom-scroll-bar" type="search" rows="6" [(ngModel)]="data.additionalNotes" matInput placeholder="Write your Announcement here..."></textarea>
+      </mat-form-field>
     </div>
   </div>
   <div class="request-footer">

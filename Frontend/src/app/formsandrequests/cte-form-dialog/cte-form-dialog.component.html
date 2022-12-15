@@ -31,7 +31,7 @@
               </mat-form-field >
               <mat-form-field style="width:100px" class="mr-3" appearance="outline">
                 <mat-label>Credits</mat-label>
-                <input type="number" step="0.5" matInput [(ngModel)]="transferredCourse.credits">
+                <input type="number" step="0.5" min="0" matInput [(ngModel)]="transferredCourse.credits">
               </mat-form-field>
               <mat-form-field style="width:75px" appearance="outline">
                 <mat-label>Grade</mat-label>
@@ -72,7 +72,7 @@
               </mat-form-field >
               <mat-form-field style="width:100px" appearance="outline" >
                 <mat-label>Credits</mat-label>
-                <input type="number" step="0.5" matInput [(ngModel)]="courseGroup.exemptedCourse.credits">
+                <input type="number" step="0.5" min="0" matInput [(ngModel)]="courseGroup.exemptedCourse.credits">
               </mat-form-field>
               <div style="width: 115px" class="ml-3"></div>
             </div>
@@ -81,7 +81,7 @@
       </div>
 
     </div>
-    <button mat-raised-button color="primary" style="width: 100px" (click)="onAddGroup()">Add Group</button>
+    <button mat-raised-button color="primary" style="width: 100px" (click)="onAddGroup()">Add Course Group</button>
   </div>
   <div class="form-footer mt-4">
     <button mat-raised-button color="primary" mat-dialog-close>Cancel</button>
