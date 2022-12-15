@@ -11,5 +11,6 @@ namespace Backend.DTOs
         public string Name { get; set; }
         public DateTime DateOfApproval { get; set; } = DateTime.Now;
         public Boolean IsApproved { get; set; } = false;
+        public string Comment { get; set; } = "";
     }
 }
