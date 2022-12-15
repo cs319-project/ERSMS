@@ -4,13 +4,18 @@
       <span class="dashboard-title">Exchange Score Tables</span>
     </div>
     <div>
-      <select [(ngModel)]="oisepDepartment">
+      <span>Department: </span>
+      <select [(ngModel)]="oisepDepartment" (change)="updatePlacementTables()">
         <option *ngFor="let department of this.departmentsEnum">
           {{ department }}
         </option>
       </select>
-      <span style="margin-left: 5%"> Uploaded Score Tables: </span>
-      <select></select>
+      <span style="margin-left: 5%">Score Tables: </span>
+      <select [(ngModel)]="placementTable" (change)="updatePlacementTable()">
+        <option *ngFor="let table of this.placementTables" [ngValue]="table">
+          {{ table.fileName }}
+        </option>
+      </select>
     </div>
     Debug: {{ _departmentsEnum[oisepDepartment] }}
 
@@ -34,21 +39,41 @@
             </button>
           </div>
           <div class="col-md-4">
-            <button mat-raised-button>
+            <button
+              mat-raised-button
+              [disabled]="!this.placementTable"
+              (click)="downloadPlacementTable()">
               <span>Download Score Table</span><mat-icon>download</mat-icon>
             </button>
           </div>
           <div class="col-md-4">
-            <button mat-raised-button>
+            <button
+              mat-raised-button
+              [disabled]="!this.placementTable"
+              (click)="deletePlacementTable()">
               <span>Delete Score Table</span
               ><mat-icon>delete_outlined</mat-icon>
             </button>
           </div>
         </div>
       </div>
-      <!-- </div>
-    <div class="dashboard-content mt-3">
-      <div class="st-content mt-4">
+    </div>
+    <div class="">
+      <div style="width: 100%">
+        <span>
+          <br />
+          <h4>Preview</h4>
+        </span>
+        <div *ngIf="this.placementTable">
+          <app-excel-table
+            [placementTable]="this.placementTable"></app-excel-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="st-content mt-4">
         <div style="width: 100% !important">
           <h4>Preview</h4>
           <div class="table-header">
@@ -125,10 +150,8 @@
           </div>
         </div>
       </div>
-    </div> -->
     </div>
-  </div>
-</div>
+  </div> -->
 
 <!--
 <app-admin-dashboard></app-admin-dashboard>

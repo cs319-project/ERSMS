@@ -26,11 +26,12 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../appointments/confirmation-dialog/confirmation-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ScoreTableUploadDialogComponent } from './score-table-upload-dialog/score-table-upload-dialog.component';
-import {FormBuilder} from "@angular/forms";
+import { FormBuilder } from '@angular/forms';
 import { ActorsEnum } from '../_models/enum/actors-enum';
 import { DepartmentsEnum } from '../_models/enum/departments-enum';
 import { ToastrService } from 'ngx-toastr';
-import { FileUploadService } from '../_services/file-upload.service';
+import { PlacementService } from '../_services/placement.service';
+import { PlacementTable } from '../_models/placement-table';
 
 export type PieChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -80,6 +81,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   oisepDepartment: string;
   _departmentsEnum = DepartmentsEnum;
   departmentsEnum = Object.keys(DepartmentsEnum);
+  placementTables: PlacementTable[] = [];
+  placementTable: PlacementTable;
 
   @ViewChild(MatTable) scoreTable: MatTable<UserData>;
 
@@ -202,7 +205,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     private _snackBar: MatSnackBar,
     private _formBuilder: FormBuilder,
     private toastr: ToastrService,
-    private fileUploadService: FileUploadService
+    private placementService: PlacementService
   ) {
     this.role = JSON.parse(localStorage.getItem('user')).roles[0];
 
@@ -428,7 +431,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe(uploadItem => {
       if (uploadItem) {
-        this.fileUploadService
+        this.placementService
           .uploadPlacementTable(
             file,
             this._departmentsEnum[this.oisepDepartment][0],
@@ -436,15 +439,81 @@ export class DashboardComponent implements OnInit, AfterViewInit {
           )
           .subscribe(
             res => {
+              this.updatePlacementTables();
               this.toastr.success('Score table uploaded successfully');
             },
             err => {
               this.toastr.error('Error uploading score table');
             }
           );
-        // TODO: add upload table logic
       }
     });
+  }
+
+  updatePlacementTables() {
+    this.placementTables = [];
+    this.placementService
+      .getPlacementTables(
+        this._departmentsEnum[this.oisepDepartment][0],
+        this._departmentsEnum[this.oisepDepartment][1]
+      )
+      .subscribe(res => {
+        this.placementTables = res;
+      });
+  }
+
+  downloadPlacementTable() {
+    this.placementService
+      .downloadPlacementTable(this.placementTable.id)
+      .subscribe(
+        res => {
+          const blob = new Blob([res], {
+            type: this.placementTable.fileName.endsWith('.xlsx')
+              ? 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+              : 'application/vnd.ms-excel'
+          });
+          const url = window.URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = this.placementTable.fileName;
+          link.click();
+        },
+        err => {
+          this.toastr.error('Error when downloading the score table');
+        },
+        () => {
+          this.toastr.success('Score table downloaded successfully');
+        }
+      );
+  }
+
+  deletePlacementTable() {
+    this.placementService
+      .deletePlacementTable(this.placementTable.id)
+      .subscribe(
+        res => {
+          this.updatePlacementTables();
+        },
+        err => {
+          this.toastr.error('Error when deleting the score table');
+        },
+        () => {
+          this.toastr.success('Score table deleted successfully');
+        }
+      );
+  }
+
+  updatePlacementTable() {
+    // this.placementService
+    //   .downloadPlacementTable(this.placementTable.id)
+    //   .subscribe(res => {
+    //     const blob = new Blob([res], {
+    //       type: this.placementTable.fileName.endsWith('.xlsx')
+    //         ? 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    //         : 'application/vnd.ms-excel'
+    //     });
+    //     console.log(blob);
+    //   });
   }
 
   onDepartmentSelect() {
