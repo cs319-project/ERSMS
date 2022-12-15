@@ -14,6 +14,7 @@ namespace Backend.Services
     {
         private readonly IEquivalanceRequestRepository _equivalanceRequestRepository;
         private readonly INotificationService _notificationService;
+        private readonly ILoggedCourseService _loggedCourseService;
         private readonly IUserRepository _userRepository;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
@@ -21,10 +22,11 @@ namespace Backend.Services
         // Constructor
         public EquivalanceRequestService(IEquivalanceRequestRepository equivalanceRequestRepository,
                                             IUserRepository userRepository, IUserService userService, IMapper mapper,
-                                            INotificationService notificationService)
+                                            INotificationService notificationService, ILoggedCourseService loggedCourseService)
         {
             _equivalanceRequestRepository = equivalanceRequestRepository;
             _userRepository = userRepository;
+            _loggedCourseService = loggedCourseService;
             _notificationService = notificationService;
             _mapper = mapper;
             _userService = userService;
@@ -95,6 +97,7 @@ namespace Backend.Services
         public async Task<bool> ApproveRequest(Guid requestId, ApprovalDto approval)
         {
             EquivalanceRequest request = await _equivalanceRequestRepository.GetEquivalanceRequest(requestId);
+            EquivalanceRequestDto requestDto = _mapper.Map<EquivalanceRequestDto>(request);
             if (request == null)
             {
                 return false;
@@ -113,6 +116,9 @@ namespace Backend.Services
                 {
                     request.IsApproved = true;
                     request.IsArchived = true;
+
+                    // log the equivalent course
+                    await LogTheEquivalentCourse(requestDto);
                 }
 
                 await _notificationService.CreateNewApprovalNotification(request, FormType.EquivalanceRequest,
@@ -328,6 +334,21 @@ namespace Backend.Services
         private bool CheckIfRequestIsOperable(EquivalanceRequest request)
         {
             return !request.IsApproved && !request.IsRejected && !request.IsArchived && !request.IsCanceled;
+        }
+
+        private async Task<bool> LogTheEquivalentCourse(EquivalanceRequestDto equivalentRequest)
+        {
+            var form = new LoggedEquivalantCourseDto
+            {
+                ExemptedCourse = equivalentRequest.ExemptedCourse,
+                HostCourseCode = equivalentRequest.HostCourseCode,
+                HostCourseName = equivalentRequest.HostCourseName,
+                HostCourseECTS = equivalentRequest.HostCourseECTS
+            };
+
+            form.ExemptedCourse.Id = Guid.NewGuid();
+
+            return await _loggedCourseService.CreateLoggedEquivalantCourse(form);
         }
     }
 }

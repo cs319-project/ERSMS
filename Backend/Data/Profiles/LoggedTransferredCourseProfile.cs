@@ -14,12 +14,12 @@ namespace Backend.Data.Profiles
         // Constructor
         public LoggedTransferredCourseProfile()
         {
-            CreateMap<LoggedTransferredCourse, LoggedTransferredCourseDto>()
-                .ForMember(d => d.BilkentCourseType,
-                op => op.MapFrom(o => EnumStringify.CourseTypeStringify(o.BilkentCourseType)));
-            CreateMap<LoggedTransferredCourseDto, LoggedTransferredCourse>()
-            .ForMember(d => d.BilkentCourseType,
-                op => op.MapFrom(o => EnumStringify.CourseTypeEnumarator(o.BilkentCourseType)));
+            CreateMap<LoggedTransferredCourse, LoggedTransferredCourseDto>();
+            // .ForMember(d => d.BilkentCourseType,
+            // op => op.MapFrom(o => EnumStringify.CourseTypeStringify(o.BilkentCourseType)));
+            CreateMap<LoggedTransferredCourseDto, LoggedTransferredCourse>();
+            // .ForMember(d => d.BilkentCourseType,
+            //     op => op.MapFrom(o => EnumStringify.CourseTypeEnumarator(o.BilkentCourseType)));
         }
     }
 }

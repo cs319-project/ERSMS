@@ -62,7 +62,8 @@ namespace Backend.Services
 
         public async Task<bool> ApproveFormDean(Guid formId, ApprovalDto approval)
         {
-            CTEForm formEntity = _cTEFormRepository.GetCTEForm(formId).Result;
+            CTEForm formEntity = await _cTEFormRepository.GetCTEForm(formId);
+            CTEFormDto formDto = _mapper.Map<CTEFormDto>(formEntity);
             if (CheckIfFormIsOperable(formEntity))
             {
                 Approval approvalEntity = _mapper.Map<Approval>(approval);
@@ -97,10 +98,8 @@ namespace Backend.Services
                         await _toDoItemService.ChangeCompleteToDoItem(todo.Id, true);
                     }
 
-                    // TODO: save the form to the database
-                    var form = new LoggedTransferredCourse
-                    {
-                    };
+                    // log the transferred courses
+                    await LogTheAcceptedCourse(formDto);
                 }
 
                 // send notification
@@ -115,6 +114,7 @@ namespace Backend.Services
         public async Task<bool> ApproveFormChair(Guid formId, ApprovalDto approval)
         {
             CTEForm formEntity = _cTEFormRepository.GetCTEForm(formId).Result;
+            CTEFormDto formDto = _mapper.Map<CTEFormDto>(formEntity);
             if (CheckIfFormIsOperable(formEntity))
             {
                 Approval approvalEntity = _mapper.Map<Approval>(approval);
@@ -148,6 +148,9 @@ namespace Backend.Services
                         ToDoItemDto todo = await _toDoItemService.GetToDoItemByCascadeId(formEntity.ToDoItemId);
                         await _toDoItemService.ChangeCompleteToDoItem(todo.Id, true);
                     }
+
+                    // log the transferred courses
+                    await LogTheAcceptedCourse(formDto);
                 }
 
                 // send notification
@@ -161,6 +164,7 @@ namespace Backend.Services
         public async Task<bool> ApproveFormCoordinator(Guid formId, ApprovalDto approval)
         {
             CTEForm formEntity = _cTEFormRepository.GetCTEForm(formId).Result;
+            CTEFormDto formDto = _mapper.Map<CTEFormDto>(formEntity);
             if (CheckIfFormIsOperable(formEntity))
             {
                 Approval approvalEntity = _mapper.Map<Approval>(approval);
@@ -187,6 +191,9 @@ namespace Backend.Services
                 {
                     formEntity.IsApproved = true;
                     formEntity.IsArchived = true;
+
+                    // log the transferred courses
+                    await LogTheAcceptedCourse(formDto);
                 }
 
                 return await _cTEFormRepository.UpdateCTEForm(formEntity);
@@ -255,6 +262,7 @@ namespace Backend.Services
         public async Task<bool> ApproveFacultyOfAdministrationBoard(Guid formId, ApprovalDto approval)
         {
             CTEForm formEntity = _cTEFormRepository.GetCTEForm(formId).Result;
+            CTEFormDto formDto = _mapper.Map<CTEFormDto>(formEntity);
             if (CheckIfFormIsOperable(formEntity))
             {
                 Approval approvalEntity = _mapper.Map<Approval>(approval);
@@ -284,10 +292,13 @@ namespace Backend.Services
 
                     if (formEntity.ToDoItemId != null)
                     {
-                        // Complete todo
+                        // Complete todo of coordinator
                         ToDoItemDto todo = await _toDoItemService.GetToDoItemByCascadeId(formEntity.ToDoItemId);
                         await _toDoItemService.ChangeCompleteToDoItem(todo.Id, true);
                     }
+
+                    // log the transferred courses
+                    await LogTheAcceptedCourse(formDto);
                 }
 
                 await _notificationService.CreateNewApprovalNotification(formEntity, FormType.CTEForm,
@@ -432,6 +443,28 @@ namespace Backend.Services
         private bool CheckIfFormIsOperable(CTEForm form)
         {
             return !form.IsApproved && !form.IsRejected && !form.IsArchived && !form.IsCanceled;
+        }
+
+        private async Task<bool> LogTheAcceptedCourse(CTEFormDto formDto)
+        {
+            // Save the form to the logging database
+            var form = new LoggedTransferredCourseDto
+            {
+                TransferredCourseGroups = formDto.TransferredCourseGroups
+            };
+
+            foreach (TransferredCourseGroupDto group in form.TransferredCourseGroups)
+            {
+                group.Id = Guid.NewGuid();
+                group.ExemptedCourse.Id = Guid.NewGuid();
+
+                foreach (TransferredCourseDto course in group.TransferredCourses)
+                {
+                    course.Id = Guid.NewGuid();
+                }
+            }
+
+            return await _loggedCourseService.CreateLoggedTransferredCourse(form);
         }
     }
 }

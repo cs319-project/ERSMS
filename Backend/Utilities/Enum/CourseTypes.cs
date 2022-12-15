@@ -8,6 +8,9 @@
         SocialScienceCoreElective,
         ArtsCoreElective,
         MandatoryCourse,
-        AdditionalCourse
+        AdditionalCourse,
+        BreadthElective,
+        EngineeringElective,
+        MathElective
     }
 }

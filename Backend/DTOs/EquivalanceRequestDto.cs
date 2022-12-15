@@ -10,6 +10,8 @@ namespace Backend.DTOs
         public Guid Id { get; set; }
         public string StudentId { get; set; }
         public string HostCourseName { get; set; }
+        public string HostCourseCode { get; set; }
+        public double HostCourseECTS { get; set; }
         public string FileName { get; set; }
         //public byte[] Syllabus { get; set; }
         public ExemptedCourseDto ExemptedCourse { get; set; }

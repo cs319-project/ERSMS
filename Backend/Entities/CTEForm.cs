@@ -20,16 +20,10 @@ namespace Backend.Entities
         public Department Department { get; set; }
         [Required]
         public string HostUniversityName { get; set; }
-
-        // [Required]
-        // public Student SubjectStudent { get; set; }
-
         [Required]
         public ICollection<TransferredCourseGroup> TransferredCourseGroups { get; set; }
-
         [Required]
         public DateTime SubmissionTime { get; set; } = DateTime.Now;
-
         public DateTime ApprovalTime { get; set; }
 
         // These following approvals can be turned into collection

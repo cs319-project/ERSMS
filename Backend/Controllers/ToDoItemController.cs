@@ -100,7 +100,6 @@ namespace Backend.Controllers
             return BadRequest("Failed to star to do item");
         }
 
-        // TODO: Check this endpoint
         [HttpPost("addToAllToDepartment/{department}")]
         public async Task<ActionResult<ToDoItemDto>> AddToDoItemToAll(ToDoItemDto toDoItem, string department)
         {

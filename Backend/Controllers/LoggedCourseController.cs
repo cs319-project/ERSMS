@@ -19,8 +19,8 @@ namespace Backend.Controllers
         }
 
         // Endpoints
-        [HttpGet("logged-equivalant-courses")]
-        public async Task<ActionResult<IEnumerable<LoggedEquivalantCourseDto>>> GetLoggedEquivalantCourses()
+        [HttpGet("logged-equivalent-courses")]
+        public async Task<ActionResult<IEnumerable<LoggedEquivalantCourseDto>>> GetLoggedEquivalentCourses()
         {
             var loggedEquivalantCourses = await _loggedCourseService.GetLoggedEquivalantCourses();
             return loggedEquivalantCourses == null || loggedEquivalantCourses.Count() <= 0
@@ -35,8 +35,8 @@ namespace Backend.Controllers
                         ? NotFound() : Ok(loggedTransferredCourses);
         }
 
-        [HttpDelete("logged-equivalant-courses/{id:guid}")]
-        public async Task<ActionResult> DeleteLoggedEquivalantCourse(Guid id)
+        [HttpDelete("logged-equivalent-courses/{id:guid}")]
+        public async Task<ActionResult> DeleteLoggedEquivalentCourse(Guid id)
         {
             return await _loggedCourseService.DeleteLoggedEquivalantCourse(id)
                         ? Ok() : BadRequest();
