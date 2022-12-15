@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend.Utilities;
 
 namespace Backend.Entities
 {
@@ -32,6 +33,6 @@ namespace Backend.Entities
 
         public ICollection<EquivalenceRequest> EquivalenceRequestForms { get; set; }
 
-        public ICollection<ToDoItem> ToDoList { get; set; }
+        public ICollection<ToDoItem> ToDoList { get; set; } = ToDoListSeeder.studentToDoListChecklistSeeding();
     }
 }

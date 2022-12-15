@@ -10,10 +10,12 @@ namespace Backend.Entities
         [Key]
         public Guid Id { get; set; }
 
+        [Required]
         public string Name { get; set; }
-        public DateTime DateOfApproval { get; set; }
-        public string Comment { get; set; }
-        public Boolean IsApproved { get; set; } = false;
+        public DateTime DateOfApproval { get; set; } = DateTime.Now;
+        public string Comment { get; set; } = "";
+        [Required]
+        public Boolean IsApproved { get; set; }
         // TODO think about the signature integration
     }
 }

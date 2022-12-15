@@ -29,5 +29,6 @@ namespace Backend.DTOs
 
         public ICollection<EquivalenceRequestDto> EquivalenceRequestForms { get; set; }
 
+        public ICollection<ToDoItemDto> ToDoList { get; set; }
     }
 }

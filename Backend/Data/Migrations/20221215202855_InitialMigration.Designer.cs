@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221215192705_InitialMigration")]
+    [Migration("20221215202855_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,6 +59,7 @@ namespace Backend.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -340,7 +341,7 @@ namespace Backend.Data.Migrations
 
                     b.HasIndex("ExemptedCourseId");
 
-                    b.ToTable("LoggedEquivalantCourses");
+                    b.ToTable("LoggedEquivalentCourses");
                 });
 
             modelBuilder.Entity("Backend.Entities.LoggedTransferredCourse", b =>
@@ -924,7 +925,7 @@ namespace Backend.Data.Migrations
                         .HasForeignKey("InstructorApprovalId");
 
                     b.HasOne("Backend.Entities.Student", null)
-                        .WithMany("EquivalanceRequestForms")
+                        .WithMany("EquivalenceRequestForms")
                         .HasForeignKey("StudentId1");
 
                     b.Navigation("ExemptedCourse");
@@ -1415,7 +1416,7 @@ namespace Backend.Data.Migrations
                 {
                     b.Navigation("CTEForms");
 
-                    b.Navigation("EquivalanceRequestForms");
+                    b.Navigation("EquivalenceRequestForms");
 
                     b.Navigation("PreApprovalForms");
 

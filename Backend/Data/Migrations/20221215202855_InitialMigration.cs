@@ -29,7 +29,7 @@ namespace Backend.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
                     DateOfApproval = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Comment = table.Column<string>(type: "TEXT", nullable: true),
                     IsApproved = table.Column<bool>(type: "INTEGER", nullable: false)
@@ -285,7 +285,7 @@ namespace Backend.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "LoggedEquivalantCourses",
+                name: "LoggedEquivalentCourses",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
@@ -296,9 +296,9 @@ namespace Backend.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LoggedEquivalantCourses", x => x.Id);
+                    table.PrimaryKey("PK_LoggedEquivalentCourses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_LoggedEquivalantCourses_ExemptedCourse_ExemptedCourseId",
+                        name: "FK_LoggedEquivalentCourses_ExemptedCourse_ExemptedCourseId",
                         column: x => x.ExemptedCourseId,
                         principalTable: "ExemptedCourse",
                         principalColumn: "Id");
@@ -816,8 +816,8 @@ namespace Backend.Data.Migrations
                 column: "StudentId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LoggedEquivalantCourses_ExemptedCourseId",
-                table: "LoggedEquivalantCourses",
+                name: "IX_LoggedEquivalentCourses_ExemptedCourseId",
+                table: "LoggedEquivalentCourses",
                 column: "ExemptedCourseId");
 
             migrationBuilder.CreateIndex(
@@ -924,7 +924,7 @@ namespace Backend.Data.Migrations
                 name: "EquivalanceRequests");
 
             migrationBuilder.DropTable(
-                name: "LoggedEquivalantCourses");
+                name: "LoggedEquivalentCourses");
 
             migrationBuilder.DropTable(
                 name: "Messages");

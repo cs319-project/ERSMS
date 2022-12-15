@@ -57,6 +57,7 @@ namespace Backend.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -338,7 +339,7 @@ namespace Backend.Data.Migrations
 
                     b.HasIndex("ExemptedCourseId");
 
-                    b.ToTable("LoggedEquivalantCourses");
+                    b.ToTable("LoggedEquivalentCourses");
                 });
 
             modelBuilder.Entity("Backend.Entities.LoggedTransferredCourse", b =>
@@ -922,7 +923,7 @@ namespace Backend.Data.Migrations
                         .HasForeignKey("InstructorApprovalId");
 
                     b.HasOne("Backend.Entities.Student", null)
-                        .WithMany("EquivalanceRequestForms")
+                        .WithMany("EquivalenceRequestForms")
                         .HasForeignKey("StudentId1");
 
                     b.Navigation("ExemptedCourse");
@@ -1413,7 +1414,7 @@ namespace Backend.Data.Migrations
                 {
                     b.Navigation("CTEForms");
 
-                    b.Navigation("EquivalanceRequestForms");
+                    b.Navigation("EquivalenceRequestForms");
 
                     b.Navigation("PreApprovalForms");
 

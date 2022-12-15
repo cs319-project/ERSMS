@@ -134,6 +134,35 @@ namespace Backend.Data
             // builder.Entity<DomainUser>().HasDiscriminator<string>("BaseRole").HasValue<Student>("Student");
 
             // builder.Entity<Student>().OwnsMany<DepartmentInfo>(m => m.Majors);
+
+            // Seeding database with example users
+            // var tempIdentity = new AppUser
+            // {
+            //     Id = Guid.NewGuid(),
+            //     UserName = "22002901",
+            //     Email = "haktan.bilen@ug.bilkent.edu.tr"
+            // };
+
+            // builder.Entity<AppUser>().HasData(tempIdentity);
+
+            // builder.Entity<Student>().HasData(new Student()
+            // {
+            //     Id = Guid.NewGuid(),
+            //     EntranceYear = 2020,
+            //     Major = new DepartmentInfo { DepartmentName = Utilities.Enum.Department.ComputerEngineering, FacultyName = Utilities.Enum.Faculty.Engineering },
+            //     Minors = null,
+            //     CGPA = 3.34,
+            //     ExchangeScore = 87.2,
+            //     PreferredSchools = new List<string> { "École Polytechnique Fédérale (EPF)" },
+            //     ExchangeSchool = "École Polytechnique Fédérale (EPF)",
+            //     PreferredSemester = new SemesterInfo { Semester = Utilities.Enum.Semester.Fall, AcademicYear = "2022-2023" },
+            //     CTEForms = new List<CTEForm>(),
+            //     PreApprovalForms = new List<PreApprovalForm>(),
+            //     EquivalenceRequestForms = new List<EquivalenceRequest>(),
+            //     FirstName = "Borga Haktan",
+            //     LastName = "Bilen",
+            //     IdentityUser = tempIdentity
+            // });
         }
 
         public DbSet<DomainUser> DomainUsers { get; set; }
