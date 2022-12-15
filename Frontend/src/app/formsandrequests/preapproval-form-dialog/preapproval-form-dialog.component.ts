@@ -37,7 +37,7 @@ export class PreapprovalFormDialogComponent implements OnInit {
     let newGroup: RequestedCourseGroup = {
       id: null,
       requestedCourses: [
-        { id: null, courseCode: null, courseName: null, ECTS: null }
+        { id: null, courseCode: null, courseName: null, ects: null }
       ],
       requestedExemptedCourse: {
         id: null,
@@ -45,7 +45,7 @@ export class PreapprovalFormDialogComponent implements OnInit {
         courseName: null,
         courseType: null,
         bilkentCredits: null,
-        ECTS: null
+        ects: null
       }
     };
     if (this.data.requestedCourseGroups) {
@@ -59,7 +59,7 @@ export class PreapprovalFormDialogComponent implements OnInit {
       id: null,
       courseCode: null,
       courseName: null,
-      ECTS: null
+      ects: null
     };
     courseGroup.requestedCourses.push(newRequestedCourse);
   }

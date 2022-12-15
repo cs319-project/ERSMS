@@ -47,11 +47,11 @@ import { ScoreTableUploadDialogComponent } from './dashboard/score-table-upload-
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { CreateAppointmentDialogComponent } from './appointments/create-appointment-dialog/create-appointment-dialog.component';
-import {MatAutocompleteModule} from "@angular/material/autocomplete";
-import {MatDatepickerModule} from "@angular/material/datepicker";
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ConfirmationDialogComponent } from './appointments/confirmation-dialog/confirmation-dialog.component';
 import { PreapprovalFormDialogComponent } from './formsandrequests/preapproval-form-dialog/preapproval-form-dialog.component';
-import { EquivalanceRequestDialogComponent } from './formsandrequests/equivalance-request-dialog/equivalance-request-dialog.component';
+import { EquivalenceRequestDialogComponent } from './formsandrequests/equivalence-request-dialog/equivalence-request-dialog.component';
 import { CteFormDialogComponent } from './formsandrequests/cte-form-dialog/cte-form-dialog.component';
 
 @NgModule({
@@ -71,7 +71,7 @@ import { CteFormDialogComponent } from './formsandrequests/cte-form-dialog/cte-f
     ConfirmationDialogComponent,
     ScoreTableUploadDialogComponent,
     PreapprovalFormDialogComponent,
-    EquivalanceRequestDialogComponent,
+    EquivalenceRequestDialogComponent,
     CteFormDialogComponent
   ],
   imports: [

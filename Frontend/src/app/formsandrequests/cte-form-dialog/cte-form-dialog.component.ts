@@ -37,7 +37,7 @@ export class CteFormDialogComponent implements OnInit {
           courseCode: null,
           courseName: null,
           grade: null,
-          ECTS: null
+          ects: null
         }
       ],
       exemptedCourse: {
@@ -46,7 +46,7 @@ export class CteFormDialogComponent implements OnInit {
         courseName: null,
         courseType: null,
         bilkentCredits: null,
-        ECTS: null
+        ects: null
       }
     };
     if (this.data.transferredCourseGroup) {
@@ -61,7 +61,7 @@ export class CteFormDialogComponent implements OnInit {
       id: null,
       courseCode: null,
       courseName: null,
-      ECTS: null,
+      ects: null,
       grade: null
     };
     courseGroup.transferredCourses.push(newRequestedCourse);

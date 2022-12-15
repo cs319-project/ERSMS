@@ -114,6 +114,14 @@
               Confirm Password is
               <strong>required</strong>
             </mat-error>
+            <mat-error
+              *ngIf="
+                requiredForm.getError('mismatch') &&
+                requiredForm.get('confirmPassword')?.touched
+              ">
+              Passwords do not <strong>match</strong>
+            </mat-error>
+
             <button
               mat-icon-button
               matSuffix

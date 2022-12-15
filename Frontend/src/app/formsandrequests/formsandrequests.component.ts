@@ -16,8 +16,8 @@ import {
 import { PreApprovalForm } from '../_models/pre-approval-form';
 import { PreapprovalFormDialogComponent } from './preapproval-form-dialog/preapproval-form-dialog.component';
 import { GUID } from '../../utils/guid';
-import { EquivalanceRequest } from '../_models/equivalance-request';
-import { EquivalanceRequestDialogComponent } from './equivalance-request-dialog/equivalance-request-dialog.component';
+import { EquivalenceRequest } from '../_models/equivalence-request';
+import { EquivalenceRequestDialogComponent } from './equivalence-request-dialog/equivalence-request-dialog.component';
 import { CteForm } from '../_models/cte-form';
 import { CteFormDialogComponent } from './cte-form-dialog/cte-form-dialog.component';
 
@@ -55,7 +55,7 @@ export class FormsAndRequestsComponent {
   activatedRow = null;
 
   preApprovalForm: PreApprovalForm;
-  equivalanceRequest: EquivalanceRequest;
+  equivalenceRequest: EquivalenceRequest;
   cteForm: CteForm;
 
   constructor(private dialog: MatDialog, private _snackBar: MatSnackBar) {
@@ -196,9 +196,9 @@ export class FormsAndRequestsComponent {
     );
   }
 
-  openCreateEquivalanceRequestDialog() {
+  openCreateEquivalenceRequestDialog() {
     const dialogConfig = new MatDialogConfig();
-    this.equivalanceRequest = {
+    this.equivalenceRequest = {
       id: null,
       studentId: null,
       fileName: null,
@@ -208,22 +208,22 @@ export class FormsAndRequestsComponent {
         courseCode: '',
         courseType: null,
         bilkentCredits: null,
-        ECTS: null
+        ects: null
       },
       instructorApproval: null,
       additionalNotes: null,
       hostCourseName: '',
       hostCourseCode: '',
-      hostCourseECTS: null,
+      hostCourseEcts: null,
       isApproved: false,
       isRejected: false,
       isArchived: false,
       isCanceled: false
     };
-    dialogConfig.data = this.equivalanceRequest;
+    dialogConfig.data = this.equivalenceRequest;
 
     const dialogRef = this.dialog.open(
-      EquivalanceRequestDialogComponent,
+      EquivalenceRequestDialogComponent,
       dialogConfig
     );
   }

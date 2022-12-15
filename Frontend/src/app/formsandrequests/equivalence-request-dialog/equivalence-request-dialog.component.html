@@ -1,6 +1,8 @@
 <div class="request-container">
   <div class="request-header">
-    <h1 mat-dialog-title style="font-size: 1.6rem; font-weight: bold">Submit Equivalance Request</h1>
+    <h1 mat-dialog-title style="font-size: 1.6rem; font-weight: bold">
+      Submit Equivalance Request
+    </h1>
   </div>
   <div class="request-content">
     <div class="course-container mb-4">
@@ -8,18 +10,17 @@
       <div class="course-info">
         <mat-form-field style="width: 150px" appearance="outline">
           <mat-label>Course Code</mat-label>
-          <input type="search" matInput>
+          <input type="search" matInput />
         </mat-form-field>
-        <mat-form-field style="flex-grow: 1" class="mr-5 ml-5" appearance="outline">
+        <mat-form-field
+          style="flex-grow: 1"
+          class="mr-5 ml-5"
+          appearance="outline">
           <mat-label>Course Name</mat-label>
-          <input type="search" matInput [(ngModel)]="data.hostCourseName">
-        </mat-form-field >
+          <input type="search" matInput [(ngModel)]="data.hostCourseName" />
+        </mat-form-field>
       </div>
-      <input
-        type="file"
-        class="file-input"
-        #fileUpload
-        hidden />
+      <input type="file" class="file-input" #fileUpload hidden />
 
       <div class="file-upload">
         <button mat-raised-button (click)="fileUpload.click()">
@@ -33,17 +34,28 @@
       <div class="course-info">
         <mat-form-field style="width: 150px" appearance="outline">
           <mat-label>Course Code</mat-label>
-          <input type="search" matInput [(ngModel)]="data.exemptedCourse.courseCode">
+          <input
+            type="search"
+            matInput
+            [(ngModel)]="data.exemptedCourse.courseCode" />
         </mat-form-field>
-        <mat-form-field style="flex-grow: 1" class="mr-5 ml-5" appearance="outline">
+        <mat-form-field
+          style="flex-grow: 1"
+          class="mr-5 ml-5"
+          appearance="outline">
           <mat-label>Course Name</mat-label>
-          <input type="search" matInput [(ngModel)]="data.exemptedCourse.courseName">
-        </mat-form-field >
+          <input
+            type="search"
+            matInput
+            [(ngModel)]="data.exemptedCourse.courseName" />
+        </mat-form-field>
       </div>
     </div>
   </div>
   <div class="request-footer">
     <button mat-raised-button color="primary" mat-dialog-close>Cancel</button>
-    <button mat-raised-button color="primary" class="ml-5" (click)="onSubmit()">Submit</button>
+    <button mat-raised-button color="primary" class="ml-5" (click)="onSubmit()">
+      Submit
+    </button>
   </div>
 </div>
