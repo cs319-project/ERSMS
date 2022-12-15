@@ -3,7 +3,7 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AppScene } from '../app.component';
 import { Router } from '@angular/router';
-import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AnnouncementComponent } from './announcement/announcement.component';
 import { AuthenticationService } from '../_services/authentication.service';
@@ -144,7 +144,7 @@ export class NavigationComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
- openDialog() {
+  openDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = { data: { description: this.announcement } };
     dialogConfig.disableClose = true;
@@ -154,11 +154,10 @@ export class NavigationComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.openSnackBar("Announcement sent", 'Close', 5);
+        this.openSnackBar('Announcement sent', 'Close', 5);
         console.log(result);
       }
     });
-
   }
 
   openSnackBar(message: string, action: string, duration: number) {

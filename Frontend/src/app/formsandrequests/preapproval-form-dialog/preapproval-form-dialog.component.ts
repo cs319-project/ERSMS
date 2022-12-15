@@ -37,7 +37,9 @@ export class PreapprovalFormDialogComponent implements OnInit {
     if(this.data.requestedCourseGroups){
       this.data.requestedCourseGroups.push(newGroup);
     }
-    this.data.requestedCourseGroups = [newGroup];
+    else {
+      this.data.requestedCourseGroups = [newGroup];
+    }
   }
 
   onAddCourse(courseGroup: RequestedCourseGroup) {
