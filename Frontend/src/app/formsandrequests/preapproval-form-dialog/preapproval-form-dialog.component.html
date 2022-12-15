@@ -25,9 +25,9 @@
                 <mat-label>Course Name</mat-label>
                 <input type="search" matInput [(ngModel)]="requestedCourse.courseName">
               </mat-form-field >
-              <mat-form-field style="width:85px" appearance="outline">
+              <mat-form-field style="width: 100px" appearance="outline">
                 <mat-label>Credits</mat-label>
-                <input type="search" matInput [(ngModel)]="requestedCourse.credits">
+                <input type="number" step="0.5" matInput [(ngModel)]="requestedCourse.credits">
               </mat-form-field>
               <div class="delete-course-btn">
                 <button mat-icon-button *ngIf="courseGroup.requestedCourses.length > 1" (click)="onCourseDelete(groupIndex, courseIndex)">
@@ -62,9 +62,9 @@
                 <mat-label>Course Name</mat-label>
                 <input type="search" matInput [(ngModel)]="courseGroup.requestedExemptedCourse.courseName">
               </mat-form-field >
-              <mat-form-field style="width:85px" appearance="outline" >
+              <mat-form-field style="width: 100px" appearance="outline">
                 <mat-label>Credits</mat-label>
-                <input type="search" matInput [(ngModel)]="courseGroup.requestedExemptedCourse.credits">
+                <input type="number" step="0.5" matInput [(ngModel)]="courseGroup.requestedExemptedCourse.credits">
               </mat-form-field>
               <div style="width: 40px"></div>
             </div>

@@ -93,3 +93,12 @@ input.mat-input-element {
   display: flex;
   flex-direction: column;
 }
+
+#student-id[type='number'] {
+  -moz-appearance:textfield;
+}
+
+#student-id::-webkit-outer-spin-button,
+#student-id::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}

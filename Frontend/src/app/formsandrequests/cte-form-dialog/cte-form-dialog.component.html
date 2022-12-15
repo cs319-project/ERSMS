@@ -1,11 +1,11 @@
 <div class="form-container ">
   <div class="form-header">
-    <h1 mat-dialog-title style="font-size: 1.6rem; font-weight: bold">Submit Pre-Approval Form</h1>
+    <h1 mat-dialog-title style="font-size: 1.6rem; font-weight: bold">Submit CTE Form</h1>
   </div>
   <div mat-dialog-content class="form-content custom-scroll-bar">
     <mat-form-field style="width: 150px" appearance="outline">
       <mat-label>Student Id</mat-label>
-      <input type="search" matInput [(ngModel)]="data.id">
+      <input id="student-id" type="number" matInput [(ngModel)]="data.id">
     </mat-form-field>
     <div class="course-groups" *ngFor="let courseGroup of this.data.transferredCourseGroup; let groupIndex = index">
       <div class="course-group mb-4">
@@ -29,9 +29,9 @@
                 <mat-label>Course Name</mat-label>
                 <input type="search" matInput [(ngModel)]="transferredCourse.courseName">
               </mat-form-field >
-              <mat-form-field style="width:85px" class="mr-3" appearance="outline">
+              <mat-form-field style="width:100px" class="mr-3" appearance="outline">
                 <mat-label>Credits</mat-label>
-                <input type="search" matInput [(ngModel)]="transferredCourse.credits">
+                <input type="number" step="0.5" matInput [(ngModel)]="transferredCourse.credits">
               </mat-form-field>
               <mat-form-field style="width:75px" appearance="outline">
                 <mat-label>Grade</mat-label>
@@ -70,9 +70,9 @@
                 <mat-label>Course Name</mat-label>
                 <input type="search" matInput [(ngModel)]="courseGroup.exemptedCourse.courseName">
               </mat-form-field >
-              <mat-form-field style="width:85px" appearance="outline" >
+              <mat-form-field style="width:100px" appearance="outline" >
                 <mat-label>Credits</mat-label>
-                <input type="search" matInput [(ngModel)]="courseGroup.exemptedCourse.credits">
+                <input type="number" step="0.5" matInput [(ngModel)]="courseGroup.exemptedCourse.credits">
               </mat-form-field>
               <div style="width: 115px" class="ml-3"></div>
             </div>
