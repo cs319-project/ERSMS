@@ -10,6 +10,7 @@ import {AppointmentsComponent} from "../../appointments/appointments.component";
 export class ScoreTableUploadDialogComponent implements OnInit {
   text: string;
   fileName: string;
+  uploadClicked = false;
 
   constructor(public dialogRef: MatDialogRef<AppointmentsComponent>,
               @Inject(MAT_DIALOG_DATA) public data) {
@@ -20,7 +21,11 @@ export class ScoreTableUploadDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getResponse(uploadTable: boolean) {
-    this.dialogRef.close(uploadTable);
+  closeDialog(): void {
+    if (this.uploadClicked) {
+      this.dialogRef.close(true);
+    } else {
+      this.dialogRef.close(false);
+    }
   }
 }

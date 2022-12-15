@@ -90,6 +90,12 @@ namespace Backend.Utilities.Enum
         Music,
 
         [EnumMember(Value = "Department of Performing Arts")]
-        PerformingArts
+        PerformingArts,
+
+        [EnumMember(Value = "Information Systems and Technologies")]
+        InformationSystemsTechnologies,
+
+        [EnumMember(Value = "Tourism and Hotel Management")]
+        TourismHotelManagement,
     }
 }

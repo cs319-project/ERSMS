@@ -125,6 +125,10 @@ namespace Backend.Utilities
                     return Department.Music;
                 case "Department of Performing Arts":
                     return Department.PerformingArts;
+                case "Department of Information Systems and Technologies":
+                    return Department.InformationSystemsTechnologies;
+                case "Department of Tourism and Hotel Management":
+                    return Department.TourismHotelManagement;
                 default:
                     throw new Exception("Department Exception");
             }
@@ -192,6 +196,10 @@ namespace Backend.Utilities
                     return "Department of Music";
                 case Department.PerformingArts:
                     return "Department of Performing Arts";
+                case Department.InformationSystemsTechnologies:
+                    return "Department of Information Systems and Technologies";
+                case Department.TourismHotelManagement:
+                    return "Department of Tourism and Hotel Management";
                 default:
                     throw new Exception("Department Exception");
             }
