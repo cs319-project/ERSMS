@@ -1,4 +1,10 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import {
   ApexNonAxisChartSeries,
   ApexResponsive,
@@ -21,6 +27,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ScoreTableUploadDialogComponent } from './score-table-upload-dialog/score-table-upload-dialog.component';
 import { FormBuilder } from '@angular/forms';
 import { ActorsEnum } from '../_models/enum/actors-enum';
+import { DepartmentsEnum } from '../_models/enum/departments-enum';
+import { ToastrService } from 'ngx-toastr';
+import { FileUploadService } from '../_services/file-upload.service';
 
 export type PieChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -64,71 +73,12 @@ export interface dayActivities {
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewInit {
   actorsEnum = ActorsEnum;
   role: string;
-  departments = [
-    'ADA',
-    'AMER',
-    'ARCH',
-    'BF',
-    'BTE',
-    'CHEM',
-    'CI',
-    'CINT',
-    'COMD',
-    'CS',
-    'CTIS',
-    'ECON',
-    'EDEB',
-    'EEE',
-    'EEPS',
-    'ELIT',
-    'ELS',
-    'EMBA',
-    'ENG',
-    'ETE',
-    'FA',
-    'GE',
-    'GRA',
-    'HART',
-    'HCIV',
-    'HIST',
-    'HUM',
-    'IAED',
-    'IE',
-    'IELTS',
-    'IR',
-    'LAUD',
-    'LAW',
-    'LNG',
-    'MAN',
-    'MATH',
-    'MBA',
-    'MBG',
-    'ME',
-    'MIAPP',
-    'MSC',
-    'MSN',
-    'MTE',
-    'MUS',
-    'NSC',
-    'PE',
-    'PHIL',
-    'PHYS',
-    'POLS',
-    'PREP',
-    'PSYC',
-    'SFL',
-    'SOC',
-    'TE',
-    'TEFL',
-    'THEA',
-    'THM',
-    'THR',
-    'TRIN',
-    'TURK'
-  ];
+  oisepDepartment: string;
+  _departmentsEnum = DepartmentsEnum;
+  departmentsEnum = Object.keys(DepartmentsEnum);
 
   @ViewChild(MatTable) scoreTable: MatTable<UserData>;
 
@@ -249,7 +199,9 @@ export class DashboardComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private _snackBar: MatSnackBar,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private toastr: ToastrService,
+    private fileUploadService: FileUploadService
   ) {
     this.role = JSON.parse(localStorage.getItem('user')).roles[0];
 
@@ -451,13 +403,17 @@ export class DashboardComponent implements OnInit {
 
     if (file) {
       this.fileName = file.name;
-      const formData = new FormData();
-      formData.append('thumbnail', file);
     }
 
+    if (!(this.fileName.endsWith('.xlsx') || this.fileName.endsWith('.xls'))) {
+      this.toastr.error('Please select a valid Excel file');
+      return;
+    }
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
-      text: `Are you sure to upload this score table for  ${department} department?`,
+      text: `Are you sure to upload this score table for  ${
+        this._departmentsEnum[this.oisepDepartment][0]
+      }?`,
       fileName: this.fileName
     };
     const dialogRef = this.dialog.open(
@@ -467,11 +423,20 @@ export class DashboardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(uploadItem => {
       if (uploadItem) {
-        this.openSnackBar(
-          `Score table for ${department} department is uploaded`,
-          'Close',
-          5
-        );
+        this.fileUploadService
+          .uploadPlacementTable(
+            file,
+            this._departmentsEnum[this.oisepDepartment][0],
+            this._departmentsEnum[this.oisepDepartment][1]
+          )
+          .subscribe(
+            res => {
+              this.toastr.success('Score table uploaded successfully');
+            },
+            err => {
+              this.toastr.error('Error uploading score table');
+            }
+          );
         // TODO: add upload table logic
       }
     });

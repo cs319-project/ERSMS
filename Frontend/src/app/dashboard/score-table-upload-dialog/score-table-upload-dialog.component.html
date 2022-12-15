@@ -9,7 +9,7 @@
   </div>
   <div mat-dialog-actions class="confirmation-buttons">
     <button
-      (click)="getResponse(false)"
+      (click)="uploadClicked = !uploadClicked; closeDialog()"
       mat-button
       mat-dialog-close
       mat-raised-button
@@ -17,7 +17,7 @@
       Cancel
     </button>
     <button
-      (click)="getResponse(true)"
+      (click)="uploadClicked = !uploadClicked; closeDialog()"
       mat-button
       mat-raised-button
       color="primary">
