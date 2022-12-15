@@ -10,20 +10,20 @@ namespace Backend.Controllers
 {
     public class EquivalenceRequestController : BaseApiController
     {
-        private readonly IEquivalanceRequestService _equivalanceRequestService;
+        private readonly IEquivalenceRequestService _equivalenceRequestService;
         private readonly IUserService _userService;
 
         // Constructor
-        public EquivalenceRequestController(IEquivalanceRequestService equivalanceRequestService, IUserService userService)
+        public EquivalenceRequestController(IEquivalenceRequestService equivalenceRequestService, IUserService userService)
         {
-            _equivalanceRequestService = equivalanceRequestService;
+            _equivalenceRequestService = equivalenceRequestService;
             _userService = userService;
         }
 
         // Endpoints
         [HttpPost]
         [Consumes("multipart/form-data")]
-        public async Task<ActionResult<EquivalanceRequestDto>> SubmitEquivalanceForm([FromForm] string studentId,
+        public async Task<ActionResult<EquivalenceRequestDto>> SubmitEquivalenceForm([FromForm] string studentId,
                                                                 [FromForm] string hostCourseName,
                                                                 [FromForm] string hostCourseCode,
                                                                 [FromForm] string additionalNotes,
@@ -43,7 +43,7 @@ namespace Backend.Controllers
             if (Path.GetExtension(Syllabus.FileName) == ".pdf"
                     || Path.GetExtension(Syllabus.FileName) == ".docx")
             {
-                EquivalanceRequestDto request = new EquivalanceRequestDto
+                EquivalenceRequestDto request = new EquivalenceRequestDto
                 {
                     StudentId = studentId,
                     HostCourseECTS = hostCourseECTS,
@@ -62,7 +62,7 @@ namespace Backend.Controllers
                     CourseType = exemptedCourseType
                 };
 
-                return await _equivalanceRequestService.AddEquivalanceRequestToStudent(request, Syllabus)
+                return await _equivalenceRequestService.AddEquivalenceRequestToStudent(request, Syllabus)
                                 ? Ok(request) : BadRequest("Failed to add Equivalance Request");
             }
             return BadRequest("Wrong formated syllabus");
@@ -71,7 +71,7 @@ namespace Backend.Controllers
         [HttpGet("download/{id:Guid}")]
         public async Task<ActionResult> DownloadSyllabus(Guid id)
         {
-            var result = await _equivalanceRequestService.DownloadSyllabus(id);
+            var result = await _equivalenceRequestService.DownloadSyllabus(id);
 
             if (Path.GetExtension(result.Item2) == ".pdf")
             {
@@ -92,9 +92,9 @@ namespace Backend.Controllers
         }
 
         [HttpGet("getAll")]
-        public async Task<ActionResult<IEnumerable<EquivalanceRequestDto>>> GetEquivalanceRequests()
+        public async Task<ActionResult<IEnumerable<EquivalenceRequestDto>>> GetEquivalenceRequests()
         {
-            IEnumerable<EquivalanceRequestDto> equivalanceRequests = await _equivalanceRequestService.GetEquivalanceRequests();
+            IEnumerable<EquivalenceRequestDto> equivalanceRequests = await _equivalenceRequestService.GetEquivalenceRequests();
             if (equivalanceRequests == null || equivalanceRequests.Count() == 0)
             {
                 return NotFound();
@@ -103,9 +103,9 @@ namespace Backend.Controllers
         }
 
         [HttpGet("{id:Guid}")]
-        public async Task<ActionResult<EquivalanceRequestDto>> GetEquivalanceRequest(Guid id)
+        public async Task<ActionResult<EquivalenceRequestDto>> GetEquivalenceRequest(Guid id)
         {
-            var equivalanceRequest = await _equivalanceRequestService.GetEquivalanceRequest(id);
+            var equivalanceRequest = await _equivalenceRequestService.GetEquivalenceRequest(id);
             if (equivalanceRequest == null)
             {
                 return NotFound();
@@ -114,9 +114,9 @@ namespace Backend.Controllers
         }
 
         [HttpDelete("{id:Guid}")]
-        public async Task<ActionResult> DeleteEquivalanceRequest(Guid id)
+        public async Task<ActionResult> DeleteEquivalenceRequest(Guid id)
         {
-            if (await _equivalanceRequestService.DeleteEquivalanceRequest(id))
+            if (await _equivalenceRequestService.DeleteEquivalenceRequest(id))
             {
                 return Ok(true);
             }
@@ -124,9 +124,9 @@ namespace Backend.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> UpdateEquivalanceRequest(EquivalanceRequestDto equivalanceRequest)
+        public async Task<ActionResult> UpdateEquivalenceRequest(EquivalenceRequestDto equivalanceRequest)
         {
-            if (await _equivalanceRequestService.UpdateEquivalanceRequest(equivalanceRequest))
+            if (await _equivalenceRequestService.UpdateEquivalenceRequest(equivalanceRequest))
             {
                 return Ok(true);
             }
@@ -144,16 +144,16 @@ namespace Backend.Controllers
             if (Path.GetExtension(Syllabus.FileName) == ".pdf"
                     || Path.GetExtension(Syllabus.FileName) == ".docx")
             {
-                return await _equivalanceRequestService.UpdateEquivalanceRequestSyllabus(id, Syllabus)
+                return await _equivalenceRequestService.UpdateEquivalenceRequestSyllabus(id, Syllabus)
                                 ? Ok(true) : BadRequest("Failed to update Syllabus");
             }
             return BadRequest("Wrong formated syllabus");
         }
 
         [HttpGet("archived/all")]
-        public async Task<ActionResult<IEnumerable<EquivalanceRequestDto>>> GetArchivedEquivalanceRequests()
+        public async Task<ActionResult<IEnumerable<EquivalenceRequestDto>>> GetArchivedEquivalenceRequests()
         {
-            IEnumerable<EquivalanceRequestDto> equivalanceRequests = await _equivalanceRequestService.GetArchivedEquivalanceRequests();
+            IEnumerable<EquivalenceRequestDto> equivalanceRequests = await _equivalenceRequestService.GetArchivedEquivalenceRequests();
             if (equivalanceRequests == null || equivalanceRequests.Count() == 0)
             {
                 return NotFound();
@@ -162,9 +162,9 @@ namespace Backend.Controllers
         }
 
         [HttpGet("nonarchived/all")]
-        public async Task<ActionResult<IEnumerable<EquivalanceRequestDto>>> GetNonArchivedEquivalanceRequests()
+        public async Task<ActionResult<IEnumerable<EquivalenceRequestDto>>> GetNonArchivedEquivalenceRequests()
         {
-            IEnumerable<EquivalanceRequestDto> equivalanceRequests = await _equivalanceRequestService.GetNonArchivedEquivalanceRequests();
+            IEnumerable<EquivalenceRequestDto> equivalanceRequests = await _equivalenceRequestService.GetNonArchivedEquivalenceRequests();
             if (equivalanceRequests == null || equivalanceRequests.Count() == 0)
             {
                 return NotFound();
@@ -173,9 +173,9 @@ namespace Backend.Controllers
         }
 
         [HttpGet("archived/department/{userName}")]
-        public async Task<ActionResult<IEnumerable<EquivalanceRequestDto>>> GetArchivedEquivalanceRequestsByDepartment(string userName)
+        public async Task<ActionResult<IEnumerable<EquivalenceRequestDto>>> GetArchivedEquivalenceRequestsByDepartment(string userName)
         {
-            IEnumerable<EquivalanceRequestDto> equivalanceRequests = await _equivalanceRequestService.GetArchivedEquivalanceRequestsByDepartmentForCoordinator(userName);
+            IEnumerable<EquivalenceRequestDto> equivalanceRequests = await _equivalenceRequestService.GetArchivedEquivalenceRequestsByDepartmentForCoordinator(userName);
             if (equivalanceRequests == null || equivalanceRequests.Count() == 0)
             {
                 return NotFound();
@@ -184,9 +184,9 @@ namespace Backend.Controllers
         }
 
         [HttpGet("nonarchived/department/{userName}")]
-        public async Task<ActionResult<IEnumerable<EquivalanceRequestDto>>> GetNonArchivedEquivalanceRequestsByDepartment(string userName)
+        public async Task<ActionResult<IEnumerable<EquivalenceRequestDto>>> GetNonArchivedEquivalenceRequestsByDepartment(string userName)
         {
-            IEnumerable<EquivalanceRequestDto> equivalanceRequests = await _equivalanceRequestService.GetNonArchivedEquivalanceRequestsByDepartmentForCoordinator(userName);
+            IEnumerable<EquivalenceRequestDto> equivalanceRequests = await _equivalenceRequestService.GetNonArchivedEquivalenceRequestsByDepartmentForCoordinator(userName);
             if (equivalanceRequests == null || equivalanceRequests.Count() == 0)
             {
                 return NotFound();
@@ -195,9 +195,9 @@ namespace Backend.Controllers
         }
 
         [HttpGet("archived/course/{courseCode}")]
-        public async Task<ActionResult<IEnumerable<EquivalanceRequestDto>>> GetArchivedEquivalanceRequestsByCourseCode(string courseCode)
+        public async Task<ActionResult<IEnumerable<EquivalenceRequestDto>>> GetArchivedEquivalenceRequestsByCourseCode(string courseCode)
         {
-            IEnumerable<EquivalanceRequestDto> equivalanceRequests = await _equivalanceRequestService.GetArchivedEquivalanceRequestsByCourseCode(courseCode);
+            IEnumerable<EquivalenceRequestDto> equivalanceRequests = await _equivalenceRequestService.GetArchivedEquivalenceRequestsByCourseCode(courseCode);
             if (equivalanceRequests == null || equivalanceRequests.Count() == 0)
             {
                 return NotFound();
@@ -206,9 +206,9 @@ namespace Backend.Controllers
         }
 
         [HttpGet("nonarchived/course/{courseCode}")]
-        public async Task<ActionResult<IEnumerable<EquivalanceRequestDto>>> GetNonArchivedEquivalanceRequestsByCourseCode(string courseCode)
+        public async Task<ActionResult<IEnumerable<EquivalenceRequestDto>>> GetNonArchivedEquivalenceRequestsByCourseCode(string courseCode)
         {
-            IEnumerable<EquivalanceRequestDto> equivalanceRequests = await _equivalanceRequestService.GetNonArchivedEquivalanceRequestsByCourseCode(courseCode);
+            IEnumerable<EquivalenceRequestDto> equivalanceRequests = await _equivalenceRequestService.GetNonArchivedEquivalenceRequestsByCourseCode(courseCode);
             if (equivalanceRequests == null || equivalanceRequests.Count() == 0)
             {
                 return NotFound();
@@ -217,9 +217,9 @@ namespace Backend.Controllers
         }
 
         [HttpGet("student/{studentID}")]
-        public async Task<ActionResult<ICollection<EquivalanceRequestDto>>> GetEquivalanceRequestsOfStudent(string studentID)
+        public async Task<ActionResult<ICollection<EquivalenceRequestDto>>> GetEquivalenceRequestsOfStudent(string studentID)
         {
-            var equivalanceRequests = await _equivalanceRequestService.GetEquivalanceRequestsOfStudent(studentID);
+            var equivalanceRequests = await _equivalenceRequestService.GetEquivalenceRequestsOfStudent(studentID);
             if (equivalanceRequests == null)
             {
                 return NotFound();
@@ -228,9 +228,9 @@ namespace Backend.Controllers
         }
 
         [HttpGet("department/{userName}")]
-        public async Task<ActionResult<ICollection<EquivalanceRequestDto>>> GetEquivalanceRequestsByDepartmentForCoordinator(string userName)
+        public async Task<ActionResult<ICollection<EquivalenceRequestDto>>> GetEquivalenceRequestsByDepartmentForCoordinator(string userName)
         {
-            var equivalanceRequests = await _equivalanceRequestService.GetEquivalanceRequestsByDepartmentForCoordinator(userName);
+            var equivalanceRequests = await _equivalenceRequestService.GetEquivalenceRequestsByDepartmentForCoordinator(userName);
             if (equivalanceRequests == null)
             {
                 return NotFound();
@@ -239,9 +239,9 @@ namespace Backend.Controllers
         }
 
         [HttpGet("course/{courseCode}")]
-        public async Task<ActionResult<ICollection<EquivalanceRequestDto>>> GetEquivalanceRequestByCourseCode(string courseCode)
+        public async Task<ActionResult<ICollection<EquivalenceRequestDto>>> GetEquivalenceRequestByCourseCode(string courseCode)
         {
-            var equivalanceRequests = await _equivalanceRequestService.GetEquivalanceRequestByCourseCode(courseCode);
+            var equivalanceRequests = await _equivalenceRequestService.GetEquivalenceRequestByCourseCode(courseCode);
             if (equivalanceRequests == null)
             {
                 return NotFound();
@@ -252,7 +252,7 @@ namespace Backend.Controllers
         [HttpPost("approve/{requestId:Guid}")]
         public async Task<ActionResult> ApproveRequest(Guid requestId, ApprovalDto approval)
         {
-            if (await _equivalanceRequestService.ApproveRequest(requestId, approval))
+            if (await _equivalenceRequestService.ApproveRequest(requestId, approval))
             {
                 return Ok(true);
             }
@@ -262,7 +262,7 @@ namespace Backend.Controllers
         [HttpPatch("cancel/{requestId:Guid}")]
         public async Task<ActionResult> CancelRequest(Guid requestId)
         {
-            if (await _equivalanceRequestService.CancelEquivalanceRequest(requestId))
+            if (await _equivalenceRequestService.CancelEquivalenceRequest(requestId))
             {
                 return Ok(true);
             }

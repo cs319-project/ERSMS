@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Backend.Entities
 {
-    public class EquivalanceRequest : Form
+    public class EquivalenceRequest : Form
     {
         [Key]
         public Guid Id { get; set; }
