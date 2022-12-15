@@ -111,15 +111,8 @@
                 requiredForm.controls['confirmPassword'].invalid &&
                 requiredForm.controls['confirmPassword'].touched
               ">
-              Confirm Password is
-              <strong>required</strong>
-            </mat-error>
-            <mat-error
-              *ngIf="
-                requiredForm.getError('mismatch') &&
-                requiredForm.get('confirmPassword')?.touched
-              ">
-              Passwords do not <strong>match</strong>
+              Passwords
+              <strong>do not match</strong>
             </mat-error>
 
             <button

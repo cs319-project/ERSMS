@@ -2,14 +2,15 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import {
+  AbstractControl,
+  FormBuilder,
   FormControl,
   FormGroup,
-  Validators,
-  FormBuilder
+  ValidatorFn,
+  Validators
 } from '@angular/forms';
 import { AuthenticationService } from '../_services/authentication.service';
 import { ActorsEnum } from '../_models/enum/actors-enum';
-import { PasswordMatchValidator } from '../_validators/password-match.validator';
 
 @Component({
   selector: 'app-signup',
@@ -47,21 +48,27 @@ export class SignupComponent implements OnInit {
   }
 
   buildForm() {
-    this.requiredForm = this.formBuilder.group(
-      {
-        actorType: [ActorsEnum.Student.toString(), Validators.required],
-        firstName: ['', Validators.required],
-        lastName: ['', Validators.required],
-        userName: ['', Validators.required],
-        email: ['', Validators.required],
-        password: ['', Validators.required],
-        confirmPassword: ['', Validators.required]
-      },
-      PasswordMatchValidator.PasswordMatchValidator(
-        'password',
-        'confirmPassword'
-      )
-    );
+    this.requiredForm = this.formBuilder.group({
+      actorType: [ActorsEnum.Student.toString(), Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      userName: ['', Validators.required],
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+      confirmPassword: ['', [Validators.required, this.matchValues('password')]]
+    });
+    this.requiredForm.controls['password'].valueChanges.subscribe({
+      next: () =>
+        this.requiredForm.controls['confirmPassword'].updateValueAndValidity()
+    });
+  }
+
+  matchValues(matchTo: string): ValidatorFn {
+    return (control: AbstractControl) => {
+      return control.value === control.parent?.get(matchTo)?.value
+        ? null
+        : { notMatching: true };
+    };
   }
 
   onSubmit() {}

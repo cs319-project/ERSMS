@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.loading = true;
-    if (this.requiredForm.invalid) {
+    if (this.requiredForm.valid) {
       this.authenticationService
         .login(this.requiredForm.value)
         .pipe(first())
