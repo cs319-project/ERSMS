@@ -16,6 +16,7 @@ import { FormControl, Validators } from '@angular/forms';
 export class EquivalanceRequestDialogComponent implements OnInit {
 
   error = true;
+  submitted = false;
   courseCode = new FormControl('', [Validators.required]);
   courseName = new FormControl('', [Validators.required]);
 
@@ -53,6 +54,7 @@ export class EquivalanceRequestDialogComponent implements OnInit {
 
   onSubmit() {
 
+    this.submitted = true;
     this.error = ( this.courseCode.hasError('required') || this.courseName.hasError('required') ||
         this.courseCodeBilkent.hasError('required') || this.courseNameBilkent.hasError('required') );
 

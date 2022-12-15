@@ -46,8 +46,8 @@
               </div>
             </div>
           </div>
-          <mat-error style="width:200px" class="mr-3" *ngIf="courseCredit.touched && courseCredit.invalid || courseCode.touched && courseCode.invalid 
-            || courseName.touched && courseName.invalid">
+          <mat-error style="width:200px" class="mr-3" *ngIf="(courseCredit.invalid ||courseCode.invalid 
+            || courseName.invalid) && submitted">
             {{getErrorMessageEmpty()}}
         </mat-error>
 
@@ -94,8 +94,8 @@
           </div>
         </div>
 
-        <mat-error style="width:200px" class="mr-3" *ngIf="courseCreditBilkent.touched && courseCreditBilkent.invalid || courseCodeBilkent.touched && courseCodeBilkent.invalid 
-            || courseNameBilkent.touched && courseNameBilkent.invalid || courseType.touched && courseType.invalid ">
+        <mat-error style="width:200px" class="mr-3" *ngIf="(courseCreditBilkent.invalid || courseCodeBilkent.invalid 
+            || courseNameBilkent.invalid || courseType.invalid) && submitted">
             {{getErrorMessageEmptyBilkent()}}
         </mat-error>
 

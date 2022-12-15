@@ -15,6 +15,7 @@ import { FormControl, Validators } from '@angular/forms';
 export class PreapprovalFormDialogComponent implements OnInit {
 
   error = true;
+  submitted = false;
 
   courseCredit = new FormControl('', [Validators.required]);
   courseCode = new FormControl('', [Validators.required]);
@@ -65,6 +66,16 @@ export class PreapprovalFormDialogComponent implements OnInit {
     let newGroup: RequestedCourseGroup = {id: null,
       requestedCourses: [{id:null, courseCode: null, courseName:null,credits:null}],
       requestedExemptedCourse: {id: null, courseCode: null, courseName: null, courseType: null, credits: null}};
+
+
+      for(let  i = 0; i < newGroup.requestedCourses.length; i++ ) {
+        this.courseCredit = new FormControl('', [Validators.required]);
+        this.courseCode = new FormControl('', [Validators.required]);
+        this.courseName = new FormControl('', [Validators.required]);
+        this.courseType = new FormControl('', [Validators.required]); }
+    
+
+
     if(this.data.requestedCourseGroups){
       this.data.requestedCourseGroups.push(newGroup);
     }
@@ -88,6 +99,7 @@ export class PreapprovalFormDialogComponent implements OnInit {
 
   onSubmit() {
 
+      this.submitted = true;
       this.error = (this.courseCredit.hasError('required') ||  this.courseCode.hasError('required') || this.courseName.hasError('required') ||
         this.courseCreditBilkent.hasError('required') || this.courseCodeBilkent.hasError('required') || this.courseNameBilkent.hasError('required') ||
         this.courseType.hasError('required'));

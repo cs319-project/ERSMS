@@ -14,6 +14,7 @@ import {FormControl, Validators} from '@angular/forms';
 export class CteFormDialogComponent implements OnInit {
 
   error = true;
+  submitted = false;
   studentid = new FormControl('', [Validators.required]);
   courseCredit = new FormControl('', [Validators.required]);
   courseCode = new FormControl('', [Validators.required]);
@@ -81,6 +82,7 @@ export class CteFormDialogComponent implements OnInit {
 
   onSubmit() {
 
+    this.submitted = true;
     this.error = (this.courseCredit.hasError('required') || this.studentid.hasError('required') || this.courseCode.hasError('required') ||
     this.courseName.hasError('required') || this.grade.hasError('required') || this.courseCreditBilkent.hasError('required') || this.courseCodeBilkent.hasError('required') || this.courseNameBilkent.hasError('required') ||
     this.courseType.hasError('required'));

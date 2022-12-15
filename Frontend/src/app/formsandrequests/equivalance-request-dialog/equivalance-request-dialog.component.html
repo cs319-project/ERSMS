@@ -37,8 +37,8 @@
         <span>{{ data.hostCourseName === '' ? "Enter the course name first to upload syllabus." : fileName || "No file uploaded." }}</span>
       </div>
 
-      <mat-error style="width:200px" class="mr-3" *ngIf= "courseCode.touched && courseCode.invalid 
-            || courseName.touched && courseName.invalid">
+      <mat-error style="width:200px" class="mr-3" *ngIf= " (courseCode.invalid 
+            ||courseName.invalid) && submitted">
             {{getErrorMessageEmpty()}}
         </mat-error>
     </div>
@@ -63,8 +63,8 @@
         </mat-form-field >
       </div>
 
-      <mat-error style="width:200px" class="mr-3" *ngIf=" courseCodeBilkent.touched && courseCodeBilkent.invalid 
-      || courseNameBilkent.touched && courseNameBilkent.invalid ">
+      <mat-error style="width:200px" class="mr-3" *ngIf=" (courseCodeBilkent.invalid 
+      ||courseNameBilkent.invalid) && submitted ">
       {{getErrorMessageEmptyBilkent()}}
   </mat-error>
 
