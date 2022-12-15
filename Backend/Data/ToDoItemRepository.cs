@@ -48,7 +48,6 @@ namespace Backend.Data
             return await _context.SaveChangesAsync() > 0;
         }
 
-        // TODO: Check this function
         public async Task<bool> AddToDoItemToAllByDepartment(ToDoItem toDoItem, Department department)
         {
             List<ExchangeCoordinator> coordinators = _context.ExchangeCoordinators.ToList();

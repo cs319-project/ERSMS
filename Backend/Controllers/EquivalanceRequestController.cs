@@ -25,6 +25,7 @@ namespace Backend.Controllers
         [Consumes("multipart/form-data")]
         public async Task<ActionResult> SubmitEquivalanceForm([FromForm] string studentId,
                                                                 [FromForm] string hostCourseName,
+                                                                [FromForm] string hostCourseCode,
                                                                 [FromForm] string additionalNotes,
                                                                 [FromForm] int exemptedCourseCredit,
                                                                 [FromForm] double exemptedCourseECTS,
@@ -45,6 +46,7 @@ namespace Backend.Controllers
                 {
                     StudentId = studentId,
                     HostCourseName = hostCourseName,
+                    HostCourseCode = hostCourseCode,
                     AdditionalNotes = additionalNotes,
                     InstructorApproval = null,
                     FileName = Syllabus.FileName

@@ -311,6 +311,12 @@ namespace Backend.Utilities
                     return "Additional Course";
                 case CourseTypes.ArtsCoreElective:
                     return "Arts Core Elective";
+                case CourseTypes.BreadthElective:
+                    return "Breadth Elective";
+                case CourseTypes.EngineeringElective:
+                    return "Engineering Elective";
+                case CourseTypes.MathElective:
+                    return "Math Elective";
                 default:
                     throw new Exception("CourseType Exception");
             }
@@ -334,6 +340,12 @@ namespace Backend.Utilities
                     return CourseTypes.AdditionalCourse;
                 case "Arts Core Elective":
                     return CourseTypes.ArtsCoreElective;
+                case "Breadth Elective":
+                    return CourseTypes.BreadthElective;
+                case "Math Elective":
+                    return CourseTypes.MathElective;
+                case "Engineering Elective":
+                    return CourseTypes.EngineeringElective;
                 default:
                     throw new Exception("CourseType Exception");
             }

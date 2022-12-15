@@ -8,6 +8,6 @@ namespace Backend.Entities
     // Successfully transfered course pairs
     public class LoggedTransferredCourse : LoggedCourse
     {
-
+        public ICollection<TransferredCourseGroup> TransferredCourseGroups { get; set; }
     }
 }

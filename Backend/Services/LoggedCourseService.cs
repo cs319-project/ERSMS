@@ -21,6 +21,7 @@ namespace Backend.Services
             _mapper = mapper;
         }
 
+        // TODO: Rethink the functions to prevent duplicates
         // Methods
         public async Task<bool> CreateLoggedEquivalantCourse(LoggedEquivalantCourseDto loggedEquivalantCourse)
         {

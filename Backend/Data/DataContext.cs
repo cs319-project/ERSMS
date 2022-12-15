@@ -34,6 +34,12 @@ namespace Backend.Data
             builder.Entity<Student>().Navigation(c => c.ToDoList).AutoInclude();
             builder.Entity<Student>().HasMany<ToDoItem>(c => c.ToDoList);
 
+            builder.Entity<LoggedEquivalantCourse>().Navigation(c => c.ExemptedCourse).AutoInclude();
+            builder.Entity<LoggedEquivalantCourse>().HasOne<ExemptedCourse>(c => c.ExemptedCourse);
+
+            builder.Entity<LoggedTransferredCourse>().Navigation(c => c.TransferredCourseGroups).AutoInclude();
+            builder.Entity<LoggedTransferredCourse>().HasMany<TransferredCourseGroup>(c => c.TransferredCourseGroups);
+
             builder.Entity<CTEForm>().Navigation(c => c.TransferredCourseGroups).AutoInclude();
             builder.Entity<CTEForm>().Navigation(c => c.DeanApproval).AutoInclude();
             builder.Entity<CTEForm>().Navigation(c => c.ChairApproval).AutoInclude();
