@@ -51,6 +51,7 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import { ConfirmationDialogComponent } from './appointments/confirmation-dialog/confirmation-dialog.component';
 import { PreapprovalFormDialogComponent } from './formsandrequests/preapproval-form-dialog/preapproval-form-dialog.component';
+import { EquivalanceRequestDialogComponent } from './formsandrequests/equivalance-request-dialog/equivalance-request-dialog.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { PreapprovalFormDialogComponent } from './formsandrequests/preapproval-f
     CreateAppointmentDialogComponent,
     ConfirmationDialogComponent,
     ScoreTableUploadDialogComponent,
-    PreapprovalFormDialogComponent
+    PreapprovalFormDialogComponent,
+    EquivalanceRequestDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -10,6 +10,8 @@ import {createNewUser, createRandomDialogData, NAMES, SCHOOLS, UserData} from ".
 import {PreApprovalForm} from "../_models/pre-approval-form";
 import {PreapprovalFormDialogComponent} from "./preapproval-form-dialog/preapproval-form-dialog.component";
 import {GUID} from "../../utils/guid";
+import {EquivalanceRequest} from "../_models/equivalance-request";
+import {EquivalanceRequestDialogComponent} from "./equivalance-request-dialog/equivalance-request-dialog.component";
 
 
 
@@ -49,6 +51,7 @@ export class FormsAndRequestsComponent {
   activatedRow = null;
 
   preApprovalForm: PreApprovalForm;
+  equivalanceRequest: EquivalanceRequest;
 
   constructor(private dialog: MatDialog, private _snackBar: MatSnackBar) {
     const users: UserData[] = [];
@@ -158,11 +161,21 @@ export class FormsAndRequestsComponent {
 
   openCreatePreapprovalFormDialog(){
     const dialogConfig = new MatDialogConfig();
-    this.preApprovalForm = {id: new GUID(), firstName:"", lastName:"", idNumber: "", department: "", hostUniversityName: "",
+    this.preApprovalForm = {id: null, firstName:"", lastName:"", idNumber: "", department: "", hostUniversityName: "",
     academicYear: "", semester:"", submissionTime:null, approvalTime: null, requestedCourseGroups: null,
       exchangeCoordinatorApproval: null, facultyAdministrationBoardApproval: null}
     dialogConfig.data = this.preApprovalForm;
 
     const dialogRef = this.dialog.open(PreapprovalFormDialogComponent, dialogConfig);
+  }
+
+  openCreateEquivalanceRequestDialog(){
+    const dialogConfig = new MatDialogConfig();
+    this.equivalanceRequest = {id: null, studentId: null, fileName: null,
+      exemptedCourse: {id:null, courseName: "", courseCode: "", courseType: null, credits: null},
+    instructorApproval: null, additionalNotes: null, hostCourseName: ""};
+    dialogConfig.data = this.equivalanceRequest;
+
+    const dialogRef = this.dialog.open(EquivalanceRequestDialogComponent, dialogConfig);
   }
 }
