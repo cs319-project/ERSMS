@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Backend.DTOs
 {
-    public class EquivalanceRequestDto
+    public class EquivalenceRequestDto
     {
         public Guid Id { get; set; }
         public string StudentId { get; set; }

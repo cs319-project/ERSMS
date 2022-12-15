@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221215183154_InitialMigration")]
+    [Migration("20221215191248_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -229,7 +229,7 @@ namespace Backend.Data.Migrations
                     b.ToTable("DomainUsers");
                 });
 
-            modelBuilder.Entity("Backend.Entities.EquivalanceRequest", b =>
+            modelBuilder.Entity("Backend.Entities.EquivalenceRequest", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -910,7 +910,7 @@ namespace Backend.Data.Migrations
                     b.Navigation("IdentityUser");
                 });
 
-            modelBuilder.Entity("Backend.Entities.EquivalanceRequest", b =>
+            modelBuilder.Entity("Backend.Entities.EquivalenceRequest", b =>
                 {
                     b.HasOne("Backend.Entities.ExemptedCourse", "ExemptedCourse")
                         .WithMany()

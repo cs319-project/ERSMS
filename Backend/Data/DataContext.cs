@@ -34,8 +34,8 @@ namespace Backend.Data
             builder.Entity<Student>().Navigation(c => c.ToDoList).AutoInclude();
             builder.Entity<Student>().HasMany<ToDoItem>(c => c.ToDoList);
 
-            builder.Entity<LoggedEquivalantCourse>().Navigation(c => c.ExemptedCourse).AutoInclude();
-            builder.Entity<LoggedEquivalantCourse>().HasOne<ExemptedCourse>(c => c.ExemptedCourse);
+            builder.Entity<LoggedEquivalentCourse>().Navigation(c => c.ExemptedCourse).AutoInclude();
+            builder.Entity<LoggedEquivalentCourse>().HasOne<ExemptedCourse>(c => c.ExemptedCourse);
 
             builder.Entity<LoggedTransferredCourse>().Navigation(c => c.TransferredCourseGroups).AutoInclude();
             builder.Entity<LoggedTransferredCourse>().HasMany<TransferredCourseGroup>(c => c.TransferredCourseGroups);
@@ -98,10 +98,10 @@ namespace Backend.Data
             builder.Entity<PlacedStudent>().OwnsOne<DepartmentInfo>(c => c.Department);
             builder.Entity<PlacedStudent>().OwnsOne<SemesterInfo>(c => c.PreferredSemester);
 
-            builder.Entity<EquivalanceRequest>().HasOne<Approval>(c => c.InstructorApproval);
-            builder.Entity<EquivalanceRequest>().HasOne<ExemptedCourse>(c => c.ExemptedCourse);
-            builder.Entity<EquivalanceRequest>().Navigation(c => c.ExemptedCourse).AutoInclude();
-            builder.Entity<EquivalanceRequest>().Navigation(c => c.InstructorApproval).AutoInclude();
+            builder.Entity<EquivalenceRequest>().HasOne<Approval>(c => c.InstructorApproval);
+            builder.Entity<EquivalenceRequest>().HasOne<ExemptedCourse>(c => c.ExemptedCourse);
+            builder.Entity<EquivalenceRequest>().Navigation(c => c.ExemptedCourse).AutoInclude();
+            builder.Entity<EquivalenceRequest>().Navigation(c => c.InstructorApproval).AutoInclude();
 
             // builder.Entity<Student>().Property(m => m.Majors).HasConversion(
             //     v => string.Join(',', v),
@@ -148,11 +148,11 @@ namespace Backend.Data
         public DbSet<ToDoItem> ToDoItems { get; set; }
         public DbSet<CTEForm> CTEForms { get; set; }
         public DbSet<PreApprovalForm> PreApprovalForms { get; set; }
-        public DbSet<EquivalanceRequest> EquivalanceRequests { get; set; }
+        public DbSet<EquivalenceRequest> EquivalanceRequests { get; set; }
         public DbSet<Announcement> Announcements { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Message> Messages { get; set; }
-        public DbSet<LoggedEquivalantCourse> LoggedEquivalantCourses { get; set; }
+        public DbSet<LoggedEquivalentCourse> LoggedEquivalantCourses { get; set; }
         public DbSet<LoggedTransferredCourse> LoggedTransferredCourses { get; set; }
     }
 }

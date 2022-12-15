@@ -8,15 +8,15 @@ namespace Backend.Interfaces
 {
     public interface ILoggedCourseRepository
     {
-        Task<bool> CreateLoggedEquivalantCourse(LoggedEquivalantCourse loggedEquivalantCourse);
+        Task<bool> CreateLoggedEquivalantCourse(LoggedEquivalentCourse loggedEquivalantCourse);
         Task<bool> CreateLoggedTransferredCourse(LoggedTransferredCourse loggedTransferredCourse);
-        Task<LoggedEquivalantCourse> GetLoggedEquivalantCourse(Guid id);
+        Task<LoggedEquivalentCourse> GetLoggedEquivalantCourse(Guid id);
         Task<LoggedTransferredCourse> GetLoggedTransferredCourse(Guid id);
-        Task<IEnumerable<LoggedEquivalantCourse>> GetLoggedEquivalantCourses();
+        Task<IEnumerable<LoggedEquivalentCourse>> GetLoggedEquivalantCourses();
         Task<IEnumerable<LoggedTransferredCourse>> GetLoggedTransferredCourses();
         Task<bool> DeleteLoggedEquivalantCourse(Guid id);
         Task<bool> DeleteLoggedTransferredCourse(Guid id);
-        Task<bool> UpdateLoggedEquivalantCourse(LoggedEquivalantCourse loggedEquivalantCourse);
+        Task<bool> UpdateLoggedEquivalantCourse(LoggedEquivalentCourse loggedEquivalantCourse);
         Task<bool> UpdateLoggedTransferredCourse(LoggedTransferredCourse loggedTransferredCourse);
     }
 }

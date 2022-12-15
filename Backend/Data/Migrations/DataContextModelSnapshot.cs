@@ -227,7 +227,7 @@ namespace Backend.Data.Migrations
                     b.ToTable("DomainUsers");
                 });
 
-            modelBuilder.Entity("Backend.Entities.EquivalanceRequest", b =>
+            modelBuilder.Entity("Backend.Entities.EquivalenceRequest", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -908,7 +908,7 @@ namespace Backend.Data.Migrations
                     b.Navigation("IdentityUser");
                 });
 
-            modelBuilder.Entity("Backend.Entities.EquivalanceRequest", b =>
+            modelBuilder.Entity("Backend.Entities.EquivalenceRequest", b =>
                 {
                     b.HasOne("Backend.Entities.ExemptedCourse", "ExemptedCourse")
                         .WithMany()

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace Backend.Entities
 {
     // Accepted equivalance course pairs
-    public class LoggedEquivalantCourse : LoggedCourse
+    public class LoggedEquivalentCourse : LoggedCourse
     {
         public ExemptedCourse ExemptedCourse { get; set; }
         public string HostCourseCode { get; set; }

@@ -53,8 +53,8 @@ namespace Backend
             services.AddScoped<IPreApprovalFormService, PreApprovalFormService>();
             services.AddScoped<IToDoItemRepository, ToDoItemRepository>();
             services.AddScoped<IToDoItemService, ToDoItemService>();
-            services.AddScoped<IEquivalanceRequestRepository, EquivalanceRequestRepository>();
-            services.AddScoped<IEquivalanceRequestService, EquivalanceRequestService>();
+            services.AddScoped<IEquivalenceRequestRepository, EquivalenceRequestRepository>();
+            services.AddScoped<IEquivalenceRequestService, EquivalenceRequestService>();
             services.AddScoped<IAnnouncementRepository, AnnouncementRepository>();
             services.AddScoped<IAnnouncementService, AnnouncementService>();
             services.AddScoped<INotificationRepository, NotificationRepository>();

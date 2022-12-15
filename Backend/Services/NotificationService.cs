@@ -43,7 +43,7 @@ namespace Backend.Services
             }
             else if (formType == FormType.EquivalanceRequest)
             {
-                formId = (formObject as EquivalanceRequest).Id.ToString();
+                formId = (formObject as EquivalenceRequest).Id.ToString();
             }
             else
             {
@@ -87,7 +87,7 @@ namespace Backend.Services
             }
             else if (formType == FormType.EquivalanceRequest)
             {
-                var form = formObject as EquivalanceRequest;
+                var form = formObject as EquivalenceRequest;
                 Student student = await _userService.GetStudent(form.StudentId);
 
                 var notification = new Notification
@@ -124,7 +124,7 @@ namespace Backend.Services
             }
             else if (formType == FormType.EquivalanceRequest)
             {
-                var form = formObject as EquivalanceRequest;
+                var form = formObject as EquivalenceRequest;
                 var temp = await _userService.GetStudent(form.StudentId);
                 firstName = temp.FirstName;
                 lastName = temp.LastName;
@@ -172,7 +172,7 @@ namespace Backend.Services
             }
             else if (formType == FormType.EquivalanceRequest)
             {
-                var form = formObject as EquivalanceRequest;
+                var form = formObject as EquivalenceRequest;
                 var instructors = await _userService.GetCourseCoordinatorsInstructorsByCourseCodeAsync(form.ExemptedCourse.CourseCode);
                 foreach (var instructor in instructors)
                 {

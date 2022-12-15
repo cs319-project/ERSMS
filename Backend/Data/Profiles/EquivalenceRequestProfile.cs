@@ -8,12 +8,12 @@ using Backend.Entities;
 
 namespace Backend.Data.Profiles
 {
-    public class EquivalanceRequestProfile : Profile
+    public class EquivalenceRequestProfile : Profile
     {
         // Constructor
-        public EquivalanceRequestProfile()
+        public EquivalenceRequestProfile()
         {
-            CreateMap<EquivalanceRequest, EquivalanceRequestDto>().ReverseMap();
+            CreateMap<EquivalenceRequest, EquivalenceRequestDto>().ReverseMap();
         }
     }
 }
