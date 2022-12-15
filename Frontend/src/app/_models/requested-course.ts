@@ -4,5 +4,5 @@ export interface RequestedCourse {
   id: GUID;
   courseCode: string;
   courseName: string;
-  credits: number;
+  ECTS: number;
 }
