@@ -4,6 +4,6 @@ export interface TransferredCourse {
   id: GUID;
   courseCode: string;
   courseName: string;
-  credits: number;
+  ECTS: number;
   grade: string;
 }

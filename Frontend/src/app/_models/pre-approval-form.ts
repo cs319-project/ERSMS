@@ -16,4 +16,8 @@ export interface PreApprovalForm {
   requestedCourseGroups: RequestedCourseGroup[];
   exchangeCoordinatorApproval: Approval;
   facultyAdministrationBoardApproval: Approval;
+  isCanceled: boolean;
+  isApproved: boolean;
+  isRejected: boolean;
+  isArchived: boolean;
 }

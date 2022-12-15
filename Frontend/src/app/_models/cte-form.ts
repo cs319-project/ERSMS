@@ -16,4 +16,8 @@ export interface CteForm {
   deanApproval: Approval;
   exchangeCoordinatorApproval: Approval;
   facultyOfAdministrationBoardApproval: Approval;
+  isCanceled: boolean;
+  isApproved: boolean;
+  isRejected: boolean;
+  isArchived: boolean;
 }
