@@ -1,33 +1,35 @@
-import {Component, ViewChild, OnInit, AfterViewInit} from '@angular/core';
-import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
-import {MatSort, Sort} from '@angular/material/sort';
-import { FormDialogComponent } from "./form-dialog/form-dialog.component"
+import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort, Sort } from '@angular/material/sort';
+import { FormDialogComponent } from './form-dialog/form-dialog.component';
 import { SelectionModel } from '@angular/cdk/collections';
-import {createNewUser, createRandomDialogData, NAMES, SCHOOLS, UserData} from "../logging/logging.component";
-import {PreApprovalForm} from "../_models/pre-approval-form";
-import {PreapprovalFormDialogComponent} from "./preapproval-form-dialog/preapproval-form-dialog.component";
-import {GUID} from "../../utils/guid";
-import {EquivalanceRequest} from "../_models/equivalance-request";
-import {EquivalanceRequestDialogComponent} from "./equivalance-request-dialog/equivalance-request-dialog.component";
-import {CteForm} from "../_models/cte-form";
-import {CteFormDialogComponent} from "./cte-form-dialog/cte-form-dialog.component";
-
-
+import {
+  createNewUser,
+  createRandomDialogData,
+  NAMES,
+  SCHOOLS,
+  UserData
+} from '../logging/logging.component';
+import { PreApprovalForm } from '../_models/pre-approval-form';
+import { PreapprovalFormDialogComponent } from './preapproval-form-dialog/preapproval-form-dialog.component';
+import { GUID } from '../../utils/guid';
+import { EquivalanceRequest } from '../_models/equivalance-request';
+import { EquivalanceRequestDialogComponent } from './equivalance-request-dialog/equivalance-request-dialog.component';
+import { CteForm } from '../_models/cte-form';
+import { CteFormDialogComponent } from './cte-form-dialog/cte-form-dialog.component';
 
 @Component({
-    selector: 'app-formsandrequests',
-    templateUrl: './formsandrequests.component.html',
-    styleUrls: ['./formsandrequests.component.css']
-  })
-
+  selector: 'app-formsandrequests',
+  templateUrl: './formsandrequests.component.html',
+  styleUrls: ['./formsandrequests.component.css']
+})
 export class FormsAndRequestsComponent {
-
   displayedColumns = ['id', 'student', 'date', 'type', 'school', 'status'];
   displayedColumns2 = ['id', 'student', 'date', 'school', 'status'];
-  displayedColumns3 = ['id', 'date', 'type', 'status']
+  displayedColumns3 = ['id', 'date', 'type', 'status'];
 
   dataSource: MatTableDataSource<UserData>;
   preapprovalDataSource: MatTableDataSource<UserData>;
@@ -63,24 +65,19 @@ export class FormsAndRequestsComponent {
     const courseequivalenceUsers: UserData[] = [];
     const studentUser: UserData[] = [];
 
+    for (let i = 1; i <= 100; i++) {
+      users.push(createNewUser(i, (status = 'Processing')));
+    }
+    for (let i = 1; i <= 10; i++) {
+      studentUser.push(createNewUser(i));
+    }
 
-    for (let i = 1; i <= 100; i++) {users.push(createNewUser(i, status='Processing'))}
-    for (let i = 1; i <= 10; i++) {studentUser.push(createNewUser(i))}
-
-
-    for(let k = 0; k < users.length; k++) {
-
-      if(users[k].type == 'PreApproval Form') {
-
+    for (let k = 0; k < users.length; k++) {
+      if (users[k].type == 'PreApproval Form') {
         preapprovalUsers.push(users[k]);
-      }
-      else if(users[k].type == 'CTE Form') {
-
+      } else if (users[k].type == 'CTE Form') {
         cteUsers.push(users[k]);
-      }
-
-      else if(users[k].type == 'Course Eq. Request') {
-
+      } else if (users[k].type == 'Course Eq. Request') {
         courseequivalenceUsers.push(users[k]);
       }
     }
@@ -89,10 +86,10 @@ export class FormsAndRequestsComponent {
     this.dataSource = new MatTableDataSource(users);
     this.preapprovalDataSource = new MatTableDataSource(preapprovalUsers);
     this.cteDataSource = new MatTableDataSource(cteUsers);
-    this.courseEquivalenceDataSource = new MatTableDataSource(courseequivalenceUsers);
+    this.courseEquivalenceDataSource = new MatTableDataSource(
+      courseequivalenceUsers
+    );
     this.studentDataSource = new MatTableDataSource(studentUser);
-
-
   }
 
   ngAfterViewInit() {
@@ -108,23 +105,30 @@ export class FormsAndRequestsComponent {
     this.preapprovalDataSource.sort = this.sorter2;
     this.cteDataSource.sort = this.sorter3;
     this.courseEquivalenceDataSource.sort = this.sorter4;
-
   }
 
   _setDataSource(indexNumber) {
     setTimeout(() => {
       switch (indexNumber) {
         case 0:
-          !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
+          !this.dataSource.paginator
+            ? (this.dataSource.paginator = this.paginator)
+            : null;
           break;
         case 1:
-          !this.preapprovalDataSource.paginator ? this.preapprovalDataSource.paginator = this.paginator2 : null;
+          !this.preapprovalDataSource.paginator
+            ? (this.preapprovalDataSource.paginator = this.paginator2)
+            : null;
           break;
         case 2:
-          !this.cteDataSource.paginator ? this.cteDataSource.paginator = this.paginator3 : null;
+          !this.cteDataSource.paginator
+            ? (this.cteDataSource.paginator = this.paginator3)
+            : null;
           break;
         case 3:
-          !this.courseEquivalenceDataSource.paginator ? this.courseEquivalenceDataSource.paginator = this.paginator4 : null;
+          !this.courseEquivalenceDataSource.paginator
+            ? (this.courseEquivalenceDataSource.paginator = this.paginator4)
+            : null;
           break;
       }
     });
@@ -141,7 +145,6 @@ export class FormsAndRequestsComponent {
   }
 
   openDialog(row) {
-
     this.activatedRow = row;
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = createRandomDialogData(this.activatedRow);
@@ -150,7 +153,9 @@ export class FormsAndRequestsComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
-        let message = result ? 'Form is successfully signed.' : 'Form is rejected.';
+        let message = result
+          ? 'Form is successfully signed.'
+          : 'Form is rejected.';
         this.openSnackBar(message, 'Close', 5);
       }
     });
@@ -162,37 +167,90 @@ export class FormsAndRequestsComponent {
     });
   }
 
-  openCreatePreapprovalFormDialog(){
+  openCreatePreapprovalFormDialog() {
     const dialogConfig = new MatDialogConfig();
-    this.preApprovalForm = {id: null, firstName:"", lastName:"", idNumber: "", department: "", hostUniversityName: "",
-    academicYear: "", semester:"", submissionTime:null, approvalTime: null, requestedCourseGroups: null,
-      exchangeCoordinatorApproval: null, facultyAdministrationBoardApproval: null}
+    this.preApprovalForm = {
+      id: null,
+      firstName: '',
+      lastName: '',
+      idNumber: '',
+      department: '',
+      hostUniversityName: '',
+      academicYear: '',
+      semester: '',
+      submissionTime: null,
+      approvalTime: null,
+      requestedCourseGroups: null,
+      exchangeCoordinatorApproval: null,
+      facultyAdministrationBoardApproval: null,
+      isCanceled: false,
+      isArchived: false,
+      isApproved: false,
+      isRejected: false
+    };
     dialogConfig.data = this.preApprovalForm;
 
-    const dialogRef = this.dialog.open(PreapprovalFormDialogComponent, dialogConfig);
+    const dialogRef = this.dialog.open(
+      PreapprovalFormDialogComponent,
+      dialogConfig
+    );
   }
 
-  openCreateEquivalanceRequestDialog(){
+  openCreateEquivalanceRequestDialog() {
     const dialogConfig = new MatDialogConfig();
-    this.equivalanceRequest = {id: null, studentId: null, fileName: null,
-      exemptedCourse: {id:null, courseName: "", courseCode: "", courseType: null, credits: null},
-    instructorApproval: null, additionalNotes: null, hostCourseName: ""};
+    this.equivalanceRequest = {
+      id: null,
+      studentId: null,
+      fileName: null,
+      exemptedCourse: {
+        id: null,
+        courseName: '',
+        courseCode: '',
+        courseType: null,
+        bilkentCredits: null,
+        ECTS: null
+      },
+      instructorApproval: null,
+      additionalNotes: null,
+      hostCourseName: '',
+      hostCourseCode: '',
+      hostCourseECTS: null,
+      isApproved: false,
+      isRejected: false,
+      isArchived: false,
+      isCanceled: false
+    };
     dialogConfig.data = this.equivalanceRequest;
 
-    const dialogRef = this.dialog.open(EquivalanceRequestDialogComponent, dialogConfig);
+    const dialogRef = this.dialog.open(
+      EquivalanceRequestDialogComponent,
+      dialogConfig
+    );
   }
 
   openCreateCTEFormDialog() {
     const dialogConfig = new MatDialogConfig();
-    this.cteForm = {id: null, firstName:"", lastName:"", idNumber: "", department: "", hostUniversityName: "",
-      submissionTime:null, approvalTime: null, transferredCourseGroup: null,
+    this.cteForm = {
+      id: null,
+      firstName: '',
+      lastName: '',
+      idNumber: '',
+      department: '',
+      hostUniversityName: '',
+      submissionTime: null,
+      approvalTime: null,
+      transferredCourseGroup: null,
       exchangeCoordinatorApproval: null,
       facultyOfAdministrationBoardApproval: null,
       deanApproval: null,
-    chairApproval: null};
+      chairApproval: null,
+      isCanceled: false,
+      isArchived: false,
+      isApproved: false,
+      isRejected: false
+    };
     dialogConfig.data = this.cteForm;
 
     const dialogRef = this.dialog.open(CteFormDialogComponent, dialogConfig);
-
   }
 }

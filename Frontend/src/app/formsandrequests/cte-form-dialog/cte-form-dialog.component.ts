@@ -1,9 +1,9 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {CteForm} from "../../_models/cte-form";
-import {RequestedCourseGroup} from "../../_models/requested-course-group";
-import {TransferredCourseGroup} from "../../_models/transferred-course-group";
-import {TransferredCourse} from "../../_models/transferred-course";
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { CteForm } from '../../_models/cte-form';
+import { RequestedCourseGroup } from '../../_models/requested-course-group';
+import { TransferredCourseGroup } from '../../_models/transferred-course-group';
+import { TransferredCourse } from '../../_models/transferred-course';
 
 @Component({
   selector: 'app-cte-form-dialog',
@@ -11,29 +11,59 @@ import {TransferredCourse} from "../../_models/transferred-course";
   styleUrls: ['./cte-form-dialog.component.css']
 })
 export class CteFormDialogComponent implements OnInit {
-  courseTypes: string[] = ["Mandatory Course", "Techincal Elective", "General Elective",
-  "Project Elective", "Social Science Core Elective", "Arts Core Elective", "Additional Course"];
+  courseTypes: string[] = [
+    'Mandatory Course',
+    'Techincal Elective',
+    'General Elective',
+    'Project Elective',
+    'Social Science Core Elective',
+    'Arts Core Elective',
+    'Additional Course'
+  ];
 
-  constructor(    public dialogRef: MatDialogRef<CteFormDialogComponent>,
-                  @Inject(MAT_DIALOG_DATA) public data: CteForm) { }
+  constructor(
+    public dialogRef: MatDialogRef<CteFormDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: CteForm
+  ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onAddGroup() {
-    let newGroup: TransferredCourseGroup = {id: null,
-      transferredCourses: [{id:null, courseCode: null, courseName:null,credits:null, grade:null}],
-      exemptedCourse: {id: null, courseCode: null, courseName: null, courseType: null, credits: null}};
-    if(this.data.transferredCourseGroup){
+    let newGroup: TransferredCourseGroup = {
+      id: null,
+      transferredCourses: [
+        {
+          id: null,
+          courseCode: null,
+          courseName: null,
+          grade: null,
+          ECTS: null
+        }
+      ],
+      exemptedCourse: {
+        id: null,
+        courseCode: null,
+        courseName: null,
+        courseType: null,
+        bilkentCredits: null,
+        ECTS: null
+      }
+    };
+    if (this.data.transferredCourseGroup) {
       this.data.transferredCourseGroup.push(newGroup);
-    }
-    else{
+    } else {
       this.data.transferredCourseGroup = [newGroup];
     }
   }
 
   onAddCourse(courseGroup: TransferredCourseGroup) {
-    let newRequestedCourse: TransferredCourse = {id: null, courseCode: null, courseName: null, credits: null, grade: null};
+    let newRequestedCourse: TransferredCourse = {
+      id: null,
+      courseCode: null,
+      courseName: null,
+      ECTS: null,
+      grade: null
+    };
     courseGroup.transferredCourses.push(newRequestedCourse);
   }
 
@@ -42,7 +72,10 @@ export class CteFormDialogComponent implements OnInit {
   }
 
   onCourseDelete(groupIndex: number, courseIndex: number) {
-    this.data.transferredCourseGroup[groupIndex].transferredCourses.splice(courseIndex,1);
+    this.data.transferredCourseGroup[groupIndex].transferredCourses.splice(
+      courseIndex,
+      1
+    );
   }
 
   onSubmit() {
