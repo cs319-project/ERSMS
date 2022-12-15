@@ -1,6 +1,6 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { AppointmentsComponent } from '../../appointments/appointments.component';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {AppointmentsComponent} from "../../appointments/appointments.component";
 
 @Component({
   selector: 'app-score-table-upload-dialog',
@@ -12,15 +12,14 @@ export class ScoreTableUploadDialogComponent implements OnInit {
   fileName: string;
   uploadClicked = false;
 
-  constructor(
-    public dialogRef: MatDialogRef<AppointmentsComponent>,
-    @Inject(MAT_DIALOG_DATA) public data
-  ) {
+  constructor(public dialogRef: MatDialogRef<AppointmentsComponent>,
+              @Inject(MAT_DIALOG_DATA) public data) {
     this.text = data.text;
     this.fileName = data.fileName;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   closeDialog(): void {
     if (this.uploadClicked) {

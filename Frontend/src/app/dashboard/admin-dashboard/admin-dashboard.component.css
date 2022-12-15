@@ -1,0 +1,58 @@
+.admin-dashboard-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-dashboard-header{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.admin-dashboard-title{
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.admin-dashboard-content{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+}
+
+.user-list{
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.table-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+}
+
+.fnr-header{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.table-entry{
+  display: flex;
+  align-items: center;
+}
+
+.space-btw{
+  justify-content: space-between;
+}
+
+.mat-row.hovered {
+  background: #eee;
+  cursor: pointer !important;
+}
+
+.mat-row.highlighted {
+  background: #eee;
+}

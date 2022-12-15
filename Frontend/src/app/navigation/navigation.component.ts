@@ -144,17 +144,21 @@ export class NavigationComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  openDialog() {
-    const dialogRef = this.dialog.open(AnnouncementComponent, {
-      data: { description: this.announcement }
-    });
+ openDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = { data: { description: this.announcement } };
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = false;
+
+    const dialogRef = this.dialog.open(AnnouncementComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.openSnackBar('Announcement sent', 'Close', 5);
+        this.openSnackBar("Announcement sent", 'Close', 5);
         console.log(result);
       }
     });
+
   }
 
   openSnackBar(message: string, action: string, duration: number) {

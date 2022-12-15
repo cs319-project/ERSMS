@@ -8,8 +8,9 @@ describe('ScoreTableUploadDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ScoreTableUploadDialogComponent]
-    }).compileComponents();
+      declarations: [ ScoreTableUploadDialogComponent ]
+    })
+    .compileComponents();
   });
 
   beforeEach(() => {

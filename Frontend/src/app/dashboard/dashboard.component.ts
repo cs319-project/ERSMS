@@ -19,10 +19,11 @@ import {
   ApexLegend
 } from 'ng-apexcharts';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { createNewUser, UserData } from '../placement/placement.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from '../appointments/confirmation-dialog/confirmation-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ScoreTableUploadDialogComponent } from './score-table-upload-dialog/score-table-upload-dialog.component';
 import { FormBuilder } from '@angular/forms';
@@ -91,7 +92,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   fileName: string;
   displayedColumns = ['name', 'email', 'preferences', 'score'];
-  public dataSource: MatTableDataSource<UserData>;
+  dataSource: MatTableDataSource<UserData>;
   page_index = 0;
 
   department: string = 'CS';
@@ -372,31 +373,35 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = filterValue;
   }
 
+  handlePageEvent(e: PageEvent) {
+    this.page_index = e.pageIndex;
+  }
+
   openSnackBar(message: string, action: string, duration: number) {
     this._snackBar.open(message, action, {
       duration: duration * 1000
     });
   }
 
-  // deleteScoreTable(department: string) {
-  //   const dialogConfig = new MatDialogConfig();
-  //   dialogConfig.data = {
-  //     text: `Are you sure to delete the score table for ${department} department?`
-  //   };
-  //   const dialogRef = this.dialog.open(
-  //     ConfirmationDialogComponent,
-  //     dialogConfig
-  //   );
-  //   dialogRef.afterClosed().subscribe(deleteItem => {
-  //     if (deleteItem) {
-  //       this.openSnackBar(
-  //         `Score table for ${department} department is deleted`,
-  //         'Close',
-  //         5
-  //       );
-  //     }
-  //   });
-  // }
+  deleteScoreTable(department: string) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      text: `Are you sure to delete the score table for ${department} department?`
+    };
+    const dialogRef = this.dialog.open(
+      ConfirmationDialogComponent,
+      dialogConfig
+    );
+    dialogRef.afterClosed().subscribe(deleteItem => {
+      if (deleteItem) {
+        this.openSnackBar(
+          `Score table for ${department} department is deleted`,
+          'Close',
+          5
+        );
+      }
+    });
+  }
 
   onFileSelected(event, department) {
     const file: File = event.target.files[0];
@@ -443,6 +448,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   onDepartmentSelect() {
+    this.dataSource = new MatTableDataSource(
+      this.departmentTables[this.department]
+    );
     this.dataSource = new MatTableDataSource(
       this.departmentTables[this.department]
     );

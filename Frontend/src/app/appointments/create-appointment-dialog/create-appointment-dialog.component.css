@@ -1,0 +1,35 @@
+.header-container{
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.content-container{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.announcement-buttons{
+  display: flex;
+  justify-content: center;
+
+}
+
+.form-pair{
+  display: flex;
+  flex-direction: column;
+}
+
+.full-width{
+  width: 100%;
+}
+
+.mat-form-field{
+  width: 250px;
+}
+
+.time-container{
+  display: flex;
+  align-items: center;
+}
