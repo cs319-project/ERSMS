@@ -61,6 +61,8 @@ namespace Backend
             services.AddScoped<INotificationService, NotificationService>();
             services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<IMessageService, MessageService>();
+            services.AddScoped<ILoggedCourseService, LoggedCourseService>();
+            services.AddScoped<ILoggedCourseRepository, LoggedCourseRepository>();
             //Automappper setup
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies().Where(p => !p.IsDynamic));
             services.AddControllers();
