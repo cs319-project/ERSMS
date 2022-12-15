@@ -19,15 +19,25 @@
             <div class="group-course mt-2">
               <mat-form-field style="width: 150px" appearance="outline">
                 <mat-label>Course Code</mat-label>
-                <input type="search" matInput [(ngModel)]="requestedCourse.courseCode">
+                <input type="search" matInput 
+                [formControl] = "courseCode" required
+                [(ngModel)]="requestedCourse.courseCode"
+                >
               </mat-form-field>
               <mat-form-field style="flex-grow: 1" class="mr-5 ml-5" appearance="outline">
                 <mat-label>Course Name</mat-label>
-                <input type="search" matInput [(ngModel)]="requestedCourse.courseName">
+                <input type="search" 
+                [formControl] = "courseName" required
+                matInput [(ngModel)]="requestedCourse.courseName"
+                >
               </mat-form-field >
               <mat-form-field style="width: 100px" appearance="outline">
                 <mat-label>Credits</mat-label>
-                <input type="number" step="0.5" min="0" matInput [(ngModel)]="requestedCourse.credits">
+                <input type="number" step="0.5"
+                 min="0"
+                 [formControl] = "courseCredit" required
+                 matInput [(ngModel)]="requestedCourse.credits"
+                 >
               </mat-form-field>
               <div class="delete-course-btn">
                 <button mat-icon-button *ngIf="courseGroup.requestedCourses.length > 1" (click)="onCourseDelete(groupIndex, courseIndex)">
@@ -36,6 +46,11 @@
               </div>
             </div>
           </div>
+          <mat-error style="width:200px" class="mr-3" *ngIf="courseCredit.touched && courseCredit.invalid || courseCode.touched && courseCode.invalid 
+            || courseName.touched && courseName.invalid">
+            {{getErrorMessageEmpty()}}
+        </mat-error>
+
         </div>
         <div class="bilkent-course-container">
           <span class="course-group-subtitle">Bilkent Requirement</span>
@@ -46,7 +61,8 @@
                 style="flex-grow: 1; text-align: center"
                 class="ml-2">
                 <mat-select
-                  [(ngModel)]="courseGroup.requestedExemptedCourse.courseType">
+                  [(ngModel)]="courseGroup.requestedExemptedCourse.courseType"
+                  [formControl] = "courseType" required>
                   <mat-option *ngFor="let dep of courseTypes" [value]="dep">
                     {{ dep }}
                   </mat-option>
@@ -56,20 +72,33 @@
             <div class="course-info">
               <mat-form-field style="width: 150px" appearance="outline">
                 <mat-label>Course Code</mat-label>
-                <input type="search" matInput [(ngModel)]="courseGroup.requestedExemptedCourse.courseCode">
+                <input type="search" matInput 
+                [formControl] = "courseCodeBilkent" required
+                [(ngModel)]="courseGroup.requestedExemptedCourse.courseCode">
               </mat-form-field>
               <mat-form-field style="flex-grow: 1" class="mr-5 ml-5" appearance="outline">
                 <mat-label>Course Name</mat-label>
-                <input type="search" matInput [(ngModel)]="courseGroup.requestedExemptedCourse.courseName">
+                <input type="search" 
+                [formControl] = "courseNameBilkent" required
+                matInput [(ngModel)]="courseGroup.requestedExemptedCourse.courseName">
               </mat-form-field >
               <mat-form-field style="width: 100px" appearance="outline">
                 <mat-label>Credits</mat-label>
-                <input type="number" step="0.5" min="0" matInput [(ngModel)]="courseGroup.requestedExemptedCourse.credits">
+                <input type="number" 
+                step="0.5" min="0" 
+                [formControl] = "courseCreditBilkent" required
+                matInput [(ngModel)]="courseGroup.requestedExemptedCourse.credits">
               </mat-form-field>
               <div style="width: 40px"></div>
             </div>
           </div>
         </div>
+
+        <mat-error style="width:200px" class="mr-3" *ngIf="courseCreditBilkent.touched && courseCreditBilkent.invalid || courseCodeBilkent.touched && courseCodeBilkent.invalid 
+            || courseNameBilkent.touched && courseNameBilkent.invalid || courseType.touched && courseType.invalid ">
+            {{getErrorMessageEmptyBilkent()}}
+        </mat-error>
+
       </div>
 
     </div>
@@ -82,4 +111,3 @@
 
   </div>
 </div>
-

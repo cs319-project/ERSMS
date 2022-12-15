@@ -8,22 +8,27 @@
       <div class="course-info">
         <mat-form-field style="width: 150px" appearance="outline">
           <mat-label>Course Code</mat-label>
-          <input type="search" matInput>
+          <input type="search" 
+          [formControl] = "courseCode" required
+          matInput>
         </mat-form-field>
         <mat-form-field style="flex-grow: 1" class="mr-5 ml-5" appearance="outline">
           <mat-label>Course Name</mat-label>
-          <input type="search" matInput [(ngModel)]="data.hostCourseName">
+          <input type="search" 
+          [formControl] = "courseName" required
+          matInput [(ngModel)]="data.hostCourseName">
         </mat-form-field >
       </div>
       <input
         type="file"
         class="file-input"
+        [formControl] = "file" required
         [accept]="requiredFileType"
         (change)="onFileSelected($event)"
         #fileUpload
         hidden />
 
-      <!--TODO: reconsider button disable logic. course code?-->
+    
       <div class="file-upload">
         <button [disabled]="data.hostCourseName === ''" class="mr-2" mat-raised-button (click)="fileUpload.click()">
           <span>Upload Syllabus</span
@@ -31,19 +36,38 @@
         </button>
         <span>{{ data.hostCourseName === '' ? "Enter the course name first to upload syllabus." : fileName || "No file uploaded." }}</span>
       </div>
+
+      <mat-error style="width:200px" class="mr-3" *ngIf= "courseCode.touched && courseCode.invalid 
+            || courseName.touched && courseName.invalid">
+            {{getErrorMessageEmpty()}}
+        </mat-error>
     </div>
+
+
     <div class="course-container mb-4">
       <span class="request-subtitle">Bilkent University Course</span>
       <div class="course-info">
         <mat-form-field style="width: 150px" appearance="outline">
           <mat-label>Course Code</mat-label>
-          <input type="search" matInput [(ngModel)]="data.exemptedCourse.courseCode">
+          <input type="search" 
+          [formControl] = "courseCodeBilkent" required
+          matInput [(ngModel)]="data.exemptedCourse.courseCode"
+          >
         </mat-form-field>
         <mat-form-field style="flex-grow: 1" class="mr-5 ml-5" appearance="outline">
           <mat-label>Course Name</mat-label>
-          <input type="search" matInput [(ngModel)]="data.exemptedCourse.courseName">
+          <input type="search" 
+          [formControl] = "courseNameBilkent" required
+          matInput [(ngModel)]="data.exemptedCourse.courseName"
+          >
         </mat-form-field >
       </div>
+
+      <mat-error style="width:200px" class="mr-3" *ngIf=" courseCodeBilkent.touched && courseCodeBilkent.invalid 
+      || courseNameBilkent.touched && courseNameBilkent.invalid ">
+      {{getErrorMessageEmptyBilkent()}}
+  </mat-error>
+
     </div>
     <div class="notes-container">
       <span class="request-subtitle">Additional Notes</span>

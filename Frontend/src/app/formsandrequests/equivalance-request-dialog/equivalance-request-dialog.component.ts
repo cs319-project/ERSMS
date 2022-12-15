@@ -6,6 +6,7 @@ import {
 } from "../../dashboard/score-table-upload-dialog/score-table-upload-dialog.component";
 import {ToastrService} from "ngx-toastr";
 import {FileUploadService} from "../../_services/file-upload.service";
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-equivalance-request-dialog',
@@ -13,6 +14,29 @@ import {FileUploadService} from "../../_services/file-upload.service";
   styleUrls: ['./equivalance-request-dialog.component.css']
 })
 export class EquivalanceRequestDialogComponent implements OnInit {
+
+  error = true;
+  courseCode = new FormControl('', [Validators.required]);
+  courseName = new FormControl('', [Validators.required]);
+
+  file = new FormControl('', [Validators.required]);
+  courseCodeBilkent = new FormControl('', [Validators.required]);
+  courseNameBilkent = new FormControl('', [Validators.required]);
+
+  getErrorMessageEmpty() {
+    return this.courseCode.hasError('required') ? 'All fields must be filled' :
+      this.courseName.hasError('required') ? 'All fields must be filled' :
+            '';
+  }
+
+  getErrorMessageEmptyBilkent() {
+
+    return this.courseCodeBilkent.hasError('required') ? 'All fields must be filled' :
+      this.courseNameBilkent.hasError('required') ? 'All fields must be filled' :
+            '';
+
+  }
+
   @Input()
   requiredFileType: string; // TODO: set file type
   fileName: string = "";
@@ -28,8 +52,15 @@ export class EquivalanceRequestDialogComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.data);
-    this.dialogRef.close(this.data);
+
+    this.error = ( this.courseCode.hasError('required') || this.courseName.hasError('required') ||
+        this.courseCodeBilkent.hasError('required') || this.courseNameBilkent.hasError('required') );
+
+      if(!this.error) {
+        console.log(this.data);
+        this.dialogRef.close(this.data);
+      }
+
   }
 
   onFileSelected(event) {
