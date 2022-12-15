@@ -13,8 +13,9 @@ import { DeanDepartmentChair } from '../_models/dean-department-chair';
 import { CourseCoordinatorInstructor } from '../_models/course-coordinator-instructor';
 import { ActorsType } from '../_types/actors-type';
 import { ActorsEnum } from '../_models/enum/actors-enum';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { DomainUser } from '../_models/domain-user';
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +27,9 @@ export class UserService {
 
   getUserDetails(userName: string, roles: any) {
     return this.http.get(this.baseUrl + userName);
+  }
+
+  getUsers(): Observable<DomainUser[]> {
+    return this.http.get<DomainUser[]>(this.baseUrl);
   }
 }

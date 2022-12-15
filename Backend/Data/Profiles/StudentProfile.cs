@@ -9,7 +9,7 @@ namespace Backend.Data.Profiles
     {
         public StudentProfile()
         {
-            CreateMap<StudentDto, Student>().ReverseMap().ForMember(dest => dest.ActorType, opt => opt.MapFrom(src => "Student"));
+            CreateMap<StudentDto, Student>().ReverseMap();
             CreateMap<SemesterInfo, SemesterInfoDto>().ReverseMap();
             //CreateMap<PreApprovalForm, PreApprovalFormDto>().ReverseMap();
             //CreateMap<ExemptionRequestForm, ExemptionRequestFormDto>().ReverseMap();

@@ -12,7 +12,7 @@ namespace Backend.Data.Profiles
     {
         public OISEPProfile()
         {
-            CreateMap<OISEPDto, OISEP>().ReverseMap().ForMember(dest => dest.ActorType, opt => opt.MapFrom(src => "Office of International Students and Exchange Programs"));
+            CreateMap<OISEPDto, OISEP>().ReverseMap();
         }
     }
 }

@@ -30,5 +30,6 @@ namespace Backend.Interfaces
         Task<IEnumerable<Student>> GetStudentsAsync();
         Task<IEnumerable<CourseCoordinatorInstructor>> GetCourseCoordinatorInstructorsAsync();
         Task<bool> UpdateDomainUser(DomainUser domainUser);
+        Task<IEnumerable<DomainUser>> GetDomainUsers();
     }
 }

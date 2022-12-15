@@ -83,6 +83,15 @@
       </mat-list-item>
     </mat-nav-list>
 
+    <mat-nav-list *ngIf="this.role === actorsEnum.Admin">
+      <mat-list-item
+        routerLink="/dashboard"
+        routerLinkActive="active-list-item">
+        <mat-icon>dashboard</mat-icon>
+        <span>Dashboard</span>
+      </mat-list-item>
+    </mat-nav-list>
+
     <mat-nav-list *ngIf="this.role === actorsEnum.Student">
       <mat-list-item
         routerLink="/dashboard"
@@ -98,7 +107,9 @@
 
     <mat-nav-list
       *ngIf="
-        this.role !== actorsEnum.OISEP && this.role !== actorsEnum.Student
+        this.role !== actorsEnum.OISEP &&
+        this.role !== actorsEnum.Student &&
+        this.role !== actorsEnum.Admin
       ">
       <mat-list-item routerLink="/dashboard">
         <mat-icon svgIcon="dashboard" class="m-2"></mat-icon>

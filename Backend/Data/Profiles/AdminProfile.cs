@@ -12,7 +12,7 @@ namespace Backend.Data.Profiles
     {
         public AdminProfile()
         {
-            CreateMap<AdminDto, Admin>().ReverseMap().ForMember(dest => dest.ActorType, opt => opt.MapFrom(src => "Admin"));
+            CreateMap<AdminDto, Admin>().ReverseMap();
         }
     }
 }

@@ -212,6 +212,9 @@ namespace Backend.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("ActorType")
+                        .HasColumnType("INTEGER");
+
                     b.Property<Guid>("AppUserId")
                         .HasColumnType("TEXT");
 

@@ -12,7 +12,7 @@ namespace Backend.Data.Profiles
     {
         public DeanDepartmentChairProfile()
         {
-            CreateMap<DeanDepartmentChairDto, DeanDepartmentChair>().ReverseMap().ForMember(dest => dest.ActorType, opt => opt.MapFrom(src => "Dean Department Chair"));
+            CreateMap<DeanDepartmentChairDto, DeanDepartmentChair>().ReverseMap();
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Backend.Data.Profiles
     {
         public CourseCoordinatorInstructorProfile()
         {
-            CreateMap<CourseCoordinatorInstructorDto, CourseCoordinatorInstructor>().ReverseMap().ForMember(dest => dest.ActorType, opt => opt.MapFrom(src => "Course Coordinator Instructor"));
+            CreateMap<CourseCoordinatorInstructorDto, CourseCoordinatorInstructor>().ReverseMap();
         }
     }
 }

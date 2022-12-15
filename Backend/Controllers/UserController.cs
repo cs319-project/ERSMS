@@ -23,5 +23,12 @@ namespace Backend.Controllers
             return user != null ? Ok(user) : NotFound();
         }
 
+        [HttpGet]
+        public async Task<ActionResult> GetUsers()
+        {
+            var users = await _userService.GetUsers();
+            return users != null ? Ok(users) : NotFound();
+        }
+
     }
 }

@@ -138,5 +138,10 @@ namespace Backend.Data
             _context.DomainUsers.Update(domainUser);
             return await _context.SaveChangesAsync() > 0;
         }
+
+        public async Task<IEnumerable<DomainUser>> GetDomainUsers()
+        {
+            return await _context.DomainUsers.ToListAsync();
+        }
     }
 }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Backend.DTOs;
 using Backend.Entities;
+using Backend.Utilities;
 
 namespace Backend.Data.Profiles
 {
@@ -12,7 +13,7 @@ namespace Backend.Data.Profiles
     {
         public DomainUserProfile()
         {
-            CreateMap<DomainUserDto, DomainUser>().ReverseMap();
+            CreateMap<DomainUserDto, DomainUser>().ReverseMap().ForMember(dest => dest.ActorType, opt => opt.MapFrom(src => EnumStringify.ActorStringify(src.ActorType)));
         }
     }
 }

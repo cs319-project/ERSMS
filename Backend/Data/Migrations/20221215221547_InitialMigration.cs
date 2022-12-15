@@ -271,7 +271,8 @@ namespace Backend.Data.Migrations
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     FirstName = table.Column<string>(type: "TEXT", nullable: false),
                     LastName = table.Column<string>(type: "TEXT", nullable: false),
-                    AppUserId = table.Column<Guid>(type: "TEXT", nullable: false)
+                    AppUserId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    ActorType = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

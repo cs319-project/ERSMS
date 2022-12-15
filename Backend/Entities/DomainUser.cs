@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend.Utilities.Enum;
 
 /*
     Actor based inheritance is problematic in .NET. We either choose to have a single class
@@ -25,6 +26,7 @@ namespace Backend.Entities
         [Required] public string FirstName { get; set; }
         [Required] public string LastName { get; set; }
         [Required] public Guid AppUserId { get; private set; }
+        [Required] public Actors ActorType { get; set; }
         public AppUser IdentityUser { get; set; }
         public List<Message> MessagesSent { get; set; } = new List<Message>();
         public List<Message> MessagesReceived { get; set; } = new List<Message>();

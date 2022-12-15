@@ -12,7 +12,7 @@ namespace Backend.Interfaces
     {
         void Update(AppUser user);
         Task<Object> GetUser(string username);
-        Task<IEnumerable<AppUser>> GetUsersAsync();
+        Task<IEnumerable<DomainUserDto>> GetUsers();
         Task<AppUser> GetUserByIdAsync(int id);
         Task<AppUser> GetUserByUsernameAsync(string username);
         Task<ExchangeCoordinator> GetExchangeCoordinator(string username);

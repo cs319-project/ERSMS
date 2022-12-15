@@ -111,9 +111,10 @@ namespace Backend.Services
             return await _userRepository.GetUser(username);
         }
 
-        public Task<IEnumerable<AppUser>> GetUsersAsync()
+        public async Task<IEnumerable<DomainUserDto>> GetUsers()
         {
-            throw new NotImplementedException();
+            var users = await _userRepository.GetDomainUsers();
+            return _mapper.Map<IEnumerable<DomainUserDto>>(users);
         }
 
         public void Update(AppUser user)

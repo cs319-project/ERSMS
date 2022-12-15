@@ -17,8 +17,9 @@ namespace Backend.Utilities
         public static DomainUser Create(string actorType, Action<DomainUser> initializer, string userName)
         {
             DomainUser domainUser = null;
+            var actor = EnumStringify.ActorEnumarator(actorType);
 
-            switch (EnumStringify.ActorEnumarator(actorType))
+            switch (actor)
             {
                 case Actors.Student:
                     domainUser = new Student();
@@ -42,6 +43,7 @@ namespace Backend.Utilities
                     throw new System.ArgumentException("Invalid actor type");
             }
 
+            domainUser.ActorType = actor;
             initializer(domainUser);
             return domainUser;
         }

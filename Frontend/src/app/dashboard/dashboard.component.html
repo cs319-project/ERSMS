@@ -79,6 +79,10 @@
   </p>
 </div>
 
+<div *ngIf="this.role === actorsEnum.Admin">
+  <app-admin-dashboard></app-admin-dashboard>
+</div>
+
 <!-- <div class="st-content mt-4">
         <div style="width: 100% !important">
           <h4>Preview</h4>
