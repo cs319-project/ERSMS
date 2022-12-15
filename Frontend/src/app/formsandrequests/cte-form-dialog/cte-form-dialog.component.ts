@@ -4,6 +4,7 @@ import {CteForm} from "../../_models/cte-form";
 import {RequestedCourseGroup} from "../../_models/requested-course-group";
 import {TransferredCourseGroup} from "../../_models/transferred-course-group";
 import {TransferredCourse} from "../../_models/transferred-course";
+import {FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-cte-form-dialog',
@@ -11,6 +12,15 @@ import {TransferredCourse} from "../../_models/transferred-course";
   styleUrls: ['./cte-form-dialog.component.css']
 })
 export class CteFormDialogComponent implements OnInit {
+
+  courseCredit = new FormControl('', [Validators.required, Validators.pattern("[0-9]+")]);
+
+  getErrorMessage() {
+    return this.courseCredit.hasError('required') ? 'You must enter a value' :
+        this.courseCredit.hasError('pattern') ? 'Only numbers allowed' :
+            '';
+  }
+
   courseTypes: string[] = ["Mandatory Course", "Techincal Elective", "General Elective",
   "Project Elective", "Social Science Core Elective", "Arts Core Elective", "Additional Course"];
 

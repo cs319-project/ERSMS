@@ -31,8 +31,14 @@
               </mat-form-field >
               <mat-form-field style="width:85px" class="mr-3" appearance="outline">
                 <mat-label>Credits</mat-label>
-                <input type="search" matInput [(ngModel)]="transferredCourse.credits">
+                <input type="search" matInput 
+                [formControl] = "courseCredit" required
+                [(ngModel)]="transferredCourse.credits"
+                >
               </mat-form-field>
+              <mat-error style="width:100px" class="mr-3" *ngIf="courseCredit.touched && courseCredit.invalid">
+                {{getErrorMessage()}}
+            </mat-error>
               <mat-form-field style="width:75px" appearance="outline">
                 <mat-label>Grade</mat-label>
                 <input type="search" matInput [(ngModel)]="transferredCourse.grade">
@@ -89,4 +95,3 @@
 
   </div>
 </div>
-
