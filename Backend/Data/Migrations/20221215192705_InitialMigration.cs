@@ -31,6 +31,7 @@ namespace Backend.Data.Migrations
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: true),
                     DateOfApproval = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Comment = table.Column<string>(type: "TEXT", nullable: true),
                     IsApproved = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>

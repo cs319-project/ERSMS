@@ -90,7 +90,7 @@ namespace Backend.Services
         public async Task<ICollection<EquivalenceRequestDto>> GetEquivalenceRequestsOfStudent(string studentID)
         {
             Student student = await _userRepository.GetStudentByUserName(studentID);
-            ICollection<EquivalenceRequestDto> equivalanceRequests = _mapper.Map<ICollection<EquivalenceRequestDto>>(student.EquivalanceRequestForms);
+            ICollection<EquivalenceRequestDto> equivalanceRequests = _mapper.Map<ICollection<EquivalenceRequestDto>>(student.EquivalenceRequestForms);
             return equivalanceRequests;
         }
 

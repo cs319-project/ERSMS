@@ -21,7 +21,7 @@ namespace Backend.Data
         // Methods
         public async Task<bool> CreateLoggedEquivalantCourse(LoggedEquivalentCourse loggedEquivalantCourse)
         {
-            _context.LoggedEquivalantCourses.Add(loggedEquivalantCourse);
+            _context.LoggedEquivalentCourses.Add(loggedEquivalantCourse);
             return await _context.SaveChangesAsync() > 0;
         }
 
@@ -33,7 +33,7 @@ namespace Backend.Data
 
         public async Task<bool> DeleteLoggedEquivalantCourse(Guid id)
         {
-            var course = await _context.LoggedEquivalantCourses.FindAsync(id);
+            var course = await _context.LoggedEquivalentCourses.FindAsync(id);
             if (course == null)
                 return false;
 
@@ -51,12 +51,12 @@ namespace Backend.Data
 
         public async Task<LoggedEquivalentCourse> GetLoggedEquivalantCourse(Guid id)
         {
-            return await _context.LoggedEquivalantCourses.FindAsync(id);
+            return await _context.LoggedEquivalentCourses.FindAsync(id);
         }
 
         public async Task<IEnumerable<LoggedEquivalentCourse>> GetLoggedEquivalantCourses()
         {
-            return await _context.LoggedEquivalantCourses.ToListAsync();
+            return await _context.LoggedEquivalentCourses.ToListAsync();
         }
 
         public async Task<LoggedTransferredCourse> GetLoggedTransferredCourse(Guid id)
@@ -71,7 +71,7 @@ namespace Backend.Data
 
         public async Task<bool> UpdateLoggedEquivalantCourse(LoggedEquivalentCourse loggedEquivalantCourse)
         {
-            _context.LoggedEquivalantCourses.Update(loggedEquivalantCourse);
+            _context.LoggedEquivalentCourses.Update(loggedEquivalantCourse);
             return await _context.SaveChangesAsync() > 0;
         }
 

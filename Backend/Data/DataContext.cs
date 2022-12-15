@@ -57,7 +57,7 @@ namespace Backend.Data
             builder.Entity<Student>().Navigation(s => s.Minors).AutoInclude();
             builder.Entity<Student>().Navigation(s => s.CTEForms).AutoInclude();
             builder.Entity<Student>().Navigation(s => s.PreApprovalForms).AutoInclude();
-            builder.Entity<Student>().Navigation(s => s.EquivalanceRequestForms).AutoInclude();
+            builder.Entity<Student>().Navigation(s => s.EquivalenceRequestForms).AutoInclude();
 
             builder.Entity<DeanDepartmentChair>().OwnsOne<DepartmentInfo>(c => c.Department);
             builder.Entity<ExchangeCoordinator>().OwnsOne<DepartmentInfo>(c => c.Department);
@@ -152,7 +152,7 @@ namespace Backend.Data
         public DbSet<Announcement> Announcements { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Message> Messages { get; set; }
-        public DbSet<LoggedEquivalentCourse> LoggedEquivalantCourses { get; set; }
+        public DbSet<LoggedEquivalentCourse> LoggedEquivalentCourses { get; set; }
         public DbSet<LoggedTransferredCourse> LoggedTransferredCourses { get; set; }
     }
 }

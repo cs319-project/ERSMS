@@ -30,7 +30,7 @@ namespace Backend.Entities
 
         public ICollection<PreApprovalForm> PreApprovalForms { get; set; }
 
-        public ICollection<EquivalenceRequest> EquivalanceRequestForms { get; set; }
+        public ICollection<EquivalenceRequest> EquivalenceRequestForms { get; set; }
 
         public ICollection<ToDoItem> ToDoList { get; set; }
     }

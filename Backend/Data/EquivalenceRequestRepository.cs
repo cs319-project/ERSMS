@@ -24,12 +24,12 @@ namespace Backend.Data
         {
             var student = _context.Students.FirstOrDefault(x => x.IdentityUser.UserName == userName);
 
-            if (student.EquivalanceRequestForms == null) // if student has no equivalance requests
+            if (student.EquivalenceRequestForms == null) // if student has no equivalance requests
             {
-                student.EquivalanceRequestForms = new List<EquivalenceRequest>();
+                student.EquivalenceRequestForms = new List<EquivalenceRequest>();
             }
 
-            student.EquivalanceRequestForms.Add(equivalenceRequest);
+            student.EquivalenceRequestForms.Add(equivalenceRequest);
             return await _context.SaveChangesAsync() > 0;
         }
 

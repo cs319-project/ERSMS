@@ -47,6 +47,9 @@ namespace Backend.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Comment")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("DateOfApproval")
                         .HasColumnType("TEXT");
 
@@ -313,7 +316,7 @@ namespace Backend.Data.Migrations
                     b.ToTable("ExemptedCourse");
                 });
 
-            modelBuilder.Entity("Backend.Entities.LoggedEquivalantCourse", b =>
+            modelBuilder.Entity("Backend.Entities.LoggedEquivalentCourse", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -927,7 +930,7 @@ namespace Backend.Data.Migrations
                     b.Navigation("InstructorApproval");
                 });
 
-            modelBuilder.Entity("Backend.Entities.LoggedEquivalantCourse", b =>
+            modelBuilder.Entity("Backend.Entities.LoggedEquivalentCourse", b =>
                 {
                     b.HasOne("Backend.Entities.ExemptedCourse", "ExemptedCourse")
                         .WithMany()

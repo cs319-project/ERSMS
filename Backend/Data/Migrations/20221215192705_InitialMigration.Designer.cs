@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221215191248_InitialMigration")]
+    [Migration("20221215192705_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,6 +47,9 @@ namespace Backend.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Comment")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DateOfApproval")
@@ -315,7 +318,7 @@ namespace Backend.Data.Migrations
                     b.ToTable("ExemptedCourse");
                 });
 
-            modelBuilder.Entity("Backend.Entities.LoggedEquivalantCourse", b =>
+            modelBuilder.Entity("Backend.Entities.LoggedEquivalentCourse", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -929,7 +932,7 @@ namespace Backend.Data.Migrations
                     b.Navigation("InstructorApproval");
                 });
 
-            modelBuilder.Entity("Backend.Entities.LoggedEquivalantCourse", b =>
+            modelBuilder.Entity("Backend.Entities.LoggedEquivalentCourse", b =>
                 {
                     b.HasOne("Backend.Entities.ExemptedCourse", "ExemptedCourse")
                         .WithMany()
