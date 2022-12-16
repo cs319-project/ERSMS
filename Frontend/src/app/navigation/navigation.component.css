@@ -66,9 +66,3 @@
      causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
   flex: 1;
 }
-
-.active-list-item {
-  background-color: rgba(196, 196, 196, 0.1) !important;
-  /* add a tiny indicator on the left */
-  border-left: 3px solid #0081FF;
-}
