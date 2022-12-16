@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { PlacementTable } from 'src/app/_models/placement-table';
+import { PlacementService } from 'src/app/_services/placement.service';
 import * as XLSX from 'xlsx';
 
 type AOA = any[][];
@@ -11,46 +12,54 @@ type AOA = any[][];
 })
 export class ExcelTableComponent implements OnInit, OnChanges {
   @Input() file: PlacementTable;
-  data: AOA = [
-    [1, 2],
-    [3, 4]
-  ];
+  data: AOA = [];
   wopts: XLSX.WritingOptions = { bookType: 'xlsx', type: 'array' };
   fileName: string = 'SheetJS.xlsx';
 
-  constructor() {}
+  constructor(private placementService: PlacementService) {}
 
   ngOnInit(): void {
     this.onFileChange(null);
   }
 
   ngOnChanges(): void {
-    console.log('ngOnChanges');
+    this.onFileChange(null);
   }
   onFileChange(evt: any) {
-    console.log('onFileChange');
-    /* read workbook */
+    // console.log('onFileChange');
+    // /* read workbook */
     // const wb: XLSX.WorkBook = XLSX.read(this.excelBlob, { type: 'binary' });
-
-    // /* grab first sheet */
+    // // /* grab first sheet */
     // const wsname: string = wb.SheetNames[0];
     // const ws: XLSX.WorkSheet = wb.Sheets[wsname];
-
-    // /* save data */
+    // // /* save data */
     // this.data = <AOA>XLSX.utils.sheet_to_json(ws, { header: 1 });
     // console.log(this.data);
-    console.log(this.file);
+    this.placementService
+      .downloadPlacementTable(this.file.id)
+      .toPromise()
+      .then(res => {
+        //construct blob
+        this.blobToArrayBuffer(res).then(res => {
+          const wb: XLSX.WorkBook = XLSX.read(res, {
+            type: 'buffer'
+          });
+          const wsname: string = wb.SheetNames[0];
+          const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+          this.data = <AOA>XLSX.utils.sheet_to_json(ws, { header: 1 });
+          console.log(this.data);
+        });
+      });
   }
 
-  export(): void {
-    /* generate worksheet */
-    const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(this.data);
+  async blobToArrayBuffer(blob: Blob) {
+    if ('arrayBuffer' in blob) return await blob.arrayBuffer();
 
-    /* generate workbook and add the worksheet */
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-
-    /* save to file */
-    XLSX.writeFile(wb, this.fileName);
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => reject();
+      reader.readAsArrayBuffer(blob);
+    });
   }
 }

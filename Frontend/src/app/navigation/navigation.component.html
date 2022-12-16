@@ -28,7 +28,7 @@
       <span
         ><strong>{{ name }}</strong>
       </span>
-      <span>{{ role }}</span>
+      <span>{{ this.role === actorsEnum.OISEP ? "OISEP" : role }}</span>
     </div>
 
     <button mat-icon-button [matMenuTriggerFor]="settingsMenu">
@@ -52,6 +52,7 @@
 
 <mat-menu #settingsMenu="matMenu">
   <div
+    *ngIf="this.role !== actorsEnum.OISEP && this.role !== actorsEnum.Student"
     mat-menu-item
     style="display: flex; align-items: center; height: 50px"
     (click)="openDialog()">

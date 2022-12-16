@@ -60,13 +60,8 @@
     </div>
     <div class="">
       <div style="width: 100%">
-        <span>
-          <br />
-          <h4>Preview</h4>
-        </span>
         <div *ngIf="this.placementTable">
-          <app-excel-table
-            [placementTable]="this.placementTable"></app-excel-table>
+          <app-excel-table [file]="this.placementTable"></app-excel-table>
         </div>
       </div>
     </div>

@@ -15,17 +15,13 @@ import { UserService } from '../../_services/user.service';
 export class AdminDashboardComponent implements OnInit {
   dataSource: MatTableDataSource<DomainUser>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
   users: DomainUser[];
   activatedRow = null;
   displayedColumns = ['firstName', 'lastName', 'role'];
   selection = new SelectionModel<UserData>(true, []);
 
   constructor(private userService: UserService) {
-    this.getUsers();
-  }
-
-  getUsers() {
     this.userService
       .getUsers()
       .toPromise()
@@ -38,6 +34,11 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dataSource.sort = this.sort;
+    this.userService.getUsers().subscribe((users: DomainUser[]) => {
+      this.users = users;
+      this.dataSource.data = this.users;
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
   }
 }
