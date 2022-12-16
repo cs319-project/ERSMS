@@ -11,8 +11,7 @@ import {FacultiesEnum} from "../../../_models/enum/faculties-enum";
   styleUrls: ['./user-dialog.component.css']
 })
 export class UserDialogComponent implements OnInit {
-  userTypes: string[] = [ActorsEnum.OISEP, ActorsEnum.Student, ActorsEnum.ExchangeCoordinator,
-  ActorsEnum.CourseCoordinatorInstructor, ActorsEnum.DeanDepartmentChair];
+  userTypes: string[] = Object.values(ActorsEnum);
   departments: string[] = Object.keys(DepartmentsEnum);
   faculties: string[]  = Object.values(FacultiesEnum);
 

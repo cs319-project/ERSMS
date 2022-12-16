@@ -4,13 +4,10 @@
   </div>
   <div class="user-content">
     <div class="user-type">
-      <span class="mr-3">User Type:</span>
-      <mat-form-field style="flex-grow: 1; text-align: center" class="ml-2">
-        <mat-select [(ngModel)]="data.userType">
-          <mat-option *ngFor="let type of userTypes" [value]="type">
-            {{ type }}
-          </mat-option>
-        </mat-select>
+      <mat-form-field style="width: 100%" appearance="outline" class="mr-3 ml-3">
+        <mat-label>User Type</mat-label>
+        <input type="search"
+               matInput [(ngModel)]="data.userType" readonly>
       </mat-form-field>
     </div>
     <div class="user-type-content">
@@ -272,6 +269,50 @@
           </mat-form-field>
         </div>
       </div>
+      <div
+        class="admin-details"
+        *ngIf="
+          data.userType ===
+          'Admin'
+        ">
+        <div class="flex">
+          <mat-form-field
+            style="flex-grow: 1"
+            class="mr-3 ml-3"
+            appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input type="search" matInput [(ngModel)]="data.user.firstName" />
+          </mat-form-field>
+          <mat-form-field
+            style="flex-grow: 1"
+            class="mr-3 ml-3"
+            appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input type="search" matInput [(ngModel)]="data.user.lastName" />
+          </mat-form-field>
+        </div>
+        <div class="flex">
+          <mat-form-field
+            style="flex-grow: 1"
+            class="mr-3 ml-3"
+            appearance="outline"
+            [(ngModel)]="data.user.identityUser.email">
+            <mat-label>Email</mat-label>
+            <input type="search" matInput />
+          </mat-form-field>
+          <mat-form-field
+            style="flex-grow: 1"
+            class="mr-3 ml-3"
+            appearance="outline">
+            <mat-label>Bilkent ID</mat-label>
+            <input
+              type="search"
+              matInput
+              [(ngModel)]="data.user.identityUser.userName" />
+          </mat-form-field>
+        </div>
+      </div>
+
       <div
         class="instructor-details"
         *ngIf="data.userType === 'Course Coordinator Instructor'">

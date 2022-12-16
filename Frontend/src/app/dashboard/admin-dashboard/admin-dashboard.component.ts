@@ -8,6 +8,8 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CreateUserDialogComponent } from './create-user-dialog/create-user-dialog.component';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
 import { GUID } from '../../../utils/guid';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConfirmationDialogComponent } from '../../appointments/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -27,7 +29,7 @@ export class AdminDashboardComponent implements OnInit {
     { id: null, bilkentId: '21901636', name: 'Berk Çakar', type: 'Student' }
   ];
   activatedRow = null;
-  constructor(private dialog: MatDialog) {
+  constructor(private dialog: MatDialog, private _snackBar: MatSnackBar) {
     this.dataSource = new MatTableDataSource(this.users);
   }
 
@@ -37,7 +39,7 @@ export class AdminDashboardComponent implements OnInit {
   }
   ngOnInit(): void {}
 
-  onCreteUser() {
+  onCreateUser() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = false;
@@ -51,6 +53,29 @@ export class AdminDashboardComponent implements OnInit {
     dialogConfig.autoFocus = false;
     dialogConfig.data = null;
     const dialogRef = this.dialog.open(UserDialogComponent, dialogConfig);
+  }
+
+  deleteUser(row) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      text: 'Are you sure to delete the user ' + row.name + ' from the system?'
+    };
+    const dialogRef = this.dialog.open(
+      ConfirmationDialogComponent,
+      dialogConfig
+    );
+    dialogRef.afterClosed().subscribe(deleteItem => {
+      if (deleteItem) {
+        this.openSnackBar('Appointment deleted', 'Close', 5);
+        //TODO
+      }
+    });
+  }
+
+  openSnackBar(message: string, action: string, duration: number) {
+    this._snackBar.open(message, action, {
+      duration: duration * 1000
+    });
   }
 }
 

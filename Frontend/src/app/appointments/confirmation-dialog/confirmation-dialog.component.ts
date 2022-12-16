@@ -8,11 +8,10 @@ import {AppointmentsComponent} from "../appointments.component";
   styleUrls: ['./confirmation-dialog.component.css']
 })
 export class ConfirmationDialogComponent implements OnInit {
-  text: string;
 
   constructor(public dialogRef: MatDialogRef<AppointmentsComponent>,
               @Inject(MAT_DIALOG_DATA) public data) {
-    this.text = data.text;
+    data.text;
   }
 
   ngOnInit(): void {
