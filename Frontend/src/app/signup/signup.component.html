@@ -90,6 +90,7 @@
             </mat-error>
             <button
               mat-icon-button
+              type="button"
               matSuffix
               (click)="hidePassword = !hidePassword"
               [attr.aria-label]="'Hide password'"
@@ -102,7 +103,8 @@
           <mat-form-field class="full-width">
             <input
               matInput
-              [type]="hidePassword ? 'password' : 'text'"
+              type="button"
+              [type]="hidePasswordConfirm ? 'password' : 'text'"
               placeholder="Confirm Password"
               class="form-control"
               formControlName="confirmPassword" />
@@ -117,12 +119,13 @@
 
             <button
               mat-icon-button
+              type="button"
               matSuffix
-              (click)="hidePassword = !hidePassword"
+              (click)="hidePasswordConfirm = !hidePasswordConfirm"
               [attr.aria-label]="'Hide password'"
-              [attr.aria-pressed]="hidePassword">
+              [attr.aria-pressed]="hidePasswordConfirm">
               <mat-icon>{{
-                hidePassword ? "visibility_off" : "visibility"
+                hidePasswordConfirm ? "visibility_off" : "visibility"
               }}</mat-icon>
             </button>
           </mat-form-field>

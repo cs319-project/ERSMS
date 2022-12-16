@@ -20,6 +20,7 @@ import { ActorsEnum } from '../_models/enum/actors-enum';
 export class SignupComponent implements OnInit {
   requiredForm: FormGroup;
   hidePassword = true;
+  hidePasswordConfirm: boolean = true;
 
   constructor(
     private router: Router,

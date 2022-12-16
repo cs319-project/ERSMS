@@ -113,7 +113,6 @@
 }
 
 .charts-container {
-
     width: 25%;
     max-width: 400px;
     min-width: 350px;
@@ -231,7 +230,7 @@
 }
 
 .recent-activity-container {
-    flex-grow: 1;
+    min-width: 400px;
     display: flex;
     flex-direction: column;
     align-items: center;

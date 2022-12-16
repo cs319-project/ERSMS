@@ -27,7 +27,7 @@
             [grid]="barChartOptions.grid"></apx-chart>
         </div>
       </div>
-  
+
       <div class="todo-container ml-5 mr-5 card-effect">
         <span class="todo-title mt-1">TODO List</span>
         <mat-tab-group
@@ -55,7 +55,7 @@
                       <div class="checkbox-container m-1">
                         <mat-checkbox
                           class="ml-2"
-                          [checked]="todoItem.isCompleted"
+                          [checked]="todoItem.isComplete"
                           (change)="checkboxClicked(todoItem)"></mat-checkbox>
                         <mat-form-field
                           *ngIf="editingItem == todoItem"
@@ -159,7 +159,7 @@
                       <div class="checkbox-container m-1">
                         <mat-checkbox
                           class="ml-2"
-                          [checked]="todoItem.isCompleted"
+                          [checked]="todoItem.isComplete"
                           (change)="checkboxClicked(todoItem)"></mat-checkbox>
                         <mat-form-field
                           *ngIf="editingItem == todoItem"
@@ -262,7 +262,7 @@
                       </button>
                       <div class="checkbox-container m-1">
                         <mat-checkbox
-                          [checked]="todoItem.isCompleted"
+                          [checked]="todoItem.isComplete"
                           (change)="checkboxClicked(todoItem)"></mat-checkbox>
                         <mat-form-field
                           *ngIf="editingItem == todoItem"
@@ -375,4 +375,3 @@
       </div>
     </div>
   </div>
-  
