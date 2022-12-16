@@ -25,7 +25,7 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  getUserDetails(userName: string, roles: any) {
+  getUserDetails(userName: string): Observable<any> {
     return this.http.get(this.baseUrl + userName);
   }
 

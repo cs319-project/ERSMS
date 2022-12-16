@@ -14,54 +14,50 @@ export class PreApprovalFormService {
 
   createPreApprovalForm(preApprovalForm: PreApprovalForm): Observable<any> {
     return this.http.post<any>(
-      `${this.baseApiUrl}/preapprovalform`,
+      `${this.baseApiUrl}preapprovalform`,
       preApprovalForm
     );
   }
 
   updatePreApprovalForm(preApprovalForm: PreApprovalForm): Observable<any> {
     return this.http.put<any>(
-      `${this.baseApiUrl}/preapprovalform`,
+      `${this.baseApiUrl}preapprovalform`,
       preApprovalForm
     );
   }
 
   getPreApprovalForms(): Observable<any> {
-    return this.http.get<any>(`${this.baseApiUrl}/preapprovalform/getall`);
+    return this.http.get<any>(`${this.baseApiUrl}preapprovalform/getall`);
   }
 
   cancelPreApprovalForm(formId: GUID): Observable<any> {
     return this.http.patch<any>(
-      `${this.baseApiUrl}/preapprovalform/cancel/${formId}`,
+      `${this.baseApiUrl}preapprovalform/cancel/${formId}`,
       {}
     );
   }
 
   deletePreApprovalForm(formId: GUID): Observable<any> {
-    return this.http.delete<any>(
-      `${this.baseApiUrl}/preapprovalform/${formId}`
-    );
+    return this.http.delete<any>(`${this.baseApiUrl}preapprovalform/${formId}`);
   }
 
   getPreApprovalForm(formId: GUID): Observable<any> {
-    return this.http.get<any>(`${this.baseApiUrl}/preapprovalform/${formId}`);
+    return this.http.get<any>(`${this.baseApiUrl}preapprovalform/${formId}`);
   }
 
   getAllArchivedPreApprovalForms(): Observable<any> {
-    return this.http.get<any>(
-      `${this.baseApiUrl}/preapprovalform/archived/all`
-    );
+    return this.http.get<any>(`${this.baseApiUrl}preapprovalform/archived/all`);
   }
 
   getArchivedPreApprovalFormsByDepartment(username: string): Observable<any> {
     return this.http.get<any>(
-      `${this.baseApiUrl}/preapprovalform/archived/department/${username}`
+      `${this.baseApiUrl}preapprovalform/archived/department/${username}`
     );
   }
 
   getAllNonArchivedPreApprovalForms(): Observable<any> {
     return this.http.get<any>(
-      `${this.baseApiUrl}/preapprovalform/nonarchived/all`
+      `${this.baseApiUrl}preapprovalform/nonarchived/all`
     );
   }
 
@@ -69,19 +65,19 @@ export class PreApprovalFormService {
     username: string
   ): Observable<any> {
     return this.http.get<any>(
-      `${this.baseApiUrl}/preapprovalform/nonarchived/department/${username}`
+      `${this.baseApiUrl}preapprovalform/nonarchived/department/${username}`
     );
   }
 
   getPreApprovalFormsOfStudent(studentId: string): Observable<any> {
     return this.http.get<any>(
-      `${this.baseApiUrl}/preapprovalform/student/${studentId}`
+      `${this.baseApiUrl}preapprovalform/student/${studentId}`
     );
   }
 
   getPreApprovalFormsByDepartment(username: string): Observable<any> {
     return this.http.get<any>(
-      `${this.baseApiUrl}/preapprovalform/department/${username}`
+      `${this.baseApiUrl}preapprovalform/department/${username}`
     );
   }
 
@@ -90,14 +86,14 @@ export class PreApprovalFormService {
     approval: Approval
   ): Observable<any> {
     return this.http.post<any>(
-      `${this.baseApiUrl}/preapprovalform/coordinatorApprove/${formId}`,
+      `${this.baseApiUrl}preapprovalform/coordinatorApprove/${formId}`,
       approval
     );
   }
 
   approvePreApprovalFormFAB(formId: GUID, approval: Approval): Observable<any> {
     return this.http.post<any>(
-      `${this.baseApiUrl}/preapprovalform/fabApprove/${formId}`,
+      `${this.baseApiUrl}preapprovalform/fabApprove/${formId}`,
       approval
     );
   }

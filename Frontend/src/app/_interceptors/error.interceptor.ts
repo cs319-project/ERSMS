@@ -23,6 +23,8 @@ export class ErrorInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
         if (error) {
           switch (error.status) {
+            case 200:
+              break;
             case 400:
               if (error.error.errors) {
                 const modelStateErrors = [];

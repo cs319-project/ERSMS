@@ -1,7 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ViewCTEForm } from './viewCTEForm';
 import { Approval } from '../../_models/approval';
+import { Student } from 'src/app/_models/student';
 
 @Component({
   selector: 'app-view-cte-form-dialog',
@@ -9,6 +10,7 @@ import { Approval } from '../../_models/approval';
   styleUrls: ['./view-cte-form-dialog.component.css']
 })
 export class ViewCteFormDialogComponent implements OnInit {
+  @Input() student: Student;
   formStatus: string;
   chairStatus: string;
   deanStatus: string;
