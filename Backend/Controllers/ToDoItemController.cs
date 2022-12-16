@@ -26,14 +26,21 @@ namespace Backend.Controllers
         [HttpPost("{userName}")]
         public async Task<ActionResult<ToDoItemDto>> AddToDoItem(string userName, ToDoItemDto toDoItem)
         {
-            if (await _toDoItemService.AddToDoItem(userName, toDoItem))
+            try
             {
-                return Ok(toDoItem);
+                if (await _toDoItemService.AddToDoItem(userName, toDoItem))
+                {
+                    return Ok(toDoItem);
+                }
+                return BadRequest("Failed to add to do item");
             }
-            return BadRequest("Failed to add to do item");
+            catch (ToDoListException e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
-        [HttpPut()]
+        [HttpPut]
         public async Task<ActionResult<ToDoItemDto>> UpdateToDoItem(ToDoItemDto toDoItem)
         {
             if (await _toDoItemService.UpdateToDoItem(toDoItem))

@@ -27,17 +27,8 @@ namespace Backend.Services
         // Methods
         public async Task<bool> AddToDoItem(string userName, ToDoItemDto toDoItem)
         {
-
-            var exchangeCoordinator = _userRepository.GetExchangeCoordinatorByUserName(userName).Result;
-
-            if (exchangeCoordinator == null)
-            {
-                return false;
-            }
-
             ToDoItem itemEntity = _mapper.Map<ToDoItem>(toDoItem);
-            DepartmentInfo departmentEntity = _mapper.Map<DepartmentInfo>(exchangeCoordinator.Department);
-            return await _toDoItemRepository.AddToDoItem(departmentEntity, itemEntity);
+            return await _toDoItemRepository.AddToDoItem(userName, itemEntity);
         }
 
         public async Task<bool> AddToDoItemToAllByDepartment(ToDoItemDto toDoItem, Department department)

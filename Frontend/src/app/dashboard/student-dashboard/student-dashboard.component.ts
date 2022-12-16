@@ -145,8 +145,10 @@ export class StudentDashboardComponent implements OnInit {
   }
 
   saveEditing(todoItem: ToDoItem) {
+    todoItem.description = this.editingValue;
     this.toDoService.updateToDoItem(todoItem).subscribe(result => {
       if (result) {
+        console.log(this.editingValue);
         todoItem.description = this.editingValue;
       }
     });
