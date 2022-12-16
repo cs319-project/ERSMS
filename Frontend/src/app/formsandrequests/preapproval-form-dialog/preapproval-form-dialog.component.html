@@ -20,14 +20,12 @@
               <mat-form-field style="width: 150px" appearance="outline">
                 <mat-label>Course Code</mat-label>
                 <input type="search" matInput
-                [formControl] = "courseCode" required
                 [(ngModel)]="requestedCourse.courseCode"
                 >
               </mat-form-field>
               <mat-form-field style="flex-grow: 1" class="mr-3 ml-3" appearance="outline">
                 <mat-label>Course Name</mat-label>
                 <input type="search"
-                [formControl] = "courseName" required
                 matInput [(ngModel)]="requestedCourse.courseName"
                 >
               </mat-form-field >
@@ -35,7 +33,6 @@
                 <mat-label>ECTS</mat-label>
                 <input type="number" step="0.5"
                  min="0"
-                 [formControl] = "courseCredit" required
                  matInput [(ngModel)]="requestedCourse.ects"
                  >
               </mat-form-field>
@@ -47,11 +44,6 @@
               </div>
             </div>
           </div>
-          <mat-error style="width:200px" class="mr-3" *ngIf="(courseCredit.invalid ||courseCode.invalid
-            || courseName.invalid) && submitted">
-            {{getErrorMessageEmpty()}}
-        </mat-error>
-
         </div>
         <div class="bilkent-course-container">
           <span class="course-group-subtitle">Bilkent Requirement</span>
@@ -62,8 +54,7 @@
                 style="flex-grow: 1; text-align: center"
                 class="ml-2">
                 <mat-select
-                  [(ngModel)]="courseGroup.requestedExemptedCourse.courseType"
-                  [formControl] = "courseType" required>
+                  [(ngModel)]="courseGroup.requestedExemptedCourse.courseType">
                   <mat-option *ngFor="let dep of courseTypes" [value]="dep">
                     {{ dep }}
                   </mat-option>
@@ -74,38 +65,28 @@
               <mat-form-field style="width: 150px" appearance="outline">
                 <mat-label>Course Code</mat-label>
                 <input type="search" matInput
-                [formControl] = "courseCodeBilkent" required
                 [(ngModel)]="courseGroup.requestedExemptedCourse.courseCode">
               </mat-form-field>
               <mat-form-field style="flex-grow: 1" class="mr-3 ml-3" appearance="outline">
                 <mat-label>Course Name</mat-label>
                 <input type="search"
-                [formControl] = "courseNameBilkent" required
                 matInput [(ngModel)]="courseGroup.requestedExemptedCourse.courseName">
               </mat-form-field >
               <mat-form-field style="width: 100px; margin-right: 15px" appearance="outline">
                 <mat-label style="white-space: normal">Bilkent Credits</mat-label>
                 <input type="number"
                 step="1" min="0"
-                [formControl] = "courseCreditBilkent" required
                 matInput [(ngModel)]="courseGroup.requestedExemptedCourse.bilkentCredits">
               </mat-form-field>
               <mat-form-field style="width: 100px;" appearance="outline">
                 <mat-label>ECTS</mat-label>
                 <input type="number"
                        step="0.5" min="0"
-                       [formControl] = "courseCreditBilkent" required
                        matInput [(ngModel)]="courseGroup.requestedExemptedCourse.bilkentCredits">
               </mat-form-field>
             </div>
           </div>
         </div>
-
-        <mat-error style="width:200px" class="mr-3" *ngIf="(courseCreditBilkent.invalid || courseCodeBilkent.invalid
-            || courseNameBilkent.invalid || courseType.invalid) && submitted">
-            {{getErrorMessageEmptyBilkent()}}
-        </mat-error>
-
       </div>
 
     </div>

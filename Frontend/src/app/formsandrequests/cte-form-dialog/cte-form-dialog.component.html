@@ -6,9 +6,7 @@
     <mat-form-field style="width: 150px" appearance="outline">
       <mat-label>Student Id</mat-label>
       <input type="search"
-      matInput [(ngModel)]="data.idNumber"
-      [formControl] = "studentid" required
-      >
+      matInput [(ngModel)]="data.idNumber">
     </mat-form-field>
     <div class="course-groups" *ngFor="let courseGroup of this.data.transferredCourseGroup; let groupIndex = index">
       <div class="course-group mb-4">
@@ -28,12 +26,12 @@
                 <mat-label>Course Code</mat-label>
                 <input type="search"
                 matInput [(ngModel)]="transferredCourse.courseCode"
-                [formControl] = "courseCode" required>
+               >
               </mat-form-field>
               <mat-form-field style="flex-grow: 1" class="mr-3 ml-3" appearance="outline">
                 <mat-label>Course Name</mat-label>
                 <input type="search"
-                [formControl] = "courseName" required
+               
                 matInput [(ngModel)]="transferredCourse.courseName">
               </mat-form-field >
               <mat-form-field style="width:100px" class="mr-3" appearance="outline">
@@ -41,7 +39,6 @@
                 <input type="search" matInput
                 type="number"
                 step="0.5" min="0"
-                [formControl] = "courseCredit" required
                 [(ngModel)]="transferredCourse.ects"
                 >
               </mat-form-field>
@@ -49,7 +46,7 @@
               <mat-form-field style="width:100px" appearance="outline">
                 <mat-label>Grade</mat-label>
                 <input type="search" matInput
-                [formControl] = "grade" required
+                
                 [(ngModel)]="transferredCourse.grade">
               </mat-form-field>
               <div class="delete-course-btn">
@@ -60,10 +57,6 @@
             </div>
           </div>
 
-          <mat-error style="width:200px" class="mr-3" *ngIf=" (courseCredit.invalid || courseCode.invalid
-            || courseName.invalid ||  grade.invalid || studentid.invalid ) && submitted">
-            {{getErrorMessageEmpty()}}
-        </mat-error>
 
         </div>
         <div class="bilkent-course-container">
@@ -75,7 +68,6 @@
                 style="flex-grow: 1; text-align: center"
                 class="ml-2">
                 <mat-select
-                  [formControl] = "courseType" required
                   [(ngModel)]="courseGroup.exemptedCourse.courseType">
                   <mat-option *ngFor="let dep of courseTypes" [value]="dep">
                     {{ dep }}
@@ -88,13 +80,11 @@
                 <mat-label>Course Code</mat-label>
                 <input type="search"
                        matInput
-                       [formControl] = "courseCodeBilkent" required
                        [(ngModel)]="courseGroup.exemptedCourse.courseCode">
               </mat-form-field>
               <mat-form-field style="flex-grow: 1" class="mr-3 ml-3" appearance="outline">
                 <mat-label>Course Name</mat-label>
                 <input type="search"
-                       [formControl] = "courseNameBilkent" required
                        matInput
                        [(ngModel)]="courseGroup.exemptedCourse.courseName">
               </mat-form-field >
@@ -103,14 +93,12 @@
                 <input type="search" matInput
                        type="number"
                        step="1" min="0"
-                       [formControl] = "courseCreditBilkent" required
                        [(ngModel)]="courseGroup.exemptedCourse.bilkentCredits">
               </mat-form-field>
 
               <mat-form-field style="width:100px" appearance="outline">
                 <mat-label>ECTS</mat-label>
                 <input type="search" matInput
-                       [formControl] = "courseCreditBilkentECTS" required
                        [(ngModel)]="courseGroup.exemptedCourse.ects">
               </mat-form-field>
               <div class="delete-course-btn">
@@ -118,14 +106,7 @@
             </div>
           </div>
         </div>
-
-        <mat-error style="width:200px" class="mr-3" *ngIf=" (courseCreditBilkentECTS.invalid ||
-        courseCreditBilkent.invalid ||courseCodeBilkent.invalid
-            || courseNameBilkent.invalid || courseType.invalid ) && submitted">
-            {{getErrorMessageEmptyBilkent()}}
-        </mat-error>
       </div>
-
     </div>
     <button mat-raised-button color="primary" style="width: 100px" (click)="onAddGroup()">Add Group</button>
   </div>
