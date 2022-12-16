@@ -8,16 +8,19 @@ import { HttpClientModule } from '@angular/common/http';
 import { MaterialExampleModule } from './material.module';
 
 @NgModule({
-  declarations: [PlacementComponent],
-  imports: [
-    BrowserAnimationsModule,
-    BrowserModule,
-    FormsModule,
-    HttpClientModule,
-    MatNativeDateModule,
-    ReactiveFormsModule,
-    MaterialExampleModule
-  ],
-  providers: []
+    declarations: [PlacementComponent],
+    imports: [
+        BrowserAnimationsModule,
+        BrowserModule,
+        FormsModule,
+        HttpClientModule,
+        MatNativeDateModule,
+        ReactiveFormsModule,
+        MaterialExampleModule
+    ],
+    exports: [
+        PlacementComponent
+    ],
+    providers: []
 })
 export class PlacementModule {}
