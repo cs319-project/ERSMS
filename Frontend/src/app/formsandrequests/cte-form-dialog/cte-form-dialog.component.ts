@@ -92,10 +92,10 @@ export class CteFormDialogComponent implements OnInit {
         bilkentCredits: null
       }
     };
-    if (this.data.transferredCourseGroup) {
-      this.data.transferredCourseGroup.push(newGroup);
+    if (this.data.transferredCourseGroups) {
+      this.data.transferredCourseGroups.push(newGroup);
     } else {
-      this.data.transferredCourseGroup = [newGroup];
+      this.data.transferredCourseGroups = [newGroup];
     }
   }
 
@@ -112,11 +112,11 @@ export class CteFormDialogComponent implements OnInit {
   }
 
   onGroupDelete(groupIndex: number) {
-    this.data.transferredCourseGroup.splice(groupIndex, 1);
+    this.data.transferredCourseGroups.splice(groupIndex, 1);
   }
 
   onCourseDelete(groupIndex: number, courseIndex: number) {
-    this.data.transferredCourseGroup[groupIndex].transferredCourses.splice(
+    this.data.transferredCourseGroups[groupIndex].transferredCourses.splice(
       courseIndex,
       1
     );
