@@ -13,10 +13,10 @@ import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-equivalence-request-dialog',
-  templateUrl: './equivalance-request-dialog.component.html',
-  styleUrls: ['./equivalance-request-dialog.component.css']
+  templateUrl: './equivalence-request-dialog.component.html',
+  styleUrls: ['./equivalence-request-dialog.component.css']
 })
-export class EquivalanceRequestDialogComponent implements OnInit {
+export class EquivalenceRequestDialogComponent implements OnInit {
   error = true;
   submitted = false;
   courseCode = new FormControl('', [Validators.required]);
@@ -47,7 +47,7 @@ export class EquivalanceRequestDialogComponent implements OnInit {
   fileName: string = '';
 
   constructor(
-    public dialogRef: MatDialogRef<EquivalanceRequestDialogComponent>,
+    public dialogRef: MatDialogRef<EquivalenceRequestDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: EquivalenceRequest,
     private toastr: ToastrService,
     private fileUploadService: FileUploadService,

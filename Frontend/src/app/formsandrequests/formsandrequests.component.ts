@@ -17,7 +17,7 @@ import { PreApprovalForm } from '../_models/pre-approval-form';
 import { PreapprovalFormDialogComponent } from './preapproval-form-dialog/preapproval-form-dialog.component';
 import { GUID } from '../../utils/guid';
 import { EquivalenceRequest } from '../_models/equivalence-request';
-import { EquivalanceRequestDialogComponent } from './equivalence-request-dialog/equivalance-request-dialog.component';
+import { EquivalenceRequestDialogComponent } from './equivalence-request-dialog/equivalence-request-dialog.component';
 import { CteForm } from '../_models/cte-form';
 import { CteFormDialogComponent } from './cte-form-dialog/cte-form-dialog.component';
 import { Student } from '../_models/student';
@@ -27,8 +27,8 @@ import { ViewCTEForm } from './view-cte-form-dialog/viewCTEForm';
 import { ViewCteFormDialogComponent } from './view-cte-form-dialog/view-cte-form-dialog.component';
 import { ViewPreApprovalForm } from './view-preapproval-form-dialog/viewPreApprovalForm';
 import { ViewPreapprovalFormDialogComponent } from './view-preapproval-form-dialog/view-preapproval-form-dialog.component';
-import { ViewEquivalenceRequest } from './view-equivalence-request-dialog/viewEquivalanceRequest';
-import { ViewEquivalanceRequestDialogComponent } from './view-equivalence-request-dialog/view-equivalance-request-dialog.component';
+import { ViewEquivalenceRequest } from './view-equivalence-request-dialog/viewEquivalenceRequest';
+import { ViewEquivalenceRequestDialogComponent } from './view-equivalence-request-dialog/view-equivalence-request-dialog.component';
 
 @Component({
   selector: 'app-formsandrequests',
@@ -359,7 +359,7 @@ export class FormsAndRequestsComponent {
     } else if (row.type == 'Course Eq. Request') {
       dialogConfig.data = viewEqReq;
       const dialogRef = this.dialog.open(
-        ViewEquivalanceRequestDialogComponent,
+        ViewEquivalenceRequestDialogComponent,
         dialogConfig
       );
     }
@@ -446,7 +446,7 @@ export class FormsAndRequestsComponent {
     dialogConfig.data = this.equivalanceRequest;
 
     const dialogRef = this.dialog.open(
-      EquivalanceRequestDialogComponent,
+      EquivalenceRequestDialogComponent,
       dialogConfig
     );
   }

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewEquivalanceRequestDialogComponent } from './view-equivalance-request-dialog.component';
+import { ViewEquivalenceRequestDialogComponent } from './view-equivalence-request-dialog.component';
 
 describe('ViewEquivalanceRequestDialogComponent', () => {
-  let component: ViewEquivalanceRequestDialogComponent;
-  let fixture: ComponentFixture<ViewEquivalanceRequestDialogComponent>;
+  let component: ViewEquivalenceRequestDialogComponent;
+  let fixture: ComponentFixture<ViewEquivalenceRequestDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ViewEquivalanceRequestDialogComponent ]
+      declarations: [ ViewEquivalenceRequestDialogComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ViewEquivalanceRequestDialogComponent);
+    fixture = TestBed.createComponent(ViewEquivalenceRequestDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
