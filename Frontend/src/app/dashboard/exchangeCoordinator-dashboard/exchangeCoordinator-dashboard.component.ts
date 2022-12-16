@@ -1,18 +1,48 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActorsEnum } from 'src/app/_models/enum/actors-enum';
 import { DepartmentsEnum } from 'src/app/_models/enum/departments-enum';
 import { ToDoItem } from 'src/app/_models/to-do-item';
 import { ToDoItemService } from 'src/app/_services/todoitem.service';
-import { GUID } from 'src/utils/guid';
-/*
-export interface todoItem {
-  description: string;
-  isCompleted: boolean;
-  isStarred: boolean;
-  id: GUID;
-}
-*/
+
+
+  import {
+    ApexNonAxisChartSeries,
+    ApexResponsive,
+    ApexChart,
+    ChartComponent,
+    ApexDataLabels,
+    ApexPlotOptions,
+    ApexYAxis,
+    ApexXAxis,
+    ApexAxisChartSeries,
+    ApexGrid,
+    ApexLegend
+  } from 'ng-apexcharts';
+
+  
+  export type PieChartOptions = {
+    series: ApexNonAxisChartSeries;
+    chart: ApexChart;
+    colors: string[];
+    responsive: ApexResponsive[];
+    labels: any;
+  };
+  
+  export type BarChartOptions = {
+    series: ApexAxisChartSeries;
+    chart: ApexChart;
+    dataLabels: ApexDataLabels;
+    plotOptions: ApexPlotOptions;
+    yaxis: ApexYAxis;
+    xaxis: ApexXAxis;
+    grid: ApexGrid;
+    colors: string[];
+    legend: ApexLegend;
+  };
+
+
 export interface activity {
   name: string;
   description: string;
@@ -25,17 +55,74 @@ export interface dayActivities {
 }
 
 @Component({
-  selector: 'app-student-dashboard',
-  templateUrl: './student-dashboard.component.html',
-  styleUrls: ['./student-dashboard.component.css']
+  selector: 'app-exchangeCoordinator-dashboard',
+  templateUrl: './exchangeCoordinator-dashboard.component.html',
+  styleUrls: ['./exchangeCoordinator-dashboard.component.css']
 })
-export class StudentDashboardComponent implements OnInit {
+export class ExchangeCoordinatorDashboardComponent implements OnInit {
   todoList: ToDoItem[] = [];
   actorsEnum = ActorsEnum;
   role: string;
   userName: string;
   _departmentsEnum = DepartmentsEnum;
   departmentsEnum = Object.keys(DepartmentsEnum);
+
+  @ViewChild('chart') chart: ChartComponent;
+  public pieChartOptions: Partial<PieChartOptions>;
+  public barChartOptions: Partial<BarChartOptions>;
+
+  activities: dayActivities[] = [
+    {
+      date: '12 September',
+      activities: [
+        {
+          name: 'Kutay Tire',
+          description: 'Added a new pre-approval form.',
+          time: '22:13'
+        },
+        {
+          name: 'Berk Çakar',
+          description: 'Added a new pre-approval form.',
+          time: '12:13'
+        },
+        {
+          name: 'Kutay Tire',
+          description: 'Added a new pre-approval form.',
+          time: '13:12'
+        },
+        {
+          name: 'Berk Çakar',
+          description: 'Added a new pre-approval form.',
+          time: '09:44'
+        }
+      ]
+    },
+    {
+      date: '15 September',
+      activities: [
+        {
+          name: 'Atak Talay Yücel',
+          description: 'Added a new pre-approval form.',
+          time: '10:15'
+        },
+        {
+          name: 'Borga Haktan Bilen',
+          description: 'Added a new pre-approval form.',
+          time: '07:07'
+        },
+        {
+          name: 'Atak Talay Yücel',
+          description: 'Added a new pre-approval form.',
+          time: '11:44'
+        },
+        {
+          name: 'Borga Haktan Bilen',
+          description: 'Added a new pre-approval form.',
+          time: '10:10'
+        }
+      ]
+    }
+  ];
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -66,6 +153,74 @@ export class StudentDashboardComponent implements OnInit {
     });
 
     console.log(this.todoList);
+
+    this.pieChartOptions = {
+        series: [44, 55, 13],
+        chart: {
+          type: 'donut',
+          toolbar: {
+            show: true
+          }
+        },
+        colors: ['#FF965D', '#49C96D', '#FD7972'],
+        labels: ['Processing', 'Accepted  ', 'Rejected'],
+        responsive: [
+          {
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 200
+              },
+              legend: {
+                position: 'bottom'
+              }
+            }
+          }
+        ]
+      };
+  
+      this.barChartOptions = {
+        series: [
+          {
+            name: 'submission',
+            data: [21, 22, 10, 28, 16, 21, 13]
+          }
+        ],
+        chart: {
+          height: 350,
+          type: 'bar',
+          events: {
+            click: function (chart, w, e) {
+              // console.log(chart, w, e)
+            }
+          }
+        },
+        colors: ['#008FFB', '#00E396'],
+        plotOptions: {
+          bar: {
+            columnWidth: '45%',
+            distributed: true
+          }
+        },
+        dataLabels: {
+          enabled: true
+        },
+        legend: {
+          show: false
+        },
+        grid: {
+          show: true
+        },
+        xaxis: {
+          categories: ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'],
+          labels: {
+            style: {
+              colors: [],
+              fontSize: '12px'
+            }
+          }
+        }
+      };
   }
 
   stateForm = this._formBuilder.group({

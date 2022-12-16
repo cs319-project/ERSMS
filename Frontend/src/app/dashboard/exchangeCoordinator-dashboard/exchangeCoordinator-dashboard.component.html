@@ -1,0 +1,378 @@
+<div class="dashboard-container m-3">
+    <div>
+      <span class="dashboard-title">Dashboard</span>
+    </div>
+    <div class="dashboard-content mt-3">
+      <div class="charts-container">
+        <div class="chart-content card-effect">
+          <span class="mt-1">Forms and Requests</span>
+          <apx-chart
+            [series]="pieChartOptions.series"
+            [chart]="pieChartOptions.chart"
+            [labels]="pieChartOptions.labels"
+            [responsive]="pieChartOptions.responsive"
+            [colors]="pieChartOptions.colors"></apx-chart>
+        </div>
+        <div class="chart-content m-2 card-effect">
+          <span>Submitted Forms and Requests</span>
+          <apx-chart
+            [series]="barChartOptions.series"
+            [chart]="barChartOptions.chart"
+            [dataLabels]="barChartOptions.dataLabels"
+            [plotOptions]="barChartOptions.plotOptions"
+            [yaxis]="barChartOptions.yaxis"
+            [xaxis]="barChartOptions.xaxis"
+            [legend]="barChartOptions.legend"
+            [colors]="barChartOptions.colors"
+            [grid]="barChartOptions.grid"></apx-chart>
+        </div>
+      </div>
+  
+      <div class="todo-container ml-5 mr-5 card-effect">
+        <span class="todo-title mt-1">TODO List</span>
+        <mat-tab-group
+          dynamicHeight="false"
+          [(selectedIndex)]="selectedTabIndex"
+          #matTabGroup
+          (selectedIndexChange)="OnTabChange($event)"
+          style="width: 100%; height: 100%">
+          <mat-tab label="Waiting Tasks">
+            <div class="todo-inner-container">
+              <div class="todo-content">
+                <div class="custom-scroll-bar">
+                  <div
+                    class="todo-item-container"
+                    *ngFor="let todoItem of waitingList; let i = index">
+                    <div class="todo-item">
+                      <button
+                        mat-icon-button
+                        class="star-icon mb-2"
+                        (click)="starClicked(todoItem)">
+                        <mat-icon>{{
+                          todoItem.isStarred ? "star" : "star_border"
+                        }}</mat-icon>
+                      </button>
+                      <div class="checkbox-container m-1">
+                        <mat-checkbox
+                          class="ml-2"
+                          [checked]="todoItem.isCompleted"
+                          (change)="checkboxClicked(todoItem)"></mat-checkbox>
+                        <mat-form-field
+                          *ngIf="editingItem == todoItem"
+                          class="ml-2"
+                          style="padding: 0; margin: 0; flex-grow: 1">
+                          <input
+                            type="search"
+                            [(ngModel)]="editingValue"
+                            matInput />
+                        </mat-form-field>
+                        <span
+                          *ngIf="editingItem != todoItem"
+                          style="flex-grow: 1"
+                          class="ml-2"
+                          >{{ todoItem.description }}</span
+                        >
+                      </div>
+                      <button
+                        *ngIf="editingItem != todoItem"
+                        mat-icon-button
+                        (click)="startEditing(waitingList, i)">
+                        <mat-icon>edit_outlined</mat-icon>
+                      </button>
+                      <button
+                        *ngIf="editingItem != todoItem"
+                        mat-icon-button
+                        (click)="deleteItem(todoItem)">
+                        <mat-icon>delete_outlined</mat-icon>
+                      </button>
+                      <button
+                        *ngIf="editingItem == todoItem"
+                        mat-icon-button
+                        (click)="saveEditing(todoItem)">
+                        <mat-icon>check</mat-icon>
+                      </button>
+                      <button
+                        *ngIf="editingItem == todoItem"
+                        mat-icon-button
+                        (click)="cancelEditing()">
+                        <mat-icon>close</mat-icon>
+                      </button>
+                    </div>
+                    <mat-divider style="width: 100%"></mat-divider>
+                  </div>
+                </div>
+              </div>
+              <div class="todo-add-container m-3">
+                <mat-form-field
+                  *ngIf="isAdding"
+                  class="m-3"
+                  style="padding: 0; margin: 0">
+                  <input
+                    type="search"
+                    [(ngModel)]="addingValue"
+                    placeholder="Ex. Meeting with X at 14.30"
+                    matInput />
+                </mat-form-field>
+                <button
+                  class="mr-2"
+                  *ngIf="!isAdding"
+                  mat-raised-button
+                  color="primary"
+                  (click)="startAdding()">
+                  Add New
+                </button>
+                <button
+                  class="mr-2"
+                  *ngIf="isAdding"
+                  mat-raised-button
+                  color="primary"
+                  (click)="addItem()">
+                  Save
+                </button>
+                <button
+                  class="mr-2"
+                  *ngIf="isAdding"
+                  mat-raised-button
+                  color="accent"
+                  (click)="cancelAdding()">
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </mat-tab>
+          <mat-tab label="Starred Tasks">
+            <div class="todo-inner-container">
+              <div class="todo-content">
+                <div class="custom-scroll-bar">
+                  <div
+                    class="todo-item-container"
+                    *ngFor="let todoItem of starredList; let i = index">
+                    <div class="todo-item">
+                      <button
+                        mat-icon-button
+                        class="star-icon mb-2"
+                        (click)="starClicked(todoItem)">
+                        <mat-icon>{{
+                          todoItem.isStarred ? "star" : "star_border"
+                        }}</mat-icon>
+                      </button>
+                      <div class="checkbox-container m-1">
+                        <mat-checkbox
+                          class="ml-2"
+                          [checked]="todoItem.isCompleted"
+                          (change)="checkboxClicked(todoItem)"></mat-checkbox>
+                        <mat-form-field
+                          *ngIf="editingItem == todoItem"
+                          class="ml-2"
+                          style="padding: 0; margin: 0; flex-grow: 1">
+                          <input
+                            type="search"
+                            [(ngModel)]="editingValue"
+                            matInput />
+                        </mat-form-field>
+                        <span
+                          *ngIf="editingItem != todoItem"
+                          style="flex-grow: 1"
+                          class="ml-2"
+                          >{{ todoItem.description }}</span
+                        >
+                      </div>
+                      <button
+                        *ngIf="editingItem != todoItem"
+                        mat-icon-button
+                        (click)="startEditing(starredList, i)">
+                        <mat-icon>edit_outlined</mat-icon>
+                      </button>
+                      <button
+                        *ngIf="editingItem != todoItem"
+                        mat-icon-button
+                        (click)="deleteItem(todoItem)">
+                        <mat-icon>delete_outlined</mat-icon>
+                      </button>
+                      <button
+                        *ngIf="editingItem == todoItem"
+                        mat-icon-button
+                        (click)="saveEditing(todoItem)">
+                        <mat-icon>check</mat-icon>
+                      </button>
+                      <button
+                        *ngIf="editingItem == todoItem"
+                        mat-icon-button
+                        (click)="cancelEditing()">
+                        <mat-icon>close</mat-icon>
+                      </button>
+                    </div>
+                    <mat-divider style="width: 100%"></mat-divider>
+                  </div>
+                </div>
+              </div>
+              <div class="todo-add-container m-3">
+                <mat-form-field
+                  *ngIf="isAdding"
+                  class="m-3"
+                  style="padding: 0; margin: 0">
+                  <input
+                    type="search"
+                    [(ngModel)]="addingValue"
+                    placeholder="Ex. Meeting with X at 14.30"
+                    matInput />
+                </mat-form-field>
+                <button
+                  class="mr-2"
+                  *ngIf="!isAdding"
+                  mat-raised-button
+                  color="primary"
+                  (click)="startAdding()">
+                  Add New
+                </button>
+                <button
+                  class="mr-2"
+                  *ngIf="isAdding"
+                  mat-raised-button
+                  color="primary"
+                  (click)="addItem()">
+                  Save
+                </button>
+                <button
+                  class="mr-2"
+                  *ngIf="isAdding"
+                  mat-raised-button
+                  color="accent"
+                  (click)="cancelAdding()">
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </mat-tab>
+          <mat-tab label="Completed Tasks">
+            <div class="todo-inner-container">
+              <div class="todo-content">
+                <div class="custom-scroll-bar">
+                  <div
+                    class="todo-item-container"
+                    *ngFor="let todoItem of completedList; let i = index">
+                    <div class="todo-item">
+                      <button
+                        mat-icon-button
+                        class="star-icon mb-2"
+                        (click)="starClicked(todoItem)">
+                        <mat-icon>{{
+                          todoItem.isStarred ? "star" : "star_border"
+                        }}</mat-icon>
+                      </button>
+                      <div class="checkbox-container m-1">
+                        <mat-checkbox
+                          [checked]="todoItem.isCompleted"
+                          (change)="checkboxClicked(todoItem)"></mat-checkbox>
+                        <mat-form-field
+                          *ngIf="editingItem == todoItem"
+                          class="ml-2"
+                          style="padding: 0; margin: 0; flex-grow: 1">
+                          <input
+                            type="search"
+                            [(ngModel)]="editingValue"
+                            matInput />
+                        </mat-form-field>
+                        <span
+                          *ngIf="editingItem != todoItem"
+                          style="flex-grow: 1"
+                          class="ml-2"
+                          >{{ todoItem.description }}</span
+                        >
+                      </div>
+                      <button
+                        *ngIf="editingItem != todoItem"
+                        mat-icon-button
+                        (click)="startEditing(completedList, i)">
+                        <mat-icon>edit_outlined</mat-icon>
+                      </button>
+                      <button
+                        *ngIf="editingItem != todoItem"
+                        mat-icon-button
+                        (click)="deleteItem(todoItem)">
+                        <mat-icon>delete_outlined</mat-icon>
+                      </button>
+                      <button
+                        *ngIf="editingItem == todoItem"
+                        mat-icon-button
+                        (click)="saveEditing(todoItem)">
+                        <mat-icon>check</mat-icon>
+                      </button>
+                      <button
+                        *ngIf="editingItem == todoItem"
+                        mat-icon-button
+                        (click)="cancelEditing()">
+                        <mat-icon>close</mat-icon>
+                      </button>
+                    </div>
+                    <mat-divider style="width: 100%"></mat-divider>
+                  </div>
+                </div>
+              </div>
+              <div class="todo-add-container m-3">
+                <mat-form-field
+                  *ngIf="isAdding"
+                  class="m-3"
+                  style="padding: 0; margin: 0">
+                  <input
+                    type="search"
+                    [(ngModel)]="addingValue"
+                    placeholder="Ex. Meeting with X at 14.30"
+                    matInput />
+                </mat-form-field>
+                <button
+                  class="mr-2"
+                  *ngIf="!isAdding"
+                  mat-raised-button
+                  color="primary"
+                  (click)="startAdding()">
+                  Add New
+                </button>
+                <button
+                  class="mr-2"
+                  *ngIf="isAdding"
+                  mat-raised-button
+                  color="primary"
+                  (click)="addItem()">
+                  Save
+                </button>
+                <button
+                  class="mr-2"
+                  *ngIf="isAdding"
+                  mat-raised-button
+                  color="accent"
+                  (click)="cancelAdding()">
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+      <div class="recent-activity-container card-effect">
+        <span class="recent-activity-title mt-1">Recent Activity</span>
+        <mat-divider style="width: 100%" class="mt-2"></mat-divider>
+        <div class="recent-activity-content mt-3 custom-activities-scroll-bar">
+          <div class="day-activities" *ngFor="let dayActivities of activities">
+            <span class="activity-day mb-1 mt-2">{{ dayActivities.date }}</span>
+            <div
+              class="activities"
+              *ngFor="let activity of dayActivities.activities">
+              <div class="activity">
+                <img src="../assets/images/avatar.png" />
+                <div class="activity-description ml-3">
+                  <span class="activity-user">{{ activity.name }}</span>
+                  <span class="gray-text">{{ activity.description }}</span>
+                  <span
+                    ><small>{{ activity.time }}</small></span
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="mb-4"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

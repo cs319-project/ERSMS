@@ -1,0 +1,327 @@
+.st-container {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.st-department-form-container mat-form-field {
+    display: inline-block !important;
+    width: 50px !important;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.table-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+}
+
+.table-header {
+    min-height: 64px;
+    padding: 8px 24px 0;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+.mat-table {
+    overflow-y: scroll;
+    max-height: 700px;
+}
+
+.placement-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.placement-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.placement-buttons-container {
+    display: flex;
+    justify-content: end;
+}
+
+.placement-title {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+
+.placement-buttons-container button {
+    border-radius: 25px;
+}
+
+.name-column-cell {
+    display: flex;
+    align-items: center;
+}
+
+.name-column-cell img {
+    max-width: 30px;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.name-dep-pair {
+    display: flex;
+    flex-direction: column;
+    line-height: 13px;
+}
+
+.gray-text {
+    color: #8A9099;
+}
+
+.scoreColumn {
+    max-width: 100px;
+}
+
+.st-content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: auto;
+}
+
+.dashboard-container {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard-title {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.dashboard-content {
+    display: flex;
+    justify-content: center;
+}
+
+.charts-container {
+
+    width: 25%;
+    max-width: 400px;
+    min-width: 350px;
+    display: flex;
+    flex-direction: column;
+}
+
+.chart-content {
+    font-size: 1.3rem;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.todo-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.todo-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex-grow: 1;
+}
+
+.other-container {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.checkbox-container {
+    min-height: 50px;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    flex-grow: 1;
+}
+
+.todo-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.todo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.todo-add-container {
+    height: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.todo-add-container mat-form-field {
+    flex-grow: 1;
+}
+
+.todo-add-container button {
+    height: 35px;
+}
+
+.todo-inner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+
+:host ::ng-deep .mat-tab-body-wrapper {
+    height: 100%;
+    width: 100%;
+}
+
+.custom-scroll-bar {
+    height: 55vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+
+.custom-scroll-bar::-webkit-scrollbar {
+    width: 5px;
+}
+
+.custom-scroll-bar::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, .26);
+}
+
+.star-icon {
+    color: #ffd740;
+
+}
+
+
+.todo-item-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.make-announcement-container {
+    height: 100px;
+}
+
+.recent-activity-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.recent-activity-title {
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.recent-activity-content {
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+}
+
+.day-activities {
+    display: flex;
+    flex-direction: column;
+}
+
+.activity-day {
+    font-size: 1.2rem;
+}
+
+.activity {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.activity img {
+    max-width: 50px;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.activity-description {
+    overflow-wrap: break-word;
+    word-break: break-word;
+    display: flex;
+    flex-direction: column;
+}
+
+.activity-user {
+    font-weight: bold;
+}
+
+.gray-text {
+    color: #8A9099;
+}
+
+.card-effect {
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, .08), 0 0 6px rgba(0, 0, 0, .05);
+}
+
+
+.custom-activities-scroll-bar {
+    height: 65vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+
+.custom-activities-scroll-bar::-webkit-scrollbar {
+    width: 5px;
+}
+
+.custom-activities-scroll-bar::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, .26);
+}
+
+
+.student-dashboard-container {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+}
+
+.student-todo-container {
+    width: 60%;
+}
+
+.student-dashboard-content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
