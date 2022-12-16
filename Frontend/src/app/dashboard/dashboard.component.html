@@ -69,9 +69,7 @@
 </div>
 
 <div *ngIf="this.role === actorsEnum.Student">
-  <p>
-    <span class="dashboard-title">Student Dashboard</span>
-  </p>
+  <app-student-dashboard></app-student-dashboard>
 </div>
 
 <div *ngIf="this.role === actorsEnum.Admin">
@@ -158,9 +156,6 @@
     </div>
   </div> -->
 
-<!--
-<app-admin-dashboard></app-admin-dashboard>
--->
 
 <!--<div class="dashboard-container m-3">
   <div>
