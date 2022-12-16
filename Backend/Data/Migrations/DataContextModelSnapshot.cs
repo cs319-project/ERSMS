@@ -552,10 +552,6 @@ namespace Backend.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("CourseType")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<double>("ECTS")
                         .HasColumnType("REAL");
 

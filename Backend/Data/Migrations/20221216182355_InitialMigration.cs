@@ -720,7 +720,6 @@ namespace Backend.Data.Migrations
                     CourseCode = table.Column<string>(type: "TEXT", nullable: false),
                     CourseName = table.Column<string>(type: "TEXT", nullable: false),
                     ECTS = table.Column<double>(type: "REAL", nullable: false),
-                    CourseType = table.Column<string>(type: "TEXT", nullable: false),
                     RequestedCourseGroupId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>

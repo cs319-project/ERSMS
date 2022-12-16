@@ -80,6 +80,7 @@ namespace Backend.Services
                             student.PreferredSchools = studentInfo.PreferredSchools;
                             student.CGPA = studentInfo.CGPA;
                             student.ExchangeScore = studentInfo.ExchangeScore;
+                            student.ToDoList = ToDoListSeeder.studentToDoListChecklistSeeding();
 
                         }
                         catch (Exception e)

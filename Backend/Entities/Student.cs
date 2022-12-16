@@ -33,6 +33,6 @@ namespace Backend.Entities
 
         public ICollection<EquivalenceRequest> EquivalenceRequestForms { get; set; }
 
-        public ICollection<ToDoItem> ToDoList { get; set; } = ToDoListSeeder.studentToDoListChecklistSeeding();
+        public ICollection<ToDoItem> ToDoList { get; set; } = new List<ToDoItem>();
     }
 }
