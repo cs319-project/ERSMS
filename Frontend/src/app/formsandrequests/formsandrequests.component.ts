@@ -284,7 +284,7 @@ export class FormsAndRequestsComponent {
           dialogConfig.autoFocus = false;
           dialogConfig.data = viewPreApprovalForm;
           this.dialog.open(ViewPreapprovalFormDialogComponent, dialogConfig);
-          //console.log(viewPreApprovalForm);
+          console.log(viewPreApprovalForm);
         });
     } else if (row.type == 'Course Eq. Request') {
       this.userService

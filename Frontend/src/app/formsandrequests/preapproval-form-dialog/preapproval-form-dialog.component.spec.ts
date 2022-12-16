@@ -8,9 +8,8 @@ describe('PreapprovalFormDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PreapprovalFormDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [PreapprovalFormDialogComponent]
+    }).compileComponents();
   });
 
   beforeEach(() => {

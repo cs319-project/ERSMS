@@ -250,16 +250,23 @@
             class="custom-scroll-bar"
             type="search"
             rows="10"
+            id="decision-textarea"
+            [(ngModel)]="data.eqReq.instructorApproval.comment"
             matInput></textarea>
         </mat-form-field>
         <div class="decision-buttons mb-5">
           <button
             mat-raised-button
             style="margin-right: 50px; width: 125px"
-            color="warn">
+            color="warn"
+            (click)="rejectFormCoordinator()">
             Reject
           </button>
-          <button mat-raised-button style="width: 125px" color="primary">
+          <button
+            mat-raised-button
+            style="width: 125px"
+            color="primary"
+            (click)="approveFormCoordinator()">
             Accept
           </button>
         </div>

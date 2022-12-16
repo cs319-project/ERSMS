@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ViewEquivalenceRequest } from './viewEquivalenceRequest';
 import { Approval } from '../../_models/approval';
+import { EquivalenceRequestService } from 'src/app/_services/equivalencerequest.service';
 
 @Component({
   selector: 'app-view-equivalence-request-dialog',
@@ -11,10 +12,17 @@ import { Approval } from '../../_models/approval';
 export class ViewEquivalenceRequestDialogComponent implements OnInit {
   formStatus: string;
   instructorStatus: string;
+  nameOfUser: string;
   constructor(
     public dialogRef: MatDialogRef<ViewEquivalenceRequestDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ViewEquivalenceRequest
-  ) {}
+    @Inject(MAT_DIALOG_DATA) public data: ViewEquivalenceRequest,
+    private cteFormService: EquivalenceRequestService
+  ) {
+    this.nameOfUser =
+      JSON.parse(localStorage.getItem('user')).userDetails.firstName +
+      ' ' +
+      JSON.parse(localStorage.getItem('user')).userDetails.lastName;
+  }
 
   ngOnInit(): void {
     if (this.data.eqReq.instructorApproval != null) {
@@ -34,6 +42,36 @@ export class ViewEquivalenceRequestDialogComponent implements OnInit {
     } else {
       this.formStatus = 'Waiting';
     }
+  }
+
+  approveFormCoordinator() {
+    let approval: Approval = {
+      dateOfApproval: new Date(),
+      isApproved: true,
+      name: this.nameOfUser,
+      comment: this.data.eqReq.instructorApproval.comment
+    };
+
+    this.cteFormService
+      .approveEquivalenceRequest(this.data.eqReq.id, approval)
+      .subscribe(() => {
+        this.dialogRef.close();
+      });
+  }
+
+  rejectFormCoordinator() {
+    let approval: Approval = {
+      dateOfApproval: new Date(),
+      isApproved: false,
+      name: this.nameOfUser,
+      comment: this.data.eqReq.instructorApproval.comment
+    };
+
+    this.cteFormService
+      .approveEquivalenceRequest(this.data.eqReq.id, approval)
+      .subscribe(() => {
+        this.dialogRef.close();
+      });
   }
 
   getStatus(approval: Approval) {
