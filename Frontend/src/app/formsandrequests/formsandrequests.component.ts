@@ -260,7 +260,7 @@ export class FormsAndRequestsComponent {
         isApproved: true
       },
       approvalTime: null,
-      transferredCourseGroups: [
+      transferredCourseGroup: [
         {
           id: null,
           transferredCourses: [
@@ -464,7 +464,7 @@ export class FormsAndRequestsComponent {
       hostUniversityName: '',
       submissionTime: null,
       approvalTime: null,
-      transferredCourseGroups: null,
+      transferredCourseGroup: null,
       exchangeCoordinatorApproval: null,
       facultyOfAdministrationBoardApproval: null,
       deanApproval: null,

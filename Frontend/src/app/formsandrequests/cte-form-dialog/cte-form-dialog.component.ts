@@ -26,11 +26,11 @@ export class CteFormDialogComponent implements OnInit {
     let newGroup: TransferredCourseGroup = {id: null,
       transferredCourses: [{id:null, courseCode: null, courseName:null,ects:null, grade:null}],
       exemptedCourse: {id: null, courseCode: null, courseName: null, courseType: null, ects: null, bilkentCredits: null}};
-    if(this.data.transferredCourseGroups){
-      this.data.transferredCourseGroups.push(newGroup);
+    if(this.data.transferredCourseGroup){
+      this.data.transferredCourseGroup.push(newGroup);
     }
     else{
-      this.data.transferredCourseGroups = [newGroup];
+      this.data.transferredCourseGroup = [newGroup];
     }
   }
 
@@ -41,17 +41,17 @@ export class CteFormDialogComponent implements OnInit {
   }
 
   onGroupDelete(groupIndex: number) {
-    this.data.transferredCourseGroups.splice(groupIndex, 1);
+    this.data.transferredCourseGroup.splice(groupIndex, 1);
   }
 
   onCourseDelete(groupIndex: number, courseIndex: number) {
-    this.data.transferredCourseGroups[groupIndex].transferredCourses.splice(courseIndex,1);
+    this.data.transferredCourseGroup[groupIndex].transferredCourses.splice(courseIndex,1);
   }
 
   onSubmit() {
 
     console.log(this.data);
     this.dialogRef.close(this.data);
-
+    
   }
 }

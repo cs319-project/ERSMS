@@ -8,7 +8,7 @@
       <input type="search"
       matInput [(ngModel)]="data.idNumber">
     </mat-form-field>
-    <div class="course-groups" *ngFor="let courseGroup of this.data.transferredCourseGroups; let groupIndex = index">
+    <div class="course-groups" *ngFor="let courseGroup of this.data.transferredCourseGroup; let groupIndex = index">
       <div class="course-group mb-4">
         <div class="course-group-header">
           <span>Group {{groupIndex + 1}}</span>
@@ -31,7 +31,7 @@
               <mat-form-field style="flex-grow: 1" class="mr-3 ml-3" appearance="outline">
                 <mat-label>Course Name</mat-label>
                 <input type="search"
-
+               
                 matInput [(ngModel)]="transferredCourse.courseName">
               </mat-form-field >
               <mat-form-field style="width:100px" class="mr-3" appearance="outline">
@@ -46,7 +46,7 @@
               <mat-form-field style="width:100px" appearance="outline">
                 <mat-label>Grade</mat-label>
                 <input type="search" matInput
-
+                
                 [(ngModel)]="transferredCourse.grade">
               </mat-form-field>
               <div class="delete-course-btn">
