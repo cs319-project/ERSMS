@@ -1,10 +1,10 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {ViewEquivalanceRequest} from "./viewEquivalanceRequest";
+import {ViewEquivalenceRequest} from "./viewEquivalanceRequest";
 import {Approval} from "../../_models/approval";
 
 @Component({
-  selector: 'app-view-equivalance-request-dialog',
+  selector: 'app-view-equivalence-request-dialog',
   templateUrl: './view-equivalance-request-dialog.component.html',
   styleUrls: ['./view-equivalance-request-dialog.component.css']
 })
@@ -12,7 +12,7 @@ export class ViewEquivalanceRequestDialogComponent implements OnInit {
   formStatus: string;
   instructorStatus: string;
   constructor(public dialogRef: MatDialogRef<ViewEquivalanceRequestDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: ViewEquivalanceRequest) { }
+              @Inject(MAT_DIALOG_DATA) public data: ViewEquivalenceRequest) { }
 
   ngOnInit(): void {
     this.instructorStatus = this.getStatus(this.data.eqReq.instructorApproval);

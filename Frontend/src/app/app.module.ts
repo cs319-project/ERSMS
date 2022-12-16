@@ -51,11 +51,11 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ConfirmationDialogComponent } from './appointments/confirmation-dialog/confirmation-dialog.component';
 import { PreapprovalFormDialogComponent } from './formsandrequests/preapproval-form-dialog/preapproval-form-dialog.component';
-import { EquivalanceRequestDialogComponent } from './formsandrequests/equivalance-request-dialog/equivalance-request-dialog.component';
+import { EquivalanceRequestDialogComponent } from './formsandrequests/equivalence-request-dialog/equivalance-request-dialog.component';
 import { CteFormDialogComponent } from './formsandrequests/cte-form-dialog/cte-form-dialog.component';
 import { ViewCteFormDialogComponent } from './formsandrequests/view-cte-form-dialog/view-cte-form-dialog.component';
 import { ViewPreapprovalFormDialogComponent } from './formsandrequests/view-preapproval-form-dialog/view-preapproval-form-dialog.component';
-import { ViewEquivalanceRequestDialogComponent } from './formsandrequests/view-equivalance-request-dialog/view-equivalance-request-dialog.component';
+import { ViewEquivalanceRequestDialogComponent } from './formsandrequests/view-equivalence-request-dialog/view-equivalance-request-dialog.component';
 
 @NgModule({
   declarations: [

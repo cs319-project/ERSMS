@@ -22,13 +22,17 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import {MatSortModule} from "@angular/material/sort";
 import {MatSelectModule} from "@angular/material/select";
+import { UserDialogComponent } from './admin-dashboard/user-dialog/user-dialog.component';
 
 
 
 @NgModule({
   imports: [FormsModule, BrowserAnimationsModule, BrowserModule, MatGridListModule, MatCardModule, MatDividerModule, NgApexchartsModule, MatCheckboxModule, MatButtonModule, MatIconModule, MatFormFieldModule, MatInputModule, MatTabsModule, MatTableModule, MatPaginatorModule, MatProgressBarModule, MatSortModule, MatOptionModule, MatAutocompleteModule, ReactiveFormsModule, MatSelectModule],
-  exports: [],
-  declarations: [ DashboardComponent, AdminDashboardComponent],
+  exports: [
+    DashboardComponent,
+    AdminDashboardComponent
+  ],
+  declarations: [ DashboardComponent, AdminDashboardComponent, UserDialogComponent],
   providers: [],
 })
 export class DashboardModule {}
