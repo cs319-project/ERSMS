@@ -17,7 +17,13 @@ export class ViewEquivalenceRequestDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.instructorStatus = this.getStatus(this.data.eqReq.instructorApproval);
+    if (this.data.eqReq.instructorApproval != null) {
+      this.instructorStatus = this.getStatus(
+        this.data.eqReq.instructorApproval
+      );
+    } else {
+      this.instructorStatus = 'Waiting';
+    }
 
     if (this.data.eqReq.isApproved) {
       this.formStatus = 'Accepted';
@@ -31,14 +37,18 @@ export class ViewEquivalenceRequestDialogComponent implements OnInit {
   }
 
   getStatus(approval: Approval) {
-    if (approval.dateOfApproval == null) {
-      return 'Waiting';
-    } else {
-      if (approval.isApproved) {
-        return 'Accepted';
+    if (approval != null) {
+      if (approval.dateOfApproval == null) {
+        return 'Waiting';
       } else {
-        return 'Rejected';
+        if (approval.isApproved) {
+          return 'Accepted';
+        } else {
+          return 'Rejected';
+        }
       }
+    } else {
+      return 'Waiting';
     }
   }
 }

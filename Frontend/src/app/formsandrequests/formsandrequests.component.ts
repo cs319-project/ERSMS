@@ -74,6 +74,7 @@ export class FormsAndRequestsComponent {
   cteForm: CteForm;
   cteForms: CteForm[] = [];
   preApprovalForms: PreApprovalForm[] = [];
+  equivalenceRequests: EquivalenceRequest[] = [];
 
   constructor(
     private dialog: MatDialog,
@@ -144,7 +145,34 @@ export class FormsAndRequestsComponent {
         });
       });
 
-    console.log(this.preApprovalForms);
+    equivalenceRequestService
+      .getNonArchivedEquivalenceRequestsByDepartment(this.currentUserId)
+      .toPromise()
+      .then(data => {
+        // console.log(data);
+        data.forEach(element => {
+          let temp: UserData = {
+            formId: element.id,
+            id: element.studentId,
+            student: element.firstName + ' ' + element.lastName,
+            // date: element.submissionTime.toString(),
+            type: 'Course Eq. Request',
+            school: element.hostUniversityName,
+            status: element.isRejected
+              ? 'Rejected'
+              : element.isApproved
+              ? 'Approved'
+              : 'Processing'
+          };
+          users.push(temp);
+          courseequivalenceUsers.push(temp);
+          studentUser.push(temp);
+          this.equivalenceRequests.push(element);
+        });
+      });
+
+    //console.log(this.preApprovalForms);
+    //console.log(preapprovalUsers);
 
     // console.log(this.cteForms);
     // console.log(users);
@@ -256,6 +284,23 @@ export class FormsAndRequestsComponent {
           dialogConfig.autoFocus = false;
           dialogConfig.data = viewPreApprovalForm;
           this.dialog.open(ViewPreapprovalFormDialogComponent, dialogConfig);
+          //console.log(viewPreApprovalForm);
+        });
+    } else if (row.type == 'Course Eq. Request') {
+      this.userService
+        .getUserDetails(row.id)
+        .toPromise()
+        .then((data: Student) => {
+          let studentData: Student = data;
+          let viewCourseEquivalenceRequest: ViewEquivalenceRequest = {
+            student: studentData,
+            eqReq: this.equivalenceRequests.find(x => x.id == row.formId)
+          };
+          const dialogConfig = new MatDialogConfig();
+          dialogConfig.disableClose = true;
+          dialogConfig.autoFocus = false;
+          dialogConfig.data = viewCourseEquivalenceRequest;
+          this.dialog.open(ViewEquivalenceRequestDialogComponent, dialogConfig);
         });
     }
   }

@@ -9,6 +9,9 @@ namespace Backend.DTOs
     {
         public Guid Id { get; set; }
         public string StudentId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string HostUniversityName { get; set; }
         public string HostCourseName { get; set; }
         public string HostCourseCode { get; set; }
         public double HostCourseECTS { get; set; }

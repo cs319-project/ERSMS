@@ -244,7 +244,7 @@ export const STATUS = ['Rejected', 'Approved'];
 export interface UserData {
   id: number;
   student: string;
-  date: string;
+  date?: string;
   type: string;
   school: string;
   status: string;

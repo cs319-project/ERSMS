@@ -83,10 +83,14 @@
           </div>
           <mat-divider style="width: 100%"></mat-divider>
         </div>
-        <div class="approval-info-container">
+        <div
+          class="approval-info-container"
+          *ngIf="instructorStatus != 'Waiting'">
           <span class="subtitle mt-3 mb-3">Approvals</span>
           <div class="approve-info-content">
-            <div class="approve-info-element">
+            <div
+              class="approve-info-element"
+              *ngIf="instructorStatus != 'Waiting'">
               <span
                 ><b class="mr-2">Name:</b
                 >{{ data.eqReq.instructorApproval.name }}</span

@@ -2,7 +2,7 @@
   <div style="display: flex; justify-content: space-between">
     <div style="flex-grow: 1">
       <span class="view-title mr-3">PreApproval Form</span>
-      <span class="gray-text">#{{data.preApprovalForm.id}}</span>
+      <span class="gray-text">#{{ data.preApprovalForm.id }}</span>
     </div>
     <button mat-icon-button matDialogClose>
       <mat-icon>cancel</mat-icon>
@@ -10,23 +10,30 @@
   </div>
   <div class="mb-2">
     <span><b>Submission Date</b></span>
-    <span class="ml-2">{{data.preApprovalForm.submissionTime.toLocaleString()}}</span>
+    <span class="ml-2">{{
+      data.preApprovalForm.submissionTime.toLocaleString()
+    }}</span>
   </div>
   <div style="display: flex" class="mb-2">
     <span class="subtitle mr-3">Form Status:</span>
-    <span class="status-text"
-          *ngIf="formStatus === 'Waiting'"
-          style="background-color: '#FF965D'">Waiting
+    <span
+      class="status-text"
+      *ngIf="formStatus === 'Waiting'"
+      style="background-color: '#FF965D'"
+      >Waiting
     </span>
-    <span class="status-text"
-          *ngIf="formStatus === 'Accepted'"
-          style="background-color: '#49C96D'">Accepted
+    <span
+      class="status-text"
+      *ngIf="formStatus === 'Accepted'"
+      style="background-color: '#49C96D'"
+      >Accepted
     </span>
-    <span class="status-text"
-          *ngIf="formStatus === 'Rejected'"
-          style="background-color: '#FD7972'">Rejected
+    <span
+      class="status-text"
+      *ngIf="formStatus === 'Rejected'"
+      style="background-color: '#FD7972'"
+      >Rejected
     </span>
-
   </div>
   <mat-tab-group>
     <mat-tab label="Form Information">
@@ -35,94 +42,140 @@
           <span class="subtitle">Student Details</span>
           <div class="student-info mt-3">
             <span>Name</span>
-            <span>{{data.student.firstName + data.student.lastName}}</span>
+            <span>{{ data.student.firstName + data.student.lastName }}</span>
           </div>
           <mat-divider style="width: 100%"></mat-divider>
           <div class="student-info mt-2">
             <span>Student ID</span>
-            <span>{{data.student.identityUser.userName}}</span>
+            <span>{{ data.student.identityUser.userName }}</span>
           </div>
           <mat-divider style="width: 100%"></mat-divider>
           <div class="student-info mt-2">
             <span>Department</span>
-            <span>{{data.student.major.departmentName}}</span>
+            <span>{{ data.student.major.departmentName }}</span>
           </div>
           <mat-divider style="width: 100%"></mat-divider>
           <div class="student-info mt-2">
             <span>Email</span>
-            <span>{{data.student.identityUser.email}}</span>
+            <span>{{ data.student.identityUser.email }}</span>
           </div>
           <mat-divider style="width: 100%"></mat-divider>
           <div class="student-info mt-2">
             <span>CGPA</span>
-            <span>{{data.student.cgpa}}</span>
+            <span>{{ data.student.cgpa }}</span>
           </div>
           <mat-divider style="width: 100%"></mat-divider>
           <div class="student-info mt-2">
             <span>Exchange School</span>
-            <span>{{data.student.exchangeSchool}}</span>
+            <span>{{ data.student.exchangeSchool }}</span>
           </div>
           <mat-divider style="width: 100%"></mat-divider>
           <div class="student-info mt-2">
             <span>Preferred Term</span>
-            <span>{{data.student.preferredSemester.academicYear + " " + data.student.preferredSemester.semester}}</span>
+            <span>{{
+              data.student.preferredSemester.academicYear +
+                " " +
+                data.student.preferredSemester.semester
+            }}</span>
           </div>
           <mat-divider style="width: 100%"></mat-divider>
           <div class="student-info mt-2">
             <span>Enterance Year</span>
-            <span>{{data.student.entranceYear}}</span>
+            <span>{{ data.student.entranceYear }}</span>
           </div>
           <mat-divider style="width: 100%"></mat-divider>
         </div>
-        <div class="approval-info-container">
+        <div
+          class="approval-info-container"
+          *ngIf="coordinatorStatus != 'Waiting' || boardStatus != 'Waiting'">
           <span class="subtitle mt-3 mb-3">Approvals</span>
           <div class="approve-info-content">
-            <div class="approve-info-element">
-              <span><b class="mr-2">Name:</b>{{data.preApprovalForm.exchangeCoordinatorApproval.name}}</span>
+            <div
+              class="approve-info-element"
+              *ngIf="coordinatorStatus != 'Waiting'">
+              <span
+                ><b class="mr-2">Name:</b
+                >{{
+                  data.preApprovalForm.exchangeCoordinatorApproval.name
+                }}</span
+              >
               <span><b class="mr-2">Role:</b>Exchange Coordinator</span>
               <span *ngIf="coordinatorStatus != 'Waiting'">
                 <b class="mr-2">Approval Date:</b>
-                {{data.preApprovalForm.exchangeCoordinatorApproval.dateOfApproval.toLocaleDateString()}}
+                {{
+                  data.preApprovalForm.exchangeCoordinatorApproval.dateOfApproval.toLocaleDateString()
+                }}
               </span>
               <span *ngIf="coordinatorStatus != 'Waiting'">
                 <b class="mr-2">Approval Time:</b>
-                {{data.preApprovalForm.exchangeCoordinatorApproval.dateOfApproval.toLocaleTimeString()}}
+                {{
+                  data.preApprovalForm.exchangeCoordinatorApproval.dateOfApproval.toLocaleTimeString()
+                }}
               </span>
-              <div class="status-text-container"  >
-                <span class="status-text"
-                      *ngIf="coordinatorStatus === 'Waiting'"
-                      style="background-color: '#FF965D'">Waiting</span>
-                <span class="status-text"
-                      *ngIf="coordinatorStatus === 'Accepted'"
-                      style="background-color: '#49C96D'">Accepted</span>
-                <span class="status-text"
-                      *ngIf="coordinatorStatus === 'Rejected'"
-                      style="background-color: '#FD7972'">Rejected</span>
+              <div class="status-text-container">
+                <span
+                  class="status-text"
+                  *ngIf="coordinatorStatus === 'Waiting'"
+                  style="background-color: '#FF965D'"
+                  >Waiting</span
+                >
+                <span
+                  class="status-text"
+                  *ngIf="coordinatorStatus === 'Accepted'"
+                  style="background-color: '#49C96D'"
+                  >Accepted</span
+                >
+                <span
+                  class="status-text"
+                  *ngIf="coordinatorStatus === 'Rejected'"
+                  style="background-color: '#FD7972'"
+                  >Rejected</span
+                >
               </div>
-
             </div>
-            <mat-divider vertical style="height:150px" class="mr-4 ml-4"></mat-divider>
-            <div class="approve-info-element">
-              <span><b class="mr-2">Name:</b>{{data.preApprovalForm.facultyAdministrationBoardApproval.name}}</span>
+            <mat-divider
+              vertical
+              style="height: 150px"
+              class="mr-4 ml-4"></mat-divider>
+            <div class="approve-info-element" *ngIf="boardStatus != 'Waiting'">
+              <span
+                ><b class="mr-2">Name:</b
+                >{{
+                  data.preApprovalForm.facultyAdministrationBoardApproval.name
+                }}</span
+              >
               <span><b class="mr-2">Role:</b>Administration Board</span>
               <span *ngIf="boardStatus != 'Waiting'">
                 <b class="mr-2">Approval Date:</b>
-                {{data.preApprovalForm.facultyAdministrationBoardApproval.dateOfApproval.toLocaleDateString()}}
+                {{
+                  data.preApprovalForm.facultyAdministrationBoardApproval.dateOfApproval.toLocaleDateString()
+                }}
               </span>
               <span *ngIf="boardStatus != 'Waiting'">
                 <b class="mr-2">Approval Time:</b>
-                {{data.preApprovalForm.facultyAdministrationBoardApproval.dateOfApproval.toLocaleTimeString()}}
+                {{
+                  data.preApprovalForm.facultyAdministrationBoardApproval.dateOfApproval.toLocaleTimeString()
+                }}
               </span>
-              <div class="status-text-container"  >
-                <span class="status-text"
-                      *ngIf="boardStatus === 'Waiting'"
-                      style="background-color: '#FF965D'">Waiting</span>
-                <span class="status-text"
-                      *ngIf="boardStatus === 'Accepted'"
-                      style="background-color: '#49C96D'">Accepted</span>
-                <span class="status-text"
-                      *ngIf="boardStatus === 'Rejected'"
-                      style="background-color: '#FD7972'">Rejected</span>
+              <div class="status-text-container">
+                <span
+                  class="status-text"
+                  *ngIf="boardStatus === 'Waiting'"
+                  style="background-color: '#FF965D'"
+                  >Waiting</span
+                >
+                <span
+                  class="status-text"
+                  *ngIf="boardStatus === 'Accepted'"
+                  style="background-color: '#49C96D'"
+                  >Accepted</span
+                >
+                <span
+                  class="status-text"
+                  *ngIf="boardStatus === 'Rejected'"
+                  style="background-color: '#FD7972'"
+                  >Rejected</span
+                >
               </div>
             </div>
           </div>
@@ -130,45 +183,63 @@
       </div>
     </mat-tab>
     <mat-tab label="Form Content">
-      <div class="form-content-container ">
-        <div class="course-groups" *ngFor="let courseGroup of data.preApprovalForm.requestedCourseGroups; let groupIndex = index">
+      <div class="form-content-container">
+        <div
+          class="course-groups"
+          *ngFor="
+            let courseGroup of data.preApprovalForm.requestedCourseGroups;
+            let groupIndex = index
+          ">
           <div class="course-group mb-4">
             <div class="course-group-header">
-              <span>Course Group {{groupIndex + 1}}</span>
+              <span>Course Group {{ groupIndex + 1 }}</span>
             </div>
             <mat-divider style="width: 100%" class="mt-2 mb-2"></mat-divider>
             <div class="host-courses-container">
               <div>
-                <span class="course-group-subtitle">Host Institution Courses</span>
+                <span class="course-group-subtitle"
+                  >Host Institution Courses</span
+                >
               </div>
-              <div class="host-courses" *ngFor="let requestedCourse of courseGroup.requestedCourses; let courseIndex = index">
+              <div
+                class="host-courses"
+                *ngFor="
+                  let requestedCourse of courseGroup.requestedCourses;
+                  let courseIndex = index
+                ">
                 <div class="group-course mt-2">
                   <mat-form-field style="width: 150px" appearance="outline">
                     <mat-label>Course Code</mat-label>
-                    <input type="search" matInput readonly
-                           [(ngModel)]="requestedCourse.courseCode"
-                    >
+                    <input
+                      type="search"
+                      matInput
+                      readonly
+                      [(ngModel)]="requestedCourse.courseCode" />
                   </mat-form-field>
-                  <mat-form-field style="flex-grow: 1" class="mr-3 ml-3" appearance="outline">
+                  <mat-form-field
+                    style="flex-grow: 1"
+                    class="mr-3 ml-3"
+                    appearance="outline">
                     <mat-label>Course Name</mat-label>
-                    <input type="search"
-                           readonly
-                           matInput [(ngModel)]="requestedCourse.courseName"
-                    >
-                  </mat-form-field >
+                    <input
+                      type="search"
+                      readonly
+                      matInput
+                      [(ngModel)]="requestedCourse.courseName" />
+                  </mat-form-field>
                   <mat-form-field style="width: 100px" appearance="outline">
                     <mat-label>ECTS</mat-label>
-                    <input type="number" step="0.5"
-                           min="0"
-                           readonly
-                           matInput [(ngModel)]="requestedCourse.ects"
-                    >
+                    <input
+                      type="number"
+                      step="0.5"
+                      min="0"
+                      readonly
+                      matInput
+                      [(ngModel)]="requestedCourse.ects" />
                   </mat-form-field>
                   <div style="width: 115px"></div>
-
                 </div>
               </div>
-
             </div>
             <div class="bilkent-course-container">
               <span class="course-group-subtitle">Bilkent Requirement</span>
@@ -176,43 +247,70 @@
                 <div class="course-info">
                   <mat-form-field style="width: 400px" appearance="outline">
                     <mat-label>Course Type</mat-label>
-                    <input type="search"
-                           matInput [(ngModel)]="courseGroup.requestedExemptedCourse.courseType" readonly>
+                    <input
+                      type="search"
+                      matInput
+                      [(ngModel)]="
+                        courseGroup.requestedExemptedCourse.courseType
+                      "
+                      readonly />
                   </mat-form-field>
                 </div>
                 <div class="course-info">
                   <mat-form-field style="width: 150px" appearance="outline">
                     <mat-label>Course Code</mat-label>
-                    <input type="search" matInput
-                           readonly
-                           [(ngModel)]="courseGroup.requestedExemptedCourse.courseCode">
+                    <input
+                      type="search"
+                      matInput
+                      readonly
+                      [(ngModel)]="
+                        courseGroup.requestedExemptedCourse.courseCode
+                      " />
                   </mat-form-field>
-                  <mat-form-field style="flex-grow: 1" class="mr-3 ml-3" appearance="outline">
+                  <mat-form-field
+                    style="flex-grow: 1"
+                    class="mr-3 ml-3"
+                    appearance="outline">
                     <mat-label>Course Name</mat-label>
-                    <input type="search"
-                           readonly
-                           matInput [(ngModel)]="courseGroup.requestedExemptedCourse.courseName">
-                  </mat-form-field >
-                  <mat-form-field style="width: 100px; margin-right: 15px" appearance="outline">
-                    <mat-label style="white-space: normal">Bilkent Credits</mat-label>
-                    <input type="number"
-                           readonly
-                           matInput [(ngModel)]="courseGroup.requestedExemptedCourse.bilkentCredits">
+                    <input
+                      type="search"
+                      readonly
+                      matInput
+                      [(ngModel)]="
+                        courseGroup.requestedExemptedCourse.courseName
+                      " />
                   </mat-form-field>
-                  <mat-form-field style="width: 100px;" appearance="outline">
+                  <mat-form-field
+                    style="width: 100px; margin-right: 15px"
+                    appearance="outline">
+                    <mat-label style="white-space: normal"
+                      >Bilkent Credits</mat-label
+                    >
+                    <input
+                      type="number"
+                      readonly
+                      matInput
+                      [(ngModel)]="
+                        courseGroup.requestedExemptedCourse.bilkentCredits
+                      " />
+                  </mat-form-field>
+                  <mat-form-field style="width: 100px" appearance="outline">
                     <mat-label>ECTS</mat-label>
-                    <input type="number"
-                           step="0.5" min="0"
-                           readonly
-                           matInput [(ngModel)]="courseGroup.requestedExemptedCourse.bilkentCredits">
+                    <input
+                      type="number"
+                      step="0.5"
+                      min="0"
+                      readonly
+                      matInput
+                      [(ngModel)]="
+                        courseGroup.requestedExemptedCourse.bilkentCredits
+                      " />
                   </mat-form-field>
                 </div>
               </div>
             </div>
           </div>
-
         </div>
-
       </div>
     </mat-tab>
     <mat-tab label="Decision">
@@ -220,14 +318,24 @@
         <span class="subtitle">Your Decision</span>
         <mat-form-field appearance="outline" style="width: 500px">
           <mat-label>Your Comments & Extra Notes</mat-label>
-          <textarea class="custom-scroll-bar" type="search" rows="10"  matInput></textarea>
+          <textarea
+            class="custom-scroll-bar"
+            type="search"
+            rows="10"
+            matInput></textarea>
         </mat-form-field>
         <div class="decision-buttons mb-5">
-          <button mat-raised-button style="margin-right: 50px; width: 125px" color="warn">Reject</button>
-          <button mat-raised-button style="width: 125px" color="primary">Accept</button>
+          <button
+            mat-raised-button
+            style="margin-right: 50px; width: 125px"
+            color="warn">
+            Reject
+          </button>
+          <button mat-raised-button style="width: 125px" color="primary">
+            Accept
+          </button>
         </div>
       </div>
-
     </mat-tab>
   </mat-tab-group>
 </div>

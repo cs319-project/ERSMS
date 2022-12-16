@@ -5,12 +5,15 @@ import { Approval } from './approval';
 export interface EquivalenceRequest {
   id: GUID;
   studentId: string;
+  firstName?: string;
+  lastName?: string;
+  hostUniversityName?: string;
   hostCourseName: string;
   hostCourseCode: string;
   hostCourseEcts: number;
   fileName: string;
   exemptedCourse: ExemptedCourse;
-  instructorApproval: Approval;
+  instructorApproval?: Approval;
   additionalNotes: string;
   isCanceled: boolean;
   isApproved: boolean;

@@ -49,7 +49,17 @@ namespace Backend.Services
 
         public async Task<IEnumerable<EquivalenceRequestDto>> GetEquivalenceRequests()
         {
-            return _mapper.Map<IEnumerable<EquivalenceRequestDto>>(await _equivalenceRequestRepository.GetEquivalenceRequests());
+            var result = _mapper.Map<IEnumerable<EquivalenceRequestDto>>(await _equivalenceRequestRepository.GetEquivalenceRequests());
+
+            foreach (var request in result)
+            {
+                var student = await _userService.GetUser(request.StudentId) as StudentDto;
+                request.FirstName = student.FirstName;
+                request.LastName = student.LastName;
+                request.HostUniversityName = student.ExchangeSchool;
+            }
+
+            return result;
         }
 
         public async Task<bool> DeleteEquivalenceRequest(Guid id)
@@ -59,7 +69,14 @@ namespace Backend.Services
 
         public async Task<EquivalenceRequestDto> GetEquivalenceRequest(Guid id)
         {
-            return _mapper.Map<EquivalenceRequestDto>(await _equivalenceRequestRepository.GetEquivalenceRequest(id));
+            var request = _mapper.Map<EquivalenceRequestDto>(await _equivalenceRequestRepository.GetEquivalenceRequest(id));
+
+            var student = await _userService.GetUser(request.StudentId) as StudentDto;
+            request.FirstName = student.FirstName;
+            request.LastName = student.LastName;
+            request.HostUniversityName = student.ExchangeSchool;
+
+            return request;
         }
 
         public async Task<bool> UpdateEquivalenceRequest(EquivalenceRequestDto equivalenceRequest)
@@ -91,6 +108,14 @@ namespace Backend.Services
         {
             Student student = await _userRepository.GetStudentByUserName(studentID);
             ICollection<EquivalenceRequestDto> equivalanceRequests = _mapper.Map<ICollection<EquivalenceRequestDto>>(student.EquivalenceRequestForms);
+
+            foreach (var request in equivalanceRequests)
+            {
+                request.FirstName = student.FirstName;
+                request.LastName = student.LastName;
+                request.HostUniversityName = student.ExchangeSchool;
+            }
+
             return equivalanceRequests;
         }
 
@@ -137,6 +162,10 @@ namespace Backend.Services
             {
                 if (request.ExemptedCourse.CourseCode == courseCode)
                 {
+                    var student = await _userService.GetStudent(request.StudentId);
+                    request.FirstName = student.FirstName;
+                    request.LastName = student.LastName;
+                    request.HostUniversityName = student.ExchangeSchool;
                     listToReturn.Add(request);
                 }
             }
@@ -160,6 +189,9 @@ namespace Backend.Services
                 }
                 if (student.Major.DepartmentName == department)
                 {
+                    request.FirstName = student.FirstName;
+                    request.LastName = student.LastName;
+                    request.HostUniversityName = student.ExchangeSchool;
                     listToReturn.Add(request);
                 }
             }
@@ -211,7 +243,13 @@ namespace Backend.Services
             {
                 if (request.IsArchived)
                 {
-                    listToReturn.Add(_mapper.Map<EquivalenceRequestDto>(request));
+                    var requestTemp = _mapper.Map<EquivalenceRequestDto>(request);
+
+                    var student = await _userService.GetStudent(request.StudentId);
+                    requestTemp.FirstName = student.FirstName;
+                    requestTemp.LastName = student.LastName;
+                    requestTemp.HostUniversityName = student.ExchangeSchool;
+                    listToReturn.Add(requestTemp);
                 }
             }
             return listToReturn;
@@ -226,7 +264,13 @@ namespace Backend.Services
             {
                 if (!request.IsArchived)
                 {
-                    listToReturn.Add(_mapper.Map<EquivalenceRequestDto>(request));
+                    var requestTemp = _mapper.Map<EquivalenceRequestDto>(request);
+
+                    var student = await _userService.GetStudent(request.StudentId);
+                    requestTemp.FirstName = student.FirstName;
+                    requestTemp.LastName = student.LastName;
+                    requestTemp.HostUniversityName = student.ExchangeSchool;
+                    listToReturn.Add(requestTemp);
                 }
             }
             return listToReturn;
@@ -248,6 +292,9 @@ namespace Backend.Services
                 }
                 if (student.Major.DepartmentName == department)
                 {
+                    request.FirstName = student.FirstName;
+                    request.LastName = student.LastName;
+                    request.HostUniversityName = student.ExchangeSchool;
                     listToReturn.Add(request);
                 }
             }
@@ -270,9 +317,21 @@ namespace Backend.Services
                 }
                 if (student.Major.DepartmentName == department)
                 {
+                    request.FirstName = student.FirstName;
+                    request.LastName = student.LastName;
+                    request.HostUniversityName = student.ExchangeSchool;
                     listToReturn.Add(request);
                 }
             }
+
+            foreach (var request in listToReturn)
+            {
+                var student = await _userService.GetUser(request.StudentId) as StudentDto;
+                request.FirstName = student.FirstName;
+                request.LastName = student.LastName;
+                request.HostUniversityName = student.ExchangeSchool;
+            }
+
             return listToReturn;
         }
 
@@ -285,6 +344,10 @@ namespace Backend.Services
             {
                 if (request.ExemptedCourse.CourseCode == courseCode)
                 {
+                    var student = await _userService.GetStudent(request.StudentId);
+                    request.FirstName = student.FirstName;
+                    request.LastName = student.LastName;
+                    request.HostUniversityName = student.ExchangeSchool;
                     listToReturn.Add(request);
                 }
             }
@@ -300,6 +363,11 @@ namespace Backend.Services
             {
                 if (request.ExemptedCourse.CourseCode == courseCode)
                 {
+                    var student = await _userService.GetStudent(request.StudentId);
+                    request.FirstName = student.FirstName;
+                    request.LastName = student.LastName;
+                    request.HostUniversityName = student.ExchangeSchool;
+
                     listToReturn.Add(request);
                 }
             }
