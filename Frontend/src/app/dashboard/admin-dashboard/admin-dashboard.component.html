@@ -22,6 +22,14 @@
               </td>
             </ng-container>
 
+            <ng-container matColumnDef="bilkentId">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Bilkent ID</th>
+              <td mat-cell *matCellDef="let row">
+                <div class="table-entry">
+                  {{ row.bilkentId }}
+                </div>
+              </td>
+            </ng-container>
             <ng-container matColumnDef="type">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
               <td mat-cell *matCellDef="let row">
