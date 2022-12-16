@@ -21,7 +21,7 @@ export class FormDialogComponent implements OnInit {
       'email': data.studentEmail,
       'id': data.studentId,
       'school': data.exchangeSchool
-    }]
+    }];
   }
 
   ngOnInit(): void {

@@ -8,13 +8,13 @@ import { DomainUser } from './domain-user';
 export interface Student extends DomainUser {
   entranceYear: number;
   major: DepartmentInfo;
-  minors: ArrayLike<DepartmentInfo>;
+  minors: DepartmentInfo[];
   cgpa: number;
   exchangeScore: number;
   preferredSemester: SemesterInfo;
-  preferredSchools: ArrayLike<string>;
+  preferredSchools: string[];
   exchangeSchool: string;
-  cteForms: ArrayLike<CteForm>;
-  preApprovalForms: ArrayLike<PreApprovalForm>;
-  equivalenceRequestForms: ArrayLike<EquivalanceRequest>;
+  cteForms: CteForm[];
+  preApprovalForms: PreApprovalForm[];
+  equivalenceRequestForms: EquivalanceRequest[];
 }

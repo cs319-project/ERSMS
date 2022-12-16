@@ -6,7 +6,7 @@
     <div class="course-groups" *ngFor="let courseGroup of data.requestedCourseGroups; let groupIndex = index">
       <div class="course-group mb-4">
         <div class="course-group-header">
-          <span>Group {{groupIndex + 1}}</span>
+          <span>Course Group {{groupIndex + 1}}</span>
           <button mat-raised-button color="warn" class="ml-4" (click)="onGroupDelete(groupIndex)">Delete</button>
         </div>
         <mat-divider style="width: 100%" class="mt-2 mb-2"></mat-divider>
@@ -19,34 +19,35 @@
             <div class="group-course mt-2">
               <mat-form-field style="width: 150px" appearance="outline">
                 <mat-label>Course Code</mat-label>
-                <input type="search" matInput 
+                <input type="search" matInput
                 [formControl] = "courseCode" required
                 [(ngModel)]="requestedCourse.courseCode"
                 >
               </mat-form-field>
-              <mat-form-field style="flex-grow: 1" class="mr-5 ml-5" appearance="outline">
+              <mat-form-field style="flex-grow: 1" class="mr-3 ml-3" appearance="outline">
                 <mat-label>Course Name</mat-label>
-                <input type="search" 
+                <input type="search"
                 [formControl] = "courseName" required
                 matInput [(ngModel)]="requestedCourse.courseName"
                 >
               </mat-form-field >
               <mat-form-field style="width: 100px" appearance="outline">
-                <mat-label>Credits</mat-label>
+                <mat-label>ECTS</mat-label>
                 <input type="number" step="0.5"
                  min="0"
                  [formControl] = "courseCredit" required
-                 matInput [(ngModel)]="requestedCourse.credits"
+                 matInput [(ngModel)]="requestedCourse.ects"
                  >
               </mat-form-field>
-              <div class="delete-course-btn">
+              <div style="width: 65px"></div>
+              <div style="width: 50px" class="delete-course-btn">
                 <button mat-icon-button *ngIf="courseGroup.requestedCourses.length > 1" (click)="onCourseDelete(groupIndex, courseIndex)">
                   <mat-icon>delete</mat-icon>
                 </button>
               </div>
             </div>
           </div>
-          <mat-error style="width:200px" class="mr-3" *ngIf="(courseCredit.invalid ||courseCode.invalid 
+          <mat-error style="width:200px" class="mr-3" *ngIf="(courseCredit.invalid ||courseCode.invalid
             || courseName.invalid) && submitted">
             {{getErrorMessageEmpty()}}
         </mat-error>
@@ -72,29 +73,35 @@
             <div class="course-info">
               <mat-form-field style="width: 150px" appearance="outline">
                 <mat-label>Course Code</mat-label>
-                <input type="search" matInput 
+                <input type="search" matInput
                 [formControl] = "courseCodeBilkent" required
                 [(ngModel)]="courseGroup.requestedExemptedCourse.courseCode">
               </mat-form-field>
-              <mat-form-field style="flex-grow: 1" class="mr-5 ml-5" appearance="outline">
+              <mat-form-field style="flex-grow: 1" class="mr-3 ml-3" appearance="outline">
                 <mat-label>Course Name</mat-label>
-                <input type="search" 
+                <input type="search"
                 [formControl] = "courseNameBilkent" required
                 matInput [(ngModel)]="courseGroup.requestedExemptedCourse.courseName">
               </mat-form-field >
-              <mat-form-field style="width: 100px" appearance="outline">
-                <mat-label>Credits</mat-label>
-                <input type="number" 
-                step="0.5" min="0" 
+              <mat-form-field style="width: 100px; margin-right: 15px" appearance="outline">
+                <mat-label style="white-space: normal">Bilkent Credits</mat-label>
+                <input type="number"
+                step="1" min="0"
                 [formControl] = "courseCreditBilkent" required
-                matInput [(ngModel)]="courseGroup.requestedExemptedCourse.credits">
+                matInput [(ngModel)]="courseGroup.requestedExemptedCourse.bilkentCredits">
               </mat-form-field>
-              <div style="width: 40px"></div>
+              <mat-form-field style="width: 100px;" appearance="outline">
+                <mat-label>ECTS</mat-label>
+                <input type="number"
+                       step="0.5" min="0"
+                       [formControl] = "courseCreditBilkent" required
+                       matInput [(ngModel)]="courseGroup.requestedExemptedCourse.bilkentCredits">
+              </mat-form-field>
             </div>
           </div>
         </div>
 
-        <mat-error style="width:200px" class="mr-3" *ngIf="(courseCreditBilkent.invalid || courseCodeBilkent.invalid 
+        <mat-error style="width:200px" class="mr-3" *ngIf="(courseCreditBilkent.invalid || courseCodeBilkent.invalid
             || courseNameBilkent.invalid || courseType.invalid) && submitted">
             {{getErrorMessageEmptyBilkent()}}
         </mat-error>

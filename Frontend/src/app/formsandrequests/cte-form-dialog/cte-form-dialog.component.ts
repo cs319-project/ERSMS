@@ -23,6 +23,7 @@ export class CteFormDialogComponent implements OnInit {
   courseType = new FormControl('', [Validators.required]);
 
   courseCreditBilkent = new FormControl('', [Validators.required]);
+  courseCreditBilkentECTS = new FormControl('', [Validators.required]);
   courseCodeBilkent = new FormControl('', [Validators.required]);
   courseNameBilkent = new FormControl('', [Validators.required]);
 
@@ -37,7 +38,8 @@ export class CteFormDialogComponent implements OnInit {
 
   getErrorMessageEmptyBilkent() {
 
-    return this.courseCreditBilkent.hasError('required') ? 'All fields must be filled' :
+    return this.courseCreditBilkentECTS.hasError('required') ? 'All fields must be filled' :
+      this.courseCreditBilkent.hasError('required') ? 'All fields must be filled' :
       this.courseCodeBilkent.hasError('required') ? 'All fields must be filled' :
       this.courseNameBilkent.hasError('required') ? 'All fields must be filled' :
       this.courseType.hasError('required') ? 'All fields must be filled' :
@@ -56,8 +58,8 @@ export class CteFormDialogComponent implements OnInit {
 
   onAddGroup() {
     let newGroup: TransferredCourseGroup = {id: null,
-      transferredCourses: [{id:null, courseCode: null, courseName:null,credits:null, grade:null}],
-      exemptedCourse: {id: null, courseCode: null, courseName: null, courseType: null, credits: null}};
+      transferredCourses: [{id:null, courseCode: null, courseName:null,ects:null, grade:null}],
+      exemptedCourse: {id: null, courseCode: null, courseName: null, courseType: null, ects: null, bilkentCredits: null}};
     if(this.data.transferredCourseGroup){
       this.data.transferredCourseGroup.push(newGroup);
     }
@@ -67,8 +69,8 @@ export class CteFormDialogComponent implements OnInit {
   }
 
   onAddCourse(courseGroup: TransferredCourseGroup) {
-
-    let newRequestedCourse: TransferredCourse = {id: null, courseCode: null, courseName: null, credits: null, grade: null};
+    console.log(courseGroup);
+    let newRequestedCourse: TransferredCourse = {id: null, courseCode: null, courseName: null, ects: null, grade: null};
     courseGroup.transferredCourses.push(newRequestedCourse);
   }
 
