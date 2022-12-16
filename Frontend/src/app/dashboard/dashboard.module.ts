@@ -23,6 +23,7 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import {MatSortModule} from "@angular/material/sort";
 import {MatSelectModule} from "@angular/material/select";
 import { UserDialogComponent } from './admin-dashboard/user-dialog/user-dialog.component';
+import { CreateUserDialogComponent } from './admin-dashboard/create-user-dialog/create-user-dialog.component';
 
 
 
@@ -32,7 +33,7 @@ import { UserDialogComponent } from './admin-dashboard/user-dialog/user-dialog.c
     DashboardComponent,
     AdminDashboardComponent
   ],
-  declarations: [ DashboardComponent, AdminDashboardComponent, UserDialogComponent],
+  declarations: [ DashboardComponent, AdminDashboardComponent, UserDialogComponent, CreateUserDialogComponent],
   providers: [],
 })
 export class DashboardModule {}

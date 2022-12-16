@@ -6,9 +6,7 @@ export interface ViewUser{
   user: DomainUser;
   userType: ActorsEnum;
   entranceYear: number;
-  major: DepartmentInfo;
-  minors: DepartmentInfo[];
+  department: DepartmentInfo;
   cgpa: number;
   isDean: boolean;
-
 }

@@ -1,0 +1,71 @@
+<div class="user-container">
+  <div class="user-header">
+    <span>User Details</span>
+  </div>
+  <div class="user-content">
+    <div class="user-type">
+      <span class="mr-3">User Type:</span>
+      <mat-form-field
+        style="flex-grow: 1; text-align: center;"
+        class="ml-2">
+        <mat-select [(ngModel)]="data.appUser.actorType">
+          <mat-option *ngFor="let type of userTypes" [value]="type">
+            {{ type }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="user-type-content">
+      <div class="student-details">
+        <div class="flex-column">
+          <div class="flex">
+            <mat-form-field style="flex-grow: 1" class="mr-3 ml-3" appearance="outline">
+              <mat-label>First Name</mat-label>
+              <input type="search"
+                     matInput [(ngModel)]="data.appUser.firstName">
+            </mat-form-field>
+            <mat-form-field style="flex-grow: 1" class="mr-3 ml-3" appearance="outline">
+              <mat-label>Last Name</mat-label>
+              <input type="search"
+                     matInput [(ngModel)]="data.appUser.lastName">
+            </mat-form-field >
+          </div>
+          <div class="flex">
+            <mat-form-field style="flex-grow: 1" class="mr-3 ml-3" appearance="outline"
+             [(ngModel)]="data.appUser.identityUser.email">
+              <mat-label>Email</mat-label>
+              <input type="search"
+                     matInput>
+            </mat-form-field>
+            <mat-form-field style="flex-grow: 1" class="mr-3 ml-3" appearance="outline">
+              <mat-label>Bilkent ID</mat-label>
+              <input type="search"
+                     matInput [(ngModel)]="data.appUser.identityUser.userName">
+            </mat-form-field >
+          </div>
+          <div class="flex">
+            <mat-form-field style="flex-grow: 1" class="mr-3 ml-3" appearance="outline">
+              <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="Password">
+              <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+                <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+            <mat-form-field style="flex-grow: 1" class="mr-3 ml-3" appearance="outline">
+              <input matInput [type]="hidePasswordConfirm ? 'password' : 'text'" placeholder="Confirm Password">
+              <button mat-icon-button matSuffix (click)="hidePasswordConfirm = !hidePasswordConfirm" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePasswordConfirm">
+                <mat-icon>{{hidePasswordConfirm ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div style="flex-grow: 1"></div>
+  <div class="form-footer mt-4">
+    <button mat-raised-button color="primary" (click)="dialogRef.close(null)">Cancel</button>
+    <button mat-raised-button color="primary" class="ml-5" (click)="onSubmit()">Submit</button>
+  </div>
+</div>
