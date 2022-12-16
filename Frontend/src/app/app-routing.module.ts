@@ -19,7 +19,10 @@ const routes: Routes = [
     path: '',
     component: NavigationComponent,
     canActivate: [AuthGuard],
-    children: [{ path: 'dashboard', component: DashboardComponent }]
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'formsandrequests', component: FormsAndRequestsComponent }
+    ]
   }
   //{ path: '**', redirectTo: '' }
   // {

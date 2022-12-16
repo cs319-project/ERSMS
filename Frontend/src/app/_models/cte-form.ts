@@ -12,10 +12,10 @@ export interface CteForm {
   transferredCourseGroup: TransferredCourseGroup[];
   submissionTime: Date;
   approvalTime: Date;
-  chairApproval: Approval;
-  deanApproval: Approval;
-  exchangeCoordinatorApproval: Approval;
-  facultyOfAdministrationBoardApproval: Approval;
+  chairApproval?: Approval;
+  deanApproval?: Approval;
+  exchangeCoordinatorApproval?: Approval;
+  facultyOfAdministrationBoardApproval?: Approval;
   isCanceled: boolean;
   isApproved: boolean;
   isRejected: boolean;

@@ -20,6 +20,17 @@ import { EquivalenceRequest } from '../_models/equivalence-request';
 import { EquivalenceRequestDialogComponent } from './equivalence-request-dialog/equivalence-request-dialog.component';
 import { CteForm } from '../_models/cte-form';
 import { CteFormDialogComponent } from './cte-form-dialog/cte-form-dialog.component';
+import { Student } from '../_models/student';
+import { DepartmentsEnum } from '../_models/enum/departments-enum';
+import { FacultiesEnum } from '../_models/enum/faculties-enum';
+import { ViewCTEForm } from './view-cte-form-dialog/viewCTEForm';
+import { ViewCteFormDialogComponent } from './view-cte-form-dialog/view-cte-form-dialog.component';
+import { ViewPreApprovalForm } from './view-preapproval-form-dialog/viewPreApprovalForm';
+import { ViewPreapprovalFormDialogComponent } from './view-preapproval-form-dialog/view-preapproval-form-dialog.component';
+import { ViewEquivalenceRequest } from './view-equivalence-request-dialog/viewEquivalenceRequest';
+import { ViewEquivalenceRequestDialogComponent } from './view-equivalence-request-dialog/view-equivalence-request-dialog.component';
+import { EquivalenceRequestService } from '../_services/equivalencerequest.service';
+import { CTEFormService } from '../_services/cteform.service';
 
 @Component({
   selector: 'app-formsandrequests',
@@ -55,22 +66,53 @@ export class FormsAndRequestsComponent {
   activatedRow = null;
 
   preApprovalForm: PreApprovalForm;
-  equivalenceRequest: EquivalenceRequest;
+  equivalanceRequest: EquivalenceRequest;
   cteForm: CteForm;
+  cteForms: CteForm[] = [];
 
-  constructor(private dialog: MatDialog, private _snackBar: MatSnackBar) {
+  constructor(
+    private dialog: MatDialog,
+    private _snackBar: MatSnackBar,
+    private equivalenceRequestService: EquivalenceRequestService,
+    private cteFormService: CTEFormService
+  ) {
     const users: UserData[] = [];
     const preapprovalUsers: UserData[] = [];
     const cteUsers: UserData[] = [];
     const courseequivalenceUsers: UserData[] = [];
     const studentUser: UserData[] = [];
 
-    for (let i = 1; i <= 100; i++) {
-      users.push(createNewUser(i, (status = 'Processing')));
-    }
-    for (let i = 1; i <= 10; i++) {
-      studentUser.push(createNewUser(i));
-    }
+    // for (let i = 1; i <= 100; i++) {
+    //   users.push(createNewUser(i, (status = 'Processing')));
+    // }
+
+    cteFormService
+      .getNonArchivedCTEFormsByDepartment('22002902')
+      .subscribe(data => {
+        data.forEach(element => {
+          let temp: UserData = {
+            id: element.id,
+            student: element.firstName + element.lastName,
+            date: '2020-01-01',
+            type: 'CTE Form',
+            school: 'School of Engineering',
+            status: element.isRejected
+              ? 'Rejected'
+              : element.isApproved
+              ? 'Approved'
+              : 'Processing'
+          };
+          users.push(temp);
+          studentUser.push(temp);
+          this.cteForms.push(element);
+        });
+      });
+
+    console.log(this.cteForms);
+    console.log(users);
+    // for (let i = 1; i <= 10; i++) {
+    //   studentUser.push(createNewUser(i));
+    // }
 
     for (let k = 0; k < users.length; k++) {
       if (users[k].type == 'PreApproval Form') {
@@ -145,6 +187,220 @@ export class FormsAndRequestsComponent {
   }
 
   openDialog(row) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = false;
+    let student: Student = {
+      firstName: 'Atak Talay',
+      lastName: 'Yücel',
+      preferredSemester: { academicYear: '2022-2023', semester: 'Spring' },
+      exchangeSchool: 'EPFL',
+      preferredSchools: null,
+      minors: null,
+      major: {
+        departmentName: DepartmentsEnum.CS[0],
+        facultyName: FacultiesEnum.Engineering
+      },
+      cgpa: 3.88,
+      cteForms: null,
+      preApprovalForms: null,
+      equivalenceRequestForms: null,
+      id: null,
+      identityUser: {
+        email: 'talay.yucel@ug.bilkent.edu.tr',
+        userName: '21901636'
+      },
+      actorType: null,
+      entranceYear: 2019,
+      exchangeScore: 100
+    };
+    let preApprovalForm: PreApprovalForm = {
+      id: null,
+      firstName: student.firstName,
+      lastName: student.lastName,
+      idNumber: student.identityUser.userName,
+      department: student.major.departmentName,
+      isApproved: false,
+      isRejected: false,
+      isCanceled: false,
+      isArchived: false,
+      approvalTime: null,
+      submissionTime: new Date(),
+      hostUniversityName: student.exchangeSchool,
+      semester: student.preferredSemester.semester,
+      academicYear: student.preferredSemester.academicYear,
+      exchangeCoordinatorApproval: {
+        id: null,
+        name: 'Borga Haktan Bilen',
+        dateOfApproval: null,
+        isApproved: false
+      },
+      facultyAdministrationBoardApproval: {
+        id: null,
+        name: 'Kutay Tire',
+        dateOfApproval: null,
+        isApproved: false
+      },
+      requestedCourseGroups: [
+        {
+          id: null,
+          requestedExemptedCourse: {
+            id: null,
+            courseCode: 'MATH 313',
+            courseName: 'Real Analysis 1',
+            bilkentCredits: 3,
+            ects: 5,
+            courseType: 'Mandatory Course'
+          },
+          requestedCourses: [
+            {
+              id: null,
+              courseCode: 'MATH 354',
+              courseName: 'Real Analysis',
+              ects: 6.5
+            }
+          ]
+        }
+      ]
+    };
+    let viewPreApprovalForm: ViewPreApprovalForm = {
+      student: student,
+      preApprovalForm: preApprovalForm
+    };
+    let cteForm: CteForm = {
+      id: new GUID(),
+      firstName: student.firstName,
+      lastName: student.lastName,
+      department: student.major.departmentName,
+      idNumber: student.identityUser.userName,
+      hostUniversityName: student.exchangeSchool,
+      chairApproval: {
+        id: null,
+        name: 'Borga Haktan Bilen',
+        dateOfApproval: null,
+        isApproved: false
+      },
+      deanApproval: {
+        id: null,
+        name: 'Kutay Tire',
+        dateOfApproval: null,
+        isApproved: false
+      },
+      exchangeCoordinatorApproval: {
+        id: null,
+        name: 'Yiğit Yalın',
+        dateOfApproval: new Date(),
+        isApproved: true
+      },
+      approvalTime: null,
+      transferredCourseGroup: [
+        {
+          id: null,
+          transferredCourses: [
+            {
+              id: null,
+              courseCode: 'MATH 354',
+              courseName: 'Real Analysis',
+              grade: 'A',
+              ects: 6.5
+            }
+          ],
+          exemptedCourse: {
+            id: null,
+            courseCode: 'MATH 313',
+            courseName: 'Real Analysis 1',
+            bilkentCredits: 3,
+            ects: 5,
+            courseType: 'Mandatory Course'
+          }
+        },
+        {
+          id: null,
+          transferredCourses: [
+            {
+              id: null,
+              courseCode: 'MATH 354',
+              courseName: 'Real Analysis',
+              grade: 'A',
+              ects: 6.5
+            }
+          ],
+          exemptedCourse: {
+            id: null,
+            courseCode: 'MATH 313',
+            courseName: 'Real Analysis 1',
+            bilkentCredits: 3,
+            ects: 5,
+            courseType: 'Mandatory Course'
+          }
+        }
+      ],
+      submissionTime: new Date(),
+      facultyOfAdministrationBoardApproval: {
+        id: null,
+        name: 'Berk Çakar',
+        dateOfApproval: new Date(),
+        isApproved: false
+      },
+      isRejected: false,
+      isApproved: false,
+      isCanceled: false,
+      isArchived: false
+    };
+    cteForm = this.cteForms[0];
+    console.log(cteForm);
+    let viewCTEForm: ViewCTEForm = { student: student, cteForm: cteForm };
+    console.log(viewCTEForm);
+    let eqReq: EquivalenceRequest = {
+      id: null,
+      studentId: student.identityUser.userName,
+      additionalNotes: '',
+      hostCourseCode: 'MATH 354',
+      hostCourseEcts: 4.5,
+      isApproved: false,
+      isRejected: false,
+      isArchived: false,
+      isCanceled: false,
+      hostCourseName: 'Real Analysis',
+      fileName: 'Syllabus',
+      exemptedCourse: {
+        id: null,
+        courseCode: 'MATH 313',
+        courseName: 'Real Analysis 1',
+        bilkentCredits: 3,
+        ects: 5,
+        courseType: 'Mandatory Course'
+      },
+      instructorApproval: {
+        id: null,
+        name: 'Borga Haktan Bilen',
+        dateOfApproval: null,
+        isApproved: false
+      }
+    };
+    let viewEqReq: ViewEquivalenceRequest = { student: student, eqReq: eqReq };
+
+    if (row.type == 'PreApproval Form') {
+      dialogConfig.data = viewPreApprovalForm;
+      const dialogRef = this.dialog.open(
+        ViewPreapprovalFormDialogComponent,
+        dialogConfig
+      );
+    } else if (row.type == 'CTE Form') {
+      dialogConfig.data = viewCTEForm;
+      const dialogRef = this.dialog.open(
+        ViewCteFormDialogComponent,
+        dialogConfig
+      );
+    } else if (row.type == 'Course Eq. Request') {
+      dialogConfig.data = viewEqReq;
+      const dialogRef = this.dialog.open(
+        ViewEquivalenceRequestDialogComponent,
+        dialogConfig
+      );
+    }
+
+    /*
     this.activatedRow = row;
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = createRandomDialogData(this.activatedRow);
@@ -153,12 +409,11 @@ export class FormsAndRequestsComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
-        let message = result
-          ? 'Form is successfully signed.'
-          : 'Form is rejected.';
+        let message = result ? 'Form is successfully signed.' : 'Form is rejected.';
         this.openSnackBar(message, 'Close', 5);
       }
     });
+     */
   }
 
   openSnackBar(message: string, action: string, duration: number) {
@@ -169,6 +424,8 @@ export class FormsAndRequestsComponent {
 
   openCreatePreapprovalFormDialog() {
     const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = false;
     this.preApprovalForm = {
       id: null,
       firstName: '',
@@ -183,9 +440,9 @@ export class FormsAndRequestsComponent {
       requestedCourseGroups: null,
       exchangeCoordinatorApproval: null,
       facultyAdministrationBoardApproval: null,
-      isCanceled: false,
-      isArchived: false,
       isApproved: false,
+      isArchived: false,
+      isCanceled: false,
       isRejected: false
     };
     dialogConfig.data = this.preApprovalForm;
@@ -196,9 +453,11 @@ export class FormsAndRequestsComponent {
     );
   }
 
-  openCreateEquivalenceRequestDialog() {
+  openCreateEquivalanceRequestDialog() {
     const dialogConfig = new MatDialogConfig();
-    this.equivalenceRequest = {
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = false;
+    this.equivalanceRequest = {
       id: null,
       studentId: null,
       fileName: null,
@@ -207,20 +466,20 @@ export class FormsAndRequestsComponent {
         courseName: '',
         courseCode: '',
         courseType: null,
-        bilkentCredits: null,
-        ects: null
+        ects: null,
+        bilkentCredits: null
       },
       instructorApproval: null,
       additionalNotes: null,
       hostCourseName: '',
-      hostCourseCode: '',
+      hostCourseCode: null,
       hostCourseEcts: null,
       isApproved: false,
-      isRejected: false,
       isArchived: false,
-      isCanceled: false
+      isCanceled: false,
+      isRejected: false
     };
-    dialogConfig.data = this.equivalenceRequest;
+    dialogConfig.data = this.equivalanceRequest;
 
     const dialogRef = this.dialog.open(
       EquivalenceRequestDialogComponent,
@@ -230,6 +489,8 @@ export class FormsAndRequestsComponent {
 
   openCreateCTEFormDialog() {
     const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = false;
     this.cteForm = {
       id: null,
       firstName: '',
@@ -244,9 +505,9 @@ export class FormsAndRequestsComponent {
       facultyOfAdministrationBoardApproval: null,
       deanApproval: null,
       chairApproval: null,
-      isCanceled: false,
-      isArchived: false,
       isApproved: false,
+      isArchived: false,
+      isCanceled: false,
       isRejected: false
     };
     dialogConfig.data = this.cteForm;

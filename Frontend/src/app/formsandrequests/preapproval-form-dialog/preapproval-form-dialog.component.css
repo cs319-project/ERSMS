@@ -1,48 +1,48 @@
-.form-container{
+.form-container {
   height: 70vh;
   width: 750px;
   display: flex;
   flex-direction: column;
 }
 
-.form-header{
+.form-header {
   text-align: center;
 }
 
-.form-content{
-  flex-grow: 1  ;
+.form-content {
+  flex-grow: 1;
 }
 
-.course-group-header{
+.course-group-header {
   display: flex;
 }
 
-.course-group-header span{
+.course-group-header span {
   font-weight: bold;
   font-size: 1.4rem;
 }
 
-.course-group-subtitle{
+.course-group-subtitle {
   font-weight: bold;
   font-size: 1.2rem;
 }
 
-.host-courses-container{
+.host-courses-container {
   display: flex;
   flex-direction: column;
 }
 
-.group-course{
+.group-course {
   display: flex;
   align-items: center;
 }
 
-.bilkent-course-container{
+.bilkent-course-container {
   display: flex;
   flex-direction: column;
 }
 
-.bilkent-requirement{
+.bilkent-requirement {
   display: flex;
   flex-direction: column;
 }
@@ -52,28 +52,28 @@ input.mat-input-element {
   font-size: 1.2rem;
 }
 
-.delete-course-btn{
+.delete-course-btn {
   display: flex;
   align-items: center;
   width: 40px;
 }
 
-.custom-scroll-bar{
-  height:60vh;
-  overflow-y:scroll;
+.custom-scroll-bar {
+  height: 60vh;
+  overflow-y: scroll;
   overflow-x: hidden;
 }
 
 
-.custom-scroll-bar::-webkit-scrollbar{
+.custom-scroll-bar::-webkit-scrollbar {
   width: 5px;
 }
 
-.custom-scroll-bar::-webkit-scrollbar-thumb{
-  background: rgba(0,0,0,.26);
+.custom-scroll-bar::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, .26);
 }
 
-.form-footer{
+.form-footer {
   bottom: 0;
   height: 50px;
   width: 100%;
@@ -82,12 +82,18 @@ input.mat-input-element {
   justify-content: center;
 }
 
-.course-info{
+.course-info {
   display: flex;
   align-items: center;
 }
 
-.host-courses{
+.host-courses {
   display: flex;
   flex-direction: column;
+}
+
+.mat-error {
+  font-size: x-small;
+  display: flex;
+  align-items: center;
 }

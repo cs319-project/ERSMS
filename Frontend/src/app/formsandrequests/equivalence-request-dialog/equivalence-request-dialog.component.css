@@ -1,19 +1,19 @@
-.request-container{
-  height: 50vh;
+.request-container {
+  height: 70vh;
   width: 750px;
   display: flex;
   flex-direction: column;
 }
 
-.request-header{
+.request-header {
   text-align: center;
 }
 
-.request-content{
+.request-content {
   flex-grow: 1;
 }
 
-.request-footer{
+.request-footer {
   bottom: 0;
   height: 50px;
   width: 100%;
@@ -22,17 +22,28 @@
   justify-content: center;
 }
 
-.request-subtitle{
+.request-subtitle {
   font-weight: bold;
   font-size: 1.2rem;
 }
 
-.course-container{
+.course-container {
   display: flex;
   flex-direction: column;
 }
 
-.course-info{
+.course-info {
+  display: flex;
+  align-items: center;
+}
+
+.notes-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-error {
+  font-size: x-small;
   display: flex;
   align-items: center;
 }

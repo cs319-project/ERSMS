@@ -4,6 +4,7 @@ import { CteForm } from '../../_models/cte-form';
 import { RequestedCourseGroup } from '../../_models/requested-course-group';
 import { TransferredCourseGroup } from '../../_models/transferred-course-group';
 import { TransferredCourse } from '../../_models/transferred-course';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-cte-form-dialog',
@@ -11,6 +12,48 @@ import { TransferredCourse } from '../../_models/transferred-course';
   styleUrls: ['./cte-form-dialog.component.css']
 })
 export class CteFormDialogComponent implements OnInit {
+  error = true;
+  submitted = false;
+  studentid = new FormControl('', [Validators.required]);
+  courseCredit = new FormControl('', [Validators.required]);
+  courseCode = new FormControl('', [Validators.required]);
+  courseName = new FormControl('', [Validators.required]);
+  grade = new FormControl('', [Validators.required]);
+  courseType = new FormControl('', [Validators.required]);
+
+  courseCreditBilkent = new FormControl('', [Validators.required]);
+  courseCreditBilkentECTS = new FormControl('', [Validators.required]);
+  courseCodeBilkent = new FormControl('', [Validators.required]);
+  courseNameBilkent = new FormControl('', [Validators.required]);
+
+  getErrorMessageEmpty() {
+    return this.studentid.hasError('required')
+      ? 'All fields must be filled'
+      : this.courseCredit.hasError('required')
+      ? 'All fields must be filled'
+      : this.courseCode.hasError('required')
+      ? 'All fields must be filled'
+      : this.courseName.hasError('required')
+      ? 'All fields must be filled'
+      : this.grade.hasError('required')
+      ? 'All fields must be filled'
+      : '';
+  }
+
+  getErrorMessageEmptyBilkent() {
+    return this.courseCreditBilkentECTS.hasError('required')
+      ? 'All fields must be filled'
+      : this.courseCreditBilkent.hasError('required')
+      ? 'All fields must be filled'
+      : this.courseCodeBilkent.hasError('required')
+      ? 'All fields must be filled'
+      : this.courseNameBilkent.hasError('required')
+      ? 'All fields must be filled'
+      : this.courseType.hasError('required')
+      ? 'All fields must be filled'
+      : '';
+  }
+
   courseTypes: string[] = [
     'Mandatory Course',
     'Techincal Elective',
@@ -36,8 +79,8 @@ export class CteFormDialogComponent implements OnInit {
           id: null,
           courseCode: null,
           courseName: null,
-          grade: null,
-          ects: null
+          ects: null,
+          grade: null
         }
       ],
       exemptedCourse: {
@@ -45,8 +88,8 @@ export class CteFormDialogComponent implements OnInit {
         courseCode: null,
         courseName: null,
         courseType: null,
-        bilkentCredits: null,
-        ects: null
+        ects: null,
+        bilkentCredits: null
       }
     };
     if (this.data.transferredCourseGroup) {
@@ -57,6 +100,7 @@ export class CteFormDialogComponent implements OnInit {
   }
 
   onAddCourse(courseGroup: TransferredCourseGroup) {
+    console.log(courseGroup);
     let newRequestedCourse: TransferredCourse = {
       id: null,
       courseCode: null,
@@ -79,7 +123,21 @@ export class CteFormDialogComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.data);
-    this.dialogRef.close(this.data);
+    this.submitted = true;
+    this.error =
+      this.courseCredit.hasError('required') ||
+      this.studentid.hasError('required') ||
+      this.courseCode.hasError('required') ||
+      this.courseName.hasError('required') ||
+      this.grade.hasError('required') ||
+      this.courseCreditBilkent.hasError('required') ||
+      this.courseCodeBilkent.hasError('required') ||
+      this.courseNameBilkent.hasError('required') ||
+      this.courseType.hasError('required');
+
+    if (!this.error) {
+      console.log(this.data);
+      this.dialogRef.close(this.data);
+    }
   }
 }

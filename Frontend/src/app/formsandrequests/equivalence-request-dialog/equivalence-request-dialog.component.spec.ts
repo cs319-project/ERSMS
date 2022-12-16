@@ -2,14 +2,15 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EquivalenceRequestDialogComponent } from './equivalence-request-dialog.component';
 
-describe('EquivalenceRequestDialogComponent', () => {
+describe('EquivalanceRequestDialogComponent', () => {
   let component: EquivalenceRequestDialogComponent;
   let fixture: ComponentFixture<EquivalenceRequestDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [EquivalenceRequestDialogComponent]
-    }).compileComponents();
+      declarations: [ EquivalenceRequestDialogComponent ]
+    })
+    .compileComponents();
   });
 
   beforeEach(() => {

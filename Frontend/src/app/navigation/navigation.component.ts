@@ -27,7 +27,6 @@ export class NavigationComponent implements OnInit {
   role: string;
   unreadCount: number = 0;
   userName: string;
-  announcementCreated: Announcement;
 
   notifications: {
     message: String;
@@ -205,13 +204,13 @@ export class NavigationComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.openSnackBar('Announcement sent', 'Close', 5);
-        console.log(result);
+        //console.log(result);
         let announcement: Announcement = {
           description: 'asd',
           title: '',
           sender: ''
         };
-        this.announcementService.createAnnouncement(announcement);
+        this.announcementService.createAnnouncement(announcement).subscribe();
       }
     });
   }

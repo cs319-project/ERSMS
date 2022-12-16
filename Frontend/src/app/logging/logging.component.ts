@@ -1,29 +1,26 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
-import {MatSort, Sort} from '@angular/material/sort';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort, Sort } from '@angular/material/sort';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { FormDialogComponent } from '../formsandrequests/form-dialog/form-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormsAndRequestsComponent } from '../formsandrequests/formsandrequests.component';
-
+import { EquivalenceRequestService } from '../_services/equivalencerequest.service';
 
 @Component({
-    selector: 'app-logging',
-    templateUrl: './logging.component.html',
-    styleUrls: ['./logging.component.css']
-  })
-
-export class LoggingComponent{
-
-  displayedColumns = ['id', 'student', 'date', 'type','school' ,'status'];
-  displayedColumns2 = ['id', 'student', 'date','school' ,'status'];
+  selector: 'app-logging',
+  templateUrl: './logging.component.html',
+  styleUrls: ['./logging.component.css']
+})
+export class LoggingComponent {
+  displayedColumns = ['id', 'student', 'date', 'type', 'school', 'status'];
+  displayedColumns2 = ['id', 'student', 'date', 'school', 'status'];
   dataSource: MatTableDataSource<UserData>;
   preapprovalDataSource: MatTableDataSource<UserData>;
   cteDataSource: MatTableDataSource<UserData>;
   courseEquivalenceDataSource: MatTableDataSource<UserData>;
-
 
   @ViewChild('paginator') paginator: MatPaginator;
   @ViewChild('paginator2') paginator2: MatPaginator;
@@ -39,29 +36,43 @@ export class LoggingComponent{
 
   activatedRow = null;
 
-  constructor(private dialog: MatDialog, private _snackBar: MatSnackBar) {
+  constructor(
+    private dialog: MatDialog,
+    private _snackBar: MatSnackBar,
+    private equivalenceRequestService: EquivalenceRequestService
+  ) {
     // Create 100 users
     const users: UserData[] = [];
     const preapprovalUsers: UserData[] = [];
     const cteUsers: UserData[] = [];
     const courseequivalenceUsers: UserData[] = [];
 
-    for (let i = 1; i <= 100; i++) { users.push(createNewUser(i))};
+    // for (let i = 1; i <= 100; i++) {
+    //   users.push(createNewUser(i));
+    // }
 
-    for(let k = 0; k < users.length; k++) {
+    equivalenceRequestService
+      .getNonArchivedEquivalenceRequestsByDepartment('22002902')
+      .subscribe(data => {
+        data.forEach(element => {
+          let temp: UserData = {
+            id: element.id,
+            student: 'john doe',
+            date: '2020-01-01',
+            type: 'Course Eq. Request',
+            school: 'School of Engineering',
+            status: 'Pending'
+          };
+          users.push(temp);
+        });
+      });
 
-
-      if(users[k].type == 'PreApproval Form') {
-
+    for (let k = 0; k < users.length; k++) {
+      if (users[k].type == 'PreApproval Form') {
         preapprovalUsers.push(users[k]);
-      }
-      else if(users[k].type == 'CTE Form') {
-
+      } else if (users[k].type == 'CTE Form') {
         cteUsers.push(users[k]);
-      }
-
-      else if(users[k].type == 'Course Eq. Request') {
-
+      } else if (users[k].type == 'Course Eq. Request') {
         courseequivalenceUsers.push(users[k]);
       }
     }
@@ -70,8 +81,9 @@ export class LoggingComponent{
     this.dataSource = new MatTableDataSource(users);
     this.preapprovalDataSource = new MatTableDataSource(preapprovalUsers);
     this.cteDataSource = new MatTableDataSource(cteUsers);
-    this.courseEquivalenceDataSource = new MatTableDataSource(courseequivalenceUsers);
-
+    this.courseEquivalenceDataSource = new MatTableDataSource(
+      courseequivalenceUsers
+    );
   }
 
   /**
@@ -88,24 +100,31 @@ export class LoggingComponent{
     this.preapprovalDataSource.sort = this.sorter2;
     this.cteDataSource.sort = this.sorter3;
     this.courseEquivalenceDataSource.sort = this.sorter4;
-
   }
 
   _setDataSource(indexNumber) {
     setTimeout(() => {
       switch (indexNumber) {
         case 0:
-          !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
+          !this.dataSource.paginator
+            ? (this.dataSource.paginator = this.paginator)
+            : null;
           break;
         case 1:
-          !this.preapprovalDataSource.paginator ? this.preapprovalDataSource.paginator = this.paginator2 : null;
+          !this.preapprovalDataSource.paginator
+            ? (this.preapprovalDataSource.paginator = this.paginator2)
+            : null;
           break;
         case 2:
-          !this.cteDataSource.paginator ? this.cteDataSource.paginator = this.paginator3 : null;
+          !this.cteDataSource.paginator
+            ? (this.cteDataSource.paginator = this.paginator3)
+            : null;
           break;
         case 3:
-          !this.courseEquivalenceDataSource.paginator ? this.courseEquivalenceDataSource.paginator = this.paginator4 : null;
-        break;
+          !this.courseEquivalenceDataSource.paginator
+            ? (this.courseEquivalenceDataSource.paginator = this.paginator4)
+            : null;
+          break;
       }
     });
   }
@@ -120,7 +139,6 @@ export class LoggingComponent{
   }
 
   openDialog(row) {
-
     this.activatedRow = row;
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = createRandomDialogData(this.activatedRow);
@@ -129,7 +147,9 @@ export class LoggingComponent{
 
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
-        let message = result ? 'Form is successfully signed.' : 'Form is rejected.';
+        let message = result
+          ? 'Form is successfully signed.'
+          : 'Form is rejected.';
         this.openSnackBar(message, 'Close', 5);
       }
     });
@@ -140,42 +160,45 @@ export class LoggingComponent{
       duration: duration * 1000
     });
   }
-
 }
 
 export function createRandomDialogData(row) {
   return {
-    'studentName': row.student,
-    'studentEmail': row.student + '@ug.bilkent.edu.tr',
-    'studentId': Math.round(Math.random() * 100000000),
-    'studentCgpa': Math.random() * 4,
-    'studentEntranceYear': '2020',
-    'studentDepartment': 'CS',
-    'exchangeProgram': 'ERASMUS',
-    'exchangeSchool': row.school,
-    'exchangeTerm': '2022-2023 Spring',
-    'formId': Math.round(Math.random() * 10000000),
-    'formType': row.type,
-    'formStatus': row.status,
-    'formAssignedPrivilegedUser': 'Can Alkan',
-    'formAssignedPrivilegedUserRole': 'Exchange Coordinator',
-    'formDate': null,
-    'formSignature': null,
-  }
+    studentName: row.student,
+    studentEmail: row.student + '@ug.bilkent.edu.tr',
+    studentId: Math.round(Math.random() * 100000000),
+    studentCgpa: Math.random() * 4,
+    studentEntranceYear: '2020',
+    studentDepartment: 'CS',
+    exchangeProgram: 'ERASMUS',
+    exchangeSchool: row.school,
+    exchangeTerm: '2022-2023 Spring',
+    formId: Math.round(Math.random() * 10000000),
+    formType: row.type,
+    formStatus: row.status,
+    formAssignedPrivilegedUser: 'Can Alkan',
+    formAssignedPrivilegedUserRole: 'Exchange Coordinator',
+    formDate: null,
+    formSignature: null
+  };
 }
 
-
-
 /** Builds and returns a new User. */
-export function createNewUser(id: number, status: string = null, student: string = null): UserData {
+export function createNewUser(
+  id: number,
+  status: string = null,
+  student: string = null
+): UserData {
   const name =
-      NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
-      NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
+    NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
+    ' ' +
+    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
+    '.';
 
   return {
     id: id,
     student: student || name,
-    date: new Date("12/05/2022").toLocaleDateString('en-US'),
+    date: new Date('12/05/2022').toLocaleDateString('en-US'),
     type: TYPE[Math.round(Math.random() * (TYPE.length - 1))],
     school: SCHOOLS[Math.round(Math.random() * (SCHOOLS.length - 1))],
     status: status || STATUS[Math.round(Math.random() * (STATUS.length - 1))]
@@ -183,17 +206,44 @@ export function createNewUser(id: number, status: string = null, student: string
 }
 
 /** Constants used to fill up our data base. */
-export const NAMES = ['Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack',
-  'Charlotte', 'Theodore', 'Isla', 'Oliver', 'Isabella', 'Jasper',
-  'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'];
+export const NAMES = [
+  'Maia',
+  'Asher',
+  'Olivia',
+  'Atticus',
+  'Amelia',
+  'Jack',
+  'Charlotte',
+  'Theodore',
+  'Isla',
+  'Oliver',
+  'Isabella',
+  'Jasper',
+  'Cora',
+  'Levi',
+  'Violet',
+  'Arthur',
+  'Mia',
+  'Thomas',
+  'Elizabeth'
+];
 
-export const SCHOOLS = ['EPFL' , 'Saarland', 'AGH', 'Vrije', 'Roskilde', 'TU Dortmund', 'TU Berlin', 'ETH'];
+export const SCHOOLS = [
+  'EPFL',
+  'Saarland',
+  'AGH',
+  'Vrije',
+  'Roskilde',
+  'TU Dortmund',
+  'TU Berlin',
+  'ETH'
+];
 export const TYPE = ['CTE Form', 'PreApproval Form', 'Course Eq. Request'];
 export const STATUS = ['Rejected', 'Approved'];
 
 export interface UserData {
   id: number;
-  student: string,
+  student: string;
   date: string;
   type: string;
   school: string;
