@@ -51,11 +51,11 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ConfirmationDialogComponent } from './appointments/confirmation-dialog/confirmation-dialog.component';
 import { PreapprovalFormDialogComponent } from './formsandrequests/preapproval-form-dialog/preapproval-form-dialog.component';
-import { EquivalanceRequestDialogComponent } from './formsandrequests/equivalence-request-dialog/equivalance-request-dialog.component';
+import { EquivalenceRequestDialogComponent } from './formsandrequests/equivalence-request-dialog/equivalence-request-dialog.component';
 import { CteFormDialogComponent } from './formsandrequests/cte-form-dialog/cte-form-dialog.component';
 import { ViewCteFormDialogComponent } from './formsandrequests/view-cte-form-dialog/view-cte-form-dialog.component';
 import { ViewPreapprovalFormDialogComponent } from './formsandrequests/view-preapproval-form-dialog/view-preapproval-form-dialog.component';
-import { ViewEquivalanceRequestDialogComponent } from './formsandrequests/view-equivalence-request-dialog/view-equivalance-request-dialog.component';
+import { ViewEquivalenceRequestDialogComponent } from './formsandrequests/view-equivalence-request-dialog/view-equivalence-request-dialog.component';
 
 @NgModule({
   declarations: [
@@ -74,11 +74,11 @@ import { ViewEquivalanceRequestDialogComponent } from './formsandrequests/view-e
     ConfirmationDialogComponent,
     ScoreTableUploadDialogComponent,
     PreapprovalFormDialogComponent,
-    EquivalanceRequestDialogComponent,
+    EquivalenceRequestDialogComponent,
     CteFormDialogComponent,
     ViewCteFormDialogComponent,
     ViewPreapprovalFormDialogComponent,
-    ViewEquivalanceRequestDialogComponent
+    ViewEquivalenceRequestDialogComponent
   ],
   imports: [
     BrowserModule,
