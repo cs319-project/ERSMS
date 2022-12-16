@@ -17,31 +17,7 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./equivalence-request-dialog.component.css']
 })
 export class EquivalenceRequestDialogComponent implements OnInit {
-  error = true;
-  submitted = false;
-  courseCode = new FormControl('', [Validators.required]);
-  courseName = new FormControl('', [Validators.required]);
-
-  file = new FormControl('', [Validators.required]);
-  courseCodeBilkent = new FormControl('', [Validators.required]);
-  courseNameBilkent = new FormControl('', [Validators.required]);
-
-  getErrorMessageEmpty() {
-    return this.courseCode.hasError('required')
-      ? 'All fields must be filled'
-      : this.courseName.hasError('required')
-      ? 'All fields must be filled'
-      : '';
-  }
-
-  getErrorMessageEmptyBilkent() {
-    return this.courseCodeBilkent.hasError('required')
-      ? 'All fields must be filled'
-      : this.courseNameBilkent.hasError('required')
-      ? 'All fields must be filled'
-      : '';
-  }
-
+  
   @Input()
   requiredFileType: string; // TODO: set file type
   fileName: string = '';
@@ -57,17 +33,9 @@ export class EquivalenceRequestDialogComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit() {
-    this.submitted = true;
-    this.error =
-      this.courseCode.hasError('required') ||
-      this.courseName.hasError('required') ||
-      this.courseCodeBilkent.hasError('required') ||
-      this.courseNameBilkent.hasError('required');
-
-    if (!this.error) {
-      console.log(this.data);
-      this.dialogRef.close(this.data);
-    }
+    console.log(this.data);
+    this.dialogRef.close(this.data);
+    
   }
 
   onFileSelected(event) {
