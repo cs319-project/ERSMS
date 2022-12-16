@@ -4,7 +4,7 @@
       <mat-card-content class="full-width flex-center full-height">
         <form [formGroup]="requiredForm">
           <h1 class="login-header"><strong>ERSMS</strong></h1>
-          <div class="form-group">
+          <div class="form-group" (keyup.enter)="login()">
             <mat-form-field class="full-width mt-4">
               <input
                 matInput

@@ -8,12 +8,14 @@
     <!-- <button mat-icon-button [matMenuTriggerFor]="notificationsMenu">
       <mat-icon svgIcon="notification-idle" matBadge="2"></mat-icon>
     </button> -->
-    <mat-icon
-      matBadge="2"
-      matBadgeColor="warn"
-      [matMenuTriggerFor]="notificationsMenu"
-      >notifications</mat-icon
-    >
+    <button mat-icon-button (click)="populateNotifications()">
+      <mat-icon
+        [matBadge]="unreadCount"
+        matBadgeColor="warn"
+        [matMenuTriggerFor]="notificationsMenu"
+        >notifications</mat-icon
+      >
+    </button>
 
     <button
       mat-icon-button
@@ -42,7 +44,10 @@
     <span class="mat-h1 m-3"> Notifications</span>
   </div>
   <mat-divider></mat-divider>
-  <button mat-menu-item *ngFor="let notification of notifications">
+  <button
+    mat-menu-item
+    *ngFor="let notification of notifications"
+    (click)="readNotification(notification)">
     <span>
       <strong>{{ notification.message }}</strong></span
     ><br />
@@ -138,9 +143,9 @@
           class="m-2"></mat-icon
         ><span>Messages</span>
       </mat-list-item>
-      <mat-list-item routerLink="/login">
+      <!-- <mat-list-item routerLink="/login">
         <mat-icon svgIcon="reports" class="m-2"></mat-icon><span>Reports</span>
-      </mat-list-item>
+      </mat-list-item> -->
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

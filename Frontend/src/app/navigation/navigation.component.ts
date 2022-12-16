@@ -9,6 +9,11 @@ import { AnnouncementComponent } from './announcement/announcement.component';
 import { AuthenticationService } from '../_services/authentication.service';
 import { UserService } from '../_services/user.service';
 import { ActorsEnum } from '../_models/enum/actors-enum';
+import { AnnouncementService } from '../_services/announcement.service';
+import { Announcement } from '../_models/announcement';
+import { GUID } from 'src/utils/guid';
+import { formatDate } from '@angular/common';
+import { NotificationService } from '../_services/notification.service';
 
 @Component({
   selector: 'app-navigation',
@@ -20,15 +25,24 @@ export class NavigationComponent implements OnInit {
   announcement: string;
   name: string;
   role: string;
+  unreadCount: number = 0;
   userName: string;
+  announcementCreated: Announcement;
 
-  notifications: { message: String; timeSent: String }[] = [
-    {
-      message: 'Your Pre-Approval Form Has Been Approved!',
-      timeSent: '3 mins ago'
-    },
-    { message: 'Talay has sent you a message', timeSent: '7 mins ago' }
-  ];
+  notifications: {
+    message: String;
+    timeSent: String;
+    isAnnouncement: boolean;
+    id: GUID;
+  }[] = [];
+
+  // = [
+  //   {
+  //     message: 'Your Pre-Approval Form Has Been Approved!',
+  //     timeSent: '3 mins ago'
+  //   },
+  //   { message: 'Talay has sent you a message', timeSent: '7 mins ago' }
+  // ]
 
   constructor(
     private matIconRegistry: MatIconRegistry,
@@ -37,7 +51,9 @@ export class NavigationComponent implements OnInit {
     private dialog: MatDialog,
     private _snackBar: MatSnackBar,
     public authenticationService: AuthenticationService,
-    public userService: UserService
+    public userService: UserService,
+    private announcementService: AnnouncementService,
+    private notificationService: NotificationService
   ) {
     this.authenticationService.currentUser$.subscribe(user => {
       this.role = user.roles[0];
@@ -139,7 +155,39 @@ export class NavigationComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    //this.populateNotifications();
+  }
+
+  readNotification(notification) {
+    if (!notification.isAnnouncement) {
+      this.notificationService.readNotification(notification.id);
+    }
+  }
+
+  populateNotifications() {
+    let announcements: Announcement[];
+    this.notifications = [];
+    this.unreadCount = 0;
+    this.announcementService.getAllAnnouncements().subscribe(result => {
+      announcements = result;
+      //console.log(announcements);
+
+      const format = 'dd/MM/yyyy h:mm';
+      const locale = 'en-TR';
+
+      announcements.forEach(element => {
+        const formattedDate = formatDate(element.creationDate, format, locale);
+        this.notifications.push({
+          message: element.description,
+          timeSent: formattedDate,
+          isAnnouncement: true,
+          id: element.id
+        });
+      });
+      this.unreadCount = this.notifications.length;
+    });
+  }
 
   logout() {
     this.authenticationService.logout();
@@ -158,6 +206,12 @@ export class NavigationComponent implements OnInit {
       if (result) {
         this.openSnackBar('Announcement sent', 'Close', 5);
         console.log(result);
+        let announcement: Announcement = {
+          description: 'asd',
+          title: '',
+          sender: ''
+        };
+        this.announcementService.createAnnouncement(announcement);
       }
     });
   }

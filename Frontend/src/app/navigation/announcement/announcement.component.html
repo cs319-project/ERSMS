@@ -4,11 +4,25 @@
   </div>
   <div mat-dialog-content class="content-container">
     <mat-form-field>
-      <textarea class="custom-scroll-bar" type="search" rows="10" [(ngModel)]="data.description" matInput placeholder="Write your Announcement here..."></textarea>
+      <textarea
+        class="custom-scroll-bar"
+        type="search"
+        rows="10"
+        [(ngModel)]="data.description"
+        matInput
+        placeholder="Write your Announcement here..."></textarea>
     </mat-form-field>
   </div>
   <div mat-dialog-actions class="announcement-buttons">
-    <button mat-button mat-dialog-close mat-raised-button color="warn">Cancel</button>
-    <button mat-button [mat-dialog-close]="data.description" mat-raised-button color="primary">Submit</button>
+    <button mat-button mat-dialog-close mat-raised-button color="warn">
+      Cancel
+    </button>
+    <button
+      mat-button
+      [mat-dialog-close]="data.description"
+      mat-raised-button
+      color="primary">
+      Submit
+    </button>
   </div>
 </div>

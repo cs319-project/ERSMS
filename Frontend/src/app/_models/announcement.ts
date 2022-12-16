@@ -1,9 +1,9 @@
 import { GUID } from 'src/utils/guid';
 
 export interface Announcement {
-  guid: GUID;
+  id?: GUID;
   title: string;
   sender: string;
   description: string;
-  creationDate: Date;
+  creationDate?: Date;
 }
