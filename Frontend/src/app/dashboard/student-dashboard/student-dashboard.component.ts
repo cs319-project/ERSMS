@@ -7,14 +7,14 @@ import { DepartmentsEnum } from 'src/app/_models/enum/departments-enum';
 import { ToDoItem } from 'src/app/_models/to-do-item';
 import { ToDoItemService } from 'src/app/_services/todoitem.service';
 import { GUID } from 'src/utils/guid';
-
+/*
 export interface todoItem {
   description: string;
   isCompleted: boolean;
   isStarred: boolean;
   id: GUID;
 }
-
+*/
 export interface activity {
   name: string;
   description: string;
@@ -32,9 +32,10 @@ export interface dayActivities {
   styleUrls: ['./student-dashboard.component.css']
 })
 export class StudentDashboardComponent implements OnInit {
-  todoList: todoItem[] = [];
+  todoList: ToDoItem[] = [];
   actorsEnum = ActorsEnum;
   role: string;
+  userName: string;
   _departmentsEnum = DepartmentsEnum;
   departmentsEnum = Object.keys(DepartmentsEnum);
 
@@ -43,19 +44,27 @@ export class StudentDashboardComponent implements OnInit {
     private toDoService: ToDoItemService
   ) {
     this.role = JSON.parse(localStorage.getItem('user')).roles[0];
+    this.userName = JSON.parse(localStorage.getItem('user')).userName;
 
     toDoService.getStudentToDoList('22002700').subscribe(data => {
       //console.log(data);
       data.forEach(element => {
-        let temp: todoItem = {
+        let temp: ToDoItem = {
+          cascadeId: null,
+          title: '',
           description: element.description,
-          isCompleted: element.isComplete,
+          isComplete: element.isComplete,
           isStarred: element.isStarred,
-          id: new GUID(element.id)
+          id: element.id
         };
         //console.log(element);
         this.addItem2(temp);
       });
+      this.waitingList = this.todoList.filter(todoItem => !todoItem.isComplete);
+      this.starredList = this.todoList.filter(todoItem => todoItem.isStarred);
+      this.completedList = this.todoList.filter(
+        todoItem => todoItem.isComplete
+      );
     });
 
     console.log(this.todoList);
@@ -67,11 +76,11 @@ export class StudentDashboardComponent implements OnInit {
 
   selectedTabIndex = 0;
 
-  waitingList: todoItem[];
-  starredList: todoItem[];
-  completedList: todoItem[];
+  waitingList: ToDoItem[];
+  starredList: ToDoItem[];
+  completedList: ToDoItem[];
 
-  editingItem: todoItem = null;
+  editingItem: ToDoItem = null;
   editingValue: string;
 
   addingValue: string;
@@ -81,9 +90,9 @@ export class StudentDashboardComponent implements OnInit {
   departmentTables;
 
   ngOnInit(): void {
-    this.waitingList = this.todoList.filter(todoItem => !todoItem.isCompleted);
+    this.waitingList = this.todoList.filter(todoItem => !todoItem.isComplete);
     this.starredList = this.todoList.filter(todoItem => todoItem.isStarred);
-    this.completedList = this.todoList.filter(todoItem => todoItem.isCompleted);
+    this.completedList = this.todoList.filter(todoItem => todoItem.isComplete);
   }
 
   toggleEditing() {
@@ -98,17 +107,37 @@ export class StudentDashboardComponent implements OnInit {
     this.isAdding = !this.isAdding;
   }
 
-  starClicked(todoItem: todoItem) {
-    this.toDoService.starToDoItem(todoItem.id, !todoItem.isStarred).subscribe();
+  starClicked(todoItem: ToDoItem) {
+    console.log(todoItem);
+    this.toDoService
+      .starToDoItem(todoItem.id, !todoItem.isStarred)
+      .subscribe(result => {
+        if (result) {
+          todoItem.isStarred = !todoItem.isStarred;
+          this.starredList = this.todoList.filter(
+            todoItem => todoItem.isStarred
+          );
+        }
+      });
   }
 
-  checkboxClicked(todoItem: todoItem) {
-    todoItem.isCompleted = !todoItem.isCompleted;
-    this.completedList = this.todoList.filter(todoItem => todoItem.isCompleted);
-    this.waitingList = this.todoList.filter(todoItem => !todoItem.isCompleted);
+  checkboxClicked(todoItem: ToDoItem) {
+    this.toDoService
+      .completeToDoItem(todoItem.id, !todoItem.isComplete)
+      .subscribe(result => {
+        if (result) {
+          todoItem.isComplete = !todoItem.isComplete;
+          this.completedList = this.todoList.filter(
+            todoItem => todoItem.isComplete
+          );
+          this.waitingList = this.todoList.filter(
+            todoItem => !todoItem.isComplete
+          );
+        }
+      });
   }
 
-  startEditing(itemList: todoItem[], i: number) {
+  startEditing(itemList: ToDoItem[], i: number) {
     this.editingValue = itemList[i].description;
     this.editingItem = itemList[i];
   }
@@ -117,8 +146,12 @@ export class StudentDashboardComponent implements OnInit {
     this.editingItem = null;
   }
 
-  saveEditing(todoItem: todoItem) {
-    todoItem.description = this.editingValue;
+  saveEditing(todoItem: ToDoItem) {
+    this.toDoService.updateToDoItem(todoItem).subscribe(result => {
+      if (result) {
+        todoItem.description = this.editingValue;
+      }
+    });
     this.editingItem = null;
   }
 
@@ -132,36 +165,51 @@ export class StudentDashboardComponent implements OnInit {
   }
 
   addItem() {
-    this.todoList.push({
+    let newItem: ToDoItem = {
       description: this.addingValue,
-      isCompleted: false,
+      isComplete: false,
       isStarred: false,
-      id: null
-    });
-    this.waitingList = this.todoList.filter(todoItem => !todoItem.isCompleted);
+      title: ''
+    };
+    this.toDoService
+      .createToDoItem(newItem, this.userName)
+      .subscribe(result => {
+        if (result) {
+          this.todoList.push(newItem);
+          this.waitingList = this.todoList.filter(
+            todoItem => !todoItem.isComplete
+          );
+        }
+      });
     this.addingValue = '';
     this.isAdding = false;
     this.selectedTabIndex = 0;
   }
 
-  addItem2(todoItem: todoItem) {
+  addItem2(todoItem: ToDoItem) {
     this.todoList.push({
       description: todoItem.description,
-      isCompleted: todoItem.isCompleted,
+      isComplete: todoItem.isComplete,
+      cascadeId: undefined,
+      title: '',
       isStarred: todoItem.isStarred,
       id: todoItem.id
     });
-    this.waitingList = this.todoList.filter(todoItem => !todoItem.isCompleted);
+    this.waitingList = this.todoList.filter(todoItem => !todoItem.isComplete);
     this.addingValue = '';
     this.isAdding = false;
     this.selectedTabIndex = 0;
   }
 
-  deleteItem(todoItem: todoItem) {
-    let index: number = this.todoList.indexOf(todoItem);
-    this.todoList.splice(index, 1);
-    this.waitingList = this.todoList.filter(todoItem => !todoItem.isCompleted);
-    this.starredList = this.todoList.filter(todoItem => todoItem.isStarred);
-    this.completedList = this.todoList.filter(todoItem => todoItem.isCompleted);
+  deleteItem(todoItem: ToDoItem) {
+    this.toDoService.deleteToDoItem(todoItem.id).subscribe(result => {
+      let index: number = this.todoList.indexOf(todoItem);
+      this.todoList.splice(index, 1);
+      this.waitingList = this.todoList.filter(todoItem => !todoItem.isComplete);
+      this.starredList = this.todoList.filter(todoItem => todoItem.isStarred);
+      this.completedList = this.todoList.filter(
+        todoItem => todoItem.isComplete
+      );
+    });
   }
 }

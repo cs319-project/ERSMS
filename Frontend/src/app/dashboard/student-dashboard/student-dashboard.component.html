@@ -31,7 +31,7 @@
                       <div class="checkbox-container m-1">
                         <mat-checkbox
                           class="ml-2"
-                          [checked]="todoItem.isCompleted"
+                          [checked]="todoItem.isComplete"
                           (change)="checkboxClicked(todoItem)"></mat-checkbox>
                         <mat-form-field
                           *ngIf="editingItem == todoItem"
@@ -135,7 +135,7 @@
                       <div class="checkbox-container m-1">
                         <mat-checkbox
                           class="ml-2"
-                          [checked]="todoItem.isCompleted"
+                          [checked]="todoItem.isComplete"
                           (change)="checkboxClicked(todoItem)"></mat-checkbox>
                         <mat-form-field
                           *ngIf="editingItem == todoItem"
@@ -238,7 +238,7 @@
                       </button>
                       <div class="checkbox-container m-1">
                         <mat-checkbox
-                          [checked]="todoItem.isCompleted"
+                          [checked]="todoItem.isComplete"
                           (change)="checkboxClicked(todoItem)"></mat-checkbox>
                         <mat-form-field
                           *ngIf="editingItem == todoItem"
