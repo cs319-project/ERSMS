@@ -230,5 +230,10 @@ namespace Backend.Data
             _context.Users.Remove(user);
             return await _context.SaveChangesAsync() > 0;
         }
+
+        public async Task<IEnumerable<PlacedStudent>> GetPlacedStudentsAsync()
+        {
+            return await _context.PlacedStudents.ToListAsync();
+        }
     }
 }

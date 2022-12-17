@@ -26,10 +26,10 @@ namespace Backend.Controllers
             return user != null ? Ok(user) : NotFound();
         }
 
-        [HttpGet("student/getall")]
+        [HttpGet("placedstudent/getall")]
         public async Task<ActionResult> GetStudents()
         {
-            var students = await _userService.GetStudents();
+            var students = await _userService.GetPlacedStudents();
             return students != null ? Ok(students) : NotFound();
         }
 
