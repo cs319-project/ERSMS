@@ -26,10 +26,18 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   getUserDetails(userName: string): Observable<any> {
-    return this.http.get(this.baseUrl + userName);
+    return this.http.get(`${this.baseUrl}${userName}`);
   }
 
   getUsers(): Observable<DomainUser[]> {
     return this.http.get<DomainUser[]>(this.baseUrl);
+  }
+
+  updateUser(user: any): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}update`, user);
+  }
+
+  deleteUser(userName: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}delete/${userName}`);
   }
 }

@@ -7,11 +7,11 @@ namespace Backend.Utilities.Enum
 
         [EnumMember(Value = "Student")]
         Student,
-        [EnumMember(Value = "Course Coordinator/Instructor")]
+        [EnumMember(Value = "Course Coordinator Instructor")]
         CourseCoordinatorInstructor,
         [EnumMember(Value = "Exchange Coordinator")]
         ExchangeCoordinator,
-        [EnumMember(Value = "Dean/Department Chair")]
+        [EnumMember(Value = "Dean Department Chair")]
         DeanDepartmentChair,
         [EnumMember(Value = "Admin")]
         Admin,

@@ -2,8 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend.DTOs;
 using Backend.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Backend.Controllers
 {
@@ -30,5 +33,20 @@ namespace Backend.Controllers
             return users != null ? Ok(users) : NotFound();
         }
 
+        [HttpPut("update")]
+        public async Task<ActionResult> UpdateUser([FromBody] Object dto)
+        {
+            var json = (JObject)JsonConvert.DeserializeObject(dto.ToString());
+
+            var updateUser = await _userService.UpdateUser(json);
+            return updateUser != null ? Ok(updateUser) : NotFound();
+        }
+
+        [HttpDelete("delete/{username}")]
+        public async Task<ActionResult> DeleteUser(string username)
+        {
+            var deleteUser = await _userService.DeleteUser(username);
+            return deleteUser ? Ok(deleteUser) : NotFound();
+        }
     }
 }

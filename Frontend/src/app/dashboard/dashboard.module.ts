@@ -24,6 +24,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatSelectModule } from '@angular/material/select';
 import { ExcelTableComponent } from './excel-table/excel-table.component';
 import { StudentDashboardComponent } from './student-dashboard/student-dashboard.component';
+import { UserDialogComponent } from './admin-dashboard/user-dialog/user-dialog.component';
+import { CreateUserDialogComponent } from './admin-dashboard/create-user-dialog/create-user-dialog.component';
 
 @NgModule({
   imports: [
@@ -54,7 +56,9 @@ import { StudentDashboardComponent } from './student-dashboard/student-dashboard
     DashboardComponent,
     AdminDashboardComponent,
     StudentDashboardComponent,
-    ExcelTableComponent
+    ExcelTableComponent,
+    UserDialogComponent,
+    CreateUserDialogComponent
   ],
   providers: []
 })

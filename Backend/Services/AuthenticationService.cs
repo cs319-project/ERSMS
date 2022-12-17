@@ -109,6 +109,9 @@ namespace Backend.Services
                         courseCoordinatorInstructor.Department = new DepartmentInfo();
                         courseCoordinatorInstructor.Department.DepartmentName = EnumStringify.DepartmentEnumarator(register.Department.DepartmentName);
                         courseCoordinatorInstructor.Department.FacultyName = EnumStringify.FacultyEnumarator(register.Department.FacultyName);
+                        courseCoordinatorInstructor.Course = new Course();
+                        courseCoordinatorInstructor.Course.CourseCode = register.Course.CourseCode;
+                        courseCoordinatorInstructor.Course.CourseName = register.Course.CourseName;
                         courseCoordinatorInstructor.IsCourseCoordinator = register.IsCourseCoordinator;
                         break;
                     case "Office of International Students and Exchange Programs":

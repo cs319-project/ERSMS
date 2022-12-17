@@ -33,6 +33,9 @@ namespace Backend.Utilities.Enum
         MusicPerformingArts,
 
         [EnumMember(Value = "Faculty of Applied Sciences")]
-        AppliedSciences
+        AppliedSciences,
+
+        [EnumMember(Value = "")]
+        NotSpecified
     }
 }

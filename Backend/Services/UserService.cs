@@ -7,6 +7,7 @@ using Backend.Entities;
 using Backend.DTOs;
 using AutoMapper;
 using Backend.Utilities.Enum;
+using Newtonsoft.Json.Linq;
 
 namespace Backend.Services
 {
@@ -49,7 +50,7 @@ namespace Backend.Services
                     return studentDto;
                 case "Exchange Coordinator":
                     var exchangeCoordinator = await _userRepository.GetExchangeCoordinator(user.Id);
-                    var exchangeCoordinatorDto = _mapper.Map<ExchangeCoordinatorDto>(exchangeCoordinator);
+                    var exchangeCoordinatorDto = _mapper.Map<ExchangeCoordinator, ExchangeCoordinatorDto>(exchangeCoordinator);
                     return exchangeCoordinatorDto;
                 case "Admin":
                     var admin = await _userRepository.GetAdmin(user.Id);
@@ -126,6 +127,17 @@ namespace Backend.Services
         {
             var user = await _userRepository.GetDomainUser(username);
             return user;
+        }
+
+        public async Task<Object> UpdateUser(JObject dto)
+        {
+            var user = await _userRepository.UpdateUser(dto);
+            return (user != null) ? user : null;
+        }
+
+        public async Task<bool> DeleteUser(string username)
+        {
+            return await _userRepository.DeleteUser(username);
         }
     }
 }

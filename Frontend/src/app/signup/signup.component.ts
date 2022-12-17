@@ -71,8 +71,6 @@ export class SignupComponent implements OnInit {
     };
   }
 
-  onSubmit() {}
-
   goLogin() {
     this.router.navigate(['/login']);
   }

@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Backend.DTOs;
+using Newtonsoft.Json;
 
 namespace Backend
 {
@@ -35,6 +36,14 @@ namespace Backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllersWithViews().AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
+            services.AddControllers().AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
             services.AddDbContext<Backend.Data.DataContext>(options =>
             {
                 options.UseSqlite(_config.GetConnectionString("DefaultConnection"));
@@ -144,11 +153,6 @@ namespace Backend
                         Password = "Test123_",
                         FirstName = "Eray",
                         LastName = "Tüzün",
-                        Department = new DTOs.DepartmentInfoDto
-                        {
-                            DepartmentName = "Department of Computer Engineering",
-                            FacultyName = "Faculty of Engineering",
-                        }
                     }).Wait();
                 }
 

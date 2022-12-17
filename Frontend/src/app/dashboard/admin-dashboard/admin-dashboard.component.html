@@ -7,7 +7,11 @@
   <div class="admin-dashboard-content mt-4">
     <div style="width: 80%">
       <div class="mt-2 table-container">
-        <button mat-raised-button color="primary" class="mr-3">
+        <button
+          mat-raised-button
+          color="primary"
+          class="mr-3"
+          (click)="onCreateUser()">
           Create New User
         </button>
         <div *ngIf="this.dataSource">
@@ -38,14 +42,30 @@
                 </td>
               </ng-container>
 
+              <ng-container matColumnDef="userName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Username
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  <div class="table-entry">
+                    {{ row.identityUser.userName }}
+                  </div>
+                </td>
+              </ng-container>
+
               <ng-container matColumnDef="role">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Role</th>
                 <td mat-cell *matCellDef="let row">
                   <div class="table-entry space-btw">
                     {{ row.actorType }}
-                    <button mat-icon-button>
-                      <mat-icon>edit</mat-icon>
-                    </button>
+                    <div>
+                      <button mat-icon-button (click)="openUserDialog(row)">
+                        <mat-icon>edit</mat-icon>
+                      </button>
+                      <button mat-icon-button (click)="deleteUser(row)">
+                        <mat-icon>delete_outlined</mat-icon>
+                      </button>
+                    </div>
                   </div>
                 </td>
               </ng-container>
