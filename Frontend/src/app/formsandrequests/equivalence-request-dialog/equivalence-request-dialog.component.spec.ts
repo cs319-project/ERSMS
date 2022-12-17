@@ -8,9 +8,8 @@ describe('EquivalanceRequestDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EquivalenceRequestDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [EquivalenceRequestDialogComponent]
+    }).compileComponents();
   });
 
   beforeEach(() => {

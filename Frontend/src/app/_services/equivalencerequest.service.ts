@@ -140,7 +140,7 @@ export class EquivalenceRequestService {
     );
   }
 
-  getEquivalenceRequestsOfStudent(studentId: GUID): Observable<any> {
+  getEquivalenceRequestsOfStudent(studentId: string): Observable<any> {
     return this.http.get<any>(
       `${this.baseApiUrl}equivalencerequest/student/${studentId}`
     );
