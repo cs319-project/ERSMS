@@ -18,6 +18,12 @@ import {
   ApexGrid,
   ApexLegend
 } from 'ng-apexcharts';
+import { CTEFormService } from 'src/app/_services/cteform.service';
+import { EquivalenceRequestService } from 'src/app/_services/equivalencerequest.service';
+import { PreApprovalFormService } from 'src/app/_services/preapprovalform.service';
+import { CteForm } from 'src/app/_models/cte-form';
+import { PreApprovalForm } from 'src/app/_models/pre-approval-form';
+import { EquivalenceRequest } from 'src/app/_models/equivalence-request';
 
 export type PieChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -57,6 +63,9 @@ export interface dayActivities {
 })
 export class ExchangeCoordinatorDashboardComponent implements OnInit {
   todoList: ToDoItem[] = [];
+  approved: number[] = [0];
+  rejected: number[] = [0];
+  processing: number[] = [0];
   actorsEnum = ActorsEnum;
   role: string;
   userName: string;
@@ -122,7 +131,10 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
 
   constructor(
     private _formBuilder: FormBuilder,
-    private toDoService: ToDoItemService
+    private toDoService: ToDoItemService,
+    private cteFormService: CTEFormService,
+    private preapprovalFormService: PreApprovalFormService,
+    private courseEqService: EquivalenceRequestService,
   ) {
     this.role = JSON.parse(localStorage.getItem('user')).roles[0];
     this.userName = JSON.parse(localStorage.getItem('user')).userName;
@@ -148,33 +160,162 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
       );
     });
 
-    console.log(this.todoList);
+    cteFormService.getCTEFormsByDepartment(this.userName).subscribe(
+      data => {
 
-    this.pieChartOptions = {
-      series: [44, 55, 13],
-      chart: {
-        type: 'donut',
-        toolbar: {
-          show: true
-        }
-      },
-      colors: ['#FF965D', '#49C96D', '#FD7972'],
-      labels: ['Processing', 'Accepted  ', 'Rejected'],
-      responsive: [
-        {
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 200
-            },
-            legend: {
-              position: 'bottom'
-            }
+        data.forEach(element => {
+
+          if(element.isRejected) {
+
+            this.rejected[0]++;
           }
-        }
-      ]
-    };
 
+          else if (element.isApproved) {
+
+            this.approved[0]++;
+          }
+
+          else if(!element.isCanceled) {
+
+            this.processing[0]++;
+          }
+
+          this.pieChartOptions = {
+      
+            series: [this.approved.length,this.processing.length, this.rejected.length],
+            chart: {
+              type: 'donut',
+              toolbar: {
+                show: true
+              }
+            },
+            colors: ['#FF965D', '#49C96D', '#FD7972'],
+            labels: ['Processing', 'Accepted  ', 'Rejected'],
+            responsive: [
+              {
+                breakpoint: 480,
+                options: {
+                  chart: {
+                    width: 200
+                  },
+                  legend: {
+                    position: 'bottom'
+                  }
+                }
+              }
+            ]
+          };
+      
+        })
+      }
+    )
+
+
+
+    preapprovalFormService.getPreApprovalFormsByDepartment(this.userName).subscribe(
+      data => {
+
+        data.forEach(element => {
+
+          if(element.isRejected) {
+
+            this.rejected[0]++;
+          }
+
+          else if (element.isApproved) {
+
+            this.approved[0]++;
+          }
+
+          else if(!element.isCanceled) {
+
+            this.processing[0]++;
+          }
+
+          this.pieChartOptions = {
+      
+            series: [this.approved.length,this.processing.length, this.rejected.length],
+            chart: {
+              type: 'donut',
+              toolbar: {
+                show: true
+              }
+            },
+            colors: ['#FF965D', '#49C96D', '#FD7972'],
+            labels: ['Processing', 'Accepted  ', 'Rejected'],
+            responsive: [
+              {
+                breakpoint: 480,
+                options: {
+                  chart: {
+                    width: 200
+                  },
+                  legend: {
+                    position: 'bottom'
+                  }
+                }
+              }
+            ]
+          };
+      
+        })
+      }
+    )
+
+    courseEqService.getEquivalenceRequestsByDepartment(this.userName).subscribe(
+      
+      data => {
+
+        data.forEach(element => {
+
+          if(element.isRejected) {
+
+            this.rejected[0]++;
+          }
+
+          else if (element.isApproved) {
+
+            this.approved[0]++;
+          }
+
+          else if(!element.isCanceled) {
+
+            this.processing[0]++;
+          }
+
+          this.pieChartOptions = {
+      
+            series: [this.approved.length,this.processing.length, this.rejected.length],
+            chart: {
+              type: 'donut',
+              toolbar: {
+                show: true
+              }
+            },
+            colors: ['#FF965D', '#49C96D', '#FD7972'],
+            labels: ['Processing', 'Accepted  ', 'Rejected'],
+            responsive: [
+              {
+                breakpoint: 480,
+                options: {
+                  chart: {
+                    width: 200
+                  },
+                  legend: {
+                    position: 'bottom'
+                  }
+                }
+              }
+            ]
+          };
+      
+        })
+      }
+    )
+
+    console.log(this.todoList);
+   
+  
     this.barChartOptions = {
       series: [
         {
