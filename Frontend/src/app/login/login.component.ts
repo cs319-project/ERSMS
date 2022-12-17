@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
         .subscribe(
           data => {
             this.toastr.success('Login successful');
-            this.router.navigate(['/']);
+            this.router.navigate(['/dashboard']);
           },
           error => {
             this.loading = false;
