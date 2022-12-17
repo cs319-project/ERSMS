@@ -4,6 +4,7 @@ import { ViewCTEForm } from './viewCTEForm';
 import { Approval } from '../../_models/approval';
 import { Student } from 'src/app/_models/student';
 import { CTEFormService } from 'src/app/_services/cteform.service';
+import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-view-cte-form-dialog',
@@ -21,6 +22,10 @@ export class ViewCteFormDialogComponent implements OnInit {
   nameOfUser: string;
   isFABApproved: boolean;
   isSelfApproved: boolean;
+
+  format = 'dd/MM/yyyy h:mm';
+  locale = 'en-TR';
+
   constructor(
     public dialogRef: MatDialogRef<ViewCteFormDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ViewCTEForm,
@@ -32,7 +37,6 @@ export class ViewCteFormDialogComponent implements OnInit {
       ' ' +
       JSON.parse(localStorage.getItem('user')).userDetails.lastName;
   }
-
   ngOnInit(): void {
     if (this.data.cteForm.chairApproval != null) {
       this.chairStatus = this.getStatus(this.data.cteForm.chairApproval);
@@ -165,6 +169,15 @@ export class ViewCteFormDialogComponent implements OnInit {
       .subscribe(data => {
         this.dialogRef.close();
       });
+  }
+
+  formatTheDate(date: Date){
+    const formattedDate = formatDate(
+      date.toString(),
+      this.format,
+      this.locale
+    );
+    return formattedDate;
   }
 
   rejectForm() {

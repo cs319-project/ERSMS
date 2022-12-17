@@ -11,29 +11,41 @@
   <div class="mb-2">
     <span><b>Submission Date</b></span>
     <span class="ml-2">{{
-      data.preApprovalForm.submissionTime.toLocaleString()
+      formatTheDate(data.preApprovalForm.submissionTime)
     }}</span>
   </div>
-  <div style="display: flex" class="mb-2">
-    <span class="subtitle mr-3">Form Status:</span>
-    <span
-      class="status-text"
-      *ngIf="formStatus === 'Waiting'"
-      style="background-color: '#FF965D'"
-      >Waiting
-    </span>
-    <span
-      class="status-text"
-      *ngIf="formStatus === 'Accepted'"
-      style="background-color: '#49C96D'"
-      >Accepted
-    </span>
-    <span
-      class="status-text"
-      *ngIf="formStatus === 'Rejected'"
-      style="background-color: '#FD7972'"
-      >Rejected
-    </span>
+  <div
+    style="display: flex; justify-content: space-between; align-items: center"
+    class="mb-2">
+    <div>
+      <span class="subtitle mr-3">Form Status:</span>
+      <span
+        class="status-text"
+        *ngIf="formStatus === 'Waiting'"
+        style="background-color: '#FF965D'"
+        >Waiting
+      </span>
+      <span
+        class="status-text"
+        *ngIf="formStatus === 'Accepted'"
+        style="background-color: '#49C96D'"
+        >Accepted
+      </span>
+      <span
+        class="status-text"
+        *ngIf="formStatus === 'Rejected'"
+        style="background-color: '#FD7972'"
+        >Rejected
+      </span>
+    </div>
+    <div>
+      <button mat-raised-button color="primary" class="mr-3">
+        Download Pdf
+      </button>
+      <button mat-raised-button color="accent" *ngIf="formStatus === 'Waiting'">
+        Upload Pdf
+      </button>
+    </div>
   </div>
   <mat-tab-group>
     <mat-tab label="Form Information">
@@ -86,13 +98,11 @@
           <mat-divider style="width: 100%"></mat-divider>
         </div>
         <div
-          class="approval-info-container"
-          *ngIf="coordinatorStatus != 'Waiting' || boardStatus != 'Waiting'">
+          class="approval-info-container">
           <span class="subtitle mt-3 mb-3">Approvals</span>
           <div class="approve-info-content">
-            <div
-              class="approve-info-element"
-              *ngIf="coordinatorStatus != 'Waiting'">
+            <div class="approve-info-element"
+              *ngIf="coordinatorStatus !== 'Waiting'">
               <span
                 ><b class="mr-2">Name:</b
                 >{{
@@ -100,31 +110,16 @@
                 }}</span
               >
               <span><b class="mr-2">Role:</b>Exchange Coordinator</span>
-              <span *ngIf="coordinatorStatus != 'Waiting'">
+              <span *ngIf="coordinatorStatus !== 'Waiting'">
                 <b class="mr-2">Approval Date:</b>
                 {{
-                  data.preApprovalForm.exchangeCoordinatorApproval.dateOfApproval.toLocaleString()
+                formatTheDate(
+                    data.preApprovalForm.exchangeCoordinatorApproval
+                      .dateOfApproval
+                  )
                 }}
               </span>
-              <span
-                ><b class="mr-2">Comment:</b
-                >{{
-                  data.preApprovalForm.exchangeCoordinatorApproval.comment
-                }}</span
-              >
-              <!-- <span *ngIf="coordinatorStatus != 'Waiting'">
-                <b class="mr-2">Approval Time:</b>
-                {{
-                  data.preApprovalForm.exchangeCoordinatorApproval.dateOfApproval.toLocaleString()
-                }}
-              </span> -->
               <div class="status-text-container">
-                <span
-                  class="status-text"
-                  *ngIf="coordinatorStatus === 'Waiting'"
-                  style="background-color: '#FF965D'"
-                  >Waiting</span
-                >
                 <span
                   class="status-text"
                   *ngIf="coordinatorStatus === 'Accepted'"
@@ -139,14 +134,22 @@
                 >
               </div>
             </div>
+            <div class="approve-info-element"
+                 *ngIf="coordinatorStatus === 'Waiting'">
+              <span><b class="mr-2">Role:</b>Exchange Coordinator</span>
+              <div class="status-text-container">
+                <span
+                  class="status-text"
+                  style="background-color: '#FF965D'"
+                >Waiting</span>
+              </div>
+            </div>
             <mat-divider
               vertical
               style="height: 150px"
               class="mr-4 ml-4"
-              *ngIf="
-                boardStatus != 'Waiting' && coordinatorStatus != 'Waiting'
-              "></mat-divider>
-            <div class="approve-info-element" *ngIf="boardStatus != 'Waiting'">
+              ></mat-divider>
+            <div class="approve-info-element" *ngIf="boardStatus !== 'Waiting'">
               <span
                 ><b class="mr-2">Name:</b
                 >{{
@@ -154,32 +157,13 @@
                 }}</span
               >
               <span><b class="mr-2">Role:</b>Administration Board</span>
-              <span *ngIf="boardStatus != 'Waiting'">
-                <b class="mr-2">Approval Date:</b>
-                {{
-                  data.preApprovalForm.facultyAdministrationBoardApproval.dateOfApproval.toLocaleString()
-                }}
-              </span>
-              <span
-                ><b class="mr-2">Comment:</b
-                >{{
-                  data.preApprovalForm.facultyAdministrationBoardApproval
-                    .comment
-                }}</span
-              >
-              <!-- <span *ngIf="boardStatus != 'Waiting'">
+              <span>
                 <b class="mr-2">Approval Time:</b>
                 {{
-                  data.preApprovalForm.facultyAdministrationBoardApproval.dateOfApproval.toLocaleString()
+                formatTheDate(data.preApprovalForm.facultyAdministrationBoardApproval.dateOfApproval)
                 }}
-              </span> -->
+              </span>
               <div class="status-text-container">
-                <span
-                  class="status-text"
-                  *ngIf="boardStatus === 'Waiting'"
-                  style="background-color: '#FF965D'"
-                  >Waiting</span
-                >
                 <span
                   class="status-text"
                   *ngIf="boardStatus === 'Accepted'"
@@ -194,6 +178,16 @@
                 >
               </div>
             </div>
+            <div class="approve-info-element" *ngIf="boardStatus === 'Waiting'">
+              <span><b class="mr-2">Role:</b>Administration Board</span>
+              <div class="status-text-container">
+                <span
+                  class="status-text"
+                  style="background-color: '#FF965D'"
+                >Waiting</span>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -330,7 +324,7 @@
       </div>
     </mat-tab>
     <mat-tab label="Decision" *ngIf="roleOfUser !== 'Student'">
-      <div class="decision-container" *ngIf="!coordinatorApproved">
+      <div class="decision-container">
         <span class="subtitle">Your Decision</span>
         <mat-form-field appearance="outline" style="width: 500px">
           <mat-label>Your Comments & Extra Notes</mat-label>
@@ -342,25 +336,27 @@
             [(ngModel)]="data.approvalComment"
             [readonly]="coordinatorApproved"></textarea>
         </mat-form-field>
-        <div class="decision-buttons mb-5">
+        <div class="decision-buttons mb-5" *ngIf="coordinatorApproved">
           <button
             mat-raised-button
             style="margin-right: 50px; width: 125px"
             color="warn"
-            (click)="rejectForm()">
+            (click)="rejectForm()"
+            [disabled]="coordinatorApproved">
             Reject
           </button>
           <button
             mat-raised-button
             style="width: 125px"
             color="primary"
-            (click)="approveForm()">
+            (click)="approveForm()"
+            [disabled]="coordinatorApproved">
             Accept
           </button>
         </div>
       </div>
 
-      <div class="decision-container" *ngIf="!fabApproved">
+      <div class="decision-container">
         <span class="subtitle">F.A.B. Decision</span>
         <mat-form-field appearance="outline" style="width: 500px">
           <mat-label>Your Comments & Extra Notes</mat-label>
@@ -369,6 +365,7 @@
             type="search"
             rows="10"
             matInput
+            [readonly]="fabApproved"
             [(ngModel)]="data.approvalComment"></textarea>
         </mat-form-field>
         <div class="decision-buttons mb-5">

@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ViewEquivalenceRequest } from './viewEquivalenceRequest';
 import { Approval } from '../../_models/approval';
 import { EquivalenceRequestService } from 'src/app/_services/equivalencerequest.service';
+import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-view-equivalence-request-dialog',
@@ -15,6 +16,8 @@ export class ViewEquivalenceRequestDialogComponent implements OnInit {
   nameOfUser: string;
   roleOfUser: string;
   isFormApproved: boolean;
+  format = 'dd/MM/yyyy h:mm';
+  locale = 'en-TR';
   constructor(
     public dialogRef: MatDialogRef<ViewEquivalenceRequestDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ViewEquivalenceRequest,
@@ -28,6 +31,7 @@ export class ViewEquivalenceRequestDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.data.eqReq);
     if (this.data.eqReq.instructorApproval != null) {
       this.instructorStatus = this.getStatus(
         this.data.eqReq.instructorApproval
@@ -48,7 +52,6 @@ export class ViewEquivalenceRequestDialogComponent implements OnInit {
       this.formStatus = 'Waiting';
     }
 
-    console.log(this.data.eqReq);
   }
 
   downloadSyllabus() {
@@ -107,5 +110,14 @@ export class ViewEquivalenceRequestDialogComponent implements OnInit {
     } else {
       return 'Waiting';
     }
+  }
+
+  formatTheDate(date: Date){
+    const formattedDate = formatDate(
+      date.toString(),
+      this.format,
+      this.locale
+    );
+    return formattedDate;
   }
 }
