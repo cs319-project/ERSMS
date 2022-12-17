@@ -1,5 +1,4 @@
-<!--
-<div class="fnr-container mr-3 ml-3">
+<div class="fnr-container mr-3 ml-3" *ngIf="currentUserRole !== 'Student'">
   <div class="fnr-header mt-3">
     <div style="width: 80%">
       <span class="fnr-title">Forms and Requests</span>
@@ -402,9 +401,8 @@
     </div>
   </div>
 </div>
--->
 
-<div class="fnr-container mr-3 ml-3">
+<div class="fnr-container mr-3 ml-3" *ngIf="currentUserRole === 'Student'">
   <div class="fnr-header mt-3">
     <div style="width: 80%">
       <span class="fnr-title">Forms and Requests</span>
@@ -429,7 +427,7 @@
           </button>
         </div>
         <div class="mt-5 mb-3">
-          <span class="mt-3 old-submissions">Old Submissions</span>
+          <span class="mt-3 old-submissions">My Submissions</span>
         </div>
         <div class="table-content mat-elevation-z8">
           <table

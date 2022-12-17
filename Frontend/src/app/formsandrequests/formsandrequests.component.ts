@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatPaginator } from '@angular/material/paginator';
-import {MatTable, MatTableDataSource} from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from '@angular/material/sort';
 import { FormDialogComponent } from './form-dialog/form-dialog.component';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -69,6 +69,7 @@ export class FormsAndRequestsComponent {
 
   activatedRow = null;
   currentUserId: string;
+  currentUserRole: string;
 
   preApprovalForm: PreApprovalForm;
   equivalanceRequest: EquivalenceRequest;
@@ -91,121 +92,346 @@ export class FormsAndRequestsComponent {
     const courseequivalenceUsers: UserData[] = [];
     const studentUser: UserData[] = [];
     this.currentUserId = JSON.parse(localStorage.getItem('user')).userName;
+    this.currentUserRole = JSON.parse(localStorage.getItem('user')).roles[0];
 
     // for (let i = 1; i <= 100; i++) {
     //   users.push(createNewUser(i, (status = 'Processing')));
     // }
 
-
-    cteFormService
-      .getNonArchivedCTEFormsByDepartment(this.currentUserId)
-      .toPromise()
-      .then(data => {
-        data.forEach(element => {
-          let temp: UserData = {
-            formId: element.id,
-            id: element.idNumber,
-            student: element.firstName + ' ' + element.lastName,
-            date: element.submissionTime.toString(),
-            type: 'CTE Form',
-            school: element.hostUniversityName,
-            status: element.isRejected
-              ? 'Rejected'
-              : element.isApproved
-              ? 'Approved'
-              : 'Processing'
-          };
-          users.push(temp);
-          cteUsers.push(temp);
-          studentUser.push(temp);
-          this.cteForms.push(element);
+    if (
+      this.currentUserRole === 'Exchange Coordinator' ||
+      this.currentUserRole === 'Course Coordinator Instructor'
+    ) {
+      cteFormService
+        .getNonArchivedCTEFormsByDepartment(this.currentUserId)
+        .toPromise()
+        .then(data => {
+          data.forEach(element => {
+            let temp: UserData = {
+              formId: element.id,
+              id: element.idNumber,
+              student: element.firstName + ' ' + element.lastName,
+              date: element.submissionTime.toString(),
+              type: 'CTE Form',
+              school: element.hostUniversityName,
+              status: element.isRejected
+                ? 'Rejected'
+                : element.isApproved
+                ? 'Approved'
+                : 'Processing'
+            };
+            users.push(temp);
+            cteUsers.push(temp);
+            studentUser.push(temp);
+            this.cteForms.push(element);
+          });
+          this.cteDataSource = new MatTableDataSource(cteUsers);
+          this.dataSource = new MatTableDataSource(users);
+          this.studentDataSource = new MatTableDataSource<UserData>(
+            studentUser
+          );
+          this.studentDataSource.sort = this.sorterS;
+          this.studentDataSource.paginator = this.paginatorS;
+          this.cteDataSource.sort = this.sorter3;
+          this.cteDataSource.paginator = this.paginator3;
+          this.dataSource.sort = this.sorter1;
+          this.dataSource.paginator = this.paginator;
+          this.AllFormsTable.renderRows();
         });
-        this.cteDataSource = new MatTableDataSource(cteUsers);
-        this.dataSource = new MatTableDataSource(users);
-        this.studentDataSource = new MatTableDataSource<UserData>(studentUser);
-        this.studentDataSource.sort = this.sorterS;
-        this.studentDataSource.paginator = this.paginatorS;
-        this.cteDataSource.sort = this.sorter3;
-        this.cteDataSource.paginator = this.paginator3;
-        this.dataSource.sort = this.sorter1;
-        this.dataSource.paginator = this.paginator;
-        this.AllFormsTable.renderRows();
-      });
 
-    preApprovalFormService
-      .getNonArchivedPreApprovalFormsByDepartment(this.currentUserId)
-      .toPromise()
-      .then(data => {
-        data.forEach(element => {
-          let temp: UserData = {
-            formId: element.id,
-            id: element.idNumber,
-            student: element.firstName + ' ' + element.lastName,
-            date: element.submissionTime.toString(),
-            type: 'PreApproval Form',
-            school: element.hostUniversityName,
-            status: element.isRejected
-              ? 'Rejected'
-              : element.isApproved
-              ? 'Approved'
-              : 'Processing'
-          };
-          users.push(temp);
-          preapprovalUsers.push(temp);
-          studentUser.push(temp);
-          this.preApprovalForms.push(element);
-          this.dataSource.data.push(temp);
-          this.studentDataSource.data.push(temp);
+      preApprovalFormService
+        .getNonArchivedPreApprovalFormsByDepartment(this.currentUserId)
+        .toPromise()
+        .then(data => {
+          data.forEach(element => {
+            let temp: UserData = {
+              formId: element.id,
+              id: element.idNumber,
+              student: element.firstName + ' ' + element.lastName,
+              date: element.submissionTime.toString(),
+              type: 'PreApproval Form',
+              school: element.hostUniversityName,
+              status: element.isRejected
+                ? 'Rejected'
+                : element.isApproved
+                ? 'Approved'
+                : 'Processing'
+            };
+            users.push(temp);
+            preapprovalUsers.push(temp);
+            studentUser.push(temp);
+            this.preApprovalForms.push(element);
+            this.dataSource.data.push(temp);
+            this.studentDataSource.data.push(temp);
+          });
+          this.preapprovalDataSource = new MatTableDataSource(preapprovalUsers);
+          this.studentDataSource.sort = this.sorterS;
+          this.studentDataSource.paginator = this.paginatorS;
+          this.preapprovalDataSource.paginator = this.paginator2;
+          this.dataSource.sort = this.sorter1;
+          this.dataSource.paginator = this.paginator;
+          this.preapprovalDataSource.sort = this.sorter2;
+          this.AllFormsTable.renderRows();
         });
-        this.preapprovalDataSource = new MatTableDataSource(
-          preapprovalUsers
-        );
-        this.studentDataSource.sort = this.sorterS;
-        this.studentDataSource.paginator = this.paginatorS;
-        this.preapprovalDataSource.paginator = this.paginator2;
-        this.dataSource.sort = this.sorter1;
-        this.dataSource.paginator = this.paginator;
-        this.preapprovalDataSource.sort = this.sorter2;
-        this.AllFormsTable.renderRows();
-      });
 
-    equivalenceRequestService
-      .getNonArchivedEquivalenceRequestsByDepartment(this.currentUserId)
-      .toPromise()
-      .then(data => {
-        // console.log(data);
-        data.forEach(element => {
-          let temp: UserData = {
-            formId: element.id,
-            id: element.studentId,
-            student: element.firstName + ' ' + element.lastName,
-            // date: element.submissionTime.toString(),
-            type: 'Course Eq. Request',
-            school: element.hostUniversityName,
-            status: element.isRejected
-              ? 'Rejected'
-              : element.isApproved
-              ? 'Approved'
-              : 'Processing'
-          };
-          users.push(temp);
-          courseequivalenceUsers.push(temp);
-          studentUser.push(temp);
-          this.equivalenceRequests.push(element);
-          this.dataSource.data.push(temp);
-          this.studentDataSource.data.push(temp);
+      equivalenceRequestService
+        .getNonArchivedEquivalenceRequestsByDepartment(this.currentUserId)
+        .toPromise()
+        .then(data => {
+          // console.log(data);
+          data.forEach(element => {
+            let temp: UserData = {
+              formId: element.id,
+              id: element.studentId,
+              student: element.firstName + ' ' + element.lastName,
+              // date: element.submissionTime.toString(),
+              type: 'Course Eq. Request',
+              school: element.hostUniversityName,
+              status: element.isRejected
+                ? 'Rejected'
+                : element.isApproved
+                ? 'Approved'
+                : 'Processing'
+            };
+            users.push(temp);
+            courseequivalenceUsers.push(temp);
+            studentUser.push(temp);
+            this.equivalenceRequests.push(element);
+            this.dataSource.data.push(temp);
+            this.studentDataSource.data.push(temp);
+          });
+          this.courseEquivalenceDataSource = new MatTableDataSource(
+            courseequivalenceUsers
+          );
+          this.studentDataSource.sort = this.sorterS;
+          this.studentDataSource.paginator = this.paginatorS;
+          this.courseEquivalenceDataSource.paginator = this.paginator4;
+          this.dataSource.sort = this.sorter1;
+          this.dataSource.paginator = this.paginator;
+          this.courseEquivalenceDataSource.sort = this.sorter4;
+          this.AllFormsTable.renderRows();
         });
-        this.courseEquivalenceDataSource = new MatTableDataSource(
-          courseequivalenceUsers
-        );
-        this.studentDataSource.sort = this.sorterS;
-        this.studentDataSource.paginator = this.paginatorS;
-        this.courseEquivalenceDataSource.paginator = this.paginator4;
-        this.dataSource.sort = this.sorter1;
-        this.dataSource.paginator = this.paginator;
-        this.courseEquivalenceDataSource.sort = this.sorter4;
-        this.AllFormsTable.renderRows();
-      });
+    } else if (this.currentUserRole === 'Dean Department Chair') {
+      cteFormService
+        .getAllNonArchivedCTEForms()
+        .toPromise()
+        .then(data => {
+          data.forEach(element => {
+            let temp: UserData = {
+              formId: element.id,
+              id: element.idNumber,
+              student: element.firstName + ' ' + element.lastName,
+              date: element.submissionTime.toString(),
+              type: 'CTE Form',
+              school: element.hostUniversityName,
+              status: element.isRejected
+                ? 'Rejected'
+                : element.isApproved
+                ? 'Approved'
+                : 'Processing'
+            };
+            users.push(temp);
+            cteUsers.push(temp);
+            studentUser.push(temp);
+            this.cteForms.push(element);
+          });
+          this.cteDataSource = new MatTableDataSource(cteUsers);
+          this.dataSource = new MatTableDataSource(users);
+          this.studentDataSource = new MatTableDataSource<UserData>(
+            studentUser
+          );
+          this.studentDataSource.sort = this.sorterS;
+          this.studentDataSource.paginator = this.paginatorS;
+          this.cteDataSource.sort = this.sorter3;
+          this.cteDataSource.paginator = this.paginator3;
+          this.dataSource.sort = this.sorter1;
+          this.dataSource.paginator = this.paginator;
+          this.AllFormsTable.renderRows();
+        });
+
+      preApprovalFormService
+        .getAllNonArchivedPreApprovalForms()
+        .toPromise()
+        .then(data => {
+          data.forEach(element => {
+            let temp: UserData = {
+              formId: element.id,
+              id: element.idNumber,
+              student: element.firstName + ' ' + element.lastName,
+              date: element.submissionTime.toString(),
+              type: 'PreApproval Form',
+              school: element.hostUniversityName,
+              status: element.isRejected
+                ? 'Rejected'
+                : element.isApproved
+                ? 'Approved'
+                : 'Processing'
+            };
+            users.push(temp);
+            preapprovalUsers.push(temp);
+            studentUser.push(temp);
+            this.preApprovalForms.push(element);
+            this.dataSource.data.push(temp);
+            this.studentDataSource.data.push(temp);
+          });
+          this.preapprovalDataSource = new MatTableDataSource(preapprovalUsers);
+          this.studentDataSource.sort = this.sorterS;
+          this.studentDataSource.paginator = this.paginatorS;
+          this.preapprovalDataSource.paginator = this.paginator2;
+          this.dataSource.sort = this.sorter1;
+          this.dataSource.paginator = this.paginator;
+          this.preapprovalDataSource.sort = this.sorter2;
+          this.AllFormsTable.renderRows();
+        });
+
+      equivalenceRequestService
+        .getAllNonArchivedEquivalenceRequests()
+        .toPromise()
+        .then(data => {
+          // console.log(data);
+          data.forEach(element => {
+            let temp: UserData = {
+              formId: element.id,
+              id: element.studentId,
+              student: element.firstName + ' ' + element.lastName,
+              // date: element.submissionTime.toString(),
+              type: 'Course Eq. Request',
+              school: element.hostUniversityName,
+              status: element.isRejected
+                ? 'Rejected'
+                : element.isApproved
+                ? 'Approved'
+                : 'Processing'
+            };
+            users.push(temp);
+            courseequivalenceUsers.push(temp);
+            studentUser.push(temp);
+            this.equivalenceRequests.push(element);
+            this.dataSource.data.push(temp);
+            this.studentDataSource.data.push(temp);
+          });
+          this.courseEquivalenceDataSource = new MatTableDataSource(
+            courseequivalenceUsers
+          );
+          this.studentDataSource.sort = this.sorterS;
+          this.studentDataSource.paginator = this.paginatorS;
+          this.courseEquivalenceDataSource.paginator = this.paginator4;
+          this.dataSource.sort = this.sorter1;
+          this.dataSource.paginator = this.paginator;
+          this.courseEquivalenceDataSource.sort = this.sorter4;
+          this.AllFormsTable.renderRows();
+        });
+    } else if (this.currentUserRole === 'Student') {
+      cteFormService
+        .getCTEFormOfStudent(this.currentUserId)
+        .toPromise()
+        .then(data => {
+          data.forEach(element => {
+            let temp: UserData = {
+              formId: element.id,
+              id: element.idNumber,
+              student: element.firstName + ' ' + element.lastName,
+              date: element.submissionTime.toString(),
+              type: 'CTE Form',
+              school: element.hostUniversityName,
+              status: element.isRejected
+                ? 'Rejected'
+                : element.isApproved
+                ? 'Approved'
+                : 'Processing'
+            };
+            users.push(temp);
+            cteUsers.push(temp);
+            studentUser.push(temp);
+            this.cteForms.push(element);
+          });
+          this.cteDataSource = new MatTableDataSource(cteUsers);
+          this.dataSource = new MatTableDataSource(users);
+          this.studentDataSource = new MatTableDataSource<UserData>(
+            studentUser
+          );
+          this.studentDataSource.sort = this.sorterS;
+          this.studentDataSource.paginator = this.paginatorS;
+          this.cteDataSource.sort = this.sorter3;
+          this.cteDataSource.paginator = this.paginator3;
+          this.dataSource.sort = this.sorter1;
+          this.dataSource.paginator = this.paginator;
+          this.AllFormsTable.renderRows();
+        });
+
+      preApprovalFormService
+        .getPreApprovalFormsOfStudent(this.currentUserId)
+        .toPromise()
+        .then(data => {
+          data.forEach(element => {
+            let temp: UserData = {
+              formId: element.id,
+              id: element.idNumber,
+              student: element.firstName + ' ' + element.lastName,
+              date: element.submissionTime.toString(),
+              type: 'PreApproval Form',
+              school: element.hostUniversityName,
+              status: element.isRejected
+                ? 'Rejected'
+                : element.isApproved
+                ? 'Approved'
+                : 'Processing'
+            };
+            users.push(temp);
+            preapprovalUsers.push(temp);
+            studentUser.push(temp);
+            this.preApprovalForms.push(element);
+            this.dataSource.data.push(temp);
+            this.studentDataSource.data.push(temp);
+          });
+          this.preapprovalDataSource = new MatTableDataSource(preapprovalUsers);
+          this.studentDataSource.sort = this.sorterS;
+          this.studentDataSource.paginator = this.paginatorS;
+          this.preapprovalDataSource.paginator = this.paginator2;
+          this.dataSource.sort = this.sorter1;
+          this.dataSource.paginator = this.paginator;
+          this.preapprovalDataSource.sort = this.sorter2;
+          this.AllFormsTable.renderRows();
+        });
+
+      equivalenceRequestService
+        .getEquivalenceRequestsOfStudent(this.currentUserId)
+        .toPromise()
+        .then(data => {
+          // console.log(data);
+          data.forEach(element => {
+            let temp: UserData = {
+              formId: element.id,
+              id: element.studentId,
+              student: element.firstName + ' ' + element.lastName,
+              // date: element.submissionTime.toString(),
+              type: 'Course Eq. Request',
+              school: element.hostUniversityName,
+              status: element.isRejected
+                ? 'Rejected'
+                : element.isApproved
+                ? 'Approved'
+                : 'Processing'
+            };
+            users.push(temp);
+            courseequivalenceUsers.push(temp);
+            studentUser.push(temp);
+            this.equivalenceRequests.push(element);
+            this.dataSource.data.push(temp);
+            this.studentDataSource.data.push(temp);
+          });
+          this.courseEquivalenceDataSource = new MatTableDataSource(
+            courseequivalenceUsers
+          );
+          this.studentDataSource.sort = this.sorterS;
+          this.studentDataSource.paginator = this.paginatorS;
+          this.courseEquivalenceDataSource.paginator = this.paginator4;
+          this.dataSource.sort = this.sorter1;
+          this.dataSource.paginator = this.paginator;
+          this.courseEquivalenceDataSource.sort = this.sorter4;
+          this.AllFormsTable.renderRows();
+        });
+    }
 
     //console.log(this.preApprovalForms);
     //console.log(preapprovalUsers);
@@ -235,7 +461,6 @@ export class FormsAndRequestsComponent {
       courseequivalenceUsers
     );
     this.studentDataSource = new MatTableDataSource(studentUser);
-
   }
 
   ngAfterViewInit() {

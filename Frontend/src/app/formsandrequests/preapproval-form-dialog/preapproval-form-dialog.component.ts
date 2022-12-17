@@ -82,9 +82,7 @@ export class PreapprovalFormDialogComponent implements OnInit {
 
   onAddGroup() {
     let newGroup: RequestedCourseGroup = {
-      requestedCourses: [
-        { courseCode: null, courseName: null, ects: null }
-      ],
+      requestedCourses: [{ courseCode: null, courseName: null, ects: null }],
       requestedExemptedCourse: {
         courseCode: null,
         courseName: null,
@@ -138,6 +136,7 @@ export class PreapprovalFormDialogComponent implements OnInit {
           this.data.department = result.major.departmentName;
           this.data.academicYear = result.preferredSemester.academicYear;
           this.data.semester = result.preferredSemester.semester;
+          this.data.submissionTime = new Date();
           console.log(this.data);
           this.preApprovalFormService
             .createPreApprovalForm(this.data)
@@ -180,7 +179,6 @@ export class PreapprovalFormDialogComponent implements OnInit {
         );
       }
     );
-
 
     this.submitted = true;
     this.error =

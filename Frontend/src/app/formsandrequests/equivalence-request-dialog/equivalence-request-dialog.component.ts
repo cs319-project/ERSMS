@@ -75,25 +75,28 @@ export class EquivalenceRequestDialogComponent implements OnInit {
           this.data.firstName = result.firstName;
           this.data.lastName = result.lastName;
           console.log(this.data);
-          this.eqReqService.createEquivalenceRequest(this.data, this.syllabus).subscribe(
-            res => {
-              if (res) {
-                this._snackBar.open('Form is submitted', 'Close', {
-                  duration: 3000
-                });
-                this.dialogRef.close();
-              }
-            },
-            error => {
-              this._snackBar.open(
-                'An Error occured while submitting',
-                'Close',
-                {
-                  duration: 3000
+          console.log(this.syllabus);
+          this.eqReqService
+            .createEquivalenceRequest(this.data, this.syllabus)
+            .subscribe(
+              res => {
+                if (res) {
+                  this._snackBar.open('Form is submitted', 'Close', {
+                    duration: 3000
+                  });
+                  this.dialogRef.close();
                 }
-              );
-            }
-          );
+              },
+              error => {
+                this._snackBar.open(
+                  'An Error occured while submitting',
+                  'Close',
+                  {
+                    duration: 3000
+                  }
+                );
+              }
+            );
         } else {
           this._snackBar.open(
             'No student with ID ' + this.data.studentId,
@@ -143,7 +146,23 @@ export class EquivalenceRequestDialogComponent implements OnInit {
     dialogRef.afterClosed().subscribe(uploadItem => {
       if (uploadItem) {
         this.data.fileName = event.target.files[0].name;
+        this.syllabus = uploadItem;
+        console.log(this.syllabus);
         // TODO: add upload syllabus logic
+        // this.eqReqService
+        //   .createEquivalenceRequest(
+        //     file,
+        //     this._departmentsEnum[this.oisepDepartment][0],
+        //     this._departmentsEnum[this.oisepDepartment][1]
+        //   )
+        //   .subscribe(
+        //     res => {
+        //       this.toastr.success('Score table uploaded successfully');
+        //     },
+        //     err => {
+        //       this.toastr.error('Error uploading score table');
+        //     }
+        //   );
       }
     });
   }

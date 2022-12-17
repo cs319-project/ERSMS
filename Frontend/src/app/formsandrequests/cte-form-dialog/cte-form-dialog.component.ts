@@ -130,11 +130,12 @@ export class CteFormDialogComponent implements OnInit {
     this.userService.getUserDetails(this.data.idNumber).subscribe(
       result => {
         if (result && result.actorType == ActorsEnum.Student) {
-          console.log(result);
+          // console.log(result);
           this.data.hostUniversityName = result.exchangeSchool;
           this.data.firstName = result.firstName;
           this.data.lastName = result.lastName;
           this.data.department = result.major.departmentName;
+          this.data.submissionTime = new Date();
           this.cteFormService.createCTEForm(this.data).subscribe(
             res => {
               if (res) {
