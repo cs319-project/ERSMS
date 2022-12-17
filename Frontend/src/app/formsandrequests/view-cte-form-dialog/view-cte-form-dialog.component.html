@@ -365,7 +365,8 @@
                   </mat-form-field>
                 </div>
                 <div class="course-info">
-                  <mat-form-field style="width: 150px" appearance="outline">
+                  <mat-form-field *ngIf="courseGroup.exemptedCourse.courseName != ''"
+                  style="width: 150px" appearance="outline">
                     <mat-label>Course Code</mat-label>
                     <input
                       type="search"
@@ -373,7 +374,7 @@
                       [(ngModel)]="courseGroup.exemptedCourse.courseCode"
                       readonly />
                   </mat-form-field>
-                  <mat-form-field
+                  <mat-form-field *ngIf="courseGroup.exemptedCourse.courseName != ''"
                     style="flex-grow: 1"
                     class="mr-3 ml-3"
                     appearance="outline">
@@ -383,7 +384,7 @@
                       matInput
                       [(ngModel)]="courseGroup.exemptedCourse.courseName"
                       readonly />
-                  </mat-form-field>
+                  </mat-form-field >
                   <mat-form-field
                     style="width: 100px"
                     class="mr-3"
