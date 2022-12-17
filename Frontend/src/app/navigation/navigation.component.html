@@ -39,13 +39,28 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
-<mat-menu #notificationsMenu="matMenu" xPosition="before" >
-  <div style="display: flex; width: 250px; justify-content: space-between; align-items: center">
+<mat-menu #notificationsMenu="matMenu" xPosition="before">
+  <div
+    style="
+      display: flex;
+      width: 250px;
+      justify-content: space-between;
+      align-items: center;
+    ">
     <span class="mat-h1 m-3"> Notifications</span>
-    <button mat-raised-button class="mr-2" color="primary" style="height: 30%">read all</button>
+    <button
+      mat-raised-button
+      class="mr-2"
+      color="primary"
+      style="height: 30%"
+      (click)="readAllNotifications()">
+      read all
+    </button>
   </div>
   <mat-divider></mat-divider>
-  <span mat-menu-item *ngIf="notifications.length == 0" class="mt-2">No Notifications yet.</span>
+  <span mat-menu-item *ngIf="notifications.length == 0" class="mt-2"
+    >No Notifications yet.</span
+  >
   <button
     mat-menu-item
     *ngFor="let notification of notifications"
@@ -53,7 +68,7 @@
     <span>
       <strong>{{ notification.content }}</strong></span
     ><br />
-    <span>{{ notification.read }}</span>
+    <!-- <span>{{ notification.read }}</span> -->
   </button>
 </mat-menu>
 

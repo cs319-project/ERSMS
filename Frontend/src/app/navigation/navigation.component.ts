@@ -216,6 +216,11 @@ export class NavigationComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  readAllNotifications() {
+    this.notificationService.readAllNotifications(this.userName).subscribe();
+    this.unreadCount = 0;
+  }
+
   openDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = { data: { description: this.announcement } };
