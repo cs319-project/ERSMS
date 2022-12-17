@@ -139,5 +139,10 @@ namespace Backend.Services
         {
             return await _userRepository.DeleteUser(username);
         }
+
+        public async Task<IEnumerable<Student>> GetStudents()
+        {
+            return await _userRepository.GetStudentsAsync();
+        }
     }
 }
