@@ -8,10 +8,6 @@
       <mat-icon>cancel</mat-icon>
     </button>
   </div>
-  <!--  <div class="mb-2">
-    <span><b>Submission Date</b></span>
-    <span class="ml-2">{{data.eqReq.submissionTime.toLocaleString()}}</span>
-  </div>-->
   <div style="display: flex" class="mb-2">
     <span class="subtitle mr-3">Form Status:</span>
     <span
@@ -83,42 +79,24 @@
           </div>
           <mat-divider style="width: 100%"></mat-divider>
         </div>
-        <div
-          class="approval-info-container"
-          *ngIf="instructorStatus != 'Waiting'">
+        <div class="approval-info-container">
           <span class="subtitle mt-3 mb-3">Approvals</span>
           <div class="approve-info-content">
             <div
               class="approve-info-element"
-              *ngIf="instructorStatus != 'Waiting'">
+              *ngIf="instructorStatus !== 'Waiting'">
               <span
                 ><b class="mr-2">Name:</b
                 >{{ data.eqReq.instructorApproval.name }}</span
               >
               <span><b class="mr-2">Role:</b>Exchange Coordinator</span>
-              <span *ngIf="instructorStatus != 'Waiting'">
+              <span>
                 <b class="mr-2">Approval Date:</b>
                 {{
-                  data.eqReq.instructorApproval.dateOfApproval.toLocaleString()
+                  formatTheDate(data.eqReq.instructorApproval.dateOfApproval)
                 }}
               </span>
-              <span
-                ><b class="mr-2">Comment:</b
-                >{{ data.eqReq.instructorApproval.comment }}</span
-              >
-              <!-- <span *ngIf="instructorStatus != 'Waiting'">
-                <b class="mr-2">Approval Time:</b>
-                {{
-                  data.eqReq.instructorApproval.dateOfApproval.toLocaleString()
-                }}
-              </span> -->
               <div class="status-text-container">
-                <span
-                  class="status-text"
-                  *ngIf="instructorStatus === 'Waiting'"
-                  style="background-color: '#FF965D'"
-                  >Waiting</span
-                >
                 <span
                   class="status-text"
                   *ngIf="instructorStatus === 'Accepted'"
@@ -130,6 +108,19 @@
                   *ngIf="instructorStatus === 'Rejected'"
                   style="background-color: '#FD7972'"
                   >Rejected</span
+                >
+              </div>
+            </div>
+            <div
+              class="approve-info-element"
+              *ngIf="instructorStatus === 'Waiting'">
+              <span><b class="mr-2">Role:</b>Exchange Coordinator</span>
+              <div class="status-text-container">
+                <span
+                  class="status-text"
+                  *ngIf="instructorStatus === 'Waiting'"
+                  style="background-color: '#FF965D'"
+                  >Waiting</span
                 >
               </div>
             </div>

@@ -33,6 +33,7 @@ import { EquivalenceRequestService } from '../_services/equivalencerequest.servi
 import { CTEFormService } from '../_services/cteform.service';
 import { UserService } from '../_services/user.service';
 import { PreApprovalFormService } from '../_services/preapprovalform.service';
+import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-formsandrequests',
@@ -79,6 +80,8 @@ export class FormsAndRequestsComponent {
   preApprovalForms: PreApprovalForm[] = [];
   equivalenceRequests: EquivalenceRequest[] = [];
 
+  format = 'dd/MM/yyyy h:mm';
+  locale = 'en-TR';
   constructor(
     private dialog: MatDialog,
     private _snackBar: MatSnackBar,
@@ -94,9 +97,9 @@ export class FormsAndRequestsComponent {
     //   users.push(createNewUser(i, (status = 'Processing')));
     // }
 
+
     if (
-      this.currentUserRole === 'Exchange Coordinator' ||
-      this.currentUserRole === 'Course Coordinator Instructor'
+      this.currentUserRole !== 'Student'
     ) {
       this.dataSource = new MatTableDataSource<UserData>();
       this.cteDataSource = new MatTableDataSource<UserData>();
@@ -108,11 +111,16 @@ export class FormsAndRequestsComponent {
         .toPromise()
         .then(data => {
           data.forEach(element => {
+            const formattedDate = formatDate(
+              element.submissionTime.toString(),
+              this.format,
+              this.locale
+            );
             let temp: UserData = {
               formId: element.id,
               id: element.idNumber,
               student: element.firstName + ' ' + element.lastName,
-              date: element.submissionTime.toString(),
+              date: formattedDate,
               type: 'CTE Form',
               school: element.hostUniversityName,
               status: element.isRejected
@@ -137,11 +145,16 @@ export class FormsAndRequestsComponent {
         .toPromise()
         .then(data => {
           data.forEach(element => {
+            const formattedDate = formatDate(
+              element.submissionTime.toString(),
+              this.format,
+              this.locale
+            );
             let temp: UserData = {
               formId: element.id,
               id: element.idNumber,
               student: element.firstName + ' ' + element.lastName,
-              date: element.submissionTime.toString(),
+              date: formattedDate,
               type: 'PreApproval Form',
               school: element.hostUniversityName,
               status: element.isRejected
@@ -180,7 +193,8 @@ export class FormsAndRequestsComponent {
                 ? 'Approved'
                 : 'Processing'
             };
-            this.courseEquivalenceDataSource.data.push(element);
+            this.equivalenceRequests.push(element);
+            this.courseEquivalenceDataSource.data.push(temp);
             this.dataSource.data.push(temp);
           });
           this.courseEquivalenceDataSource.paginator = this.paginator4;
@@ -190,100 +204,7 @@ export class FormsAndRequestsComponent {
           this.AllFormsTable.renderRows();
         });
     }
-    else if (this.currentUserRole === 'Dean Department Chair') {
-      this.dataSource = new MatTableDataSource<UserData>();
-      this.cteDataSource = new MatTableDataSource<UserData>();
-      this.preapprovalDataSource = new MatTableDataSource<UserData>();
-      this.courseEquivalenceDataSource = new MatTableDataSource<UserData>();
-
-      cteFormService
-        .getAllNonArchivedCTEForms()
-        .toPromise()
-        .then(data => {
-          data.forEach(element => {
-            let temp: UserData = {
-              formId: element.id,
-              id: element.idNumber,
-              student: element.firstName + ' ' + element.lastName,
-              date: element.submissionTime.toString(),
-              type: 'CTE Form',
-              school: element.hostUniversityName,
-              status: element.isRejected
-                ? 'Rejected'
-                : element.isApproved
-                ? 'Approved'
-                : 'Processing'
-            };
-            this.dataSource.data.push(temp);
-            this.cteDataSource.data.push(temp);
-            this.cteForms.push(element);
-          });
-          this.cteDataSource.sort = this.sorter3;
-          this.cteDataSource.paginator = this.paginator3;
-          this.dataSource.sort = this.sorter1;
-          this.dataSource.paginator = this.paginator;
-          this.AllFormsTable.renderRows();
-        });
-
-      preApprovalFormService
-        .getAllNonArchivedPreApprovalForms()
-        .toPromise()
-        .then(data => {
-          data.forEach(element => {
-            let temp: UserData = {
-              formId: element.id,
-              id: element.idNumber,
-              student: element.firstName + ' ' + element.lastName,
-              date: element.submissionTime.toString(),
-              type: 'PreApproval Form',
-              school: element.hostUniversityName,
-              status: element.isRejected
-                ? 'Rejected'
-                : element.isApproved
-                ? 'Approved'
-                : 'Processing'
-            };
-            this.preApprovalForms.push(element);
-            this.preapprovalDataSource.data.push(temp);
-            this.dataSource.data.push(temp);
-          });
-          this.preapprovalDataSource.paginator = this.paginator2;
-          this.dataSource.sort = this.sorter1;
-          this.dataSource.paginator = this.paginator;
-          this.preapprovalDataSource.sort = this.sorter2;
-          this.AllFormsTable.renderRows();
-        });
-
-      equivalenceRequestService
-        .getAllNonArchivedEquivalenceRequests()
-        .toPromise()
-        .then(data => {
-          // console.log(data);
-          data.forEach(element => {
-            let temp: UserData = {
-              formId: element.id,
-              id: element.studentId,
-              student: element.firstName + ' ' + element.lastName,
-              // date: element.submissionTime.toString(),
-              type: 'Course Eq. Request',
-              school: element.hostUniversityName,
-              status: element.isRejected
-                ? 'Rejected'
-                : element.isApproved
-                ? 'Approved'
-                : 'Processing'
-            };
-            this.equivalenceRequests.push(element);
-            this.dataSource.data.push(temp);
-            this.courseEquivalenceDataSource.data.push(temp);
-          });
-          this.courseEquivalenceDataSource.paginator = this.paginator4;
-          this.dataSource.sort = this.sorter1;
-          this.dataSource.paginator = this.paginator;
-          this.courseEquivalenceDataSource.sort = this.sorter4;
-          this.AllFormsTable.renderRows();
-        });
-    } else if (this.currentUserRole === 'Student') {
+    else if (this.currentUserRole === 'Student') {
       this.studentDataSource = new MatTableDataSource<UserData>();
 
       cteFormService
@@ -291,11 +212,16 @@ export class FormsAndRequestsComponent {
         .toPromise()
         .then(data => {
           data.forEach(element => {
+            const formattedDate = formatDate(
+              element.submissionTime.toString(),
+              this.format,
+              this.locale
+            );
             let temp: UserData = {
               formId: element.id,
               id: element.idNumber,
               student: element.firstName + ' ' + element.lastName,
-              date: element.submissionTime.toString(),
+              date: formattedDate,
               type: 'CTE Form',
               school: element.hostUniversityName,
               status: element.isRejected
@@ -317,11 +243,16 @@ export class FormsAndRequestsComponent {
         .toPromise()
         .then(data => {
           data.forEach(element => {
+            const formattedDate = formatDate(
+              element.submissionTime.toString(),
+              this.format,
+              this.locale
+            );
             let temp: UserData = {
               formId: element.id,
               id: element.idNumber,
               student: element.firstName + ' ' + element.lastName,
-              date: element.submissionTime.toString(),
+              date: formattedDate,
               type: 'PreApproval Form',
               school: element.hostUniversityName,
               status: element.isRejected

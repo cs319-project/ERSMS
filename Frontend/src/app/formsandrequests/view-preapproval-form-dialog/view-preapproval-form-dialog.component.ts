@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ViewPreApprovalForm } from './viewPreApprovalForm';
 import { Approval } from '../../_models/approval';
 import { PreApprovalFormService } from 'src/app/_services/preapprovalform.service';
+import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-view-preapproval-form-dialog',
@@ -17,6 +18,9 @@ export class ViewPreapprovalFormDialogComponent implements OnInit {
   roleOfUser: string;
   coordinatorApproved: boolean;
   fabApproved: boolean;
+
+  format = 'dd/MM/yyyy h:mm';
+  locale = 'en-TR';
   constructor(
     public dialogRef: MatDialogRef<ViewPreapprovalFormDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ViewPreApprovalForm,
@@ -127,6 +131,15 @@ export class ViewPreapprovalFormDialogComponent implements OnInit {
           this.dialogRef.close();
         });
     }
+  }
+
+  formatTheDate(date: Date){
+    const formattedDate = formatDate(
+      date.toString(),
+      this.format,
+      this.locale
+    );
+    return formattedDate;
   }
 
   getStatus(approval: Approval) {

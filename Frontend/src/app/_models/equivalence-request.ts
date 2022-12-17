@@ -12,6 +12,7 @@ export interface EquivalenceRequest {
   hostCourseCode: string;
   hostCourseECTS: number;
   fileName: string;
+  submissionDate?: Date;
   exemptedCourse: ExemptedCourse;
   instructorApproval?: Approval;
   additionalNotes: string;

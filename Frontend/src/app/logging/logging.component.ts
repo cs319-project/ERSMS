@@ -107,7 +107,7 @@ export class LoggingComponent {
       });
 
     preApprovalFormService
-      .getNonArchivedPreApprovalFormsByDepartment(this.currentUserId)
+      .getArchivedPreApprovalFormsByDepartment(this.currentUserId)
       .toPromise()
       .then(data => {
         data.forEach(element => {
