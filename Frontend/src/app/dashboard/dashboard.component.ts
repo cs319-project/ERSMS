@@ -32,6 +32,9 @@ import { DepartmentsEnum } from '../_models/enum/departments-enum';
 import { ToastrService } from 'ngx-toastr';
 import { PlacementService } from '../_services/placement.service';
 import { PlacementTable } from '../_models/placement-table';
+import { CTEFormService } from '../_services/cteform.service';
+import { PreApprovalFormService } from '../_services/preapprovalform.service';
+import { EquivalenceRequestService } from '../_services/equivalencerequest.service';
 
 export type PieChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -108,6 +111,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   public barChartOptions: Partial<BarChartOptions>;
 
   todoList: todoItem[] = [
+    
     { description: 'Kutay Tire', isCompleted: false, isStarred: true },
     {
       description: 'Meeting with Kutay Tire at 15.30',
@@ -206,6 +210,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     private _formBuilder: FormBuilder,
     private toastr: ToastrService,
     private placementService: PlacementService
+    
   ) {
     this.role = JSON.parse(localStorage.getItem('user')).roles[0];
 

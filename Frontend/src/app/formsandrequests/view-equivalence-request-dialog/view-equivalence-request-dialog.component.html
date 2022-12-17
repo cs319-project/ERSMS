@@ -8,6 +8,12 @@
       <mat-icon>cancel</mat-icon>
     </button>
   </div>
+  <div class="mb-2">
+    <span><b>Submission Date</b></span>
+    <span class="ml-2">{{
+      formatTheDate(data.eqReq.submissionDate)
+      }}</span>
+  </div>
   <div style="display: flex" class="mb-2">
     <span class="subtitle mr-3">Form Status:</span>
     <span

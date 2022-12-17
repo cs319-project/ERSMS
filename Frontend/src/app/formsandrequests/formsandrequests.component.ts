@@ -178,13 +178,17 @@ export class FormsAndRequestsComponent {
         .getNonArchivedEquivalenceRequestsByDepartment(this.currentUserId)
         .toPromise()
         .then(data => {
-          // console.log(data);
           data.forEach(element => {
+            const formattedDate = formatDate(
+              element.submissionDate.toString(),
+              this.format,
+              this.locale
+            );
             let temp: UserData = {
               formId: element.id,
               id: element.studentId,
               student: element.firstName + ' ' + element.lastName,
-              // date: element.submissionTime.toString(),
+              date: formattedDate,
               type: 'Course Eq. Request',
               school: element.hostUniversityName,
               status: element.isRejected
@@ -275,11 +279,16 @@ export class FormsAndRequestsComponent {
         .then(data => {
           // console.log(data);
           data.forEach(element => {
+            const formattedDate = formatDate(
+              element.submissionTime.toString(),
+              this.format,
+              this.locale
+            );
             let temp: UserData = {
               formId: element.id,
               id: element.studentId,
               student: element.firstName + ' ' + element.lastName,
-              // date: element.submissionTime.toString(),
+              date: formattedDate,
               type: 'Course Eq. Request',
               school: element.hostUniversityName,
               status: element.isRejected

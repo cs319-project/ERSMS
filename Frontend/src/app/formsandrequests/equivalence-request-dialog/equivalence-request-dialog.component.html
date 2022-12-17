@@ -89,6 +89,24 @@
     <div class="course-container mb-4">
       <span class="request-subtitle">Bilkent University Course</span>
       <div class="course-info">
+        <span class="mr-3">Course Type:</span>
+        <mat-form-field style="flex-grow: 1; text-align: center" class="ml-2">
+          <mat-select required [(ngModel)]="data.exemptedCourse.courseType">
+            <mat-option *ngFor="let dep of courseTypes" [value]="dep">
+              {{ dep }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div>
+        <span *ngIf="data.exemptedCourse.courseType === 'Mandatory Course'">
+          <b>Required:</b>
+        </span>
+        <span *ngIf="data.exemptedCourse.courseType !== 'Mandatory Course'">
+          Optional:
+        </span>
+      </div>
+      <div class="course-info">
         <mat-form-field style="width: 150px" appearance="outline">
           <mat-label>Course Code</mat-label>
           <input

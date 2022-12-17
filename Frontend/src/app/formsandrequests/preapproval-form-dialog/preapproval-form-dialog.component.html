@@ -114,6 +114,14 @@
                 </mat-select>
               </mat-form-field>
             </div>
+            <div>
+              <span *ngIf="courseGroup.requestedExemptedCourse.courseType === 'Mandatory Course'">
+                <b>Required:</b>
+              </span>
+              <span *ngIf="courseGroup.requestedExemptedCourse.courseType !== 'Mandatory Course'">
+                Optional:
+              </span>
+            </div>
             <div class="course-info">
               <mat-form-field style="width: 150px" appearance="outline">
                 <mat-label>Course Code</mat-label>
