@@ -4,7 +4,7 @@ import { ViewCTEForm } from './viewCTEForm';
 import { Approval } from '../../_models/approval';
 import { Student } from 'src/app/_models/student';
 import { CTEFormService } from 'src/app/_services/cteform.service';
-import {formatDate} from "@angular/common";
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-view-cte-form-dialog',
@@ -171,12 +171,8 @@ export class ViewCteFormDialogComponent implements OnInit {
       });
   }
 
-  formatTheDate(date: Date){
-    const formattedDate = formatDate(
-      date.toString(),
-      this.format,
-      this.locale
-    );
+  formatTheDate(date: Date) {
+    const formattedDate = formatDate(date.toString(), this.format, this.locale);
     return formattedDate;
   }
 
@@ -216,5 +212,13 @@ export class ViewCteFormDialogComponent implements OnInit {
           });
       }
     }
+  }
+
+  downloadPdf() {
+    this.cteFormService.downloadPdf(this.data.cteForm.id).subscribe(data => {
+      var file = new Blob([data], { type: 'application/pdf' });
+      var fileURL = URL.createObjectURL(file);
+      window.open(fileURL);
+    });
   }
 }

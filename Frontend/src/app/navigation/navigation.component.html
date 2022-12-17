@@ -49,9 +49,9 @@
     *ngFor="let notification of notifications"
     (click)="readNotification(notification)">
     <span>
-      <strong>{{ notification.message }}</strong></span
+      <strong>{{ notification.content }}</strong></span
     ><br />
-    <span>{{ notification.timeSent }}</span>
+    <span>{{ notification.read }}</span>
   </button>
 </mat-menu>
 
@@ -149,7 +149,7 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <div >
+    <div>
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>

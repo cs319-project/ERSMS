@@ -517,6 +517,7 @@ namespace Backend.Data.Migrations
                     HostCourseName = table.Column<string>(type: "TEXT", nullable: true),
                     HostCourseCode = table.Column<string>(type: "TEXT", nullable: true),
                     HostCourseECTS = table.Column<double>(type: "REAL", nullable: false),
+                    SubmissionDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     FileName = table.Column<string>(type: "TEXT", nullable: true),
                     Syllabus = table.Column<byte[]>(type: "BLOB", nullable: true),
                     ExemptedCourseId = table.Column<Guid>(type: "TEXT", nullable: true),

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221217103003_InitialMigration")]
+    [Migration("20221217212457_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -286,6 +286,9 @@ namespace Backend.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<Guid?>("StudentId1")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("SubmissionDate")
                         .HasColumnType("TEXT");
 
                     b.Property<byte[]>("Syllabus")

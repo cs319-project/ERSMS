@@ -14,6 +14,7 @@ import { Announcement } from '../_models/announcement';
 import { GUID } from 'src/utils/guid';
 import { formatDate } from '@angular/common';
 import { NotificationService } from '../_services/notification.service';
+import { NotificationERSMS } from '../_models/notification';
 
 @Component({
   selector: 'app-navigation',
@@ -30,9 +31,11 @@ export class NavigationComponent implements OnInit {
   nameOfLoggedInUser: string;
 
   notifications: {
-    message: String;
-    timeSent: String;
-    isAnnouncement: boolean;
+    content: String;
+    read: boolean;
+    userId: GUID;
+    // timeSent: String;
+    // isAnnouncement: boolean;
     id: GUID;
   }[] = [];
 
@@ -171,27 +174,41 @@ export class NavigationComponent implements OnInit {
   }
 
   populateNotifications() {
-    let announcements: Announcement[];
+    let notification: NotificationERSMS;
     this.notifications = [];
     this.unreadCount = 0;
-    this.announcementService.getAllAnnouncements().subscribe(result => {
-      announcements = result;
-      //console.log(announcements);
-
-      const format = 'dd/MM/yyyy h:mm';
-      const locale = 'en-TR';
-
-      announcements.forEach(element => {
-        const formattedDate = formatDate(element.creationDate, format, locale);
-        this.notifications.push({
-          message: element.description,
-          timeSent: formattedDate,
-          isAnnouncement: true,
-          id: element.id
+    this.notificationService
+      .getNotifications(this.userName)
+      .subscribe(result => {
+        result.forEach(element => {
+          console.log(notification);
+          this.notifications.push({
+            read: element.read,
+            content: element.content,
+            id: element.id,
+            userId: element.userId
+          });
+          this.unreadCount = this.notifications.length;
         });
       });
-      this.unreadCount = this.notifications.length;
-    });
+    // this.announcementService.getAllAnnouncements().subscribe(result => {
+    //   announcements = result;
+    //   //console.log(announcements);
+
+    //   const format = 'dd/MM/yyyy h:mm';
+    //   const locale = 'en-TR';
+
+    //   announcements.forEach(element => {
+    //     const formattedDate = formatDate(element.creationDate, format, locale);
+    //     this.notifications.push({
+    //       message: element.description,
+    //       timeSent: formattedDate,
+    //       isAnnouncement: true,
+    //       id: element.id
+    //     });
+    //   });
+    //   this.unreadCount = this.notifications.length;
+    // });
   }
 
   logout() {
