@@ -22,6 +22,7 @@ import { ViewPreapprovalFormDialogComponent } from '../formsandrequests/view-pre
 import { ViewEquivalenceRequest } from '../formsandrequests/view-equivalence-request-dialog/viewEquivalenceRequest';
 import { ViewEquivalenceRequestDialogComponent } from '../formsandrequests/view-equivalence-request-dialog/view-equivalence-request-dialog.component';
 import { ActorsEnum } from '../_models/enum/actors-enum';
+import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-logging',
@@ -59,6 +60,9 @@ export class LoggingComponent {
   preApprovalForms: PreApprovalForm[] = [];
   equivalenceRequests: EquivalenceRequest[] = [];
 
+  format = 'dd/MM/yyyy h:mm';
+  locale = 'en-TR';
+
   constructor(
     private dialog: MatDialog,
     private _snackBar: MatSnackBar,
@@ -82,11 +86,16 @@ export class LoggingComponent {
       .toPromise()
       .then(data => {
         data.forEach(element => {
+          const formattedDate = formatDate(
+            element.submissionTime.toString(),
+            this.format,
+            this.locale
+          );
           let temp: UserData = {
             formId: element.id,
             id: element.idNumber,
             student: element.firstName + ' ' + element.lastName,
-            date: element.submissionTime.toString(),
+            date: formattedDate,
             type: 'CTE Form',
             school: element.hostUniversityName,
             status: element.isRejected
@@ -111,11 +120,16 @@ export class LoggingComponent {
       .toPromise()
       .then(data => {
         data.forEach(element => {
+          const formattedDate = formatDate(
+            element.submissionTime.toString(),
+            this.format,
+            this.locale
+          );
           let temp: UserData = {
             formId: element.id,
             id: element.idNumber,
             student: element.firstName + ' ' + element.lastName,
-            date: element.submissionTime.toString(),
+            date: formattedDate,
             type: 'PreApproval Form',
             school: element.hostUniversityName,
             status: element.isRejected
@@ -141,11 +155,16 @@ export class LoggingComponent {
       .then(data => {
         // console.log(data);
         data.forEach(element => {
+          const formattedDate = formatDate(
+            element.submissionDate.toString(),
+            this.format,
+            this.locale
+          );
           let temp: UserData = {
             formId: element.id,
             id: element.studentId,
             student: element.firstName + ' ' + element.lastName,
-            // date: element.submissionTime.toString(),
+            date: formattedDate,
             type: 'Course Eq. Request',
             school: element.hostUniversityName,
             status: element.isRejected
@@ -154,7 +173,8 @@ export class LoggingComponent {
               ? 'Approved'
               : 'Processing'
           };
-          this.courseEquivalenceDataSource.data.push(element);
+          this.equivalenceRequests.push(element);
+          this.courseEquivalenceDataSource.data.push(temp);
           this.dataSource.data.push(temp);
         });
         this.courseEquivalenceDataSource.paginator = this.paginator4;
@@ -234,7 +254,8 @@ export class LoggingComponent {
           dialogConfig.data = viewCTEForm;
           this.dialog.open(ViewCteFormDialogComponent, dialogConfig);
         });
-    } else if (row.type == 'PreApproval Form') {
+    }
+    else if (row.type == 'PreApproval Form') {
       this.userService
         .getUserDetails(row.id)
         .toPromise()
@@ -251,12 +272,14 @@ export class LoggingComponent {
           this.dialog.open(ViewPreapprovalFormDialogComponent, dialogConfig);
           console.log(viewPreApprovalForm);
         });
-    } else if (row.type == 'Course Eq. Request') {
+    }
+    else if (row.type == 'Course Eq. Request') {
       this.userService
         .getUserDetails(row.id)
         .toPromise()
         .then((data: Student) => {
           let studentData: Student = data;
+          this.equivalenceRequests.find(x => x.id == row.formId);
           let viewCourseEquivalenceRequest: ViewEquivalenceRequest = {
             student: studentData,
             eqReq: this.equivalenceRequests.find(x => x.id == row.formId)
