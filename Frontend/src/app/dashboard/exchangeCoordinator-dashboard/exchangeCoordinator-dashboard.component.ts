@@ -63,9 +63,9 @@ export interface dayActivities {
 })
 export class ExchangeCoordinatorDashboardComponent implements OnInit {
   todoList: ToDoItem[] = [];
-  approved: number[] = [0];
-  rejected: number[] = [0];
-  processing: number[] = [0];
+  approved: number[] = [];
+  rejected: number[] = [];
+  processing: number[] = [];
   actorsEnum = ActorsEnum;
   role: string;
   userName: string;
@@ -162,26 +162,25 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
 
     cteFormService.getCTEFormsByDepartment(this.userName).subscribe(
       data => {
-
         data.forEach(element => {
 
           if(element.isRejected) {
 
-            this.rejected[0]++;
+            this.rejected.push(0);
           }
 
           else if (element.isApproved) {
 
-            this.approved[0]++;
+            this.approved.push(0);
           }
 
-          else if(!element.isCanceled) {
+          else if(!element.isCanceled && !element.isArchived) {
 
-            this.processing[0]++;
+            this.processing.push(0);
           }
 
           this.pieChartOptions = {
-      
+
             series: [this.approved.length,this.processing.length, this.rejected.length],
             chart: {
               type: 'donut',
@@ -205,7 +204,7 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
               }
             ]
           };
-      
+
         })
       }
     )
@@ -219,21 +218,21 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
 
           if(element.isRejected) {
 
-            this.rejected[0]++;
+            this.rejected.push(0);
           }
 
           else if (element.isApproved) {
 
-            this.approved[0]++;
+            this.approved.push(0);
           }
 
-          else if(!element.isCanceled) {
+          else if(!element.isCanceled && !element.isArchived) {
 
-            this.processing[0]++;
+            this.processing.push(0);
           }
 
           this.pieChartOptions = {
-      
+
             series: [this.approved.length,this.processing.length, this.rejected.length],
             chart: {
               type: 'donut',
@@ -257,35 +256,34 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
               }
             ]
           };
-      
+
         })
       }
     )
 
     courseEqService.getEquivalenceRequestsByDepartment(this.userName).subscribe(
-      
       data => {
 
         data.forEach(element => {
 
           if(element.isRejected) {
 
-            this.rejected[0]++;
+            this.rejected.push(0);
           }
 
           else if (element.isApproved) {
 
-            this.approved[0]++;
+            this.approved.push(0);
           }
 
-          else if(!element.isCanceled) {
+          else if(!element.isCanceled && !element.isArchived) {
 
-            this.processing[0]++;
+            this.processing.push(0);
           }
 
           this.pieChartOptions = {
-      
-            series: [this.approved.length,this.processing.length, this.rejected.length],
+
+            series: [this.processing.length, this.approved.length, this.rejected.length],
             chart: {
               type: 'donut',
               toolbar: {
@@ -308,14 +306,14 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
               }
             ]
           };
-      
+
         })
       }
     )
 
     console.log(this.todoList);
-   
-  
+
+
     this.barChartOptions = {
       series: [
         {
