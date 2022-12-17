@@ -44,7 +44,7 @@ export class StudentDashboardComponent implements OnInit {
     this.role = JSON.parse(localStorage.getItem('user')).roles[0];
     this.userName = JSON.parse(localStorage.getItem('user')).userName;
 
-    toDoService.getStudentToDoList('22002700').subscribe(data => {
+    toDoService.getStudentToDoList(this.userName).subscribe(data => {
       //console.log(data);
       data.forEach(element => {
         let temp: ToDoItem = {
@@ -106,7 +106,7 @@ export class StudentDashboardComponent implements OnInit {
   }
 
   starClicked(todoItem: ToDoItem) {
-    console.log(todoItem);
+    // console.log(todoItem);
     this.toDoService
       .starToDoItem(todoItem.id, !todoItem.isStarred)
       .subscribe(result => {

@@ -10,7 +10,7 @@ export interface EquivalenceRequest {
   hostUniversityName?: string;
   hostCourseName: string;
   hostCourseCode: string;
-  hostCourseEcts: number;
+  hostCourseECTS: number;
   fileName: string;
   exemptedCourse: ExemptedCourse;
   instructorApproval?: Approval;

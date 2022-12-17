@@ -393,7 +393,7 @@ export class FormsAndRequestsComponent {
       additionalNotes: null,
       hostCourseName: '',
       hostCourseCode: null,
-      hostCourseEcts: null,
+      hostCourseECTS: null,
       isApproved: false,
       isArchived: false,
       isCanceled: false,

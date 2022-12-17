@@ -7,7 +7,7 @@ namespace Backend.DTOs
 {
     public class DepartmentInfoDto
     {
-        public string FacultyName { get; set; }
-        public string DepartmentName { get; set; }
+        public string FacultyName { get; set; } = "";
+        public string DepartmentName { get; set; } = "";
     }
 }

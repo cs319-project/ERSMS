@@ -97,5 +97,8 @@ namespace Backend.Utilities.Enum
 
         [EnumMember(Value = "Tourism and Hotel Management")]
         TourismHotelManagement,
+
+        [EnumMember(Value = "")]
+        NotSpecified,
     }
 }

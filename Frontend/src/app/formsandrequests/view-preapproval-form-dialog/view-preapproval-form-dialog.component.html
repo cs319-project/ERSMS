@@ -143,7 +143,9 @@
               vertical
               style="height: 150px"
               class="mr-4 ml-4"
-              *ngIf="boardStatus != 'Waiting'"></mat-divider>
+              *ngIf="
+                boardStatus != 'Waiting' && coordinatorStatus != 'Waiting'
+              "></mat-divider>
             <div class="approve-info-element" *ngIf="boardStatus != 'Waiting'">
               <span
                 ><b class="mr-2">Name:</b
@@ -161,7 +163,8 @@
               <span
                 ><b class="mr-2">Comment:</b
                 >{{
-                  data.preApprovalForm.exchangeCoordinatorApproval.comment
+                  data.preApprovalForm.facultyAdministrationBoardApproval
+                    .comment
                 }}</span
               >
               <!-- <span *ngIf="boardStatus != 'Waiting'">
@@ -326,7 +329,7 @@
         </div>
       </div>
     </mat-tab>
-    <mat-tab label="Decision">
+    <mat-tab label="Decision" *ngIf="roleOfUser !== 'Student'">
       <div class="decision-container" *ngIf="!coordinatorApproved">
         <span class="subtitle">Your Decision</span>
         <mat-form-field appearance="outline" style="width: 500px">
@@ -373,7 +376,7 @@
             mat-raised-button
             style="margin-right: 50px; width: 125px"
             color="warn"
-            (click)="rejectForm()"
+            (click)="rejectFormFAB()"
             [disabled]="fabApproved">
             Reject
           </button>
@@ -381,7 +384,7 @@
             mat-raised-button
             style="width: 125px"
             color="primary"
-            (click)="approveForm()"
+            (click)="approveFormFAB()"
             [disabled]="fabApproved">
             Accept
           </button>

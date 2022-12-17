@@ -1,0 +1,417 @@
+<div class="user-container">
+  <div class="user-header">
+    <span>User Details</span>
+  </div>
+  <div class="user-content">
+    <div class="user-type">
+      <mat-form-field
+        style="width: 100%"
+        appearance="outline"
+        class="mr-3 ml-3">
+        <mat-label>User Type</mat-label>
+        <input type="search" matInput [(ngModel)]="data.actorType" readonly />
+      </mat-form-field>
+    </div>
+    <div class="user-type-content">
+      <div class="student-details" *ngIf="data.actorType === 'Student'">
+        <div class="flex-column">
+          <div class="flex">
+            <mat-form-field
+              style="flex-grow: 1"
+              class="mr-3 ml-3"
+              appearance="outline">
+              <mat-label>First Name</mat-label>
+              <input type="search" matInput [(ngModel)]="data.user.firstName" />
+            </mat-form-field>
+            <mat-form-field
+              style="flex-grow: 1"
+              class="mr-3 ml-3"
+              appearance="outline">
+              <mat-label>Last Name</mat-label>
+              <input type="search" matInput [(ngModel)]="data.user.lastName" />
+            </mat-form-field>
+          </div>
+          <div class="flex">
+            <mat-form-field
+              style="flex-grow: 1"
+              class="mr-3 ml-3"
+              appearance="outline"
+              [(ngModel)]="data.user.identityUser.email">
+              <mat-label>Email</mat-label>
+              <input type="search" matInput />
+            </mat-form-field>
+            <mat-form-field
+              style="flex-grow: 1"
+              class="mr-3 ml-3"
+              appearance="outline">
+              <mat-label>Bilkent ID</mat-label>
+              <input
+                type="search"
+                matInput
+                [(ngModel)]="data.user.identityUser.userName" />
+            </mat-form-field>
+          </div>
+          <div class="flex">
+            <mat-form-field
+              style="flex-grow: 1"
+              class="mr-3 ml-3"
+              appearance="outline">
+              <mat-label>Enterance Year</mat-label>
+              <input type="search" matInput [(ngModel)]="data.entranceYear" />
+            </mat-form-field>
+            <mat-form-field
+              style="flex-grow: 1"
+              class="mr-3 ml-3"
+              appearance="outline">
+              <mat-label>CGPA</mat-label>
+              <input type="number" matInput [(ngModel)]="data.cgpa" />
+            </mat-form-field>
+          </div>
+          <div class="flex">
+            <mat-form-field
+              style="width: 400px; flex-grow: 1"
+              class="mr-3 ml-3"
+              appearance="outline">
+              <mat-select
+                placeholder="Choose Faculty"
+                [(ngModel)]="data.department.facultyName">
+                <mat-option *ngFor="let fac of faculties" [value]="fac">
+                  {{ fac }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field
+              style="width: 400px; flex-grow: 1"
+              class="mr-3 ml-3"
+              appearance="outline">
+              <mat-select
+                style="white-space: normal"
+                placeholder="Choose Department"
+                [(ngModel)]="data.department.departmentName">
+                <mat-option *ngFor="let dep of departments" [value]="dep">
+                  {{ dep }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div
+        class="dean-details"
+        *ngIf="
+          this.extraData &&
+          data.actorType === actorsEnum.DeanDepartmentChair.toString()
+        ">
+        <div class="flex">
+          <mat-form-field
+            style="flex-grow: 1"
+            class="mr-3 ml-3"
+            appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input type="search" matInput [(ngModel)]="extraData.firstName" />
+          </mat-form-field>
+          <mat-form-field
+            style="flex-grow: 1"
+            class="mr-3 ml-3"
+            appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input type="search" matInput [(ngModel)]="extraData.lastName" />
+          </mat-form-field>
+        </div>
+        <div class="flex">
+          <mat-form-field
+            style="flex-grow: 1"
+            class="mr-3 ml-3"
+            appearance="outline">
+            <mat-label>Email</mat-label>
+            <input
+              [(ngModel)]="data.identityUser.email"
+              type="search"
+              matInput />
+          </mat-form-field>
+          <mat-form-field
+            style="flex-grow: 1"
+            class="mr-3 ml-3"
+            appearance="outline">
+            <mat-label>Bilkent ID</mat-label>
+            <input
+              type="search"
+              matInput
+              [(ngModel)]="extraData.identityUser.userName" />
+          </mat-form-field>
+        </div>
+        <div class="flex">
+          <mat-form-field
+            style="width: 400px; flex-grow: 1"
+            class="mr-3 ml-3"
+            appearance="outline">
+            <mat-label>Faculty</mat-label>
+            <mat-select
+              placeholder="Choose Faculty"
+              [(ngModel)]="extraData.department.facultyName">
+              <mat-option *ngFor="let fac of faculties" [value]="fac">
+                {{ fac }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field
+            style="width: 400px; flex-grow: 1"
+            class="mr-3 ml-3"
+            appearance="outline">
+            <mat-label>Department</mat-label>
+            <mat-select
+              placeholder="Choose Department"
+              [(ngModel)]="extraData.department.departmentName">
+              <mat-option *ngFor="let dep of departments" [value]="dep">
+                {{ dep }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-checkbox
+            [(ngModel)]="extraData.isDean"
+            style="flex-grow: 1"
+            class="mr-3 ml-3"
+            color="primary"
+            appearance="outline">
+            Is Dean?
+          </mat-checkbox>
+        </div>
+      </div>
+      <div
+        class="coordinator-details"
+        *ngIf="
+          data.actorType === actorsEnum.ExchangeCoordinator.toString() &&
+          this.extraData
+        ">
+        <div class="flex">
+          <mat-form-field
+            style="flex-grow: 1"
+            class="mr-3 ml-3"
+            appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input type="search" matInput [(ngModel)]="extraData.firstName" />
+          </mat-form-field>
+          <mat-form-field
+            style="flex-grow: 1"
+            class="mr-3 ml-3"
+            appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input type="search" matInput [(ngModel)]="extraData.lastName" />
+          </mat-form-field>
+        </div>
+        <div class="flex">
+          <mat-form-field
+            style="flex-grow: 1"
+            class="mr-3 ml-3"
+            appearance="outline">
+            <mat-label>Email</mat-label>
+            <input
+              [(ngModel)]="data.identityUser.email"
+              type="search"
+              matInput />
+          </mat-form-field>
+          <mat-form-field
+            style="flex-grow: 1"
+            class="mr-3 ml-3"
+            appearance="outline">
+            <mat-label>Bilkent ID</mat-label>
+            <input
+              type="search"
+              matInput
+              [(ngModel)]="extraData.identityUser.userName" />
+          </mat-form-field>
+        </div>
+        <div class="flex">
+          <mat-form-field
+            style="width: 400px; flex-grow: 1"
+            class="mr-3 ml-3"
+            appearance="outline">
+            <mat-label>Faculty</mat-label>
+            <mat-select
+              placeholder="Choose Faculty"
+              [(ngModel)]="extraData.department.facultyName">
+              <mat-option *ngFor="let fac of faculties" [value]="fac">
+                {{ fac }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field
+            style="width: 400px; flex-grow: 1"
+            class="mr-3 ml-3"
+            appearance="outline">
+            <mat-label>Department</mat-label>
+            <mat-select
+              placeholder="Choose Department"
+              [(ngModel)]="extraData.department.departmentName">
+              <mat-option *ngFor="let dep of departments" [value]="dep">
+                {{ dep }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div
+        class="admin-details"
+        *ngIf="
+          data.actorType === actorsEnum.Admin.toString() ||
+          data.actorType === actorsEnum.OISEP.toString()
+        ">
+        <div class="flex">
+          <mat-form-field
+            style="flex-grow: 1"
+            class="mr-3 ml-3"
+            appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input [(ngModel)]="data.firstName" type="search" matInput />
+          </mat-form-field>
+          <mat-form-field
+            style="flex-grow: 1"
+            class="mr-3 ml-3"
+            appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input [(ngModel)]="data.lastName" type="search" matInput />
+          </mat-form-field>
+        </div>
+        <div class="flex">
+          <mat-form-field
+            style="flex-grow: 1"
+            class="mr-3 ml-3"
+            appearance="outline">
+            <mat-label>Email</mat-label>
+            <input
+              [(ngModel)]="data.identityUser.email"
+              type="search"
+              matInput />
+          </mat-form-field>
+          <mat-form-field
+            style="flex-grow: 1"
+            class="mr-3 ml-3"
+            appearance="outline">
+            <mat-label>Bilkent ID</mat-label>
+            <input
+              type="search"
+              matInput
+              [(ngModel)]="data.identityUser.userName" />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div
+        class="instructor-details"
+        *ngIf="
+          data.actorType ===
+            actorsEnum.CourseCoordinatorInstructor.toString() && this.extraData
+        ">
+        <div class="flex">
+          <mat-form-field
+            style="flex-grow: 1"
+            class="mr-3 ml-3"
+            appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input type="search" matInput [(ngModel)]="extraData.firstName" />
+          </mat-form-field>
+          <mat-form-field
+            style="flex-grow: 1"
+            class="mr-3 ml-3"
+            appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input type="search" matInput [(ngModel)]="extraData.lastName" />
+          </mat-form-field>
+        </div>
+        <div class="flex">
+          <mat-form-field
+            style="flex-grow: 1"
+            class="mr-3 ml-3"
+            appearance="outline">
+            <mat-label>Email</mat-label>
+            <input
+              [(ngModel)]="extraData.identityUser.email"
+              type="search"
+              matInput />
+          </mat-form-field>
+          <mat-form-field
+            style="flex-grow: 1"
+            class="mr-3 ml-3"
+            appearance="outline">
+            <mat-label>Bilkent ID</mat-label>
+            <input
+              type="search"
+              matInput
+              [(ngModel)]="extraData.identityUser.userName" />
+          </mat-form-field>
+        </div>
+        <div class="flex">
+          <mat-form-field
+            style="width: 400px; flex-grow: 1"
+            class="mr-3 ml-3"
+            appearance="outline">
+            <mat-label>Faculty</mat-label>
+            <mat-select
+              placeholder="Choose Faculty"
+              [(ngModel)]="extraData.department.facultyName">
+              <mat-option *ngFor="let fac of faculties" [value]="fac">
+                {{ fac }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field
+            style="width: 400px; flex-grow: 1"
+            class="mr-3 ml-3"
+            appearance="outline">
+            <mat-label>Department</mat-label>
+            <mat-select
+              placeholder="Choose Department"
+              [(ngModel)]="extraData.department.departmentName">
+              <mat-option *ngFor="let dep of departments" [value]="dep">
+                {{ dep }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="flex">
+          <div class="flex">
+            <mat-form-field
+              style="width: 200px; flex-grow: 1"
+              class="mr-3 ml-3"
+              appearance="outline">
+              <mat-label>Course Code</mat-label>
+              <input
+                type="search"
+                matInput
+                [(ngModel)]="extraData.course.courseCode" />
+            </mat-form-field>
+            <mat-form-field
+              style="width: 200px; flex-grow: 1"
+              class="mr-3 ml-3"
+              appearance="outline">
+              <mat-label>Course Name</mat-label>
+              <input
+                type="search"
+                matInput
+                [(ngModel)]="extraData.course.courseName" />
+            </mat-form-field>
+          </div>
+          <mat-checkbox
+            [(ngModel)]="extraData.isCourseCoordinator"
+            style="flex-grow: 1"
+            class="mr-3 ml-3"
+            color="primary"
+            appearance="outline">
+            Is Course Coordinator?
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="flex-grow: 1"></div>
+  <div class="form-footer mt-4">
+    <button mat-raised-button color="primary" (click)="dialogRef.close(null)">
+      Cancel
+    </button>
+    <button mat-raised-button color="primary" class="ml-5" (click)="onSave()">
+      Save
+    </button>
+  </div>
+</div>

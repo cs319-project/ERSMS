@@ -27,6 +27,7 @@ export class NavigationComponent implements OnInit {
   role: string;
   unreadCount: number = 0;
   userName: string;
+  nameOfLoggedInUser: string;
 
   notifications: {
     message: String;
@@ -59,6 +60,11 @@ export class NavigationComponent implements OnInit {
       this.userName = user.userName;
       this.name = user.userDetails.firstName + ' ' + user.userDetails.lastName;
     });
+
+    this.nameOfLoggedInUser =
+      JSON.parse(localStorage.getItem('user')).userDetails.firstName +
+      ' ' +
+      JSON.parse(localStorage.getItem('user')).userDetails.lastName;
 
     this.router.navigate(['/dashboard']);
 
@@ -198,17 +204,19 @@ export class NavigationComponent implements OnInit {
     dialogConfig.data = { data: { description: this.announcement } };
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = false;
+    let returnedDescription: string;
 
     const dialogRef = this.dialog.open(AnnouncementComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        console.log(result);
         this.openSnackBar('Announcement sent', 'Close', 5);
         //console.log(result);
         let announcement: Announcement = {
-          description: 'asd',
-          title: '',
-          sender: ''
+          description: result,
+          title: 'Announcement',
+          sender: this.nameOfLoggedInUser
         };
         this.announcementService.createAnnouncement(announcement).subscribe();
       }

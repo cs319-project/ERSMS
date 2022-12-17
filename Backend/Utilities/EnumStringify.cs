@@ -130,7 +130,7 @@ namespace Backend.Utilities
                 case "Department of Tourism and Hotel Management":
                     return Department.TourismHotelManagement;
                 default:
-                    throw new Exception("Department Exception");
+                    return Department.NotSpecified;
             }
         }
 
@@ -200,8 +200,10 @@ namespace Backend.Utilities
                     return "Department of Information Systems and Technologies";
                 case Department.TourismHotelManagement:
                     return "Department of Tourism and Hotel Management";
+                case Department.NotSpecified:
+                    return "";
                 default:
-                    throw new Exception("Department Exception");
+                    return "";
             }
         }
 
@@ -230,7 +232,7 @@ namespace Backend.Utilities
                 case "Faculty of Applied Sciences":
                     return Faculty.AppliedSciences;
                 default:
-                    throw new Exception("Faculty Exception");
+                    return Faculty.NotSpecified;
             }
         }
 
@@ -258,8 +260,10 @@ namespace Backend.Utilities
                     return "Faculty of Music and Performing Arts";
                 case Faculty.AppliedSciences:
                     return "Faculty of Applied Sciences";
+                case Faculty.NotSpecified:
+                    return "";
                 default:
-                    throw new Exception("Faculty Exception");
+                    return "";
             }
         }
 

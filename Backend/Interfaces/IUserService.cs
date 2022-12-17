@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Backend.DTOs;
 using Backend.Entities;
 using Backend.Utilities.Enum;
+using Newtonsoft.Json.Linq;
 
 namespace Backend.Interfaces
 {
@@ -22,5 +23,7 @@ namespace Backend.Interfaces
         Task<IEnumerable<DeanDepartmentChairDto>> GetDeanDepartmentChairsByDepartmentAsync(Department department);
         Task<IEnumerable<CourseCoordinatorInstructorDto>> GetCourseCoordinatorsInstructorsByCourseCodeAsync(string courseCode);
         Task<IEnumerable<StudentDto>> GetStudentsAsync();
+        Task<Object> UpdateUser(JObject dto);
+        Task<bool> DeleteUser(string username);
     }
 }

@@ -78,6 +78,22 @@ export class ViewPreapprovalFormDialogComponent implements OnInit {
     }
   }
 
+  approveFormFAB() {
+    if (this.roleOfUser == 'Exchange Coordinator') {
+      let approval: Approval = {
+        dateOfApproval: new Date(),
+        isApproved: true,
+        name: this.nameOfUser,
+        comment: this.data.approvalComment
+      };
+      this.preApprovalFormService
+        .approvePreApprovalFormFAB(this.data.preApprovalForm.id, approval)
+        .subscribe(data => {
+          this.dialogRef.close();
+        });
+    }
+  }
+
   rejectForm() {
     if (this.roleOfUser == 'Exchange Coordinator') {
       let approval: Approval = {
@@ -91,6 +107,22 @@ export class ViewPreapprovalFormDialogComponent implements OnInit {
           this.data.preApprovalForm.id,
           approval
         )
+        .subscribe(data => {
+          this.dialogRef.close();
+        });
+    }
+  }
+
+  rejectFormFAB() {
+    if (this.roleOfUser == 'Exchange Coordinator') {
+      let approval: Approval = {
+        dateOfApproval: new Date(),
+        isApproved: false,
+        name: this.nameOfUser,
+        comment: this.data.approvalComment
+      };
+      this.preApprovalFormService
+        .approvePreApprovalFormFAB(this.data.preApprovalForm.id, approval)
         .subscribe(data => {
           this.dialogRef.close();
         });
