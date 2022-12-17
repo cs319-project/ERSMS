@@ -140,9 +140,10 @@ namespace Backend.Services
             return await _userRepository.DeleteUser(username);
         }
 
-        public async Task<IEnumerable<Student>> GetStudents()
+        public async Task<IEnumerable<PlacedStudentDto>> GetPlacedStudents()
         {
-            return await _userRepository.GetStudentsAsync();
+            var forms = await _userRepository.GetPlacedStudentsAsync();
+            return _mapper.Map<IEnumerable<PlacedStudentDto>>(forms);
         }
     }
 }
