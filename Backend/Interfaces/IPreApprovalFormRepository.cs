@@ -13,5 +13,6 @@ namespace Backend.Interfaces
         Task<bool> DeletePreApprovalForm(Guid id);
         Task<PreApprovalForm> GetPreApprovalForm(Guid id);
         Task<bool> UpdatePreApprovalForm(PreApprovalForm preApprovalForm);
+        Task<bool> UploadPdf(Guid formId, byte[] pdf, string fileName);
     }
 }

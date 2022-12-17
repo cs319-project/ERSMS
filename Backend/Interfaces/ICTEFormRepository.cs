@@ -13,5 +13,6 @@ namespace Backend.Interfaces
         Task<bool> DeleteCTEForm(Guid id);
         Task<CTEForm> GetCTEForm(Guid id);
         Task<bool> UpdateCTEForm(CTEForm cTEForm);
+        Task<bool> UploadPdf(Guid formId, byte[] pdf, string fileName);
     }
 }

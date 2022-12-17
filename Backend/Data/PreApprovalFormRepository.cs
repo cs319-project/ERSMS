@@ -56,5 +56,13 @@ namespace Backend.Data
             _context.PreApprovalForms.Update(preApprovalForm);
             return await _context.SaveChangesAsync() > 0;
         }
+
+        public async Task<bool> UploadPdf(Guid formId, byte[] pdf, string fileName)
+        {
+            var form = await _context.PreApprovalForms.FindAsync(formId);
+            form.PDF = pdf;
+            form.FileName = fileName;
+            return await _context.SaveChangesAsync() > 0;
+        }
     }
 }

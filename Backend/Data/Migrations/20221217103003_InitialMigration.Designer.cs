@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221217083349_InitialMigration")]
+    [Migration("20221217103003_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -156,6 +156,9 @@ namespace Backend.Data.Migrations
                     b.Property<Guid?>("FacultyOfAdministrationBoardApprovalId")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("FileName")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -183,6 +186,9 @@ namespace Backend.Data.Migrations
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<byte[]>("PDF")
+                        .HasColumnType("BLOB");
 
                     b.Property<Guid?>("StudentId")
                         .HasColumnType("TEXT");
@@ -489,6 +495,9 @@ namespace Backend.Data.Migrations
                     b.Property<Guid?>("FacultyAdministrationBoardApprovalId")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("FileName")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -516,6 +525,9 @@ namespace Backend.Data.Migrations
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<byte[]>("PDF")
+                        .HasColumnType("BLOB");
 
                     b.Property<int>("Semester")
                         .HasColumnType("INTEGER");

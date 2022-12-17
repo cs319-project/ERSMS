@@ -154,6 +154,9 @@ namespace Backend.Data.Migrations
                     b.Property<Guid?>("FacultyOfAdministrationBoardApprovalId")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("FileName")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -181,6 +184,9 @@ namespace Backend.Data.Migrations
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<byte[]>("PDF")
+                        .HasColumnType("BLOB");
 
                     b.Property<Guid?>("StudentId")
                         .HasColumnType("TEXT");
@@ -487,6 +493,9 @@ namespace Backend.Data.Migrations
                     b.Property<Guid?>("FacultyAdministrationBoardApprovalId")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("FileName")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -514,6 +523,9 @@ namespace Backend.Data.Migrations
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<byte[]>("PDF")
+                        .HasColumnType("BLOB");
 
                     b.Property<int>("Semester")
                         .HasColumnType("INTEGER");

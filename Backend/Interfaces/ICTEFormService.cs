@@ -9,6 +9,7 @@ namespace Backend.Interfaces
     public interface ICTEFormService
     {
         Task<bool> AddCTEFormToStudent(CTEFormDto cTEForm);
+        Task<(byte[], string)> DownloadPdf(Guid formId);
         Task<IEnumerable<CTEFormDto>> GetCTEForms();
         Task<bool> DeleteCTEForm(Guid id);
         Task<CTEFormDto> GetCTEForm(Guid id);
@@ -25,5 +26,6 @@ namespace Backend.Interfaces
         Task<ICollection<CTEFormDto>> GetNonArchivedCTEForms();
         Task<ICollection<CTEFormDto>> GetArchivedCTEFormsByDepartment(string userName);
         Task<ICollection<CTEFormDto>> GetNonArchivedCTEFormsByDepartment(string userName);
+        Task<bool> UploadPdf(Guid formId, IFormFile fileName);
     }
 }

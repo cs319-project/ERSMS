@@ -24,6 +24,8 @@ namespace Backend.Entities
         public string AcademicYear { get; set; } // Data type can be changed
         [Required]
         public Semester Semester { get; set; }
+        public byte[] PDF { get; set; }
+        public string FileName { get; set; }
 
         // public Student SubjectStudent { get; set; }
 

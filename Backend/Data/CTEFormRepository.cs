@@ -57,5 +57,13 @@ namespace Backend.Data
             _context.CTEForms.Update(cTEForm);
             return await _context.SaveChangesAsync() > 0;
         }
+
+        public async Task<bool> UploadPdf(Guid formId, byte[] pdf, string fileName)
+        {
+            var form = await _context.CTEForms.FindAsync(formId);
+            form.PDF = pdf;
+            form.FileName = fileName;
+            return await _context.SaveChangesAsync() > 0;
+        }
     }
 }

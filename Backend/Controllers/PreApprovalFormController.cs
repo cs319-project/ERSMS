@@ -22,6 +22,36 @@ namespace Backend.Controllers
         }
 
         // Endpoints
+        [HttpPost("upload")]
+        [Consumes("multipart/form-data")]
+        public async Task<ActionResult> UploadPdf([FromQuery] Guid formId,
+                                                    [FromForm(Name = "pdf")] IFormFile pdf)
+        {
+            if (pdf == null)
+            {
+                return BadRequest("No file uploaded");
+            }
+
+            var result = await _preApprovalFormService.UploadPdf(formId, pdf);
+
+            return (result) ? Ok(result) : BadRequest("Error when uploading file");
+        }
+
+        [HttpGet("download/{id:guid}")]
+        public async Task<ActionResult> DownloadPdf(Guid id)
+        {
+            var result = await _preApprovalFormService.DownloadPdf(id);
+
+            if (Path.GetExtension(result.Item2) == ".pdf")
+            {
+                return (result != (null, null)) ? File(result.Item1, "application/pdf", result.Item2) : NotFound();
+            }
+            else
+            {
+                return BadRequest("Error when downloading file");
+            }
+        }
+
         [HttpPost]
         public async Task<ActionResult<PreApprovalFormDto>> SubmitPreApprovalForm(PreApprovalFormDto preApprovalForm)
         {

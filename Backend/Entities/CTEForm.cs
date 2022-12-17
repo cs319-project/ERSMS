@@ -25,6 +25,8 @@ namespace Backend.Entities
         [Required]
         public DateTime SubmissionTime { get; set; } = DateTime.Now;
         public DateTime ApprovalTime { get; set; }
+        public byte[] PDF { get; set; }
+        public string FileName { get; set; }
 
         // These following approvals can be turned into collection
         public Approval ChairApproval { get; set; }

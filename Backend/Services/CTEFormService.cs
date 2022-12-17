@@ -466,5 +466,47 @@ namespace Backend.Services
 
             return await _loggedCourseService.CreateLoggedTransferredCourse(form);
         }
+
+        public async Task<bool> UploadPdf(Guid formId, IFormFile pdf)
+        {
+            if (Path.GetExtension(pdf.FileName) != ".pdf")
+            {
+                return false;
+            }
+            else
+            {
+                byte[] pdfBytes = await SaveFile(pdf);
+                return await _cTEFormRepository.UploadPdf(formId, pdfBytes, pdf.FileName);
+            }
+
+        }
+
+        public async Task<(byte[], string)> DownloadPdf(Guid formId)
+        {
+            CTEForm form = await _cTEFormRepository.GetCTEForm(formId);
+
+            if (form != null)
+            {
+                return (form.PDF, form.FileName);
+            }
+            else
+            {
+                return (null, null);
+            }
+        }
+
+        private async Task<byte[]> SaveFile(IFormFile file)
+        {
+            // convert file to byte array
+            byte[] fileBytes;
+
+            using (var ms = new MemoryStream())
+            {
+                await file.CopyToAsync(ms);
+                fileBytes = ms.ToArray();
+            }
+
+            return fileBytes;
+        }
     }
 }

@@ -19,6 +19,7 @@ namespace Backend.DTOs
         public string Department { get; set; }
 
         public string HostUniversityName { get; set; }
+        public string FileName { get; set; }
 
         public string AcademicYear { get; set; } // Data type can be changed
 
