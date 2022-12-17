@@ -99,15 +99,19 @@
               <span *ngIf="instructorStatus != 'Waiting'">
                 <b class="mr-2">Approval Date:</b>
                 {{
-                  data.eqReq.instructorApproval.dateOfApproval.toLocaleDateString()
+                  data.eqReq.instructorApproval.dateOfApproval.toLocaleString()
                 }}
               </span>
-              <span *ngIf="instructorStatus != 'Waiting'">
+              <span
+                ><b class="mr-2">Comment:</b
+                >{{ data.eqReq.instructorApproval.comment }}</span
+              >
+              <!-- <span *ngIf="instructorStatus != 'Waiting'">
                 <b class="mr-2">Approval Time:</b>
                 {{
-                  data.eqReq.instructorApproval.dateOfApproval.toLocaleTimeString()
+                  data.eqReq.instructorApproval.dateOfApproval.toLocaleString()
                 }}
-              </span>
+              </span> -->
               <div class="status-text-container">
                 <span
                   class="status-text"
@@ -166,7 +170,7 @@
                   min="0"
                   readonly
                   matInput
-                  [(ngModel)]="data.eqReq.hostCourseEcts" />
+                  [(ngModel)]="data.eqReq.hostCourseECTS" />
               </mat-form-field>
               <div style="width: 115px"></div>
             </div>
@@ -174,7 +178,8 @@
               mat-raised-button
               color="primary"
               style="width: 300px"
-              class="mb-4">
+              class="mb-4"
+              (click)="downloadSyllabus()">
               <mat-icon>download</mat-icon> Download Syllabus
             </button>
             <div class="course-container mb-4">
@@ -234,15 +239,16 @@
                   rows="6"
                   [(ngModel)]="data.eqReq.additionalNotes"
                   matInput
-                  placeholder="Write your Additional Notes here..."></textarea>
+                  placeholder="Write your Additional Notes here..."
+                  [readonly]="true"></textarea>
               </mat-form-field>
             </div>
           </div>
         </div>
       </div>
     </mat-tab>
-    <mat-tab label="Decision">
-      <div class="decision-container">
+    <mat-tab label="Decision" *ngIf="roleOfUser !== 'Student'">
+      <div class="decision-container" *ngIf="!isFormApproved">
         <span class="subtitle">Your Decision</span>
         <mat-form-field appearance="outline" style="width: 500px">
           <mat-label>Your Comments & Extra Notes</mat-label>
@@ -251,7 +257,7 @@
             type="search"
             rows="10"
             id="decision-textarea"
-            [(ngModel)]="data.eqReq.instructorApproval.comment"
+            [(ngModel)]="data.approvalComment"
             matInput></textarea>
         </mat-form-field>
         <div class="decision-buttons mb-5">

@@ -1,4 +1,3 @@
-
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActorsEnum } from 'src/app/_models/enum/actors-enum';
@@ -6,42 +5,39 @@ import { DepartmentsEnum } from 'src/app/_models/enum/departments-enum';
 import { ToDoItem } from 'src/app/_models/to-do-item';
 import { ToDoItemService } from 'src/app/_services/todoitem.service';
 
+import {
+  ApexNonAxisChartSeries,
+  ApexResponsive,
+  ApexChart,
+  ChartComponent,
+  ApexDataLabels,
+  ApexPlotOptions,
+  ApexYAxis,
+  ApexXAxis,
+  ApexAxisChartSeries,
+  ApexGrid,
+  ApexLegend
+} from 'ng-apexcharts';
 
-  import {
-    ApexNonAxisChartSeries,
-    ApexResponsive,
-    ApexChart,
-    ChartComponent,
-    ApexDataLabels,
-    ApexPlotOptions,
-    ApexYAxis,
-    ApexXAxis,
-    ApexAxisChartSeries,
-    ApexGrid,
-    ApexLegend
-  } from 'ng-apexcharts';
+export type PieChartOptions = {
+  series: ApexNonAxisChartSeries;
+  chart: ApexChart;
+  colors: string[];
+  responsive: ApexResponsive[];
+  labels: any;
+};
 
-  
-  export type PieChartOptions = {
-    series: ApexNonAxisChartSeries;
-    chart: ApexChart;
-    colors: string[];
-    responsive: ApexResponsive[];
-    labels: any;
-  };
-  
-  export type BarChartOptions = {
-    series: ApexAxisChartSeries;
-    chart: ApexChart;
-    dataLabels: ApexDataLabels;
-    plotOptions: ApexPlotOptions;
-    yaxis: ApexYAxis;
-    xaxis: ApexXAxis;
-    grid: ApexGrid;
-    colors: string[];
-    legend: ApexLegend;
-  };
-
+export type BarChartOptions = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  dataLabels: ApexDataLabels;
+  plotOptions: ApexPlotOptions;
+  yaxis: ApexYAxis;
+  xaxis: ApexXAxis;
+  grid: ApexGrid;
+  colors: string[];
+  legend: ApexLegend;
+};
 
 export interface activity {
   name: string;
@@ -155,72 +151,72 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
     console.log(this.todoList);
 
     this.pieChartOptions = {
-        series: [44, 55, 13],
-        chart: {
-          type: 'donut',
-          toolbar: {
-            show: true
-          }
-        },
-        colors: ['#FF965D', '#49C96D', '#FD7972'],
-        labels: ['Processing', 'Accepted  ', 'Rejected'],
-        responsive: [
-          {
-            breakpoint: 480,
-            options: {
-              chart: {
-                width: 200
-              },
-              legend: {
-                position: 'bottom'
-              }
-            }
-          }
-        ]
-      };
-  
-      this.barChartOptions = {
-        series: [
-          {
-            name: 'submission',
-            data: [21, 22, 10, 28, 16, 21, 13]
-          }
-        ],
-        chart: {
-          height: 350,
-          type: 'bar',
-          events: {
-            click: function (chart, w, e) {
-              // console.log(chart, w, e)
-            }
-          }
-        },
-        colors: ['#008FFB', '#00E396'],
-        plotOptions: {
-          bar: {
-            columnWidth: '45%',
-            distributed: true
-          }
-        },
-        dataLabels: {
-          enabled: true
-        },
-        legend: {
-          show: false
-        },
-        grid: {
+      series: [44, 55, 13],
+      chart: {
+        type: 'donut',
+        toolbar: {
           show: true
-        },
-        xaxis: {
-          categories: ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'],
-          labels: {
-            style: {
-              colors: [],
-              fontSize: '12px'
+        }
+      },
+      colors: ['#FF965D', '#49C96D', '#FD7972'],
+      labels: ['Processing', 'Accepted  ', 'Rejected'],
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: 'bottom'
             }
           }
         }
-      };
+      ]
+    };
+
+    this.barChartOptions = {
+      series: [
+        {
+          name: 'submission',
+          data: [21, 22, 10, 28, 16, 21, 13]
+        }
+      ],
+      chart: {
+        height: 350,
+        type: 'bar',
+        events: {
+          click: function (chart, w, e) {
+            // console.log(chart, w, e)
+          }
+        }
+      },
+      colors: ['#008FFB', '#00E396'],
+      plotOptions: {
+        bar: {
+          columnWidth: '45%',
+          distributed: true
+        }
+      },
+      dataLabels: {
+        enabled: true
+      },
+      legend: {
+        show: false
+      },
+      grid: {
+        show: true
+      },
+      xaxis: {
+        categories: ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'],
+        labels: {
+          style: {
+            colors: [],
+            fontSize: '12px'
+          }
+        }
+      }
+    };
   }
 
   stateForm = this._formBuilder.group({
