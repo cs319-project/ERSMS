@@ -34,7 +34,7 @@ export class EquivalenceRequestDialogComponent implements OnInit {
   file = new FormControl('', [Validators.required]);
   courseCodeBilkent = new FormControl('', [Validators.required]);
   courseNameBilkent = new FormControl('', [Validators.required]);
-  
+
   getErrorMessageEmpty() {
     return this.courseCode.hasError('required')
       ? 'All fields must be filled'
