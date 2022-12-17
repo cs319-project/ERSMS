@@ -8,16 +8,11 @@
     }}</b>
   </div>
   <div mat-dialog-actions class="confirmation-buttons">
-    <button
-      (click)="uploadClicked = !uploadClicked; closeDialog()"
-      mat-button
-      mat-dialog-close
-      mat-raised-button
-      color="warn">
+    <button mat-button mat-dialog-close mat-raised-button color="warn">
       Cancel
     </button>
     <button
-      (click)="uploadClicked = !uploadClicked; closeDialog()"
+      mat-dialog-close="true"
       mat-button
       mat-raised-button
       color="primary">

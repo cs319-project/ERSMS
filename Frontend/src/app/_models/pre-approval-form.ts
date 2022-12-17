@@ -3,7 +3,7 @@ import { RequestedCourseGroup } from './requested-course-group';
 import { Approval } from './approval';
 
 export interface PreApprovalForm {
-  id: GUID;
+  id?: GUID;
   firstName: string;
   lastName: string;
   idNumber: string;
@@ -11,8 +11,8 @@ export interface PreApprovalForm {
   hostUniversityName: string;
   academicYear: string;
   semester: string;
-  submissionTime: Date;
-  approvalTime: Date;
+  submissionTime?: Date;
+  approvalTime?: Date;
   requestedCourseGroups: RequestedCourseGroup[];
   exchangeCoordinatorApproval?: Approval;
   facultyAdministrationBoardApproval?: Approval;

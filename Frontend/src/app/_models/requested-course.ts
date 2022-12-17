@@ -1,7 +1,7 @@
 import { GUID } from '../../utils/guid';
 
 export interface RequestedCourse {
-  id: GUID;
+  id?: GUID;
   courseCode: string;
   courseName: string;
   ects: number;

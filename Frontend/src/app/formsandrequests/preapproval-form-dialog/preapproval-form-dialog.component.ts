@@ -6,6 +6,10 @@ import { GUID } from '../../../utils/guid';
 import { RequestedCourse } from '../../_models/requested-course';
 import { TransferredCourseGroup } from '../../_models/transferred-course-group';
 import { FormControl, Validators } from '@angular/forms';
+import { ActorsEnum } from '../../_models/enum/actors-enum';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserService } from '../../_services/user.service';
+import { PreApprovalFormService } from '../../_services/preapprovalform.service';
 
 @Component({
   selector: 'app-preapproval-form-dialog',
@@ -24,6 +28,8 @@ export class PreapprovalFormDialogComponent implements OnInit {
   courseCreditBilkent = new FormControl('', [Validators.required]);
   courseCodeBilkent = new FormControl('', [Validators.required]);
   courseNameBilkent = new FormControl('', [Validators.required]);
+
+  userName: string;
 
   getErrorMessageEmpty() {
     return this.courseCredit.hasError('required')
@@ -58,9 +64,15 @@ export class PreapprovalFormDialogComponent implements OnInit {
   ];
 
   constructor(
+    private _snackBar: MatSnackBar,
+    private userService: UserService,
+    private preApprovalFormService: PreApprovalFormService,
     public dialogRef: MatDialogRef<PreapprovalFormDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: PreApprovalForm
-  ) {}
+  ) {
+    this.userName = JSON.parse(localStorage.getItem('user')).userName;
+    this.data.idNumber = this.userName;
+  }
 
   ngOnInit(): void {}
 
@@ -70,12 +82,10 @@ export class PreapprovalFormDialogComponent implements OnInit {
 
   onAddGroup() {
     let newGroup: RequestedCourseGroup = {
-      id: null,
       requestedCourses: [
-        { id: null, courseCode: null, courseName: null, ects: null }
+        { courseCode: null, courseName: null, ects: null }
       ],
       requestedExemptedCourse: {
-        id: null,
         courseCode: null,
         courseName: null,
         courseType: null,
@@ -100,7 +110,6 @@ export class PreapprovalFormDialogComponent implements OnInit {
 
   onAddCourse(courseGroup: RequestedCourseGroup) {
     let newRequestedCourse: RequestedCourse = {
-      id: null,
       courseCode: null,
       courseName: null,
       ects: null
@@ -120,6 +129,59 @@ export class PreapprovalFormDialogComponent implements OnInit {
   }
 
   onSubmit() {
+    this.userService.getUserDetails(this.data.idNumber).subscribe(
+      result => {
+        if (result && result.actorType == ActorsEnum.Student) {
+          this.data.hostUniversityName = result.exchangeSchool;
+          this.data.firstName = result.firstName;
+          this.data.lastName = result.lastName;
+          this.data.department = result.major.departmentName;
+          this.data.academicYear = result.preferredSemester.academicYear;
+          this.data.semester = result.preferredSemester.semester;
+          console.log(this.data);
+          this.preApprovalFormService
+            .createPreApprovalForm(this.data)
+            .subscribe(
+              res => {
+                if (res) {
+                  this._snackBar.open('Form is submitted', 'Close', {
+                    duration: 3000
+                  });
+                  this.dialogRef.close();
+                }
+              },
+              error => {
+                this._snackBar.open(
+                  'An Error occured while submitting',
+                  'Close',
+                  {
+                    duration: 3000
+                  }
+                );
+              }
+            );
+        } else {
+          this._snackBar.open(
+            'No student with ID ' + this.data.idNumber,
+            'Close',
+            {
+              duration: 3000
+            }
+          );
+        }
+      },
+      error => {
+        this._snackBar.open(
+          'No student with ID ' + this.data.idNumber,
+          'Close',
+          {
+            duration: 3000
+          }
+        );
+      }
+    );
+
+
     this.submitted = true;
     this.error =
       this.courseCredit.hasError('required') ||

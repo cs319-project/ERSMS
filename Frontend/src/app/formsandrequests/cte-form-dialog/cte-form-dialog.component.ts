@@ -5,6 +5,10 @@ import { RequestedCourseGroup } from '../../_models/requested-course-group';
 import { TransferredCourseGroup } from '../../_models/transferred-course-group';
 import { TransferredCourse } from '../../_models/transferred-course';
 import { FormControl, Validators } from '@angular/forms';
+import { CTEFormService } from '../../_services/cteform.service';
+import { UserService } from '../../_services/user.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActorsEnum } from '../../_models/enum/actors-enum';
 
 @Component({
   selector: 'app-cte-form-dialog',
@@ -65,6 +69,9 @@ export class CteFormDialogComponent implements OnInit {
   ];
 
   constructor(
+    private _snackBar: MatSnackBar,
+    private userService: UserService,
+    private cteFormService: CTEFormService,
     public dialogRef: MatDialogRef<CteFormDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: CteForm
   ) {}
@@ -73,10 +80,8 @@ export class CteFormDialogComponent implements OnInit {
 
   onAddGroup() {
     let newGroup: TransferredCourseGroup = {
-      id: null,
       transferredCourses: [
         {
-          id: null,
           courseCode: null,
           courseName: null,
           ects: null,
@@ -84,7 +89,6 @@ export class CteFormDialogComponent implements OnInit {
         }
       ],
       exemptedCourse: {
-        id: null,
         courseCode: null,
         courseName: null,
         courseType: null,
@@ -102,7 +106,6 @@ export class CteFormDialogComponent implements OnInit {
   onAddCourse(courseGroup: TransferredCourseGroup) {
     console.log(courseGroup);
     let newRequestedCourse: TransferredCourse = {
-      id: null,
       courseCode: null,
       courseName: null,
       ects: null,
@@ -123,7 +126,55 @@ export class CteFormDialogComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitted = true;
+    //TODO Handle Empty Forms
+    this.userService.getUserDetails(this.data.idNumber).subscribe(
+      result => {
+        if (result && result.actorType == ActorsEnum.Student) {
+          console.log(result);
+          this.data.hostUniversityName = result.exchangeSchool;
+          this.data.firstName = result.firstName;
+          this.data.lastName = result.lastName;
+          this.data.department = result.major.departmentName;
+          this.cteFormService.createCTEForm(this.data).subscribe(
+            res => {
+              if (res) {
+                this._snackBar.open('Form is submitted', 'Close', {
+                  duration: 3000
+                });
+                this.dialogRef.close();
+              }
+            },
+            error => {
+              this._snackBar.open(
+                'An Error occured while submitting',
+                'Close',
+                {
+                  duration: 3000
+                }
+              );
+            }
+          );
+        } else {
+          this._snackBar.open(
+            'No student with ID ' + this.data.idNumber,
+            'Close',
+            {
+              duration: 3000
+            }
+          );
+        }
+      },
+      error => {
+        this._snackBar.open(
+          'No student with ID ' + this.data.idNumber,
+          'Close',
+          {
+            duration: 3000
+          }
+        );
+      }
+    );
+
     this.error =
       this.courseCredit.hasError('required') ||
       this.studentid.hasError('required') ||

@@ -3,7 +3,7 @@ import { ExemptedCourse } from './exempted-course';
 import { Approval } from './approval';
 
 export interface EquivalenceRequest {
-  id: GUID;
+  id?: GUID;
   studentId: string;
   firstName?: string;
   lastName?: string;

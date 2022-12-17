@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
+import {MatTable, MatTableDataSource} from '@angular/material/table';
 import { MatSort, Sort } from '@angular/material/sort';
 import { FormDialogComponent } from './form-dialog/form-dialog.component';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -32,7 +32,6 @@ import { ViewEquivalenceRequestDialogComponent } from './view-equivalence-reques
 import { EquivalenceRequestService } from '../_services/equivalencerequest.service';
 import { CTEFormService } from '../_services/cteform.service';
 import { UserService } from '../_services/user.service';
-import { identity } from 'rxjs';
 import { PreApprovalFormService } from '../_services/preapprovalform.service';
 
 @Component({
@@ -66,6 +65,8 @@ export class FormsAndRequestsComponent {
 
   selection = new SelectionModel<UserData>(true, []);
 
+  @ViewChild(MatTable) AllFormsTable!: MatTable<UserData>;
+
   activatedRow = null;
   currentUserId: string;
 
@@ -95,6 +96,7 @@ export class FormsAndRequestsComponent {
     //   users.push(createNewUser(i, (status = 'Processing')));
     // }
 
+
     cteFormService
       .getNonArchivedCTEFormsByDepartment(this.currentUserId)
       .toPromise()
@@ -118,6 +120,16 @@ export class FormsAndRequestsComponent {
           studentUser.push(temp);
           this.cteForms.push(element);
         });
+        this.cteDataSource = new MatTableDataSource(cteUsers);
+        this.dataSource = new MatTableDataSource(users);
+        this.studentDataSource = new MatTableDataSource<UserData>(studentUser);
+        this.studentDataSource.sort = this.sorterS;
+        this.studentDataSource.paginator = this.paginatorS;
+        this.cteDataSource.sort = this.sorter3;
+        this.cteDataSource.paginator = this.paginator3;
+        this.dataSource.sort = this.sorter1;
+        this.dataSource.paginator = this.paginator;
+        this.AllFormsTable.renderRows();
       });
 
     preApprovalFormService
@@ -142,7 +154,19 @@ export class FormsAndRequestsComponent {
           preapprovalUsers.push(temp);
           studentUser.push(temp);
           this.preApprovalForms.push(element);
+          this.dataSource.data.push(temp);
+          this.studentDataSource.data.push(temp);
         });
+        this.preapprovalDataSource = new MatTableDataSource(
+          preapprovalUsers
+        );
+        this.studentDataSource.sort = this.sorterS;
+        this.studentDataSource.paginator = this.paginatorS;
+        this.preapprovalDataSource.paginator = this.paginator2;
+        this.dataSource.sort = this.sorter1;
+        this.dataSource.paginator = this.paginator;
+        this.preapprovalDataSource.sort = this.sorter2;
+        this.AllFormsTable.renderRows();
       });
 
     equivalenceRequestService
@@ -168,7 +192,19 @@ export class FormsAndRequestsComponent {
           courseequivalenceUsers.push(temp);
           studentUser.push(temp);
           this.equivalenceRequests.push(element);
+          this.dataSource.data.push(temp);
+          this.studentDataSource.data.push(temp);
         });
+        this.courseEquivalenceDataSource = new MatTableDataSource(
+          courseequivalenceUsers
+        );
+        this.studentDataSource.sort = this.sorterS;
+        this.studentDataSource.paginator = this.paginatorS;
+        this.courseEquivalenceDataSource.paginator = this.paginator4;
+        this.dataSource.sort = this.sorter1;
+        this.dataSource.paginator = this.paginator;
+        this.courseEquivalenceDataSource.sort = this.sorter4;
+        this.AllFormsTable.renderRows();
       });
 
     //console.log(this.preApprovalForms);
@@ -180,6 +216,7 @@ export class FormsAndRequestsComponent {
     //   studentUser.push(createNewUser(i));
     // }
 
+    /*
     for (let k = 0; k < users.length; k++) {
       if (users[k].type == 'PreApproval Form') {
         preapprovalUsers.push(users[k]);
@@ -189,19 +226,19 @@ export class FormsAndRequestsComponent {
         courseequivalenceUsers.push(users[k]);
       }
     }
+    */
 
     // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
     this.preapprovalDataSource = new MatTableDataSource(preapprovalUsers);
     this.cteDataSource = new MatTableDataSource(cteUsers);
     this.courseEquivalenceDataSource = new MatTableDataSource(
       courseequivalenceUsers
     );
     this.studentDataSource = new MatTableDataSource(studentUser);
+
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
     this.preapprovalDataSource.paginator = this.paginator2;
     this.cteDataSource.paginator = this.paginator3;
     this.courseEquivalenceDataSource.paginator = this.paginator4;
@@ -316,7 +353,6 @@ export class FormsAndRequestsComponent {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = false;
     this.preApprovalForm = {
-      id: null,
       firstName: '',
       lastName: '',
       idNumber: '',
@@ -324,11 +360,7 @@ export class FormsAndRequestsComponent {
       hostUniversityName: '',
       academicYear: '',
       semester: '',
-      submissionTime: null,
-      approvalTime: null,
       requestedCourseGroups: null,
-      exchangeCoordinatorApproval: null,
-      facultyAdministrationBoardApproval: null,
       isApproved: false,
       isArchived: false,
       isCanceled: false,
@@ -347,18 +379,17 @@ export class FormsAndRequestsComponent {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = false;
     this.equivalanceRequest = {
-      id: null,
       studentId: null,
       fileName: null,
       exemptedCourse: {
-        id: null,
         courseName: '',
         courseCode: '',
-        courseType: null,
         ects: null,
         bilkentCredits: null
       },
-      instructorApproval: null,
+      firstName: '',
+      lastName: '',
+      hostUniversityName: '',
       additionalNotes: null,
       hostCourseName: '',
       hostCourseCode: null,
@@ -381,19 +412,12 @@ export class FormsAndRequestsComponent {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = false;
     this.cteForm = {
-      id: null,
       firstName: '',
       lastName: '',
       idNumber: '',
       department: '',
       hostUniversityName: '',
-      submissionTime: null,
-      approvalTime: null,
       transferredCourseGroups: null,
-      exchangeCoordinatorApproval: null,
-      facultyOfAdministrationBoardApproval: null,
-      deanApproval: null,
-      chairApproval: null,
       isApproved: false,
       isArchived: false,
       isCanceled: false,

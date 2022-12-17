@@ -3,15 +3,15 @@ import { Approval } from './approval';
 import { TransferredCourseGroup } from './transferred-course-group';
 
 export interface CteForm {
-  id: GUID;
+  id?: GUID;
   firstName: string;
   lastName: string;
   idNumber: string;
   department: string;
   hostUniversityName: string;
   transferredCourseGroups: TransferredCourseGroup[];
-  submissionTime: Date;
-  approvalTime: Date;
+  submissionTime?: Date;
+  approvalTime?: Date;
   chairApproval?: Approval;
   deanApproval?: Approval;
   exchangeCoordinatorApproval?: Approval;

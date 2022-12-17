@@ -44,7 +44,7 @@
           <span>Upload Syllabus</span
           ><mat-icon class="ml-2">attach_file</mat-icon>
         </button>
-        <span>{{ data.hostCourseName === '' ? "Enter the course name first to upload syllabus." : fileName || "No file uploaded." }}</span>
+        <span>{{ data.hostCourseName === '' ? "Enter the course name first to upload syllabus." : data.fileName || "No file uploaded." }}</span>
       </div>
 
       <mat-error style="width:200px" class="mr-3" *ngIf= " (courseCode.invalid

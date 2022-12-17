@@ -22,11 +22,4 @@ export class ScoreTableUploadDialogComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  closeDialog(): void {
-    if (this.uploadClicked) {
-      this.dialogRef.close(true);
-    } else {
-      this.dialogRef.close(false);
-    }
-  }
 }
