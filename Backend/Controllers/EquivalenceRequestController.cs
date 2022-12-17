@@ -49,6 +49,7 @@ namespace Backend.Controllers
                     HostCourseECTS = hostCourseECTS,
                     HostCourseName = hostCourseName,
                     HostCourseCode = hostCourseCode,
+                    SubmissionDate = DateTime.Now,
                     AdditionalNotes = additionalNotes,
                     InstructorApproval = null,
                     FileName = Syllabus.FileName

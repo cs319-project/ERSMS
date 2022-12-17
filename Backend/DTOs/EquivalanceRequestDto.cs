@@ -12,6 +12,7 @@ namespace Backend.DTOs
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string HostUniversityName { get; set; }
+        public DateTime SubmissionDate { get; set; } = DateTime.Now;
         public string HostCourseName { get; set; }
         public string HostCourseCode { get; set; }
         public double HostCourseECTS { get; set; }

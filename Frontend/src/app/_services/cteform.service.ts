@@ -12,6 +12,8 @@ export class CTEFormService {
   baseApiUrl = environment.apiUrl;
   constructor(private http: HttpClient) {}
 
+  // TODO: add pdfs
+
   getCTEForms(): Observable<any> {
     return this.http.get<any>(`${this.baseApiUrl}cteform/getall`);
   }
