@@ -66,3 +66,7 @@
      causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
   flex: 1;
 }
+
+mat-sidenav-container{
+  height: 100vh;
+}
