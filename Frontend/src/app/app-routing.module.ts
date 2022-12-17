@@ -22,7 +22,8 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'formsandrequests', component: FormsAndRequestsComponent },
-      { path: 'logging', component: LoggingComponent }
+      { path: 'logging', component: LoggingComponent },
+      { path: 'placements', component: PlacementComponent }
     ]
   }
   //{ path: '**', redirectTo: '' }
