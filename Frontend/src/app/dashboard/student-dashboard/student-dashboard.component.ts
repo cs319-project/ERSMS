@@ -106,7 +106,7 @@ export class StudentDashboardComponent implements OnInit {
   }
 
   starClicked(todoItem: ToDoItem) {
-    console.log(todoItem);
+    // console.log(todoItem);
     this.toDoService
       .starToDoItem(todoItem.id, !todoItem.isStarred)
       .subscribe(result => {

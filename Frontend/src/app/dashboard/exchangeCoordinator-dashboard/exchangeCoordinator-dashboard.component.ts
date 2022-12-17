@@ -127,7 +127,7 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
     this.role = JSON.parse(localStorage.getItem('user')).roles[0];
     this.userName = JSON.parse(localStorage.getItem('user')).userName;
 
-    toDoService.getStudentToDoList('22002700').subscribe(data => {
+    toDoService.getCoordinatorToDoList(this.userName).subscribe(data => {
       //console.log(data);
       data.forEach(element => {
         let temp: ToDoItem = {
@@ -257,7 +257,7 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
   }
 
   starClicked(todoItem: ToDoItem) {
-    console.log(todoItem);
+    // console.log(todoItem);
     this.toDoService
       .starToDoItem(todoItem.id, !todoItem.isStarred)
       .subscribe(result => {
@@ -296,6 +296,7 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
   }
 
   saveEditing(todoItem: ToDoItem) {
+    todoItem.description = this.editingValue;
     this.toDoService.updateToDoItem(todoItem).subscribe(result => {
       if (result) {
         todoItem.description = this.editingValue;
