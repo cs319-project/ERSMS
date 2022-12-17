@@ -21,5 +21,4 @@ export class ScoreTableUploadDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {}
-
 }

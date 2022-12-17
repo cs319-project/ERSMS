@@ -414,13 +414,13 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
 
     if (!(this.fileName.endsWith('.xlsx') || this.fileName.endsWith('.xls'))) {
-      this.toastr.error('Please select a valid Excel file');
+      this.toastr.error('Please select a valid Excel file (.xlsx or .xls)');
       return;
     }
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
       text: `Are you sure to upload this score table for  ${
-        this._departmentsEnum[this.oisepDepartment][0]
+        this._departmentsEnum[this.oisepDepartment]
       }?`,
       fileName: this.fileName
     };

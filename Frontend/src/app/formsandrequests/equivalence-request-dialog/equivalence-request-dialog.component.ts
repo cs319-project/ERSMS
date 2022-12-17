@@ -13,7 +13,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { ActorsEnum } from '../../_models/enum/actors-enum';
 import { UserService } from '../../_services/user.service';
 import { EquivalenceRequestService } from '../../_services/equivalencerequest.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { CourseType } from 'src/app/_models/enum/course-type-enum';
 
 @Component({
   selector: 'app-equivalence-request-dialog',
@@ -21,6 +21,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./equivalence-request-dialog.component.css']
 })
 export class EquivalenceRequestDialogComponent implements OnInit {
+  fileObj: File;
+  courseTypes: string[] = Object.values(CourseType);
+  courseType = new FormControl('', [Validators.required]);
   error = true;
   submitted = false;
   courseCode = new FormControl('', [Validators.required]);
@@ -58,8 +61,7 @@ export class EquivalenceRequestDialogComponent implements OnInit {
     //private fileUploadService: FileUploadService,
     private dialog: MatDialog,
     private userService: UserService,
-    private eqReqService: EquivalenceRequestService,
-    private _snackBar: MatSnackBar
+    private eqReqService: EquivalenceRequestService
   ) {
     this.userName = JSON.parse(localStorage.getItem('user')).userName;
     this.data.studentId = this.userName;
@@ -81,50 +83,28 @@ export class EquivalenceRequestDialogComponent implements OnInit {
             .subscribe(
               res => {
                 if (res) {
-                  this._snackBar.open('Form is submitted', 'Close', {
-                    duration: 3000
-                  });
+                  this.toastr.success('Form is submitted successfully');
                   this.dialogRef.close();
                 }
               },
               error => {
-                this._snackBar.open(
-                  'An Error occured while submitting',
-                  'Close',
-                  {
-                    duration: 3000
-                  }
-                );
+                this.toastr.error('An error occured while submitting the form');
               }
             );
         } else {
-          this._snackBar.open(
-            'No student with ID ' + this.data.studentId,
-            'Close',
-            {
-              duration: 3000
-            }
-          );
+          this.toastr.error('No student with ID ' + this.data.studentId);
         }
       },
       error => {
-        this._snackBar.open(
-          'No student with ID ' + this.data.studentId,
-          'Close',
-          {
-            duration: 3000
-          }
-        );
+        this.toastr.error('No student with ID ' + this.data.studentId);
       }
     );
-
     this.submitted = true;
     this.error =
       this.courseCode.hasError('required') ||
       this.courseName.hasError('required') ||
       this.courseCodeBilkent.hasError('required') ||
       this.courseNameBilkent.hasError('required');
-
     if (!this.error) {
       console.log(this.data);
       this.dialogRef.close(this.data);
@@ -132,37 +112,40 @@ export class EquivalenceRequestDialogComponent implements OnInit {
   }
 
   onFileSelected(event) {
-    syllabus: File = event.target.files[0];
+    this.fileObj = event.target.files[0];
+
+    if (
+      !(
+        this.fileObj.name.endsWith('.pdf') ||
+        this.fileObj.name.endsWith('.docx')
+      )
+    ) {
+      this.error = false;
+      this.toastr.error('Please upload a pdf or docx file for the syllabus');
+      this.fileObj = null;
+      return;
+    }
+
     const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = false;
     dialogConfig.data = {
       text: `Are you sure to upload this syllabus for  ${this.data.hostCourseName}?`,
       fileName: this.data.fileName
     };
+
     const dialogRef = this.dialog.open(
       ScoreTableUploadDialogComponent,
       dialogConfig
     );
 
-    dialogRef.afterClosed().subscribe(uploadItem => {
-      if (uploadItem) {
-        this.data.fileName = event.target.files[0].name;
-        this.syllabus = uploadItem;
-        console.log(this.syllabus);
-        // TODO: add upload syllabus logic
-        // this.eqReqService
-        //   .createEquivalenceRequest(
-        //     file,
-        //     this._departmentsEnum[this.oisepDepartment][0],
-        //     this._departmentsEnum[this.oisepDepartment][1]
-        //   )
-        //   .subscribe(
-        //     res => {
-        //       this.toastr.success('Score table uploaded successfully');
-        //     },
-        //     err => {
-        //       this.toastr.error('Error uploading score table');
-        //     }
-        //   );
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.syllabus = this.fileObj;
+        this.data.fileName = this.fileObj.name;
+      } else {
+        this.fileObj = null;
+        this.data.fileName = '';
       }
     });
   }

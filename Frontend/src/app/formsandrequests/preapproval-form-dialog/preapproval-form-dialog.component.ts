@@ -10,6 +10,7 @@ import { ActorsEnum } from '../../_models/enum/actors-enum';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from '../../_services/user.service';
 import { PreApprovalFormService } from '../../_services/preapprovalform.service';
+import { CourseType } from 'src/app/_models/enum/course-type-enum';
 
 @Component({
   selector: 'app-preapproval-form-dialog',
@@ -53,15 +54,7 @@ export class PreapprovalFormDialogComponent implements OnInit {
       : '';
   }
 
-  courseTypes: string[] = [
-    'Mandatory Course',
-    'Techincal Elective',
-    'General Elective',
-    'Project Elective',
-    'Social Science Core Elective',
-    'Arts Core Elective',
-    'Additional Course'
-  ];
+  courseTypes: string[] = Object.values(CourseType);
 
   constructor(
     private _snackBar: MatSnackBar,

@@ -1,4 +1,4 @@
-export enum CourseTypeEnum {
+export enum CourseType {
   GeneralElective = 'General Elective',
   TechnicalElective = 'Technical Elective',
   ProjectElective = 'Project Elective',

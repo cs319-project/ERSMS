@@ -11,7 +11,10 @@
         </option>
       </select>
       <span style="margin-left: 5%">Score Tables: </span>
-      <select [(ngModel)]="placementTable" (change)="updatePlacementTable()">
+      <select
+        [(ngModel)]="placementTable"
+        (change)="updatePlacementTable()"
+        [disabled]="this.placementTables.length === 0">
         <option *ngFor="let table of this.placementTables" [ngValue]="table">
           {{ table.fileName }}
         </option>
