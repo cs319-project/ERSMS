@@ -34,16 +34,7 @@ export class EquivalenceRequestDialogComponent implements OnInit {
   file = new FormControl('', [Validators.required]);
   courseCodeBilkent = new FormControl('', [Validators.required]);
   courseNameBilkent = new FormControl('', [Validators.required]);
-
-  courseTypes: string[] = [
-    'Mandatory Course',
-    'Techincal Elective',
-    'General Elective',
-    'Project Elective',
-    'Social Science Core Elective',
-    'Arts Core Elective',
-    'Additional Course'
-  ];
+  
   getErrorMessageEmpty() {
     return this.courseCode.hasError('required')
       ? 'All fields must be filled'
