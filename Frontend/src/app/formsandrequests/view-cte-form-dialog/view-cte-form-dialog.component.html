@@ -104,15 +104,19 @@
               <span *ngIf="coordinatorStatus != 'Waiting'">
                 <b class="mr-2">Approval Date:</b>
                 {{
-                  data.cteForm.exchangeCoordinatorApproval.dateOfApproval.toLocaleDateString()
+                  data.cteForm.exchangeCoordinatorApproval.dateOfApproval.toLocaleString()
                 }}
               </span>
-              <span *ngIf="coordinatorStatus != 'Waiting'">
+              <span
+                ><b class="mr-2">Comment:</b
+                >{{ data.cteForm.exchangeCoordinatorApproval.comment }}</span
+              >
+              <!-- <span *ngIf="coordinatorStatus != 'Waiting'">
                 <b class="mr-2">Approval Time:</b>
                 {{
-                  data.cteForm.exchangeCoordinatorApproval.dateOfApproval.toLocaleTimeString()
+                  data.cteForm.exchangeCoordinatorApproval.dateOfApproval.toLocaleString()
                 }}
-              </span>
+              </span> -->
               <div class="status-text-container">
                 <span
                   class="status-text"
@@ -137,7 +141,10 @@
             <mat-divider
               vertical
               style="height: 150px"
-              class="mr-4 ml-4"></mat-divider>
+              class="mr-4 ml-4"
+              *ngIf="
+                deanStatus !== 'Waiting' && coordinatorStatus !== 'Waiting'
+              "></mat-divider>
             <div class="approve-info-element" *ngIf="deanStatus != 'Waiting'">
               <span
                 ><b class="mr-2">Name:</b
@@ -146,16 +153,18 @@
               <span><b class="mr-2">Role:</b>Dean</span>
               <span *ngIf="deanStatus != 'Waiting'">
                 <b class="mr-2">Approval Date:</b>
-                {{
-                  data.cteForm.deanApproval.dateOfApproval.toLocaleDateString()
-                }}
+                {{ data.cteForm.deanApproval.dateOfApproval.toLocaleString() }}
               </span>
-              <span *ngIf="deanStatus != 'Waiting'">
+              <span
+                ><b class="mr-2">Comment:</b
+                >{{ data.cteForm.deanApproval.comment }}</span
+              >
+              <!-- <span *ngIf="deanStatus != 'Waiting'">
                 <b class="mr-2">Approval Time:</b>
                 {{
                   data.cteForm.deanApproval.dateOfApproval.toLocaleTimeString()
                 }}
-              </span>
+              </span> -->
               <div class="status-text-container">
                 <span
                   class="status-text"
@@ -180,7 +189,11 @@
             <mat-divider
               vertical
               style="height: 150px"
-              class="mr-4 ml-4"></mat-divider>
+              class="mr-4 ml-4"
+              *ngIf="
+                chairStatus !== 'Waiting' &&
+                (deanStatus !== 'Waiting' || coordinatorStatus !== 'Waiting')
+              "></mat-divider>
             <div class="approve-info-element" *ngIf="chairStatus != 'Waiting'">
               <span
                 ><b class="mr-2">Name:</b
@@ -189,16 +202,18 @@
               <span><b class="mr-2">Role:</b>Chair</span>
               <span *ngIf="chairStatus != 'Waiting'">
                 <b class="mr-2">Approval Date:</b>
-                {{
-                  data.cteForm.chairApproval.dateOfApproval.toLocaleDateString()
-                }}
+                {{ data.cteForm.chairApproval.dateOfApproval.toLocaleString() }}
               </span>
-              <span *ngIf="chairStatus != 'Waiting'">
+              <span
+                ><b class="mr-2">Comment:</b
+                >{{ data.cteForm.chairApproval.comment }}</span
+              >
+              <!-- <span *ngIf="chairStatus != 'Waiting'">
                 <b class="mr-2">Approval Time:</b>
                 {{
                   data.cteForm.chairApproval.dateOfApproval.toLocaleTimeString()
                 }}
-              </span>
+              </span> -->
               <div class="status-text-container">
                 <span
                   class="status-text"
@@ -223,7 +238,13 @@
             <mat-divider
               vertical
               style="height: 150px"
-              class="mr-4 ml-4"></mat-divider>
+              class="mr-4 ml-4"
+              *ngIf="
+                boardStatus !== 'Waiting' &&
+                (deanStatus !== 'Waiting' ||
+                  coordinatorStatus !== 'Waiting' ||
+                  chairStatus !== 'Waiting')
+              "></mat-divider>
             <div class="approve-info-element" *ngIf="boardStatus != 'Waiting'">
               <span
                 ><b class="mr-2">Name:</b
@@ -235,15 +256,21 @@
               <span *ngIf="boardStatus != 'Waiting'">
                 <b class="mr-2">Approval Date:</b>
                 {{
-                  data.cteForm.facultyOfAdministrationBoardApproval.dateOfApproval.toLocaleDateString()
+                  data.cteForm.facultyOfAdministrationBoardApproval.dateOfApproval.toLocaleString()
                 }}
               </span>
-              <span *ngIf="boardStatus != 'Waiting'">
+              <span
+                ><b class="mr-2">Comment:</b
+                >{{
+                  data.cteForm.facultyOfAdministrationBoardApproval.comment
+                }}</span
+              >
+              <!-- <span *ngIf="boardStatus != 'Waiting'">
                 <b class="mr-2">Approval Time:</b>
                 {{
-                  data.cteForm.facultyOfAdministrationBoardApproval.dateOfApproval.toLocaleTimeString()
+                  data.cteForm.facultyOfAdministrationBoardApproval.dateOfApproval.toLocaleString()
                 }}
-              </span>
+              </span> -->
               <div class="status-text-container">
                 <span
                   class="status-text"
@@ -318,7 +345,7 @@
                     style="width: 100px"
                     class="mr-3"
                     appearance="outline">
-                    <mat-label>Credits</mat-label>
+                    <mat-label>ECTS Credits</mat-label>
                     <input
                       type="search"
                       matInput
@@ -405,8 +432,8 @@
         </div>
       </div>
     </mat-tab>
-    <mat-tab label="Decision">
-      <div class="decision-container">
+    <mat-tab label="Decision" *ngIf="roleOfUser != 'Student'">
+      <div class="decision-container" *ngIf="!isSelfApproved">
         <span class="subtitle">Your Decision</span>
         <mat-form-field appearance="outline" style="width: 500px">
           <mat-label>Your Comments & Extra Notes</mat-label>
@@ -414,16 +441,51 @@
             class="custom-scroll-bar"
             type="search"
             rows="10"
-            matInput></textarea>
+            matInput
+            [(ngModel)]="data.approvalComment"></textarea>
         </mat-form-field>
         <div class="decision-buttons mb-5">
           <button
             mat-raised-button
             style="margin-right: 50px; width: 125px"
-            color="warn">
+            color="warn"
+            (click)="rejectForm()">
             Reject
           </button>
-          <button mat-raised-button style="width: 125px" color="primary">
+          <button
+            mat-raised-button
+            style="width: 125px"
+            color="primary"
+            (click)="approveForm()">
+            Accept
+          </button>
+        </div>
+      </div>
+
+      <div class="decision-container" *ngIf="!isFABApproved">
+        <span class="subtitle">F.A.B. Decision</span>
+        <mat-form-field appearance="outline" style="width: 500px">
+          <mat-label>Your Comments & Extra Notes</mat-label>
+          <textarea
+            class="custom-scroll-bar"
+            type="search"
+            rows="10"
+            matInput
+            [(ngModel)]="data.approvalComment"></textarea>
+        </mat-form-field>
+        <div class="decision-buttons mb-5">
+          <button
+            mat-raised-button
+            style="margin-right: 50px; width: 125px"
+            color="warn"
+            (click)="rejectFormFAB()">
+            Reject
+          </button>
+          <button
+            mat-raised-button
+            style="width: 125px"
+            color="primary"
+            (click)="approveFormFAB()">
             Accept
           </button>
         </div>

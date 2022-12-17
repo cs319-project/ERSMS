@@ -23,7 +23,7 @@ export class EquivalenceRequestService {
     formData.append('additionalNotes', equivalenceRequest.additionalNotes);
     formData.append(
       'hostCourseECTS',
-      equivalenceRequest.hostCourseEcts.toString()
+      equivalenceRequest.hostCourseECTS.toString()
     );
     formData.append(
       'exemptedCourseCredit',

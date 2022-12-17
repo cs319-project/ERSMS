@@ -26,6 +26,7 @@ import { ExcelTableComponent } from './excel-table/excel-table.component';
 import { StudentDashboardComponent } from './student-dashboard/student-dashboard.component';
 import { UserDialogComponent } from './admin-dashboard/user-dialog/user-dialog.component';
 import { CreateUserDialogComponent } from './admin-dashboard/create-user-dialog/create-user-dialog.component';
+import { ExchangeCoordinatorDashboardComponent } from './exchangeCoordinator-dashboard/exchangeCoordinator-dashboard.component';
 
 @NgModule({
   imports: [
@@ -56,9 +57,14 @@ import { CreateUserDialogComponent } from './admin-dashboard/create-user-dialog/
     DashboardComponent,
     AdminDashboardComponent,
     StudentDashboardComponent,
+<<<<<<< HEAD
     ExcelTableComponent,
     UserDialogComponent,
     CreateUserDialogComponent
+=======
+    ExchangeCoordinatorDashboardComponent,
+    ExcelTableComponent
+>>>>>>> bd0bedd2fb8947339e342dec699ced88d7d83568
   ],
   providers: []
 })

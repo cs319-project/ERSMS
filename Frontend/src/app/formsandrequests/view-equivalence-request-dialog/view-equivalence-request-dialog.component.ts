@@ -13,15 +13,18 @@ export class ViewEquivalenceRequestDialogComponent implements OnInit {
   formStatus: string;
   instructorStatus: string;
   nameOfUser: string;
+  roleOfUser: string;
+  isFormApproved: boolean;
   constructor(
     public dialogRef: MatDialogRef<ViewEquivalenceRequestDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ViewEquivalenceRequest,
-    private cteFormService: EquivalenceRequestService
+    private eqReqService: EquivalenceRequestService
   ) {
     this.nameOfUser =
       JSON.parse(localStorage.getItem('user')).userDetails.firstName +
       ' ' +
       JSON.parse(localStorage.getItem('user')).userDetails.lastName;
+    this.roleOfUser = JSON.parse(localStorage.getItem('user')).roles[0];
   }
 
   ngOnInit(): void {
@@ -29,8 +32,10 @@ export class ViewEquivalenceRequestDialogComponent implements OnInit {
       this.instructorStatus = this.getStatus(
         this.data.eqReq.instructorApproval
       );
+      this.isFormApproved = true;
     } else {
       this.instructorStatus = 'Waiting';
+      this.isFormApproved = false;
     }
 
     if (this.data.eqReq.isApproved) {
@@ -42,6 +47,20 @@ export class ViewEquivalenceRequestDialogComponent implements OnInit {
     } else {
       this.formStatus = 'Waiting';
     }
+
+    console.log(this.data.eqReq);
+  }
+
+  downloadSyllabus() {
+    this.eqReqService.downloadSyllabus(this.data.eqReq.id).subscribe(data => {
+      const blob = new Blob([data], {
+        type: this.data.eqReq.fileName.endsWith('.docx')
+          ? 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+          : 'application/pdf'
+      });
+      const url = window.URL.createObjectURL(blob);
+      window.open(url);
+    });
   }
 
   approveFormCoordinator() {
@@ -49,10 +68,10 @@ export class ViewEquivalenceRequestDialogComponent implements OnInit {
       dateOfApproval: new Date(),
       isApproved: true,
       name: this.nameOfUser,
-      comment: this.data.eqReq.instructorApproval.comment
+      comment: this.data.approvalComment
     };
 
-    this.cteFormService
+    this.eqReqService
       .approveEquivalenceRequest(this.data.eqReq.id, approval)
       .subscribe(() => {
         this.dialogRef.close();
@@ -64,10 +83,10 @@ export class ViewEquivalenceRequestDialogComponent implements OnInit {
       dateOfApproval: new Date(),
       isApproved: false,
       name: this.nameOfUser,
-      comment: this.data.eqReq.instructorApproval.comment
+      comment: this.data.approvalComment
     };
 
-    this.cteFormService
+    this.eqReqService
       .approveEquivalenceRequest(this.data.eqReq.id, approval)
       .subscribe(() => {
         this.dialogRef.close();
