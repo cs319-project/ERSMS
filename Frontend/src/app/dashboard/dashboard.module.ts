@@ -57,14 +57,11 @@ import { ExchangeCoordinatorDashboardComponent } from './exchangeCoordinator-das
     DashboardComponent,
     AdminDashboardComponent,
     StudentDashboardComponent,
-<<<<<<< HEAD
     ExcelTableComponent,
     UserDialogComponent,
-    CreateUserDialogComponent
-=======
+    CreateUserDialogComponent,
     ExchangeCoordinatorDashboardComponent,
     ExcelTableComponent
->>>>>>> bd0bedd2fb8947339e342dec699ced88d7d83568
   ],
   providers: []
 })
