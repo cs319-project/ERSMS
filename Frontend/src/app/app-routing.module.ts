@@ -21,7 +21,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'formsandrequests', component: FormsAndRequestsComponent }
+      { path: 'formsandrequests', component: FormsAndRequestsComponent },
+      { path: 'logging', component: LoggingComponent }
     ]
   }
   //{ path: '**', redirectTo: '' }

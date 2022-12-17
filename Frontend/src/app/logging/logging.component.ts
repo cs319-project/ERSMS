@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from '@angular/material/sort';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -8,6 +8,20 @@ import { FormDialogComponent } from '../formsandrequests/form-dialog/form-dialog
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormsAndRequestsComponent } from '../formsandrequests/formsandrequests.component';
 import { EquivalenceRequestService } from '../_services/equivalencerequest.service';
+import { CTEFormService } from '../_services/cteform.service';
+import { UserService } from '../_services/user.service';
+import { PreApprovalFormService } from '../_services/preapprovalform.service';
+import { PreApprovalForm } from '../_models/pre-approval-form';
+import { EquivalenceRequest } from '../_models/equivalence-request';
+import { CteForm } from '../_models/cte-form';
+import { Student } from '../_models/student';
+import { ViewCTEForm } from '../formsandrequests/view-cte-form-dialog/viewCTEForm';
+import { ViewCteFormDialogComponent } from '../formsandrequests/view-cte-form-dialog/view-cte-form-dialog.component';
+import { ViewPreApprovalForm } from '../formsandrequests/view-preapproval-form-dialog/viewPreApprovalForm';
+import { ViewPreapprovalFormDialogComponent } from '../formsandrequests/view-preapproval-form-dialog/view-preapproval-form-dialog.component';
+import { ViewEquivalenceRequest } from '../formsandrequests/view-equivalence-request-dialog/viewEquivalenceRequest';
+import { ViewEquivalenceRequestDialogComponent } from '../formsandrequests/view-equivalence-request-dialog/view-equivalence-request-dialog.component';
+import { ActorsEnum } from '../_models/enum/actors-enum';
 
 @Component({
   selector: 'app-logging',
@@ -32,58 +46,123 @@ export class LoggingComponent {
   @ViewChild('sorter3') sorter3: MatSort;
   @ViewChild('sorter4') sorter4: MatSort;
 
-  selection = new SelectionModel<UserData>(true, []);
+  @ViewChild(MatTable) AllFormsTable!: MatTable<UserData>;
 
+  selection = new SelectionModel<UserData>(true, []);
   activatedRow = null;
+  currentUserId: string;
+
+  preApprovalForm: PreApprovalForm;
+  equivalanceRequest: EquivalenceRequest;
+  cteForm: CteForm;
+  cteForms: CteForm[] = [];
+  preApprovalForms: PreApprovalForm[] = [];
+  equivalenceRequests: EquivalenceRequest[] = [];
 
   constructor(
     private dialog: MatDialog,
     private _snackBar: MatSnackBar,
-    private equivalenceRequestService: EquivalenceRequestService
+    private equivalenceRequestService: EquivalenceRequestService,
+    private cteFormService: CTEFormService,
+    private userService: UserService,
+    private preApprovalFormService: PreApprovalFormService
   ) {
-    // Create 100 users
-    const users: UserData[] = [];
-    const preapprovalUsers: UserData[] = [];
-    const cteUsers: UserData[] = [];
-    const courseequivalenceUsers: UserData[] = [];
+    this.currentUserId = JSON.parse(localStorage.getItem('user')).userName;
 
     // for (let i = 1; i <= 100; i++) {
-    //   users.push(createNewUser(i));
+    //   users.push(createNewUser(i, (status = 'Processing')));
     // }
+    this.dataSource = new MatTableDataSource<UserData>();
+    this.cteDataSource = new MatTableDataSource<UserData>();
+    this.preapprovalDataSource = new MatTableDataSource<UserData>();
+    this.courseEquivalenceDataSource = new MatTableDataSource<UserData>();
 
-    equivalenceRequestService
-      .getNonArchivedEquivalenceRequestsByDepartment('22002902')
-      .subscribe(data => {
+    cteFormService
+      .getArchivedCTEFormsByDepartment(this.currentUserId)
+      .toPromise()
+      .then(data => {
         data.forEach(element => {
           let temp: UserData = {
-            id: element.id,
-            student: 'john doe',
-            date: '2020-01-01',
-            type: 'Course Eq. Request',
-            school: 'School of Engineering',
-            status: 'Pending'
+            formId: element.id,
+            id: element.idNumber,
+            student: element.firstName + ' ' + element.lastName,
+            date: element.submissionTime.toString(),
+            type: 'CTE Form',
+            school: element.hostUniversityName,
+            status: element.isRejected
+              ? 'Rejected'
+              : element.isApproved
+              ? 'Approved'
+              : 'Processing'
           };
-          users.push(temp);
+          this.dataSource.data.push(temp);
+          this.cteDataSource.data.push(temp);
+          this.cteForms.push(element);
         });
+        this.cteDataSource.sort = this.sorter3;
+        this.cteDataSource.paginator = this.paginator3;
+        this.dataSource.sort = this.sorter1;
+        this.dataSource.paginator = this.paginator;
+        this.AllFormsTable.renderRows();
       });
 
-    for (let k = 0; k < users.length; k++) {
-      if (users[k].type == 'PreApproval Form') {
-        preapprovalUsers.push(users[k]);
-      } else if (users[k].type == 'CTE Form') {
-        cteUsers.push(users[k]);
-      } else if (users[k].type == 'Course Eq. Request') {
-        courseequivalenceUsers.push(users[k]);
-      }
-    }
+    preApprovalFormService
+      .getNonArchivedPreApprovalFormsByDepartment(this.currentUserId)
+      .toPromise()
+      .then(data => {
+        data.forEach(element => {
+          let temp: UserData = {
+            formId: element.id,
+            id: element.idNumber,
+            student: element.firstName + ' ' + element.lastName,
+            date: element.submissionTime.toString(),
+            type: 'PreApproval Form',
+            school: element.hostUniversityName,
+            status: element.isRejected
+              ? 'Rejected'
+              : element.isApproved
+              ? 'Approved'
+              : 'Processing'
+          };
+          this.preApprovalForms.push(element);
+          this.dataSource.data.push(temp);
+          this.preapprovalDataSource.data.push(temp);
+        });
+        this.preapprovalDataSource.paginator = this.paginator2;
+        this.dataSource.sort = this.sorter1;
+        this.dataSource.paginator = this.paginator;
+        this.preapprovalDataSource.sort = this.sorter2;
+        this.AllFormsTable.renderRows();
+      });
 
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
-    this.preapprovalDataSource = new MatTableDataSource(preapprovalUsers);
-    this.cteDataSource = new MatTableDataSource(cteUsers);
-    this.courseEquivalenceDataSource = new MatTableDataSource(
-      courseequivalenceUsers
-    );
+    equivalenceRequestService
+      .getArchivedEquivalenceRequestsByDepartment(this.currentUserId)
+      .toPromise()
+      .then(data => {
+        // console.log(data);
+        data.forEach(element => {
+          let temp: UserData = {
+            formId: element.id,
+            id: element.studentId,
+            student: element.firstName + ' ' + element.lastName,
+            // date: element.submissionTime.toString(),
+            type: 'Course Eq. Request',
+            school: element.hostUniversityName,
+            status: element.isRejected
+              ? 'Rejected'
+              : element.isApproved
+              ? 'Approved'
+              : 'Processing'
+          };
+          this.courseEquivalenceDataSource.data.push(element);
+          this.dataSource.data.push(temp);
+        });
+        this.courseEquivalenceDataSource.paginator = this.paginator4;
+        this.dataSource.sort = this.sorter1;
+        this.dataSource.paginator = this.paginator;
+        this.courseEquivalenceDataSource.sort = this.sorter4;
+        this.AllFormsTable.renderRows();
+      });
   }
 
   /**
@@ -139,20 +218,56 @@ export class LoggingComponent {
   }
 
   openDialog(row) {
-    this.activatedRow = row;
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = createRandomDialogData(this.activatedRow);
-
-    const dialogRef = this.dialog.open(FormDialogComponent, dialogConfig);
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) {
-        let message = result
-          ? 'Form is successfully signed.'
-          : 'Form is rejected.';
-        this.openSnackBar(message, 'Close', 5);
-      }
-    });
+    if (row.type == 'CTE Form') {
+      this.userService
+        .getUserDetails(row.id)
+        .toPromise()
+        .then((data: Student) => {
+          let studentData: Student = data;
+          let viewCTEForm: ViewCTEForm = {
+            student: studentData,
+            cteForm: this.cteForms.find(x => x.id == row.formId)
+          };
+          const dialogConfig = new MatDialogConfig();
+          dialogConfig.disableClose = true;
+          dialogConfig.autoFocus = false;
+          dialogConfig.data = viewCTEForm;
+          this.dialog.open(ViewCteFormDialogComponent, dialogConfig);
+        });
+    } else if (row.type == 'PreApproval Form') {
+      this.userService
+        .getUserDetails(row.id)
+        .toPromise()
+        .then((data: Student) => {
+          let studentData: Student = data;
+          let viewPreApprovalForm: ViewPreApprovalForm = {
+            student: studentData,
+            preApprovalForm: this.preApprovalForms.find(x => x.id == row.formId)
+          };
+          const dialogConfig = new MatDialogConfig();
+          dialogConfig.disableClose = true;
+          dialogConfig.autoFocus = false;
+          dialogConfig.data = viewPreApprovalForm;
+          this.dialog.open(ViewPreapprovalFormDialogComponent, dialogConfig);
+          console.log(viewPreApprovalForm);
+        });
+    } else if (row.type == 'Course Eq. Request') {
+      this.userService
+        .getUserDetails(row.id)
+        .toPromise()
+        .then((data: Student) => {
+          let studentData: Student = data;
+          let viewCourseEquivalenceRequest: ViewEquivalenceRequest = {
+            student: studentData,
+            eqReq: this.equivalenceRequests.find(x => x.id == row.formId)
+          };
+          const dialogConfig = new MatDialogConfig();
+          dialogConfig.disableClose = true;
+          dialogConfig.autoFocus = false;
+          dialogConfig.data = viewCourseEquivalenceRequest;
+          this.dialog.open(ViewEquivalenceRequestDialogComponent, dialogConfig);
+        });
+    }
   }
 
   openSnackBar(message: string, action: string, duration: number) {

@@ -66,6 +66,7 @@ export class FormsAndRequestsComponent {
   selection = new SelectionModel<UserData>(true, []);
 
   @ViewChild(MatTable) AllFormsTable!: MatTable<UserData>;
+  @ViewChild(MatTable) StudentTable!: MatTable<UserData>;
 
   activatedRow = null;
   currentUserId: string;
@@ -86,11 +87,6 @@ export class FormsAndRequestsComponent {
     private userService: UserService,
     private preApprovalFormService: PreApprovalFormService
   ) {
-    const users: UserData[] = [];
-    const preapprovalUsers: UserData[] = [];
-    const cteUsers: UserData[] = [];
-    const courseequivalenceUsers: UserData[] = [];
-    const studentUser: UserData[] = [];
     this.currentUserId = JSON.parse(localStorage.getItem('user')).userName;
     this.currentUserRole = JSON.parse(localStorage.getItem('user')).roles[0];
 
@@ -102,6 +98,11 @@ export class FormsAndRequestsComponent {
       this.currentUserRole === 'Exchange Coordinator' ||
       this.currentUserRole === 'Course Coordinator Instructor'
     ) {
+      this.dataSource = new MatTableDataSource<UserData>();
+      this.cteDataSource = new MatTableDataSource<UserData>();
+      this.preapprovalDataSource = new MatTableDataSource<UserData>();
+      this.courseEquivalenceDataSource = new MatTableDataSource<UserData>();
+
       cteFormService
         .getNonArchivedCTEFormsByDepartment(this.currentUserId)
         .toPromise()
@@ -120,18 +121,10 @@ export class FormsAndRequestsComponent {
                 ? 'Approved'
                 : 'Processing'
             };
-            users.push(temp);
-            cteUsers.push(temp);
-            studentUser.push(temp);
+            this.dataSource.data.push(temp);
+            this.cteDataSource.data.push(temp);
             this.cteForms.push(element);
           });
-          this.cteDataSource = new MatTableDataSource(cteUsers);
-          this.dataSource = new MatTableDataSource(users);
-          this.studentDataSource = new MatTableDataSource<UserData>(
-            studentUser
-          );
-          this.studentDataSource.sort = this.sorterS;
-          this.studentDataSource.paginator = this.paginatorS;
           this.cteDataSource.sort = this.sorter3;
           this.cteDataSource.paginator = this.paginator3;
           this.dataSource.sort = this.sorter1;
@@ -157,16 +150,10 @@ export class FormsAndRequestsComponent {
                 ? 'Approved'
                 : 'Processing'
             };
-            users.push(temp);
-            preapprovalUsers.push(temp);
-            studentUser.push(temp);
             this.preApprovalForms.push(element);
             this.dataSource.data.push(temp);
-            this.studentDataSource.data.push(temp);
+            this.preapprovalDataSource.data.push(temp);
           });
-          this.preapprovalDataSource = new MatTableDataSource(preapprovalUsers);
-          this.studentDataSource.sort = this.sorterS;
-          this.studentDataSource.paginator = this.paginatorS;
           this.preapprovalDataSource.paginator = this.paginator2;
           this.dataSource.sort = this.sorter1;
           this.dataSource.paginator = this.paginator;
@@ -193,25 +180,22 @@ export class FormsAndRequestsComponent {
                 ? 'Approved'
                 : 'Processing'
             };
-            users.push(temp);
-            courseequivalenceUsers.push(temp);
-            studentUser.push(temp);
-            this.equivalenceRequests.push(element);
+            this.courseEquivalenceDataSource.data.push(element);
             this.dataSource.data.push(temp);
-            this.studentDataSource.data.push(temp);
           });
-          this.courseEquivalenceDataSource = new MatTableDataSource(
-            courseequivalenceUsers
-          );
-          this.studentDataSource.sort = this.sorterS;
-          this.studentDataSource.paginator = this.paginatorS;
           this.courseEquivalenceDataSource.paginator = this.paginator4;
           this.dataSource.sort = this.sorter1;
           this.dataSource.paginator = this.paginator;
           this.courseEquivalenceDataSource.sort = this.sorter4;
           this.AllFormsTable.renderRows();
         });
-    } else if (this.currentUserRole === 'Dean Department Chair') {
+    }
+    else if (this.currentUserRole === 'Dean Department Chair') {
+      this.dataSource = new MatTableDataSource<UserData>();
+      this.cteDataSource = new MatTableDataSource<UserData>();
+      this.preapprovalDataSource = new MatTableDataSource<UserData>();
+      this.courseEquivalenceDataSource = new MatTableDataSource<UserData>();
+
       cteFormService
         .getAllNonArchivedCTEForms()
         .toPromise()
@@ -230,18 +214,10 @@ export class FormsAndRequestsComponent {
                 ? 'Approved'
                 : 'Processing'
             };
-            users.push(temp);
-            cteUsers.push(temp);
-            studentUser.push(temp);
+            this.dataSource.data.push(temp);
+            this.cteDataSource.data.push(temp);
             this.cteForms.push(element);
           });
-          this.cteDataSource = new MatTableDataSource(cteUsers);
-          this.dataSource = new MatTableDataSource(users);
-          this.studentDataSource = new MatTableDataSource<UserData>(
-            studentUser
-          );
-          this.studentDataSource.sort = this.sorterS;
-          this.studentDataSource.paginator = this.paginatorS;
           this.cteDataSource.sort = this.sorter3;
           this.cteDataSource.paginator = this.paginator3;
           this.dataSource.sort = this.sorter1;
@@ -267,16 +243,10 @@ export class FormsAndRequestsComponent {
                 ? 'Approved'
                 : 'Processing'
             };
-            users.push(temp);
-            preapprovalUsers.push(temp);
-            studentUser.push(temp);
             this.preApprovalForms.push(element);
+            this.preapprovalDataSource.data.push(temp);
             this.dataSource.data.push(temp);
-            this.studentDataSource.data.push(temp);
           });
-          this.preapprovalDataSource = new MatTableDataSource(preapprovalUsers);
-          this.studentDataSource.sort = this.sorterS;
-          this.studentDataSource.paginator = this.paginatorS;
           this.preapprovalDataSource.paginator = this.paginator2;
           this.dataSource.sort = this.sorter1;
           this.dataSource.paginator = this.paginator;
@@ -303,18 +273,10 @@ export class FormsAndRequestsComponent {
                 ? 'Approved'
                 : 'Processing'
             };
-            users.push(temp);
-            courseequivalenceUsers.push(temp);
-            studentUser.push(temp);
             this.equivalenceRequests.push(element);
             this.dataSource.data.push(temp);
-            this.studentDataSource.data.push(temp);
+            this.courseEquivalenceDataSource.data.push(temp);
           });
-          this.courseEquivalenceDataSource = new MatTableDataSource(
-            courseequivalenceUsers
-          );
-          this.studentDataSource.sort = this.sorterS;
-          this.studentDataSource.paginator = this.paginatorS;
           this.courseEquivalenceDataSource.paginator = this.paginator4;
           this.dataSource.sort = this.sorter1;
           this.dataSource.paginator = this.paginator;
@@ -322,6 +284,8 @@ export class FormsAndRequestsComponent {
           this.AllFormsTable.renderRows();
         });
     } else if (this.currentUserRole === 'Student') {
+      this.studentDataSource = new MatTableDataSource<UserData>();
+
       cteFormService
         .getCTEFormOfStudent(this.currentUserId)
         .toPromise()
@@ -340,23 +304,12 @@ export class FormsAndRequestsComponent {
                 ? 'Approved'
                 : 'Processing'
             };
-            users.push(temp);
-            cteUsers.push(temp);
-            studentUser.push(temp);
             this.cteForms.push(element);
+            this.studentDataSource.data.push(temp);
           });
-          this.cteDataSource = new MatTableDataSource(cteUsers);
-          this.dataSource = new MatTableDataSource(users);
-          this.studentDataSource = new MatTableDataSource<UserData>(
-            studentUser
-          );
           this.studentDataSource.sort = this.sorterS;
           this.studentDataSource.paginator = this.paginatorS;
-          this.cteDataSource.sort = this.sorter3;
-          this.cteDataSource.paginator = this.paginator3;
-          this.dataSource.sort = this.sorter1;
-          this.dataSource.paginator = this.paginator;
-          this.AllFormsTable.renderRows();
+          this.StudentTable.renderRows();
         });
 
       preApprovalFormService
@@ -377,21 +330,12 @@ export class FormsAndRequestsComponent {
                 ? 'Approved'
                 : 'Processing'
             };
-            users.push(temp);
-            preapprovalUsers.push(temp);
-            studentUser.push(temp);
             this.preApprovalForms.push(element);
-            this.dataSource.data.push(temp);
             this.studentDataSource.data.push(temp);
           });
-          this.preapprovalDataSource = new MatTableDataSource(preapprovalUsers);
           this.studentDataSource.sort = this.sorterS;
           this.studentDataSource.paginator = this.paginatorS;
-          this.preapprovalDataSource.paginator = this.paginator2;
-          this.dataSource.sort = this.sorter1;
-          this.dataSource.paginator = this.paginator;
-          this.preapprovalDataSource.sort = this.sorter2;
-          this.AllFormsTable.renderRows();
+          this.StudentTable.renderRows();
         });
 
       equivalenceRequestService
@@ -413,23 +357,12 @@ export class FormsAndRequestsComponent {
                 ? 'Approved'
                 : 'Processing'
             };
-            users.push(temp);
-            courseequivalenceUsers.push(temp);
-            studentUser.push(temp);
             this.equivalenceRequests.push(element);
-            this.dataSource.data.push(temp);
             this.studentDataSource.data.push(temp);
           });
-          this.courseEquivalenceDataSource = new MatTableDataSource(
-            courseequivalenceUsers
-          );
           this.studentDataSource.sort = this.sorterS;
           this.studentDataSource.paginator = this.paginatorS;
-          this.courseEquivalenceDataSource.paginator = this.paginator4;
-          this.dataSource.sort = this.sorter1;
-          this.dataSource.paginator = this.paginator;
-          this.courseEquivalenceDataSource.sort = this.sorter4;
-          this.AllFormsTable.renderRows();
+          this.StudentTable.renderRows();
         });
     }
 
@@ -453,14 +386,6 @@ export class FormsAndRequestsComponent {
       }
     }
     */
-
-    // Assign the data to the data source for the table to render
-    this.preapprovalDataSource = new MatTableDataSource(preapprovalUsers);
-    this.cteDataSource = new MatTableDataSource(cteUsers);
-    this.courseEquivalenceDataSource = new MatTableDataSource(
-      courseequivalenceUsers
-    );
-    this.studentDataSource = new MatTableDataSource(studentUser);
   }
 
   ngAfterViewInit() {
@@ -563,8 +488,10 @@ export class FormsAndRequestsComponent {
           dialogConfig.autoFocus = false;
           dialogConfig.data = viewCourseEquivalenceRequest;
           this.dialog.open(ViewEquivalenceRequestDialogComponent, dialogConfig);
+
         });
     }
+
   }
 
   openSnackBar(message: string, action: string, duration: number) {
@@ -597,6 +524,13 @@ export class FormsAndRequestsComponent {
       PreapprovalFormDialogComponent,
       dialogConfig
     );
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        //TODO update table after new form
+      }
+    });
+
   }
 
   openCreateEquivalanceRequestDialog() {
@@ -630,6 +564,8 @@ export class FormsAndRequestsComponent {
       EquivalenceRequestDialogComponent,
       dialogConfig
     );
+
+
   }
 
   openCreateCTEFormDialog() {
