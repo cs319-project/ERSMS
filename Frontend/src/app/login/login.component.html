@@ -3,7 +3,10 @@
     <mat-card style="height: 100%">
       <mat-card-content class="full-width flex-center full-height">
         <form [formGroup]="requiredForm">
-          <h1 class="login-header"><strong>ERSMS</strong></h1>
+          <div style="width: 100%; display: flex; align-items: center">
+            <img src="../assets/logos/Black Logo.svg" alt="logo" class="logo" />
+          </div>
+          <!-- <h1 class="login-header"><strong>ERSMS</strong></h1> -->
           <div class="form-group" (keyup.enter)="login()">
             <mat-form-field class="full-width mt-4">
               <input

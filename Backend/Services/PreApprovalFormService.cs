@@ -211,12 +211,6 @@ namespace Backend.Services
                 formEntity.IsCanceled = true;
                 formEntity.IsArchived = true;
 
-                if (formEntity.ToDoItemId != null)
-                {
-                    // Complete the ToDoItem
-                    ToDoItemDto todo = await _toDoItemService.GetToDoItemByCascadeId(formEntity.ToDoItemId);
-                    await _toDoItemService.ChangeCompleteToDoItem(todo.Id, true);
-                }
                 return await _preApprovalFormRepository.UpdatePreApprovalForm(formEntity);
             }
             return false;

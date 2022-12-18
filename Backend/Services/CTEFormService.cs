@@ -453,15 +453,18 @@ namespace Backend.Services
                     return false;
                 }
 
+                // Delete todo from users
+                await _toDoItemService.DeleteToDoItemByCascadeId(formEntity.ToDoItemId);
+
                 formEntity.IsCanceled = true;
                 formEntity.IsArchived = true;
 
-                if (formEntity.ToDoItemId != null)
-                {
-                    // Complete todo
-                    ToDoItemDto todo = await _toDoItemService.GetToDoItemByCascadeId(formEntity.ToDoItemId);
-                    await _toDoItemService.ChangeCompleteToDoItem(todo.Id, true);
-                }
+                // if (formEntity.ToDoItemId != null)
+                // {
+                //     // Complete todo
+                //     ToDoItemDto todo = await _toDoItemService.GetToDoItemByCascadeId(formEntity.ToDoItemId);
+                //     await _toDoItemService.ChangeCompleteToDoItem(todo.Id, true);
+                // }
 
                 return await _cTEFormRepository.UpdateCTEForm(formEntity);
             }
