@@ -1,0 +1,43 @@
+.request-container {
+  height: 80vh;
+  width: 750px;
+  display: flex;
+  flex-direction: column;
+}
+
+.request-header {
+  text-align: center;
+}
+
+.request-content {
+  flex-grow: 1;
+}
+
+.request-footer {
+  bottom: 0;
+  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.request-subtitle {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.course-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.course-info {
+  display: flex;
+  align-items: center;
+}
+
+.notes-container {
+  display: flex;
+  flex-direction: column;
+}

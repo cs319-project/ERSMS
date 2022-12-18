@@ -1,0 +1,2253 @@
+{
+  "homepages": [],
+  "source_base_path": "/Users/friberk/Documents/friBot/ERSMS/docs/docfx",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Controllers.AnnouncementController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Controllers.AnnouncementController.html",
+          "hash": "iiVRCGuxjBAA9v2y2CcADc3y2BWT2uU59dygD5cWdBI="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Controllers.AuthenticationController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Controllers.AuthenticationController.html",
+          "hash": "hYtBGEdoGkzNXx9elywiT5VFnPyiioGBsr64WC5NQzQ="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Controllers.BaseApiController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Controllers.BaseApiController.html",
+          "hash": "Vs8D5GXUTA6iTpDXPyl98BAQI20kNvkkDWCwOFcRp3w="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Controllers.CTEFormController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Controllers.CTEFormController.html",
+          "hash": "A1g8DuOuTJC1KT6KTqPuRcpXAPxxyk+GA/4vffbtjcQ="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Controllers.EquivalenceRequestController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Controllers.EquivalenceRequestController.html",
+          "hash": "9h7iMN+FLPRZGRQ9e9eRGku97MN6lL7+EbEcgcOW7ME="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Controllers.LoggedCourseController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Controllers.LoggedCourseController.html",
+          "hash": "JeltGvCKHT0/BNWomRRe1Om9bngHfZxae314AmJMAJA="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Controllers.MessageController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Controllers.MessageController.html",
+          "hash": "Gn1GBIdVQTJpBztzA7Wn8OnQYePifTqYPiJH/kR5x1Y="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Controllers.NotificationController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Controllers.NotificationController.html",
+          "hash": "C5MOepylMXPoO2XJWq2q7wbOrQXbGD1jHNBd1Mec3tw="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Controllers.PlacementController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Controllers.PlacementController.html",
+          "hash": "fujydyx29EaeZspZ6m8ArsWqUbMvKHJHbF/s5RJzXB0="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Controllers.PreApprovalFormController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Controllers.PreApprovalFormController.html",
+          "hash": "IATGURqL5zC427SAEY3V+C7w4dOJL8+5NGOe1SVKR5M="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Controllers.ToDoItemController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Controllers.ToDoItemController.html",
+          "hash": "D/n3n4D9o3IUMmJzYTbEllKnJ/KGizyTwYehafo8UWk="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Controllers.UserController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Controllers.UserController.html",
+          "hash": "yJD+MquoOcDf1IIHxqpTijzJ+vVWsDY+80YrbnxELYc="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Controllers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Controllers.html",
+          "hash": "sxZk2+lDFVrxKriftpgIYONXiFsXott9u/sy0osivYY="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.AdminDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.AdminDto.html",
+          "hash": "fe16nqPqPDrtMHqZpLEyIFqdwP4xOCnlNu1862ME3a8="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.AnnouncementDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.AnnouncementDto.html",
+          "hash": "6uaVb3gmxZEss8CxqBAXXOrA0CgEIxINqtgPlDGCaBc="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.AppUserDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.AppUserDto.html",
+          "hash": "+NpTH+VyUyTQb485p0ijXfha+6P9YQlCefluIg2VYOQ="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.ApprovalDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.ApprovalDto.html",
+          "hash": "P85suSUQKJXZ32Dt7Mqd6uQnCCO5jamqe4JkNVG03e0="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.AuthenticationResultDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.AuthenticationResultDto.html",
+          "hash": "PNV+NfyV6BlXcfVcXcdAIBcDNJR5EW1zxpbqfZBGxbk="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.CTEFormDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.CTEFormDto.html",
+          "hash": "hjzWaQtobp8ewYRVm62xU4edlF5WufTnQgutFGXz2/g="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.CourseCoordinatorInstructorDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.CourseCoordinatorInstructorDto.html",
+          "hash": "O4hw2qZidD688L6+/lZ9z1H/lDUMjBi7+Nk0OKipcq0="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.CourseDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.CourseDto.html",
+          "hash": "zs4uF2RTqXDMxmV3+vfakbQaphoNyLtvCkbnAIeD7qk="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.CreateMessageDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.CreateMessageDto.html",
+          "hash": "ZR+/YPk//YPn5eROBQ1evJ9eI1lvpqx9/4Nn26k4Yak="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.DeanDepartmentChairDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.DeanDepartmentChairDto.html",
+          "hash": "Qtxd/YkWLGbm7VJc/ougHJAvGjnztBSQDC+ZeE9FuvQ="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.DepartmentInfoDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.DepartmentInfoDto.html",
+          "hash": "MKA0xACi4P9Q505FqbpahorqSWTJqNMha0m0Jh6M0KY="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.DomainUserDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.DomainUserDto.html",
+          "hash": "27rmQ9SG6lQyB3QQ3KJxnkO7Hq/5fsxF8s+g0Tif0tc="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.EquivalenceRequestDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.EquivalenceRequestDto.html",
+          "hash": "v7qlwYAHtjXM8dULGpzfiGxi9Uc20oXzHxlXdDrsWMc="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.ExchangeCoordinatorDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.ExchangeCoordinatorDto.html",
+          "hash": "wsN9Jt7BRjqtlWSjhTBsRpeWWd2Sv14MV3SMpQ07VdQ="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.ExemptedCourseDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.ExemptedCourseDto.html",
+          "hash": "ReXrLjdQBYkx2yGzERM+iWlm0id791aA0kYGciawXDk="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.LoggedCourseDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.LoggedCourseDto.html",
+          "hash": "u34IrUYAEku48NqsGsoAgHUr2O/HCbfTFHa+6SazOAg="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.LoggedEquivalentCourseDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.LoggedEquivalentCourseDto.html",
+          "hash": "/QAtwQWD32M3U4s7zdWJd99WemUCcm9SJuaTpVy8wI0="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.LoggedTransferredCourseDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.LoggedTransferredCourseDto.html",
+          "hash": "PLmeSts2XiPTfQiL7cMc5Trdw0Dwx4bEw3dDP2k+95U="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.LoginDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.LoginDto.html",
+          "hash": "zbmFAmjXmBKo1tPvcj1FDe9jSeFySuWzhY3OG6a4Nu4="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.MessageDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.MessageDto.html",
+          "hash": "MffsM21NLStbbXTILHvUBqXvQuq7ibenWmdtZP26miw="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.NotificationDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.NotificationDto.html",
+          "hash": "WVsPRiHl+BT2VAK1ezDGumYmioBrQ//KbibxbW9QqRM="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.OISEPDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.OISEPDto.html",
+          "hash": "LWqeM5VVGx6PLRdrlvx4yfKE8xkYC4HEX8S5GIfedEo="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.PlacedStudentDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.PlacedStudentDto.html",
+          "hash": "c1wjTugxywhA8UVLqyE6DoAIbbhGk+t0//P/fT/rl40="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.PlacementTableDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.PlacementTableDto.html",
+          "hash": "IFAAbYH7qbtEZLa9CWC+gM3pCQyKaDfSLk3n3xWLguc="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.PreApprovalFormDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.PreApprovalFormDto.html",
+          "hash": "nd5HO3CXrZcUkHb12x1SLHUQfqeFNThQB5xWxqaMp+k="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.RegisterDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.RegisterDto.html",
+          "hash": "B9LPoMMeMPNP4WdiuNgFjjkjK+pCYMDwSHsxtrv9fs8="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.RequestedCourseDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.RequestedCourseDto.html",
+          "hash": "nOvpZjXjhKfsN0PS1AkNdfBkAcfDh4B5IajAzWX3ZWE="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.RequestedCourseGroupDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.RequestedCourseGroupDto.html",
+          "hash": "WQKYujX2w/2OT9wpx6F1mBAQtYpoQrDLb/Syrn6v82U="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.SemesterInfoDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.SemesterInfoDto.html",
+          "hash": "0C2iDBeKBfPciRfvUKO/Db4DMEdR3nxfMPE/+wdS7pE="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.StudentDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.StudentDto.html",
+          "hash": "7eFDKmtezjdhUGcnnYfuQS4H0L4K1p2KLkkB8D8i0UE="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.ToDoItemDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.ToDoItemDto.html",
+          "hash": "bX7kZ7IUWnrVZQSB37Dnp1u8wnHhOEFmUqQl0LsYKks="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.TransferredCourseDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.TransferredCourseDto.html",
+          "hash": "wVWKMV87Yecnc068iwX7dUvZwz13Tr79BOFNx6s6OzM="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.TransferredCourseGroupDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.TransferredCourseGroupDto.html",
+          "hash": "L5zwHYEu64mrSUWjQyGf6cZfRqD+n/LcUohUxZfL/58="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DTOs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DTOs.html",
+          "hash": "r5SG4IJsC0wIK4jgRJZulFjpkv68XKQXbVQtfJWvr+g="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.AnnouncementRepository.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.AnnouncementRepository.html",
+          "hash": "Pm0MTjt7ZEreVDb+QwB8D+yJO4q4WIg28PeN+u5momY="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.CTEFormRepository.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.CTEFormRepository.html",
+          "hash": "NH+i0LNndx5mwsrXUWJ8cPCUvpfmm8gazZ2fmDzCTv8="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.DataContext.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.DataContext.html",
+          "hash": "4A+l2gDPma+LpYToFKTqm3T6ONfIS5NrkyMsGKEyYE8="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.EquivalenceRequestRepository.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.EquivalenceRequestRepository.html",
+          "hash": "O92t0TM3qk6uVatlPQg4CGGyYc9Ycgn+/M1eQszhbtE="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.LoggedCourseRepository.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.LoggedCourseRepository.html",
+          "hash": "IcUK2+ZqttnOLVa6P1Mm/V69mv1v2E+cEppErkLO0QU="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.MessageRepository.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.MessageRepository.html",
+          "hash": "F+9gZfydM+u3trPumBxUBgJ0bb+LOKQk8NOjpFhxso4="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.Migrations.InitialMigration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.Migrations.InitialMigration.html",
+          "hash": "sZTrnzgUg8axLV8tLbdq8QTzpI0WtqOx7YBUwzK0Ito="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.Migrations.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.Migrations.html",
+          "hash": "JdxmFMZCmXouI/coFUuH9EZReNWhIpIUvd/BGY4iSyc="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.NotificationRepository.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.NotificationRepository.html",
+          "hash": "WQFWxbJQnRsAoLYBViHf0+KW9CnzSHjSiS77zYqwZZo="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.PlacementRepository.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.PlacementRepository.html",
+          "hash": "+e0wpb5AuddDAYVE3a/O2pGa5zaEj5KczzeC7XOFIK4="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.PreApprovalFormRepository.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.PreApprovalFormRepository.html",
+          "hash": "PL5B4ufSaxx+Vxct8V6CDGAjWvtItDkY+BmqJMpH28I="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.Profiles.AdminProfile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.Profiles.AdminProfile.html",
+          "hash": "4mCP7Wfck9DRSCWUaAzv5PgNJn92FPuVxk3E4GzDGms="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.Profiles.AnnouncementProfile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.Profiles.AnnouncementProfile.html",
+          "hash": "GnxrKNmGL5M/41+jamnJPOH5F5XL3z2fPuJY2fPIKRo="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.Profiles.ApprovalProfile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.Profiles.ApprovalProfile.html",
+          "hash": "seeOObFAuJjCIO5rWn1c/hefdL9AxCftipVOygUsENQ="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.Profiles.CTEFormProfile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.Profiles.CTEFormProfile.html",
+          "hash": "bkTmF6KVvtwsWaX1nynRTMl/zgS0FJenyyKbi/HKUo4="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.Profiles.CourseCoordinatorInstructorProfile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.Profiles.CourseCoordinatorInstructorProfile.html",
+          "hash": "63fWmY140REltDmmFSzk0yMJ+REjCsbr/ROIvm6z5SY="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.Profiles.CourseProfile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.Profiles.CourseProfile.html",
+          "hash": "xlOm+Ytj3KzPnr3nHWEZ0eNceBhOTp8yhu90Yhr4Zqk="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.Profiles.DeanDepartmentChairProfile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.Profiles.DeanDepartmentChairProfile.html",
+          "hash": "EnQ3GbbO+esbfh/8rPoESXuhCz0W5P2uP+Dah5sgWEo="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.Profiles.DepartmentInfoProfile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.Profiles.DepartmentInfoProfile.html",
+          "hash": "GIOMIVbuX7LyQM8z2DoH+PU7qntFOXOgyoHW5Jy+sFo="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.Profiles.DomainUserProfile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.Profiles.DomainUserProfile.html",
+          "hash": "M1SV0/9mojCXUAL1qgCHIg4+qe22Be3rG7rN0nrZX3c="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.Profiles.EquivalenceRequestProfile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.Profiles.EquivalenceRequestProfile.html",
+          "hash": "Le2CWpLSLYg/0YAhc/DFdymJ8vsRElszFkQ0Y+KO/7M="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.Profiles.ExampleProfile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.Profiles.ExampleProfile.html",
+          "hash": "aNhQR4WUyGRQIiGJsDszH0P0qZPb2AQrgC8xrZNMhv4="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.Profiles.ExchangeCoordinatorProfile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.Profiles.ExchangeCoordinatorProfile.html",
+          "hash": "vddrqRotTDmfLeKDVNvumubtOTzwwS7togM8WJZ4Omw="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.Profiles.LoggedEquivalentCourseProfile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.Profiles.LoggedEquivalentCourseProfile.html",
+          "hash": "BO4FYBLFjNuthIYGx63WeCtf74a9HU2S91o43ORmDwg="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.Profiles.LoggedTransferredCourseProfile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.Profiles.LoggedTransferredCourseProfile.html",
+          "hash": "DePZhHDOVA9pzfBI1L6mMrwdSh57+fJ0S4GFiA9uD4A="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.Profiles.MessageProfile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.Profiles.MessageProfile.html",
+          "hash": "G80UBCqWSMQGcF4MHutiVT8IyJmUykQoafshB1Vilwo="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.Profiles.NotificationProfile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.Profiles.NotificationProfile.html",
+          "hash": "pc8EqpdJI5za612Bi1SWuE3xTFylu5judrkC8rMS370="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.Profiles.OISEPProfile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.Profiles.OISEPProfile.html",
+          "hash": "frhu1K6iSQiZovbea5dvnKPeLSKSGiFAB5fdN6jRVss="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.Profiles.PlacedStudentProfile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.Profiles.PlacedStudentProfile.html",
+          "hash": "ALeE0J+Iv6V3i2VmutlHabTMSi3lYWVIBdV5rX5FLDw="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.Profiles.PlacementTableProfile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.Profiles.PlacementTableProfile.html",
+          "hash": "Y0YrAl9OKlydmm/HsrS1TKztWrPmICtBcen8ybpLTus="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.Profiles.PreApprovalFormProfile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.Profiles.PreApprovalFormProfile.html",
+          "hash": "zR0TuEOv+eszrRWEtzMWHq3qjR0oaJR8dLMXEyExwyw="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.Profiles.RequestedCourseGroupProfile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.Profiles.RequestedCourseGroupProfile.html",
+          "hash": "Aq0x8CqPx+1UN8Mu9OVzAqVOWLwU5ZmAOXmqpq0VHIY="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.Profiles.RequestedCourseProfile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.Profiles.RequestedCourseProfile.html",
+          "hash": "EpGs3aS31REv0ZXyCM/OnqfvPOb5T0f1Zy9p8zDYm2w="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.Profiles.StudentProfile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.Profiles.StudentProfile.html",
+          "hash": "Ss43emFfieooOgMSWNAJsN22e+YhnaILeS+79OK5Kd8="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.Profiles.ToDoItemProfile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.Profiles.ToDoItemProfile.html",
+          "hash": "wbTAjomgl3QWjYLkVhFXSIbZUr3Sg72acH9rJrAnfPY="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.Profiles.TransferredCourseGroupProfile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.Profiles.TransferredCourseGroupProfile.html",
+          "hash": "Ed8wEQDuA6V/iO5kmNRHYqJ3KDo5xu+MOn8T44zSZjM="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.Profiles.TransferredCourseProfile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.Profiles.TransferredCourseProfile.html",
+          "hash": "cNjZDDl8NRdskjnZEL5JQdfua1FzP4uVsRR4ieaFz6c="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.Profiles.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.Profiles.html",
+          "hash": "WINIfwmgxu0yYesxI0F/I/rnitYVOlUAda3XAhG9rpc="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.ToDoItemRepository.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.ToDoItemRepository.html",
+          "hash": "Sda+4C9QkfXeWFie3wpDqKu23Kbh/5TTqMeCzhNMpUQ="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.UserRepository.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.UserRepository.html",
+          "hash": "IK37XvFOMmV0BwQ3k0qQuBFw/kMdv+JqQOFmpRsirVI="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Data.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Data.html",
+          "hash": "KEU0JfKsVQOgyS0tCHlh+LdDxF36C/AkaPbjKf2Q44M="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DataAnnotations.BilkentMailAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DataAnnotations.BilkentMailAttribute.html",
+          "hash": "rjSZOPDAFH6TYUiWMKJak0G+DZIU+S9S7LP4hjhtpRk="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DataAnnotations.UserNameAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DataAnnotations.UserNameAttribute.html",
+          "hash": "JsAwLAo3qG/HsIKPH6kMQhz+JAwFuC3/hw0muLsBlJU="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.DataAnnotations.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.DataAnnotations.html",
+          "hash": "IDnRCRbfaSEF/pIFZTCxw9ykT5GtG+E9UIxbl17me0Y="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.Admin.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.Admin.html",
+          "hash": "mnaRGlOPEwQXclquuOzC472V/waQpyusgYf5Q09gkpE="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.Announcement.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.Announcement.html",
+          "hash": "dDp/50d6xQAHvzVnby4uXCwJaK2UGz/wawxZ5hV8WUM="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.AppUser.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.AppUser.html",
+          "hash": "AJS1u5GJ1+n/ttmR3QtURUVBJh9fyk95glv6Q2EDcx8="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.Approval.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.Approval.html",
+          "hash": "+HOnSmuAHnwEml32KOBaipWt0w7Y+Es2TNsBVcE+eeA="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.CTEForm.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.CTEForm.html",
+          "hash": "nehd7HAlGmZOSFp/26OsVSIm2S4ODUZ9oVX7xX8bxXo="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.Course.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.Course.html",
+          "hash": "wVOxVQx4mzo8I1RDbGTUADuR70VqIJWAoMpvCDNy5lE="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.CourseCoordinatorInstructor.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.CourseCoordinatorInstructor.html",
+          "hash": "DbI1qegPefQKBCsvUQbYn1Wk7Y2YE+7BcsqFoG9l4k8="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.DeanDepartmentChair.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.DeanDepartmentChair.html",
+          "hash": "id6w1GuKyoaHSs49OReInND0TCummREZauJY3ln5xH8="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.DepartmentInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.DepartmentInfo.html",
+          "hash": "UsDt4/uw+0dNXleDQfoKT1k2uAltHymjsJvGamvnRqI="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.DomainUser.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.DomainUser.html",
+          "hash": "JbK8qRwRZrYcl3F9ww2P8WVxOUUh1o/nT8ZSoaTzvVQ="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.EquivalenceRequest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.EquivalenceRequest.html",
+          "hash": "+eoRavVwLEg/OsR4CuyM5+DabP1nN057Of0p3Z5e2Wk="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.Exceptions.ToDoListException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.Exceptions.ToDoListException.html",
+          "hash": "l8SSyIUM+fVt1i1iMle8JOpMRkz+6mgRP+bqF5QZOBI="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.Exceptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.Exceptions.html",
+          "hash": "JVnYqMw2dINdU3DMpml+LcyTh9kTBI+tJqUW4rw9fjE="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.ExchangeCoordinator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.ExchangeCoordinator.html",
+          "hash": "oEIQneeQPdm2dQgntvF7UnvgMRxdcIpHBOMXpG2cuKg="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.ExemptedCourse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.ExemptedCourse.html",
+          "hash": "BzDIsRU4ikdkmrb1oi9Vx2O6msId3unMOBHOKlIkyB8="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.Form.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.Form.html",
+          "hash": "8yQEUqB6i43kauWoQXj3xAiGR9DPV5IWY9JYl57TJ0s="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.LoggedCourse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.LoggedCourse.html",
+          "hash": "3lKZNLgREOzY59phJx1jKtheRjDmzAecl5Z/vGwp7bw="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.LoggedEquivalentCourse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.LoggedEquivalentCourse.html",
+          "hash": "1eHONMGRWk3B/vEQjNFgQCk0YpUEWBVaM45l3Wi+wfg="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.LoggedTransferredCourse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.LoggedTransferredCourse.html",
+          "hash": "xm2jw298N8pxVBkslprMv0aXmKeoHd0bz4BltInTQQE="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.Message.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.Message.html",
+          "hash": "jUlUEZUkLvM+Whfjai4KzQWvYakICBfN/tJ7i/1c+Mg="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.Notification.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.Notification.html",
+          "hash": "jv0URvKkvqR+JS854JHfTfiySdAiIKFtVEh5cnNCMWA="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.OISEP.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.OISEP.html",
+          "hash": "59y6U+NTEpGzmCN0l2PgyfE5q8E0osyQh6u/SlhXfhI="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.PlacedStudent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.PlacedStudent.html",
+          "hash": "Tr59bptAH14bOJyy2/Xpb4fy/jho65WmKYO0cWIszac="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.PlacementTable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.PlacementTable.html",
+          "hash": "5D0QkJOCx3rlbIyMwVmtJcpuqN3MJbVlPXmBmH1xhiQ="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.PreApprovalForm.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.PreApprovalForm.html",
+          "hash": "ntzFl3Uld1Iu8FFGmKVOO6ualEGphf1/+ZF0HF++wHE="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.RequestedCourse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.RequestedCourse.html",
+          "hash": "Y4bdGq2Xzgzhc7p6emv2KD2PwlqChNZLSh/xsGDJfcw="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.RequestedCourseGroup.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.RequestedCourseGroup.html",
+          "hash": "cdUND5ywo3UofMcsWCMmrY7v09FWiQwnZ2C2AysmMbI="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.Role.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.Role.html",
+          "hash": "sfmRGogUj+SGSr2JKDmyNkc4+9RdS+C00kZMQ9OoLR4="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.SemesterInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.SemesterInfo.html",
+          "hash": "tOeW+oesVcHgUeR66Oq9gH12MjcEWKi8mHJCGBnCxNM="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.Student.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.Student.html",
+          "hash": "Y9EqL16rqC8r87A/DE1FdsjTJujuv315vMrLDIIfT1s="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.ToDoItem.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.ToDoItem.html",
+          "hash": "ZO2FxBR03G9VRYdPCsUwviZTigHi5Sic4cb4CCocl7E="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.TransferredCourse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.TransferredCourse.html",
+          "hash": "hr+aPqu4EMGNSC0A1syjydmXDLdrZb/5mBRMXyP/Rjk="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.TransferredCourseGroup.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.TransferredCourseGroup.html",
+          "hash": "xPEx1aDU/Wu5sOUCG7GFnsBIykWO0Pd1SzBFpor7VGM="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Entities.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Entities.html",
+          "hash": "oBlbExKo/JnppiDChan3jDavrIyhrRFiXj+cVuW1vPc="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Interfaces.IAnnouncementRepository.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Interfaces.IAnnouncementRepository.html",
+          "hash": "uHYyjdPEFIAXgtSdQLWvfEzFZZvmsCAV9AbKwT06KPs="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Interfaces.IAnnouncementService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Interfaces.IAnnouncementService.html",
+          "hash": "t69HJRuTiQ51I+eIzjKTUGrgF6JRkmN+uZG9nZLUiM8="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Interfaces.IAuthenticationService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Interfaces.IAuthenticationService.html",
+          "hash": "2sdSupnRT5uPLigfIWdPv39xkMLrt/is/kRvt/Rk59I="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Interfaces.ICTEFormRepository.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Interfaces.ICTEFormRepository.html",
+          "hash": "qXyba7A0HmL6nvgs9yjj26C1SFON/UAu6vicQK8GJvM="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Interfaces.ICTEFormService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Interfaces.ICTEFormService.html",
+          "hash": "LklaaYMFtYVP1tuhNfMpP732NKrAnhQKh+CDhaoG7iU="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Interfaces.IEquivalenceRequestRepository.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Interfaces.IEquivalenceRequestRepository.html",
+          "hash": "nAwJW/FZUMeNc97HpRnriUhTeopiVp4vHHFirFVlTyA="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Interfaces.IEquivalenceRequestService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Interfaces.IEquivalenceRequestService.html",
+          "hash": "Ckj/ixpfPIacKryXMnxKkOtumwdJ1zti+fW3QnAYomo="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Interfaces.ILoggedCourseRepository.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Interfaces.ILoggedCourseRepository.html",
+          "hash": "PIvmaGv9oaulWO8CPVtxfLU+bAqP+z4au0mdddM7TP4="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Interfaces.ILoggedCourseService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Interfaces.ILoggedCourseService.html",
+          "hash": "Elufazld6tYmMl4qQUR+FWHG7+bbp0NCRr65j91SxAk="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Interfaces.IMessageRepository.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Interfaces.IMessageRepository.html",
+          "hash": "EYo3LLYdMSssUHlPGY3CL8rwQOX4x0xoM48DLuphtFw="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Interfaces.IMessageService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Interfaces.IMessageService.html",
+          "hash": "5tUj+nPNmp72EeGBaNF61z7AxZyM89reFYcAmAaKCF0="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Interfaces.INotificationRepository.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Interfaces.INotificationRepository.html",
+          "hash": "j7IrCLxY19YVZW+n6OzZ0Lkoh5QYhvjFjOq4TEVDYDs="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Interfaces.INotificationService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Interfaces.INotificationService.html",
+          "hash": "rIX13BIB2MwlHQ7crPrEkiszboUdl+vUMrrf7NOGc5A="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Interfaces.IPlacementRepository.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Interfaces.IPlacementRepository.html",
+          "hash": "xv+zSQ7m5PXucv8gDanJJb5OEk2DXJSPaoMO5kRPX7k="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Interfaces.IPlacementService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Interfaces.IPlacementService.html",
+          "hash": "znGllpl+bQDA1ukndIFRmYOe9H7lr6lmMxMM9DF3EI8="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Interfaces.IPreApprovalFormRepository.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Interfaces.IPreApprovalFormRepository.html",
+          "hash": "nXpxLNqzVS2su4FbrxH9SIsli0jJHoKjFr8G885sWzI="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Interfaces.IPreApprovalFormService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Interfaces.IPreApprovalFormService.html",
+          "hash": "usJDb+/pvNCS2Q8rgDJGoyOmQHhYzXNefAKyrVRHnUU="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Interfaces.IToDoItemRepository.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Interfaces.IToDoItemRepository.html",
+          "hash": "jzZriysTgJWtcldZ5HYNZKdAcdNV17kqDIEwao0yP6k="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Interfaces.IToDoItemService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Interfaces.IToDoItemService.html",
+          "hash": "Q8F1iDSWcPspGWKu7wcpoUgo9m0FU9lH8vnYsusJy0I="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Interfaces.ITokenService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Interfaces.ITokenService.html",
+          "hash": "2Ljlnx47xoKuRbaRqDM4yeQgsvy/E/0ulCJD1dID3Kw="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Interfaces.IUserRepository.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Interfaces.IUserRepository.html",
+          "hash": "G6dOoSXtwCl0QdemIWPPurjdxJQmvoULeqgzzko6LqI="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Interfaces.IUserService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Interfaces.IUserService.html",
+          "hash": "CgYH0ONebENpgdA6G2gEtEjoZ2RA7qYaUTSTAyt8Pbs="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Interfaces.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Interfaces.html",
+          "hash": "CDRfS8WK0xLwwJ/os34GXRZPTmTLqgfP4K3YuIJ4Fcg="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Program.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Program.html",
+          "hash": "buUImsDn4ZcQ1kYKErK7n3EXUIrll6DIIGdKoXNXCNs="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Services.AnnouncementService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Services.AnnouncementService.html",
+          "hash": "yPi61T4Wb90gC5LBZesDj4vdaa5ljsgGSiVJY8makxM="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Services.AuthenticationService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Services.AuthenticationService.html",
+          "hash": "J8B8hHpgvGIz3dfT3vwGauSCk0P6rPAEPo+3VMBW8H8="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Services.CTEFormService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Services.CTEFormService.html",
+          "hash": "nqX0rVbcAwzpH9KdOeq0d27VlCAN6QspJw1BtiuEHzI="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Services.DataContextService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Services.DataContextService.html",
+          "hash": "+TQQyrexSNf8w+fyuWEqDwHnslgVIQqWm6aId6axjVM="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Services.EquivalenceRequestService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Services.EquivalenceRequestService.html",
+          "hash": "9dEpk+NWFbsK0gmPo/BwyjYGYioQQY7a96nuq/Wlp3I="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Services.LoggedCourseService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Services.LoggedCourseService.html",
+          "hash": "03cR8eeQp/sXtE1YBgHWxwaJUNKws97ui78Q8XHoX7E="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Services.MessageService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Services.MessageService.html",
+          "hash": "8eBTXOxFoVAiJNodgfxxHb29ZbApynnqeeTVohv7CMw="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Services.NotificationService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Services.NotificationService.html",
+          "hash": "7pn7DMKxCWwyVD+rtahcf+SN8JtbDspocxNmHmi9A98="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Services.PlacementService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Services.PlacementService.html",
+          "hash": "0QQvM5rFZYle9kpbPWLvOc4M78pYPuOL1Sbq+hm9fbA="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Services.PreApprovalFormService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Services.PreApprovalFormService.html",
+          "hash": "iQgwLDteSGvIFwyVlhQGANeO2Dzmr0b5e6JJtFTY3kQ="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Services.ToDoItemService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Services.ToDoItemService.html",
+          "hash": "3R8XESN4xHtjEqsB8bIfpsdzJo/tfRhoOUQ9Hnq1vFU="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Services.TokenService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Services.TokenService.html",
+          "hash": "5sl+vssE6lBV0Krbx07HwaUZ8MAR+rpxs7o8Eh50CCo="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Services.UserService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Services.UserService.html",
+          "hash": "16u0g1W9h1CdOFLK+GhAfiX3qjjug7txNQYuip/+73Y="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Services.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Services.html",
+          "hash": "ZDtdKOGS0MBxh2UQqyuASE29Y2cQe6KBm3UdvOz1TMo="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Startup.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Startup.html",
+          "hash": "YfrZ5EfQzGbd5zSdcvJcuRhc8eIAMQGXiQBTRBiF5DA="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Utilities.AutoPlacer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Utilities.AutoPlacer.html",
+          "hash": "nRsmrJhrDcHwl1Hr26/lQ6tA/mci7dr0WN/ghTQdJS4="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Utilities.BCryptPasswordHasher.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Utilities.BCryptPasswordHasher.html",
+          "hash": "qHYzEMRcCY/osgx+xlu73HDlbKiL8n0k9dlUtoaCFec="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Utilities.DomainUserFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Utilities.DomainUserFactory.html",
+          "hash": "a4ace+E7UUGS9l8I7FstGWLkrUXPmIrT/8s9afkY7ak="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Utilities.Enum.Actors.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Utilities.Enum.Actors.html",
+          "hash": "+tHdTNDtznqsSm8H9qZyZX+bpc1srsQ2Mr2y7x+X3mQ="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Utilities.Enum.CourseTypes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Utilities.Enum.CourseTypes.html",
+          "hash": "EjwP+n33YLXqcjpChqGcCLgELNitYChSCQMzbny0MvU="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Utilities.Enum.Department.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Utilities.Enum.Department.html",
+          "hash": "TBZ+sgsx3/B8IdgP5X17OnA/6NVW7zHbgm7Fa2eenXw="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Utilities.Enum.Faculty.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Utilities.Enum.Faculty.html",
+          "hash": "x+N73F4AH6K2v/xPx9ACjKk+aS8pVKY3O7QGwgmjbCM="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Utilities.Enum.FormType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Utilities.Enum.FormType.html",
+          "hash": "nu2QFDj8HU15O4BtumoPmCVEwyro5NEJSf837sHJzy4="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Utilities.Enum.Semester.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Utilities.Enum.Semester.html",
+          "hash": "PMPb3yP34AUOToQGYDSWMAu5VAmducUkZPQ4sstjF9Y="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Utilities.Enum.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Utilities.Enum.html",
+          "hash": "92xd+OI/U7edoJ1LMCiokHiTVNoL+BLJGJf4dSRcRqA="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Utilities.EnumStringify.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Utilities.EnumStringify.html",
+          "hash": "Xtkoz+f3y1a/cabHaGDRK0MTNt6tMkFszsaMtWF9c5A="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Utilities.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Utilities.Extensions.html",
+          "hash": "Slub6lYBS87/043UtafwFPr5Duyc3eOr8K/CgweLVvo="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Utilities.SchoolInfo.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Utilities.SchoolInfo.html",
+          "hash": "EMzsZyA6kn0IIT8fLqjiLXjvo786cG87nAnYlHt0pPA="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Utilities.ToDoListSeeder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Utilities.ToDoListSeeder.html",
+          "hash": "GbBiM9DBr5N1b3k8Xi/LnPK4tOay9pKXwuzHNvRPT9c="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.Utilities.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.Utilities.html",
+          "hash": "Kx0znlqO3ubTun+bKpWd7keNUm5VPi5rOIcONBF74+c="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Backend.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Backend.html",
+          "hash": "BQaZh3GVdwSiYIkG4hOlTUGwdWvIQEkmDRdsRaS2Gks="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html",
+          "hash": "kVTFneTVyMLdExL8uKpWTXiI3gnBtetY1vQaujHDmbM="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/intro.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/intro.html",
+          "hash": "yChzidmzBck/VHMQf/bPfgxzhVyg1fuo9TfuoS+ToJQ="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "0WMgaEC2eoVsYPZHDAws0GphbY2WVzZ5NgvKpO0SCaw="
+        }
+      },
+      "is_incremental": true,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": true,
+        "incrementalPhase": "build",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {
+        "ConceptualDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 3,
+          "skipped_file_count": 3
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 180,
+          "skipped_file_count": 180
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": true,
+        "details": "Can support incremental post processing.",
+        "incrementalPhase": "postProcessing",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+<div class="p-1" style="width: 600px">
+  <div class="header-container">
+    <b class="text-center" style="font-size: 22px" mat-dialog-title>{{ this.text }}</b>
+  </div>
+  <div mat-dialog-actions class="confirmation-buttons">
+    <button (click)="save_choice(false)" mat-button mat-dialog-close mat-raised-button style="background-color: #E8E8E8;">No</button>
+    <button (click)="save_choice(true)" mat-button mat-raised-button color="primary">Yes</button>
+  </div>
+</div>

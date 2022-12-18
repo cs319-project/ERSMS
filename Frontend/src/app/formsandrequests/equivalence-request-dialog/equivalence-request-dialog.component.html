@@ -1,0 +1,142 @@
+<div class="request-container">
+  <div class="request-header">
+    <h1 mat-dialog-title style="font-size: 1.6rem; font-weight: bold">
+      Submit Equivalence Request
+    </h1>
+  </div>
+  <div class="request-content">
+    <div class="course-container mb-4">
+      <span class="request-subtitle">Host Institution Course</span>
+      <div class="course-info">
+        <mat-form-field style="width: 150px" appearance="outline">
+          <mat-label>Course Code</mat-label>
+          <input
+            type="search"
+            matInput
+            [(ngModel)]="data.hostCourseCode" />
+        </mat-form-field>
+        <mat-form-field
+          style="flex-grow: 1"
+          class="mr-3 ml-3"
+          appearance="outline">
+          <mat-label>Course Name</mat-label>
+          <input
+            type="search"
+            matInput
+            [(ngModel)]="data.hostCourseName" />
+        </mat-form-field>
+        <mat-form-field style="width: 100px" appearance="outline">
+          <mat-label>ECTS</mat-label>
+          <input
+            type="number"
+            step="0.5"
+            min="0"
+            matInput
+            [(ngModel)]="data.hostCourseECTS" />
+        </mat-form-field>
+        <div style="width: 115px"></div>
+      </div>
+      <input
+        type="file"
+        class="file-input"
+        [accept]="requiredFileType"
+        (change)="onFileSelected($event)"
+        #fileUpload
+        hidden />
+
+      <div class="file-upload">
+        <button
+          [disabled]="data.hostCourseName === ''"
+          class="mr-2"
+          mat-raised-button
+          (click)="fileUpload.click()">
+          <span>Upload Syllabus</span
+          ><mat-icon class="ml-2">attach_file</mat-icon>
+        </button>
+        <span>{{
+          data.hostCourseName === ""
+            ? "Enter the course name first to upload syllabus."
+            : data.fileName || "No file uploaded."
+        }}</span>
+      </div>
+    </div>
+    <div class="course-container mb-4">
+      <span class="request-subtitle">Bilkent University Course</span>
+      <div class="course-info">
+        <span class="mr-3">Course Type:</span>
+        <mat-form-field style="flex-grow: 1; text-align: center" class="ml-2">
+          <mat-select [(ngModel)]="data.exemptedCourse.courseType">
+            <mat-option *ngFor="let dep of courseTypes" [value]="dep">
+              {{ dep }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div>
+        <span *ngIf="data.exemptedCourse.courseType === 'Mandatory Course'">
+          <b>All Fields Below are Required</b>
+        </span>
+        <span *ngIf="data.exemptedCourse.courseType !== 'Mandatory Course'">
+          Course Code and Course Name are Optional
+        </span>
+      </div>
+      <div class="course-info">
+        <mat-form-field style="width: 150px" appearance="outline">
+          <mat-label>Course Code</mat-label>
+          <input
+            type="search"
+            matInput
+            [(ngModel)]="data.exemptedCourse.courseCode" />
+        </mat-form-field>
+        <mat-form-field
+          style="flex-grow: 1"
+          class="mr-3 ml-3"
+          appearance="outline">
+          <mat-label>Course Name</mat-label>
+          <input
+            type="search"
+            matInput
+            [(ngModel)]="data.exemptedCourse.courseName" />
+        </mat-form-field>
+        <mat-form-field
+          style="width: 100px; margin-right: 15px"
+          appearance="outline">
+          <mat-label style="white-space: normal"> Bilkent Credits</mat-label>
+          <input
+            type="number"
+            step="1"
+            min="0"
+            matInput
+            [(ngModel)]="data.exemptedCourse.bilkentCredits" />
+        </mat-form-field>
+        <mat-form-field style="width: 100px" appearance="outline">
+          <mat-label>ECTS</mat-label>
+          <input
+            type="number"
+            step="0.5"
+            min="0"
+            matInput
+            [(ngModel)]="data.exemptedCourse.ects" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="notes-container">
+      <span class="request-subtitle">Additional Notes</span>
+      <mat-form-field appearance="outline">
+        <textarea
+          class="custom-scroll-bar"
+          type="search"
+          rows="6"
+          [(ngModel)]="data.additionalNotes"
+          matInput
+          placeholder="Write your Additional Notes here..."></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="request-footer">
+    <button mat-raised-button color="primary" mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" class="ml-5" (click)="onSubmit()">
+      Submit
+    </button>
+  </div>
+</div>

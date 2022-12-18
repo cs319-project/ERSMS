@@ -1,0 +1,337 @@
+<div class="view-container">
+  <div style="display: flex; justify-content: space-between">
+    <div style="flex-grow: 1">
+      <span class="view-title mr-3">Equivalence Request</span>
+      <span class="gray-text">#{{ data.eqReq.id }}</span>
+    </div>
+    <button mat-icon-button matDialogClose>
+      <mat-icon>cancel</mat-icon>
+    </button>
+  </div>
+  <div class="mb-2">
+    <span><b>Submission Date</b></span>
+    <span class="ml-2">{{ formatTheDate(data.eqReq.submissionDate) }}</span>
+  </div>
+  <div style="display: flex" class="mb-2">
+    <span class="subtitle mr-3">Form Status:</span>
+    <span
+      class="status-text"
+      *ngIf="formStatus === 'Waiting'"
+      style="background-color: '#FF965D'"
+      >Waiting
+    </span>
+    <span
+      class="status-text"
+      *ngIf="formStatus === 'Accepted'"
+      style="background-color: '#49C96D'"
+      >Accepted
+    </span>
+    <span
+      class="status-text"
+      *ngIf="formStatus === 'Rejected'"
+      style="background-color: '#FD7972'"
+      >Rejected
+    </span>
+  </div>
+  <mat-tab-group>
+    <mat-tab label="Form Information">
+      <div class="form-info">
+        <div class="student-info-container mt-3">
+          <span class="subtitle">Student Details</span>
+          <div class="student-info mt-3">
+            <span>Name</span>
+            <span>{{ data.student.firstName + data.student.lastName }}</span>
+          </div>
+          <mat-divider style="width: 100%"></mat-divider>
+          <div class="student-info mt-2">
+            <span>Student ID</span>
+            <span>{{ data.student.identityUser.userName }}</span>
+          </div>
+          <mat-divider style="width: 100%"></mat-divider>
+          <div class="student-info mt-2">
+            <span>Department</span>
+            <span>{{ data.student.major.departmentName }}</span>
+          </div>
+          <mat-divider style="width: 100%"></mat-divider>
+          <div class="student-info mt-2">
+            <span>Email</span>
+            <span>{{ data.student.identityUser.email }}</span>
+          </div>
+          <mat-divider style="width: 100%"></mat-divider>
+          <div class="student-info mt-2">
+            <span>CGPA</span>
+            <span>{{ data.student.cgpa }}</span>
+          </div>
+          <mat-divider style="width: 100%"></mat-divider>
+          <div class="student-info mt-2">
+            <span>Exchange School</span>
+            <span>{{ data.student.exchangeSchool }}</span>
+          </div>
+          <mat-divider style="width: 100%"></mat-divider>
+          <div class="student-info mt-2">
+            <span>Preferred Term</span>
+            <span>{{
+              data.student.preferredSemester.academicYear +
+                " " +
+                data.student.preferredSemester.semester
+            }}</span>
+          </div>
+          <mat-divider style="width: 100%"></mat-divider>
+          <div class="student-info mt-2">
+            <span>Enterance Year</span>
+            <span>{{ data.student.entranceYear }}</span>
+          </div>
+          <mat-divider style="width: 100%"></mat-divider>
+        </div>
+        <div class="approval-info-container">
+          <span class="subtitle mt-3 mb-3">Approvals</span>
+          <div class="approve-info-content">
+            <div
+              class="approve-info-element"
+              *ngIf="instructorStatus !== 'Waiting'">
+              <span
+                ><b class="mr-2">Name:</b
+                >{{ data.eqReq.instructorApproval.name }}</span
+              >
+              <span><b class="mr-2">Role:</b>Exchange Coordinator</span>
+              <span>
+                <b class="mr-2">Approval Date:</b>
+                {{
+                  formatTheDate(data.eqReq.instructorApproval.dateOfApproval)
+                }}
+              </span>
+              <div class="status-text-container">
+                <span
+                  class="status-text"
+                  *ngIf="instructorStatus === 'Accepted'"
+                  style="background-color: '#49C96D'"
+                  >Accepted</span
+                >
+                <span
+                  class="status-text"
+                  *ngIf="instructorStatus === 'Rejected'"
+                  style="background-color: '#FD7972'"
+                  >Rejected</span
+                >
+              </div>
+            </div>
+            <div
+              class="approve-info-element"
+              *ngIf="instructorStatus === 'Waiting'">
+              <span><b class="mr-2">Role:</b>Exchange Coordinator or Course Coordinator</span>
+              <div class="status-text-container">
+                <span
+                  class="status-text"
+                  *ngIf="instructorStatus === 'Waiting'"
+                  style="background-color: '#FF965D'"
+                  >Waiting</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Form Content">
+      <div class="form-content-container">
+        <div class="request-content">
+          <div class="course-container mb-4">
+            <span class="subtitle">Host Institution Course</span>
+            <div class="course-info">
+              <mat-form-field style="width: 150px" appearance="outline">
+                <mat-label>Course Code</mat-label>
+                <input
+                  type="search"
+                  readonly
+                  matInput
+                  [(ngModel)]="data.eqReq.hostCourseCode" />
+              </mat-form-field>
+              <mat-form-field
+                style="flex-grow: 1"
+                class="mr-3 ml-3"
+                appearance="outline">
+                <mat-label>Course Name</mat-label>
+                <input
+                  type="search"
+                  readonly
+                  matInput
+                  [(ngModel)]="data.eqReq.hostCourseName" />
+              </mat-form-field>
+              <mat-form-field style="width: 100px" appearance="outline">
+                <mat-label>ECTS</mat-label>
+                <input
+                  type="number"
+                  step="0.5"
+                  min="0"
+                  readonly
+                  matInput
+                  [(ngModel)]="data.eqReq.hostCourseECTS" />
+              </mat-form-field>
+              <div style="width: 115px"></div>
+            </div>
+            <button
+              mat-raised-button
+              color="primary"
+              style="width: 300px"
+              class="mb-4"
+              (click)="downloadSyllabus()">
+              <mat-icon>download</mat-icon> Download Syllabus
+            </button>
+
+            <div class="course-container mb-4">
+              <span class="subtitle">Bilkent University Course</span>
+              <div class="course-info">
+                <mat-form-field style="width: 400px" appearance="outline">
+                  <mat-label>Course Type</mat-label>
+                  <input
+                    type="search"
+                    matInput
+                    [(ngModel)]="data.eqReq.exemptedCourse.courseType"
+                    readonly />
+                </mat-form-field>
+              </div>
+              <div class="course-info">
+                <mat-form-field
+                  style="width: 150px"
+                  appearance="outline"
+                  *ngIf="
+                    data.eqReq.exemptedCourse.courseName !== '' &&
+              data.eqReq.exemptedCourse.courseName !== null
+                  ">
+                  <mat-label>Course Code</mat-label>
+                  <input
+                    type="search"
+                    readonly
+                    matInput
+                    [(ngModel)]="data.eqReq.exemptedCourse.courseCode" />
+                </mat-form-field>
+                <mat-form-field
+                  style="flex-grow: 1"
+                  class="mr-3 ml-3"
+                  appearance="outline"
+                  *ngIf="
+                    data.eqReq.exemptedCourse.courseName !== '' &&
+                    data.eqReq.exemptedCourse.courseName !== null
+                  ">
+                  <mat-label>Course Name</mat-label>
+                  <input
+                    type="search"
+                    readonly
+                    matInput
+                    [(ngModel)]="data.eqReq.exemptedCourse.courseName" />
+                </mat-form-field>
+                <mat-form-field
+                  style="width: 100px; margin-right: 15px"
+                  appearance="outline">
+                  <mat-label style="white-space: normal"
+                    >Bilkent Credits</mat-label
+                  >
+                  <input
+                    type="number"
+                    readonly
+                    step="1"
+                    min="0"
+                    matInput
+                    [(ngModel)]="data.eqReq.exemptedCourse.bilkentCredits" />
+                </mat-form-field>
+                <mat-form-field style="width: 100px" appearance="outline">
+                  <mat-label>ECTS</mat-label>
+                  <input
+                    type="number"
+                    step="0.5"
+                    min="0"
+                    readonly
+                    matInput
+                    [(ngModel)]="data.eqReq.exemptedCourse.ects" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="notes-container">
+              <span class="request-subtitle">Additional Notes</span>
+              <mat-form-field appearance="outline">
+                <textarea
+                  class="custom-scroll-bar"
+                  type="search"
+                  rows="6"
+                  [(ngModel)]="data.eqReq.additionalNotes"
+                  matInput
+                  placeholder="Write your Additional Notes here..."
+                  [readonly]="true"></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Decision" *ngIf="roleOfUser !== 'Student' || formStatus !== 'Waiting'">
+      <div
+        class="decision-container"
+        *ngIf="
+          (roleOfUser === 'Course Coordinator Instructor' ||  roleOfUser === 'Exchange Coordinator' )&&
+          formStatus === 'Waiting'
+        ">
+        <span class="subtitle">Your Decision</span>
+        <mat-form-field appearance="outline" style="width: 500px">
+          <mat-label>Your Comments & Extra Notes</mat-label>
+          <textarea
+            class="custom-scroll-bar"
+            type="search"
+            rows="10"
+            [(ngModel)]="userComment"
+            matInput></textarea>
+        </mat-form-field>
+        <div class="decision-buttons mb-5">
+          <button
+            mat-raised-button
+            style="margin-right: 50px; width: 125px"
+            color="warn"
+            (click)="rejectFormCoordinator()">
+            Reject
+          </button>
+          <button
+            mat-raised-button
+            style="width: 125px"
+            color="primary"
+            (click)="approveFormCoordinator()">
+            Accept
+          </button>
+        </div>
+      </div>
+      <div
+        class="decision-container"
+        *ngIf="
+          formStatus != 'Waiting' &&
+          data.eqReq.instructorApproval.comment != null &&
+          data.eqReq.instructorApproval.comment != ''
+        ">
+        <span class="subtitle">Coordinator's Decision</span>
+        <div class="decision-buttons mb-2">
+          <span
+            class="status-text"
+            *ngIf="instructorStatus === 'Accepted'"
+            style="background-color: '#49C96D'"
+            >Accepted</span
+          >
+          <span
+            class="status-text"
+            *ngIf="instructorStatus === 'Rejected'"
+            style="background-color: '#FD7972'"
+            >Rejected</span
+          >
+        </div>
+        <mat-form-field appearance="outline" style="width: 500px">
+          <mat-label
+            >{{ data.eqReq.instructorApproval.name }}'s & Extra Notes</mat-label
+          >
+          <textarea
+            class="custom-scroll-bar"
+            type="search"
+            rows="10"
+            [(ngModel)]="data.eqReq.instructorApproval.comment"
+            readonly
+            matInput></textarea>
+        </mat-form-field>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

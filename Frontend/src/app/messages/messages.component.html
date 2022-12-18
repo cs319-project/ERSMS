@@ -1,0 +1,164 @@
+<div class="messages-container">
+  <div class="contacts-container mt-3">
+    <div class="contacts-inner-container">
+      <mat-form-field>
+        <mat-icon matPrefix>search</mat-icon>
+        <input type="search" matInput placeholder="Search">
+      </mat-form-field>
+      <div class="contacts-title-and-add">
+        <span class="contact-title">People</span>
+        <button mat-icon-button>
+          <mat-icon svgIcon="plus"></mat-icon>
+        </button>
+      </div>
+      <mat-selection-list #contacts [multiple]="false" class="custom-scroll-bar" style="width: 100%">
+        <mat-list-option *ngFor="let contact of numbers">
+          <div class="contact-item">
+            <img matListAvatar src="../assets/images/avatar.png">
+            <div class="name-message-pair ml-3">
+            <span class="contact-name">Berk Çakar</span>
+              <span class="contact-message">mlaskdlaskdjasl</span>
+            </div>
+          </div>
+          <mat-divider></mat-divider>
+        </mat-list-option>
+      </mat-selection-list>
+    </div>
+  </div>
+  <mat-divider vertical="true"></mat-divider>
+  <div class="chat-container">
+    <div class="chat-contact-container">
+      <div class="chat-header">
+        <img src="../assets/images/avatar.png">
+        <span class="chat-contact ml-3">Berk Çakar</span>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="chat-messages-panel custom-scroll-bar">
+      <div class="message-container">
+        <div class="message message-received">
+          <div>
+            <span>Merhabasafasdsdfasdfsdfasdasdfaasdafasadsfasdfasdfasdfasdfas</span>
+          </div>
+          <div class="message-time gray-text">
+            <span>15.24</span>
+          </div>
+        </div>
+      </div>
+      <div class="message-container reverse-row">
+        <div class="message message-sent">
+          <div>
+            <span>Merhabasafasdsdfasdfsdfasdasdfaasdafasadsfasdfasdfasdfasdfas</span>
+          </div>
+          <div class="message-time gray-text">
+            <span>15.24</span>
+          </div>
+        </div>
+      </div>
+      <div class="message-container">
+        <div class="message message-received">
+          <div>
+            <span>Merhabasafasdsdfasdfsdfasdasdfaasdafasadsfasdfasdfasdfasdfas</span>
+          </div>
+          <div class="message-time gray-text">
+            <span>15.24</span>
+          </div>
+        </div>
+      </div>
+      <div class="message-container reverse-row">
+        <div class="message message-sent">
+          <div>
+            <span>Merhabasafasdsdfasdfsdfasdasdfaasdafasadsfasdfasdfasdfasdfas</span>
+          </div>
+          <div class="message-time gray-text">
+            <span>15.24</span>
+          </div>
+        </div>
+      </div>
+      <div class="message-container">
+        <div class="message message-received">
+          <div>
+            <span>Merhabasafasdsdfasdfsdfasdasdfaasdafasadsfasdfasdfasdfasdfas</span>
+          </div>
+          <div class="message-time gray-text">
+            <span>15.24</span>
+          </div>
+        </div>
+      </div>
+      <div class="message-container reverse-row">
+        <div class="message message-sent">
+          <div>
+            <span>Merhabasafasdsdfasdfsdfasdasdfaasdafasadsfasdfasdfasdfasdfas</span>
+          </div>
+          <div class="message-time gray-text">
+            <span>15.24</span>
+          </div>
+        </div>
+      </div>
+      <div class="message-container">
+        <div class="message message-received">
+          <div>
+            <span>Merhabasafasdsdfasdfsdfasdasdfaasdafasadsfasdfasdfasdfasdfas</span>
+          </div>
+          <div class="message-time gray-text">
+            <span>15.24</span>
+          </div>
+        </div>
+      </div>
+      <div class="message-container reverse-row">
+        <div class="message message-sent">
+          <div>
+            <span>Merhabasafasdsdfasdfsdfasdasdfaasdafasadsfasdfasdfasdfasdfas</span>
+          </div>
+          <div class="message-time gray-text">
+            <span>15.24</span>
+          </div>
+        </div>
+      </div>
+      <div class="message-container">
+        <div class="message message-received">
+          <div>
+            <span>Merhabasafasdsdfasdfsdfasdasdfaasdafasadsfasdfasdfasdfasdfas</span>
+          </div>
+          <div class="message-time gray-text">
+            <span>15.24</span>
+          </div>
+        </div>
+      </div>
+      <div class="message-container reverse-row">
+        <div class="message message-sent">
+          <div>
+            <span>Merhabasafasdsdfasdfsdfasdasdfaasdafasadsfasdfasdfasdfasdfas</span>
+          </div>
+          <div class="message-time gray-text">
+            <span>15.24</span>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+    <mat-divider></mat-divider>
+    <div class="send-message-panel">
+      <button mat-icon-button >
+        <mat-icon svgIcon="attachment"></mat-icon>
+      </button>
+      <button mat-icon-button class="ml-3 mr-3">
+        <mat-icon svgIcon="emoji"></mat-icon>
+      </button>
+      <mat-form-field style="flex-grow: 1">
+        <input type="search" matInput placeholder="Type a message here...">
+      </mat-form-field>
+      <button mat-icon-button class="ml-3">
+        <mat-icon svgIcon="send"></mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!--
+<mat-form-field>
+  <mat-icon matPrefix>search</mat-icon>
+  <input type="search" matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+</mat-form-field>
+-->

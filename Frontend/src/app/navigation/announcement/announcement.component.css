@@ -1,0 +1,28 @@
+.header-container{
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.content-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.announcement-buttons{
+  display: flex;
+  justify-content: space-around;
+}
+
+.custom-scroll-bar{
+  overflow-y:scroll;
+  overflow-x: hidden;
+}
+
+.custom-scroll-bar::-webkit-scrollbar{
+  width: 5px;
+}
+
+.custom-scroll-bar::-webkit-scrollbar-thumb{
+  background: rgba(0,0,0,.26);
+}

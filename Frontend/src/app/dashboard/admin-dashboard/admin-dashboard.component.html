@@ -1,0 +1,103 @@
+<div class="admin-dashboard-container mr-3 ml-3">
+  <div class="fnr-header mt-3">
+    <div style="width: 80%">
+      <span class="admin-dashboard-title">Admin Panel</span>
+    </div>
+  </div>
+  <div class="admin-dashboard-content mt-4">
+    <div style="width: 80%">
+      <div class="mt-2 table-container">
+        <button
+          mat-raised-button
+          color="primary"
+          class="mr-3"
+          (click)="onCreateUser()">
+          Create New User
+        </button>
+        <div *ngIf="this.dataSource">
+          <div class="mt-5 mb-3">
+            <span class="mt-3 user-list">User List</span>
+          </div>
+          <div class="table-content mat-elevation-z8">
+            <table
+              mat-table
+              matSort
+              [dataSource]="dataSource"
+              matSortActive="firstName"
+              matSortDirection="asc">
+              <ng-container matColumnDef="firstName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  First Name
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  <div class="table-entry">
+                    {{ row.firstName }}
+                  </div>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="lastName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Last Name
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  <div class="table-entry">
+                    {{ row.lastName }}
+                  </div>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="userName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  Username
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  <div class="table-entry">
+                    {{ row.identityUser.userName }}
+                  </div>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="role">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Role</th>
+                <td mat-cell *matCellDef="let row">
+                  <div class="table-entry space-btw">
+                    {{ row.actorType }}
+                    <div>
+                      <button mat-icon-button (click)="openUserDialog(row)">
+                        <mat-icon>edit</mat-icon>
+                      </button>
+                      <button mat-icon-button (click)="deleteUser(row)">
+                        <mat-icon>delete_outlined</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+              <tr
+                mat-row
+                *matRowDef="let row; columns: displayedColumns"
+                [class.active]="activatedRow === row"
+                [ngClass]="{
+                  hovered: row.hovered,
+                  highlighted: selection.isSelected(row)
+                }"
+                (mouseover)="row.hovered = true"
+                (mouseout)="row.hovered = false"></tr>
+            </table>
+
+            <mat-paginator
+              #paginator
+              [pageSizeOptions]="[7]"
+              [pageSize]="7"
+              [showFirstLastButtons]="true"
+              [hidePageSize]="true"></mat-paginator>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

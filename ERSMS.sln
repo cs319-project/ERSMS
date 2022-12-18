@@ -19,4 +19,15 @@ Global
 		{53D649CA-44A2-4544-A6BD-9AD838A6B3EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53D649CA-44A2-4544-A6BD-9AD838A6B3EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		Policies = $0
+		$0.DotNetNamingPolicy = $1
+		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
+		$0.TextStylePolicy = $2
+		$2.inheritsSet = null
+		$2.scope = text/x-csharp
+		$0.CSharpFormattingPolicy = $3
+		$3.scope = text/x-csharp
+		$0.StandardHeader = $4
+	EndGlobalSection
 EndGlobal

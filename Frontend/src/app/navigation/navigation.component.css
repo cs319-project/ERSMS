@@ -1,0 +1,78 @@
+* {
+  box-sizing: border-box;
+}
+.toolbar-item-spacer {
+  flex: 1 1 auto;
+}
+
+.app-sidenav {
+  width: 180px;
+}
+.app-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.username{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.username span{
+  margin: 0px !important;
+  height: 25px;
+  padding: 0px !important;
+}
+
+.notificationUser {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mat-menu-item{
+  line-height:20px;
+  height:auto;
+  max-lines: 3;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+}
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.example-sidenav-container {
+  /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+     causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+  flex: 1;
+}
+
+mat-sidenav-container{
+  height: calc(100vh - 65px);
+}
+
+.active-list-item {
+  background-color: rgba(196, 196, 196, 0.1) !important;
+  /* add a tiny indicator on the left */
+  border-left: 3px solid #0081FF;
+}

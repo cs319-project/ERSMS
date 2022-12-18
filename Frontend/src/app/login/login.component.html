@@ -1,0 +1,89 @@
+<div class="loginContainer">
+  <div style="width: 45%; height: 60%; min-width: 700px">
+    <mat-card style="height: 100%">
+      <mat-card-content class="full-width flex-center full-height">
+        <form [formGroup]="requiredForm">
+          <div style="width: 100%; display: flex; align-items: center">
+            <img src="../assets/logos/Black Logo.svg" alt="logo" class="logo" />
+          </div>
+          <!-- <h1 class="login-header"><strong>ERSMS</strong></h1> -->
+          <div class="form-group" (keyup.enter)="login()">
+            <mat-form-field class="full-width mt-4">
+              <input
+                matInput
+                placeholder="Email"
+                type="email"
+                id="email"
+                name="email"
+                class="form-control"
+                formControlName="email" />
+              <mat-error
+                *ngIf="
+                  requiredForm.get('email').hasError('email') &&
+                  !requiredForm.get('email').hasError('required')
+                ">
+                Please enter a <strong>valid</strong> email address
+              </mat-error>
+              <mat-error *ngIf="requiredForm.get('email').hasError('required')">
+                Email is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="full-width">
+              <input
+                matInput
+                [type]="hidePassword ? 'password' : 'text'"
+                placeholder="Password"
+                class="form-control"
+                formControlName="password" />
+              <mat-error
+                *ngIf="
+                  requiredForm.controls['password'].invalid &&
+                  requiredForm.controls['password'].touched
+                ">
+                Password is
+                <strong>required</strong>
+              </mat-error>
+              <button
+                type="button"
+                mat-icon-button
+                matSuffix
+                (click)="hidePassword = !hidePassword"
+                [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hidePassword">
+                <mat-icon>{{
+                  hidePassword ? "visibility_off" : "visibility"
+                }}</mat-icon>
+              </button>
+            </mat-form-field>
+            <div class="flex-space-between mt-2">
+              <mat-checkbox [hidden]="true">Remember Me</mat-checkbox>
+              <span [hidden]="true"
+                ><a (click)="goForgotPassword()" class="link">
+                  Forgot Password?</a
+                ></span
+              >
+            </div>
+            <button
+              (click)="login()"
+              mat-raised-button
+              color="primary"
+              class="full-width mt-2"
+              type="submit"
+              [disabled]="!requiredForm.valid">
+              <span
+                *ngIf="loading"
+                class="spinner-border spinner-border-sm mr-1"></span>
+              Login
+            </button>
+            <div class="flex-center">
+              <span class="mt-4"
+                >Don't have an account?
+                <a (click)="goSignUp()" class="link">Sign Up</a></span
+              >
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

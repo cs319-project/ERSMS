@@ -1,0 +1,191 @@
+<div class="user-container">
+  <div class="user-header">
+    <span>User Details</span>
+  </div>
+  <div class="user-content" [formGroup]="requiredForm">
+    <div class="user-type">
+      <span class="mr-3">User Type:</span>
+      <mat-form-field style="flex-grow: 1; text-align: center" class="ml-2">
+        <mat-select formControlName="actorType" [(ngModel)]="this.actorType">
+          <mat-option *ngFor="let type of userTypes" [value]="type">
+            {{ type }}
+          </mat-option>
+        </mat-select>
+        <mat-error
+          *ngIf="
+            requiredForm.controls['actorType'].invalid &&
+            requiredForm.controls['actorType'].touched
+          ">
+          First name is
+          <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="user-type-content">
+      <div class="student-details">
+        <div class="flex-column">
+          <div class="flex">
+            <mat-form-field
+              style="flex-grow: 1"
+              class="mr-3 ml-3"
+              appearance="outline">
+              <mat-label>First Name</mat-label>
+              <input
+                type="search"
+                matInput
+                placeholder="First Name"
+                formControlName="firstName" />
+              <mat-error
+                *ngIf="
+                  requiredForm.controls['firstName'].invalid &&
+                  requiredForm.controls['firstName'].touched
+                ">
+                First name is
+                <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field
+              style="flex-grow: 1"
+              class="mr-3 ml-3"
+              appearance="outline">
+              <mat-label>Last Name</mat-label>
+              <input
+                type="search"
+                matInput
+                placeholder="Last Name"
+                formControlName="lastName" />
+              <mat-error
+                *ngIf="
+                  requiredForm.controls['lastName'].invalid &&
+                  requiredForm.controls['lastName'].touched
+                ">
+                Last name is
+                <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="flex">
+            <mat-form-field
+              style="flex-grow: 1"
+              class="mr-3 ml-3"
+              appearance="outline">
+              <mat-label>Email</mat-label>
+              <input
+                type="search"
+                matInput
+                placeholder="Email"
+                formControlName="email" />
+              <mat-error
+                *ngIf="
+                  requiredForm.controls['email'].invalid &&
+                  requiredForm.controls['email'].touched
+                ">
+                A valid Bilkent University email address is
+                <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field
+              style="flex-grow: 1"
+              class="mr-3 ml-3"
+              appearance="outline">
+              <mat-label>Bilkent ID Number</mat-label>
+              <input
+                type="search"
+                matInput
+                placeholder="Bilkent ID Number"
+                formControlName="userName" />
+              <mat-error
+                *ngIf="
+                  requiredForm.controls['userName'].invalid &&
+                  requiredForm.controls['userName'].touched
+                ">
+                Bilkent ID Number is
+                <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="flex flex-row">
+            <div class="flex-center flex-row" style="width: 100%">
+              <mat-form-field
+                style="flex-grow: 1"
+                class="mr-3 ml-3"
+                appearance="outline">
+                <input
+                  matInput
+                  [type]="hidePassword ? 'password' : 'text'"
+                  placeholder="Password"
+                  class="form-control"
+                  formControlName="password" />
+                <mat-error
+                  *ngIf="
+                    requiredForm.controls['password'].invalid &&
+                    requiredForm.controls['password'].touched
+                  ">
+                  Password is
+                  <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+              <button
+                mat-icon-button
+                matSuffix
+                type="button"
+                (click)="hidePassword = !hidePassword"
+                [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hidePassword">
+                <mat-icon>{{
+                  hidePassword ? "visibility_off" : "visibility"
+                }}</mat-icon>
+              </button>
+            </div>
+            <div class="flex-center flex-row" style="width: 100%">
+              <mat-form-field
+                style="flex-grow: 1"
+                class="mr-3 ml-3"
+                appearance="outline">
+                <input
+                  matInput
+                  [type]="hidePasswordConfirm ? 'password' : 'text'"
+                  placeholder="Confirm Password"
+                  class="form-control"
+                  formControlName="confirmPassword" />
+                <mat-error
+                  *ngIf="
+                    requiredForm.controls['confirmPassword'].invalid &&
+                    requiredForm.controls['confirmPassword'].touched
+                  ">
+                  Passwords
+                  <strong>do not match</strong>
+                </mat-error>
+              </mat-form-field>
+              <button
+                mat-icon-button
+                matSuffix
+                type="button"
+                (click)="hidePasswordConfirm = !hidePasswordConfirm"
+                [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hidePasswordConfirm">
+                <mat-icon>{{
+                  hidePasswordConfirm ? "visibility_off" : "visibility"
+                }}</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="flex-grow: 1"></div>
+    <div class="form-footer mt-4">
+      <button mat-raised-button color="primary" (click)="dialogRef.close(null)">
+        Cancel
+      </button>
+      <button
+        [disabled]="this.requiredForm.invalid"
+        mat-raised-button
+        color="primary"
+        class="ml-5"
+        (click)="onSubmit()">
+        Submit
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,125 @@
+<div class="form-container ">
+  <div class="form-header">
+    <h1 mat-dialog-title style="font-size: 1.6rem; font-weight: bold">Submit CTE Form</h1>
+  </div>
+  <div mat-dialog-content class="form-content custom-scroll-bar">
+    <mat-form-field style="width: 150px" appearance="outline">
+      <mat-label>Student Id</mat-label>
+      <input type="search"
+      matInput [(ngModel)]="data.idNumber"
+      >
+    </mat-form-field>
+    <div class="course-groups" *ngFor="let courseGroup of this.data.transferredCourseGroups; let groupIndex = index">
+      <div class="course-group mb-4">
+        <div class="course-group-header">
+          <span>Course Group {{groupIndex + 1}}</span>
+          <button mat-raised-button color="warn" class="ml-4" (click)="onGroupDelete(groupIndex)">Delete</button>
+        </div>
+        <mat-divider style="width: 100%" class="mt-2 mb-2"></mat-divider>
+        <div class="host-courses-container">
+          <div>
+            <span class="course-group-subtitle">Host Institution Courses</span>
+            <button mat-raised-button color="primary" class="ml-3" (click)="onAddCourse(courseGroup)">Add Course</button>
+          </div>
+          <div class="host-courses" *ngFor="let transferredCourse of courseGroup.transferredCourses; let courseIndex = index">
+            <div class="group-course mt-2">
+              <mat-form-field style="width: 150px" appearance="outline">
+                <mat-label>Course Code</mat-label>
+                <input type="search"
+                matInput [(ngModel)]="transferredCourse.courseCode">
+              </mat-form-field>
+              <mat-form-field style="flex-grow: 1" class="mr-3 ml-3" appearance="outline">
+                <mat-label>Course Name</mat-label>
+                <input type="search"
+                matInput [(ngModel)]="transferredCourse.courseName">
+              </mat-form-field >
+              <mat-form-field style="width:100px" class="mr-3" appearance="outline">
+                <mat-label>ECTS</mat-label>
+                <input type="search" matInput
+                type="number"
+                step="0.5" min="0"
+                [(ngModel)]="transferredCourse.ects"
+                >
+              </mat-form-field>
+
+              <mat-form-field style="width:100px" appearance="outline">
+                <mat-label>Grade</mat-label>
+                <input type="search" matInput
+                [(ngModel)]="transferredCourse.grade">
+              </mat-form-field>
+              <div class="delete-course-btn">
+                <button mat-icon-button *ngIf="courseGroup.transferredCourses.length > 1" (click)="onCourseDelete(groupIndex, courseIndex)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+        <div class="bilkent-course-container">
+          <span class="course-group-subtitle">Bilkent Requirement</span>
+          <div class="bilkent-requirement">
+            <div class="course-info">
+              <span class="mr-3">Course Type:</span>
+              <mat-form-field
+                style="flex-grow: 1; text-align: center"
+                class="ml-2">
+                <mat-select
+                  [(ngModel)]="courseGroup.exemptedCourse.courseType">
+                  <mat-option *ngFor="let dep of courseTypes" [value]="dep">
+                    {{ dep }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div>
+              <span *ngIf="courseGroup.exemptedCourse.courseType === 'Mandatory Course'">
+                <b>All Fields Below are Required</b>
+              </span>
+              <span *ngIf="courseGroup.exemptedCourse.courseType !== 'Mandatory Course'">
+                Course Code and Course Name are Optional
+              </span>
+            </div>
+            <div class="group-course mt-2">
+              <mat-form-field style="width: 150px" appearance="outline">
+                <mat-label>Course Code</mat-label>
+                <input type="search"
+                       matInput
+                       [(ngModel)]="courseGroup.exemptedCourse.courseCode">
+              </mat-form-field>
+              <mat-form-field style="flex-grow: 1" class="mr-3 ml-3" appearance="outline">
+                <mat-label>Course Name</mat-label>
+                <input type="search"
+                       matInput
+                       [(ngModel)]="courseGroup.exemptedCourse.courseName">
+              </mat-form-field >
+              <mat-form-field style="width:100px" class="mr-3" appearance="outline">
+                <mat-label style="white-space: normal">Bilkent Credits</mat-label>
+                <input type="search" matInput
+                       type="number"
+                       step="1" min="0"
+                       [(ngModel)]="courseGroup.exemptedCourse.bilkentCredits">
+              </mat-form-field>
+
+              <mat-form-field style="width:100px" appearance="outline">
+                <mat-label>ECTS</mat-label>
+                <input type="search" matInput
+                       [(ngModel)]="courseGroup.exemptedCourse.ects">
+              </mat-form-field>
+              <div class="delete-course-btn">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <button mat-raised-button color="primary" style="width: 100px" (click)="onAddGroup()">Add Group</button>
+  </div>
+  <div class="form-footer mt-4">
+    <button mat-raised-button color="primary" mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" class="ml-5" (click)="onSubmit()">Submit</button>
+
+  </div>
+</div>

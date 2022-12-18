@@ -1,0 +1,187 @@
+.messages-container{
+  display: flex;
+  justify-content: center;
+  width: 96%;
+  height: 90%;
+  margin: 2%;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+}
+
+.contacts-container{
+  width: 30%;
+  display: flex;
+  justify-content: center;
+}
+
+.chat-container{
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+}
+
+.contacts-inner-container{
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+:host /deep/ .mat-list-item-content {
+  height: 75px;
+}
+
+.contacts-inner-container mat-form-field{
+  width: 100%;
+}
+
+.contacts-title-and-add{
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.custom-scroll-bar{
+  height:70vh;
+  overflow-y:scroll;
+  overflow-x: hidden;
+}
+
+
+.custom-scroll-bar::-webkit-scrollbar{
+  width: 5px;
+}
+
+.custom-scroll-bar::-webkit-scrollbar-thumb{
+  background: rgba(0,0,0,.26);
+}
+
+.contact-item{
+  height: 100px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.contact-item img{
+  height: 50px;
+  width: 50px;
+
+}
+
+.name-message-pair{
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-name{
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.contact-message{
+  font-size: 0.8rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+mat-list-option{
+  height: 80px !important;
+}
+
+.contact-title{
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.chat-contact-container{
+  height: 10%;
+  min-height: 65px;
+
+}
+.chat-messages-panel{
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column-reverse;
+  padding: 20px;
+  height: 70vh;
+}
+
+.send-message-panel{
+  padding: 0 10px;
+  height: 10%;
+  min-height: 65px;
+  display: flex;
+  align-items: center;
+}
+
+.chat-header{
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+  width: 100%;
+  height: 100%;
+}
+
+.chat-header img{
+  height: 50px;
+}
+
+.chat-contact{
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+.message-container{
+  margin: 3px 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.reverse-row{
+  flex-direction: row-reverse;
+}
+
+/*b6d8ee*/
+
+.message-received{
+  background-color: #b6d8ee;
+}
+
+.message-sent{
+  background-color: #dcf8c6	;
+}
+
+.message{
+
+  max-width: 300px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.message-time{
+  display: flex;
+  flex-direction: row-reverse;
+  font-size: 0.6rem;
+}
+
+
+.custom-scroll-bar{
+  height:65vh;
+  overflow-y:scroll;
+  overflow-x: hidden;
+}
+
+.custom-scroll-bar::-webkit-scrollbar{
+  width: 5px;
+}
+
+.custom-scroll-bar::-webkit-scrollbar-thumb{
+  background: rgba(0,0,0,.26);
+}
