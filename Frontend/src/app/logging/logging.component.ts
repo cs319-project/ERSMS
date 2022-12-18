@@ -56,6 +56,7 @@ export class LoggingComponent {
   activatedRow = null;
   currentUserId: string;
   currentUserRole: string;
+  isDean: boolean;
 
   preApprovalForm: PreApprovalForm;
   equivalenceRequest: EquivalenceRequest;
@@ -77,6 +78,8 @@ export class LoggingComponent {
   ) {
     this.currentUserId = JSON.parse(localStorage.getItem('user')).userName;
     this.currentUserRole = JSON.parse(localStorage.getItem('user')).roles[0];
+    this.isDean = JSON.parse(localStorage.getItem('user')).userDetails.isDean;
+
     // for (let i = 1; i <= 100; i++) {
     //   users.push(createNewUser(i, (status = 'Processing')));
     // }
@@ -88,38 +91,111 @@ export class LoggingComponent {
     if(this.currentUserRole === ActorsEnum.CourseCoordinatorInstructor){
       const courseCode: string = JSON.parse(localStorage.getItem('user'))
         .userDetails.course.courseCode;
-
+      
       equivalenceRequestService
         .getArchivedEquivalenceRequestsByCourseCode(courseCode)
         .toPromise()
         .then(data => {
-          console.log(data);
-          data.forEach(element => {
-            const formattedDate = formatDate(
-              element.submissionDate.toString(),
-              this.format,
-              this.locale
-            );
-            let temp: UserData = {
-              formId: element.id,
-              id: element.studentId,
-              student: element.firstName + ' ' + element.lastName,
-              date: formattedDate,
-              type: 'Course Eq. Request',
-              school: element.hostUniversityName,
-              status: element.isRejected
-                ? 'Rejected'
-                : element.isApproved
-                  ? 'Approved'
-                  : 'Waiting'
-            };
-            this.equivalenceRequests.push(element);
-            this.courseEquivalenceDataSource.data.push(temp);
-            console.log(this.courseEquivalenceDataSource.data);
-          });
-          this.courseEquivalenceDataSource.paginator = this.paginator4;
-          this.courseEquivalenceDataSource.sort = this.sorter4;
-          this.CourseEqTable.renderRows();
+          if(data){
+            console.log(data);
+            data.forEach(element => {
+              const formattedDate = formatDate(
+                element.submissionDate.toString(),
+                this.format,
+                this.locale
+              );
+              let temp: UserData = {
+                formId: element.id,
+                id: element.studentId,
+                student: element.firstName + ' ' + element.lastName,
+                date: formattedDate,
+                type: 'Course Eq. Request',
+                school: element.hostUniversityName,
+                status: element.isRejected
+                  ? 'Rejected'
+                  : element.isApproved
+                    ? 'Approved'
+                    : 'Waiting'
+              };
+              this.equivalenceRequests.push(element);
+              this.courseEquivalenceDataSource.data.push(temp);
+              console.log(this.courseEquivalenceDataSource.data);
+            });
+            this.courseEquivalenceDataSource.paginator = this.paginator4;
+            this.courseEquivalenceDataSource.sort = this.sorter4;
+            this.CourseEqTable.renderRows();
+          }
+        });
+    }
+    else if(this.currentUserRole === ActorsEnum.DeanDepartmentChair && this.isDean){
+      cteFormService
+        .getArchivedCTEFormsByFacultyForDean(this.currentUserId)
+        .toPromise()
+        .then(data => {
+          if(data){
+            console.log(data);
+            data.forEach(element => {
+              const formattedDate = formatDate(
+                element.submissionTime.toString(),
+                this.format,
+                this.locale
+              );
+              let temp: UserData = {
+                formId: element.id,
+                id: element.idNumber,
+                student: element.firstName + ' ' + element.lastName,
+                date: formattedDate,
+                type: 'CTE Form',
+                school: element.hostUniversityName,
+                status: element.isRejected
+                  ? 'Rejected'
+                  : element.isApproved
+                    ? 'Approved'
+                    : 'Waiting'
+              };
+              this.cteDataSource.data.push(temp);
+              this.cteForms.push(element);
+            });
+            this.cteDataSource.sort = this.sorter3;
+            this.cteDataSource.paginator = this.paginator3;
+            this.CTETable.renderRows();
+          }
+        });
+    }
+    else if(this.currentUserRole === ActorsEnum.DeanDepartmentChair && !this.isDean){
+      cteFormService
+        .getArchivedCTEFormsByDepartmentForChair(this.currentUserId)
+        .toPromise()
+        .then(data => {
+          if(data){
+            console.log(data);
+            data.forEach(element => {
+              const formattedDate = formatDate(
+                element.submissionTime.toString(),
+                this.format,
+                this.locale
+              );
+              let temp: UserData = {
+                formId: element.id,
+                id: element.idNumber,
+                student: element.firstName + ' ' + element.lastName,
+                date: formattedDate,
+                type: 'CTE Form',
+                school: element.hostUniversityName,
+                status: element.isRejected
+                  ? 'Rejected'
+                  : element.isApproved
+                    ? 'Approved'
+                    : 'Waiting'
+              };
+              this.cteDataSource.data.push(temp);
+              this.cteForms.push(element);
+            });
+            this.cteDataSource.sort = this.sorter3;
+            this.cteDataSource.paginator = this.paginator3;
+            this.CTETable.renderRows();
+          }
+
         });
     }
     else{
@@ -127,103 +203,110 @@ export class LoggingComponent {
         .getArchivedCTEFormsByDepartment(this.currentUserId)
         .toPromise()
         .then(data => {
-          data.forEach(element => {
-            const formattedDate = formatDate(
-              element.submissionTime.toString(),
-              this.format,
-              this.locale
-            );
-            let temp: UserData = {
-              formId: element.id,
-              id: element.idNumber,
-              student: element.firstName + ' ' + element.lastName,
-              date: formattedDate,
-              type: 'CTE Form',
-              school: element.hostUniversityName,
-              status: element.isRejected
-                ? 'Rejected'
-                : element.isApproved
-                  ? 'Approved'
-                  : 'Processing'
-            };
-            this.dataSource.data.push(temp);
-            this.cteDataSource.data.push(temp);
-            this.cteForms.push(element);
-          });
-          this.cteDataSource.sort = this.sorter3;
-          this.cteDataSource.paginator = this.paginator3;
-          this.dataSource.sort = this.sorter1;
-          this.dataSource.paginator = this.paginator;
-          this.AllFormsTable.renderRows();
+          if(data){
+            data.forEach(element => {
+              const formattedDate = formatDate(
+                element.submissionTime.toString(),
+                this.format,
+                this.locale
+              );
+              let temp: UserData = {
+                formId: element.id,
+                id: element.idNumber,
+                student: element.firstName + ' ' + element.lastName,
+                date: formattedDate,
+                type: 'CTE Form',
+                school: element.hostUniversityName,
+                status: element.isRejected
+                  ? 'Rejected'
+                  : element.isApproved
+                    ? 'Approved'
+                    : 'Processing'
+              };
+              this.dataSource.data.push(temp);
+              this.cteDataSource.data.push(temp);
+              this.cteForms.push(element);
+            });
+            this.cteDataSource.sort = this.sorter3;
+            this.cteDataSource.paginator = this.paginator3;
+            this.dataSource.sort = this.sorter1;
+            this.dataSource.paginator = this.paginator;
+            this.AllFormsTable.renderRows();
+          }
         });
 
       preApprovalFormService
         .getArchivedPreApprovalFormsByDepartment(this.currentUserId)
         .toPromise()
         .then(data => {
-          data.forEach(element => {
-            const formattedDate = formatDate(
-              element.submissionTime.toString(),
-              this.format,
-              this.locale
-            );
-            let temp: UserData = {
-              formId: element.id,
-              id: element.idNumber,
-              student: element.firstName + ' ' + element.lastName,
-              date: formattedDate,
-              type: 'Pre-Approval Form',
-              school: element.hostUniversityName,
-              status: element.isRejected
-                ? 'Rejected'
-                : element.isApproved
-                  ? 'Approved'
-                  : 'Processing'
-            };
-            this.preApprovalForms.push(element);
-            this.dataSource.data.push(temp);
-            this.preapprovalDataSource.data.push(temp);
-          });
-          this.preapprovalDataSource.paginator = this.paginator2;
-          this.dataSource.sort = this.sorter1;
-          this.dataSource.paginator = this.paginator;
-          this.preapprovalDataSource.sort = this.sorter2;
-          this.AllFormsTable.renderRows();
+          if(data){
+            data.forEach(element => {
+              const formattedDate = formatDate(
+                element.submissionTime.toString(),
+                this.format,
+                this.locale
+              );
+              let temp: UserData = {
+                formId: element.id,
+                id: element.idNumber,
+                student: element.firstName + ' ' + element.lastName,
+                date: formattedDate,
+                type: 'Pre-Approval Form',
+                school: element.hostUniversityName,
+                status: element.isRejected
+                  ? 'Rejected'
+                  : element.isApproved
+                    ? 'Approved'
+                    : 'Processing'
+              };
+              this.preApprovalForms.push(element);
+              this.dataSource.data.push(temp);
+              this.preapprovalDataSource.data.push(temp);
+            });
+            this.preapprovalDataSource.paginator = this.paginator2;
+            this.dataSource.sort = this.sorter1;
+            this.dataSource.paginator = this.paginator;
+            this.preapprovalDataSource.sort = this.sorter2;
+            this.AllFormsTable.renderRows();
+          }
         });
 
       equivalenceRequestService
         .getArchivedEquivalenceRequestsByDepartment(this.currentUserId)
         .toPromise()
         .then(data => {
+          if(data){
+            data.forEach(element => {
+              const formattedDate = formatDate(
+                element.submissionDate.toString(),
+                this.format,
+                this.locale
+              );
+              let temp: UserData = {
+                formId: element.id,
+                id: element.studentId,
+                student: element.firstName + ' ' + element.lastName,
+                date: formattedDate,
+                type: 'Course Eq. Request',
+                school: element.hostUniversityName,
+                status: element.isRejected
+                  ? 'Rejected'
+                  : element.isApproved
+                    ? 'Approved'
+                    : 'Processing'
+              };
+              this.equivalenceRequests.push(element);
+              this.courseEquivalenceDataSource.data.push(temp);
+              this.dataSource.data.push(temp);
+            });
+            this.courseEquivalenceDataSource.paginator = this.paginator4;
+            this.dataSource.sort = this.sorter1;
+            this.dataSource.paginator = this.paginator;
+            this.courseEquivalenceDataSource.sort = this.sorter4;
+            this.AllFormsTable.renderRows();
+          }
           // console.log(data);
-          data.forEach(element => {
-            const formattedDate = formatDate(
-              element.submissionDate.toString(),
-              this.format,
-              this.locale
-            );
-            let temp: UserData = {
-              formId: element.id,
-              id: element.studentId,
-              student: element.firstName + ' ' + element.lastName,
-              date: formattedDate,
-              type: 'Course Eq. Request',
-              school: element.hostUniversityName,
-              status: element.isRejected
-                ? 'Rejected'
-                : element.isApproved
-                  ? 'Approved'
-                  : 'Processing'
-            };
-            this.equivalenceRequests.push(element);
-            this.courseEquivalenceDataSource.data.push(temp);
-            this.dataSource.data.push(temp);
-          });
-          this.courseEquivalenceDataSource.paginator = this.paginator4;
-          this.dataSource.sort = this.sorter1;
-          this.dataSource.paginator = this.paginator;
-          this.courseEquivalenceDataSource.sort = this.sorter4;
-          this.AllFormsTable.renderRows();
+
         });
     }
   }

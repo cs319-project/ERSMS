@@ -105,17 +105,22 @@ export class FormsAndRequestsComponent {
     // for (let i = 1; i <= 100; i++) {
     //   users.push(createNewUser(i, (status = 'Processing')));
     // }
+    this.getFormData();
+
+
+  }
+
+  getFormData(){
     this.dataSource = new MatTableDataSource<UserData>();
     this.cteDataSource = new MatTableDataSource<UserData>();
     this.preapprovalDataSource = new MatTableDataSource<UserData>();
     this.courseEquivalenceDataSource = new MatTableDataSource<UserData>();
     this.studentDataSource = new MatTableDataSource<UserData>();
-
     if (this.currentUserRole === ActorsEnum.CourseCoordinatorInstructor) {
       const courseCode: string = JSON.parse(localStorage.getItem('user'))
         .userDetails.course.courseCode;
 
-      equivalenceRequestService
+      this.equivalenceRequestService
         .getNonArchivedEquivalenceRequestsByCourseCode(courseCode)
         .toPromise()
         .then(data => {
@@ -150,7 +155,7 @@ export class FormsAndRequestsComponent {
         });
     }
     else if (this.currentUserRole === ActorsEnum.DeanDepartmentChair && this.isDean) {
-      cteFormService
+      this.cteFormService
         .getNonArchivedCTEFormsByFacultyForDean(this.currentUserId)
         .toPromise()
         .then(data => {
@@ -186,7 +191,7 @@ export class FormsAndRequestsComponent {
     }
 
     else if(this.currentUserRole === ActorsEnum.DeanDepartmentChair && !this.isDean){
-      cteFormService
+      this.cteFormService
         .getNonArchivedCTEFormsByDepartmentForChair(this.currentUserId)
         .toPromise()
         .then(data => {
@@ -220,8 +225,9 @@ export class FormsAndRequestsComponent {
           }
 
         });
-    }else if (this.currentUserRole === ActorsEnum.ExchangeCoordinator) {
-      cteFormService
+    }
+    else if (this.currentUserRole === ActorsEnum.ExchangeCoordinator) {
+      this.cteFormService
         .getNonArchivedCTEFormsByDepartment(this.currentUserId)
         .toPromise()
         .then(data => {
@@ -257,7 +263,7 @@ export class FormsAndRequestsComponent {
           }
         });
 
-      preApprovalFormService
+      this.preApprovalFormService
         .getNonArchivedPreApprovalFormsByDepartment(this.currentUserId)
         .toPromise()
         .then(data => {
@@ -293,7 +299,7 @@ export class FormsAndRequestsComponent {
           }
         });
 
-      equivalenceRequestService
+      this.equivalenceRequestService
         .getNonArchivedEquivalenceRequestsByDepartment(this.currentUserId)
         .toPromise()
         .then(data => {
@@ -330,7 +336,7 @@ export class FormsAndRequestsComponent {
           }
         });
     } else if (this.currentUserRole === ActorsEnum.Student) {
-      cteFormService
+      this.cteFormService
         .getCTEFormOfStudent(this.currentUserId)
         .toPromise()
         .then(data => {
@@ -363,7 +369,7 @@ export class FormsAndRequestsComponent {
           }
         });
 
-      preApprovalFormService
+      this.preApprovalFormService
         .getPreApprovalFormsOfStudent(this.currentUserId)
         .toPromise()
         .then(data => {
@@ -396,7 +402,7 @@ export class FormsAndRequestsComponent {
           }
         });
 
-      equivalenceRequestService
+      this.equivalenceRequestService
         .getEquivalenceRequestsOfStudent(this.currentUserId)
         .toPromise()
         .then(data => {
@@ -571,7 +577,7 @@ export class FormsAndRequestsComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        //TODO update table after new form
+        this.getFormData();
       }
     });
   }
@@ -607,6 +613,11 @@ export class FormsAndRequestsComponent {
       EquivalenceRequestDialogComponent,
       dialogConfig
     );
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getFormData();
+      }
+    });
   }
 
   openCreateCTEFormDialog() {
@@ -628,6 +639,11 @@ export class FormsAndRequestsComponent {
     dialogConfig.data = this.cteForm;
 
     const dialogRef = this.dialog.open(CteFormDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getFormData();
+      }
+    });
   }
 
   onCancelButton(e, type, formId) {
