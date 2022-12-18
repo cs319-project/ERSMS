@@ -90,7 +90,6 @@
             </mat-error>
             <button
               mat-icon-button
-              type="button"
               matSuffix
               (click)="hidePassword = !hidePassword"
               [attr.aria-label]="'Hide password'"
@@ -103,7 +102,6 @@
           <mat-form-field class="full-width">
             <input
               matInput
-              type="button"
               [type]="hidePasswordConfirm ? 'password' : 'text'"
               placeholder="Confirm Password"
               class="form-control"
