@@ -44,4 +44,8 @@ export class UserService {
   getStudents(): Observable<any> {
     return this.http.get(`${this.baseUrl}placedstudent/getall`);
   }
+
+  getSameSchoolStudents(userName: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}student/${userName}/sameSchool`);
+  }
 }
