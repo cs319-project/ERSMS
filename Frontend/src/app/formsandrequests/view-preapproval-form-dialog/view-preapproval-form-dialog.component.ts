@@ -29,6 +29,8 @@ export class ViewPreapprovalFormDialogComponent implements OnInit {
   coordinatorApproved: boolean;
   fabApproved: boolean;
 
+  userComment: string;
+
   format = 'dd/MM/yyyy h:mm';
   locale = 'en-TR';
   constructor(
@@ -81,7 +83,7 @@ export class ViewPreapprovalFormDialogComponent implements OnInit {
         dateOfApproval: new Date(),
         isApproved: true,
         name: this.nameOfUser,
-        comment: this.data.approvalComment
+        comment: this.userComment
       };
       this.preApprovalFormService
         .approvePreApprovalFormCoordinator(
@@ -100,7 +102,7 @@ export class ViewPreapprovalFormDialogComponent implements OnInit {
         dateOfApproval: new Date(),
         isApproved: true,
         name: this.nameOfUser,
-        comment: this.data.approvalComment
+        comment: this.userComment
       };
       this.preApprovalFormService
         .approvePreApprovalFormFAB(this.data.preApprovalForm.id, approval)
@@ -116,7 +118,7 @@ export class ViewPreapprovalFormDialogComponent implements OnInit {
         dateOfApproval: new Date(),
         isApproved: false,
         name: this.nameOfUser,
-        comment: this.data.approvalComment
+        comment: this.userComment
       };
       this.preApprovalFormService
         .approvePreApprovalFormCoordinator(
@@ -135,7 +137,7 @@ export class ViewPreapprovalFormDialogComponent implements OnInit {
         dateOfApproval: new Date(),
         isApproved: false,
         name: this.nameOfUser,
-        comment: this.data.approvalComment
+        comment: this.userComment
       };
       this.preApprovalFormService
         .approvePreApprovalFormFAB(this.data.preApprovalForm.id, approval)

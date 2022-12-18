@@ -23,7 +23,10 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'formsandrequests', component: FormsAndRequestsComponent },
       { path: 'logging', component: LoggingComponent },
-      { path: 'placements', component: PlacementComponent }
+      { path: 'placements', component: PlacementComponent },
+      { path: 'appointments', component: AppointmentsComponent },
+      { path: 'messages', component: MessagesComponent },
+      { path: 'profile', component: ProfileComponent }
     ]
   }
   //{ path: '**', redirectTo: '' }

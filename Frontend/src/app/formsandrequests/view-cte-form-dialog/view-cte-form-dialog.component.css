@@ -1,6 +1,6 @@
 .view-container{
   height: 80vh;
-  width: 950px;
+  width: 1100px;
   display: flex;
   flex-direction: column;
 }

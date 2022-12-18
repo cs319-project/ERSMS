@@ -62,7 +62,9 @@
           <span class="subtitle">Student Details</span>
           <div class="student-info mt-3">
             <span>Name</span>
-            <span>{{ data.student.firstName + data.student.lastName }}</span>
+            <span>{{
+              data.student.firstName + " " + data.student.lastName
+            }}</span>
           </div>
           <mat-divider style="width: 100%"></mat-divider>
           <div class="student-info mt-2">
@@ -147,8 +149,17 @@
               *ngIf="coordinatorStatus === 'Waiting'">
               <span><b class="mr-2">Role:</b>Exchange Coordinator</span>
               <div class="status-text-container">
-                <span class="status-text" style="background-color: '#FF965D'"
+                <span
+                  class="status-text"
+                  *ngIf="formStatus === 'Waiting'"
+                  style="background-color: '#FF965D'"
                   >Waiting</span
+                >
+                <span
+                  class="status-text"
+                  *ngIf="formStatus !== 'Waiting'"
+                  style="background-color: '#828491FF'; color: white"
+                  >Uncomplete</span
                 >
               </div>
             </div>
@@ -191,8 +202,17 @@
             <div class="approve-info-element" *ngIf="boardStatus === 'Waiting'">
               <span><b class="mr-2">Role:</b>Administration Board</span>
               <div class="status-text-container">
-                <span class="status-text" style="background-color: '#FF965D'"
+                <span
+                  class="status-text"
+                  *ngIf="formStatus === 'Waiting'"
+                  style="background-color: '#FF965D'"
                   >Waiting</span
+                >
+                <span
+                  class="status-text"
+                  *ngIf="formStatus !== 'Waiting'"
+                  style="background-color: '#828491FF'; color: white"
+                  >Uncomplete</span
                 >
               </div>
             </div>
@@ -275,7 +295,13 @@
                   </mat-form-field>
                 </div>
                 <div class="course-info">
-                  <mat-form-field style="width: 150px" appearance="outline">
+                  <mat-form-field
+                    style="width: 150px"
+                    appearance="outline"
+                    *ngIf="
+                      courseGroup.requestedExemptedCourse.courseName != '' &&
+            courseGroup.requestedExemptedCourse.courseName != null
+                    ">
                     <mat-label>Course Code</mat-label>
                     <input
                       type="search"
@@ -288,7 +314,11 @@
                   <mat-form-field
                     style="flex-grow: 1"
                     class="mr-3 ml-3"
-                    appearance="outline">
+                    appearance="outline"
+                    *ngIf="
+                      courseGroup.requestedExemptedCourse.courseName != '' &&
+                courseGroup.requestedExemptedCourse.courseName != null
+                    ">
                     <mat-label>Course Name</mat-label>
                     <input
                       type="search"
@@ -332,7 +362,7 @@
       </div>
     </mat-tab>
     <mat-tab label="Decision" *ngIf="roleOfUser !== 'Student'">
-      <div class="decision-container">
+      <div class="decision-container" *ngIf="coordinatorStatus === 'Waiting'">
         <span class="subtitle">Your Decision</span>
         <mat-form-field appearance="outline" style="width: 500px">
           <mat-label>Your Comments & Extra Notes</mat-label>
@@ -341,30 +371,29 @@
             type="search"
             rows="10"
             matInput
-            [(ngModel)]="data.approvalComment"
-            [readonly]="coordinatorApproved"></textarea>
+            [(ngModel)]="userComment"
+          ></textarea>
         </mat-form-field>
-        <div class="decision-buttons mb-5" *ngIf="coordinatorApproved">
+
+        <div class="decision-buttons mb-5">
           <button
             mat-raised-button
             style="margin-right: 50px; width: 125px"
             color="warn"
-            (click)="rejectForm()"
-            [disabled]="coordinatorApproved">
+            (click)="rejectForm()">
             Reject
           </button>
           <button
             mat-raised-button
             style="width: 125px"
             color="primary"
-            (click)="approveForm()"
-            [disabled]="coordinatorApproved">
+            (click)="approveForm()">
             Accept
           </button>
         </div>
       </div>
-
-      <div class="decision-container">
+      <div class="decision-container" *ngIf="boardStatus === 'Waiting' &&
+      coordinatorStatus === 'Accepted'">
         <span class="subtitle">F.A.B. Decision</span>
         <mat-form-field appearance="outline" style="width: 500px">
           <mat-label>Your Comments & Extra Notes</mat-label>
@@ -373,28 +402,56 @@
             type="search"
             rows="10"
             matInput
-            [readonly]="fabApproved"
-            [(ngModel)]="data.approvalComment"></textarea>
+            [(ngModel)]="userComment"></textarea>
         </mat-form-field>
         <div class="decision-buttons mb-5">
           <button
             mat-raised-button
             style="margin-right: 50px; width: 125px"
             color="warn"
-            (click)="rejectFormFAB()"
-            [disabled]="fabApproved">
+            (click)="rejectFormFAB()">
             Reject
           </button>
           <button
             mat-raised-button
             style="width: 125px"
             color="primary"
-            (click)="approveFormFAB()"
-            [disabled]="fabApproved">
+            (click)="approveFormFAB()">
             Accept
           </button>
         </div>
       </div>
+
+      <div class="decision-container" *ngIf="coordinatorStatus !== 'Waiting' &&
+      data.preApprovalForm.exchangeCoordinatorApproval.comment != '' && data.preApprovalForm.exchangeCoordinatorApproval.comment != null">
+        <span class="subtitle">Coordinator Decision</span>
+        <mat-form-field appearance="outline" style="width: 500px">
+          <mat-label>{{data.preApprovalForm.exchangeCoordinatorApproval.name}}'s Comments & Extra Notes</mat-label>
+          <textarea
+            class="custom-scroll-bar"
+            type="search"
+            rows="10"
+            matInput
+            readonly
+            [(ngModel)]="data.preApprovalForm.exchangeCoordinatorApproval.comment"
+          ></textarea>
+        </mat-form-field>
+      </div>
+      <div class="decision-container" *ngIf="boardStatus !== 'Waiting' &&
+      data.preApprovalForm.facultyAdministrationBoardApproval.comment != '' && data.preApprovalForm.facultyAdministrationBoardApproval.comment != null">
+        <span class="subtitle">FAB Decision</span>
+        <mat-form-field appearance="outline" style="width: 500px">
+          <mat-label>{{data.preApprovalForm.facultyAdministrationBoardApproval.name}}'s Comments & Extra Notes</mat-label>
+          <textarea
+            class="custom-scroll-bar"
+            type="search"
+            rows="10"
+            matInput
+            [(ngModel)]="data.preApprovalForm.facultyAdministrationBoardApproval.comment"
+            readonly></textarea>
+        </mat-form-field>
+      </div>
+
     </mat-tab>
   </mat-tab-group>
 </div>

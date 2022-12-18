@@ -23,8 +23,11 @@ export class ViewCteFormDialogComponent implements OnInit {
   isFABApproved: boolean;
   isSelfApproved: boolean;
 
+  fabComment: string;
+
   format = 'dd/MM/yyyy h:mm';
   locale = 'en-TR';
+  userComment: string;
 
   constructor(
     public dialogRef: MatDialogRef<ViewCteFormDialogComponent>,
@@ -111,7 +114,7 @@ export class ViewCteFormDialogComponent implements OnInit {
         dateOfApproval: new Date(),
         isApproved: true,
         name: this.nameOfUser,
-        comment: this.data.approvalComment
+        comment: this.userComment
       };
       this.cteFormService
         .approveCTEFormCoordinator(approval, this.data.cteForm.id)
@@ -123,7 +126,7 @@ export class ViewCteFormDialogComponent implements OnInit {
         dateOfApproval: new Date(),
         isApproved: true,
         name: this.nameOfUser,
-        comment: this.data.approvalComment
+        comment: this.userComment
       };
       let isDean = JSON.parse(localStorage.getItem('user')).userDetails.isDean;
 
@@ -148,7 +151,7 @@ export class ViewCteFormDialogComponent implements OnInit {
       dateOfApproval: new Date(),
       isApproved: true,
       name: this.nameOfUser,
-      comment: this.data.approvalComment
+      comment: this.fabComment
     };
     this.cteFormService
       .approveCTEFormFAB(approval, this.data.cteForm.id)
@@ -162,7 +165,7 @@ export class ViewCteFormDialogComponent implements OnInit {
       dateOfApproval: new Date(),
       isApproved: false,
       name: this.nameOfUser,
-      comment: this.data.approvalComment
+      comment: this.fabComment
     };
     this.cteFormService
       .approveCTEFormFAB(approval, this.data.cteForm.id)
@@ -182,7 +185,7 @@ export class ViewCteFormDialogComponent implements OnInit {
         dateOfApproval: new Date(),
         isApproved: false,
         name: this.nameOfUser,
-        comment: this.data.approvalComment
+        comment: this.userComment
       };
       this.cteFormService
         .approveCTEFormCoordinator(approval, this.data.cteForm.id)
@@ -194,7 +197,7 @@ export class ViewCteFormDialogComponent implements OnInit {
         dateOfApproval: new Date(),
         isApproved: false,
         name: this.nameOfUser,
-        comment: this.data.approvalComment
+        comment: this.userComment
       };
       let isDean = JSON.parse(localStorage.getItem('user')).userDetails.isDean;
 
