@@ -70,6 +70,9 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
   approved: number[] = [];
   rejected: number[] = [];
   processing: number[] = [];
+  cteForms: number[] = [];
+  preApproval: number[] = [];
+  courseEq: number[] = [];
   actorsEnum = ActorsEnum;
   role: string;
   userName: string;
@@ -184,6 +187,8 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
           this.processing.push(0);
         }
 
+        this.cteForms.push(0);
+
         this.pieChartOptions = {
           series: [
             this.processing.length,
@@ -212,6 +217,50 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
             }
           ]
         };
+
+        this.barChartOptions = {
+          series: [
+            {
+              name: 'Form Types',
+              data: [this.cteForms.length, this.preApproval.length, this.courseEq.length]
+            }
+          ],
+          chart: {
+            height: 350,
+            type: 'bar',
+            events: {
+              click: function (chart, w, e) {
+                // console.log(chart, w, e)
+              }
+            }
+          },
+          colors: ['#008FFB', '#00E396', '#DBA800'],
+          plotOptions: {
+            bar: {
+              columnWidth: '45%',
+              distributed: true
+            }
+          },
+          dataLabels: {
+            enabled: true
+          },
+          legend: {
+            show: false
+          },
+          grid: {
+            show: true
+          },
+          xaxis: {
+            categories: ['CTE', 'Pre-approval', 'Course Equivalence'],
+            labels: {
+              style: {
+                colors: [],
+                fontSize: '12px'
+              }
+            }
+          }
+        };
+
       });
     });
 
@@ -226,6 +275,8 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
           } else if (!element.isCanceled && !element.isArchived) {
             this.processing.push(0);
           }
+
+          this.preApproval.push(0);
 
           this.pieChartOptions = {
             series: [
@@ -254,6 +305,49 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
                 }
               }
             ]
+          };
+
+          this.barChartOptions = {
+            series: [
+              {
+                name: 'Form Types',
+                data: [this.cteForms.length, this.preApproval.length, this.courseEq.length]
+              }
+            ],
+            chart: {
+              height: 350,
+              type: 'bar',
+              events: {
+                click: function (chart, w, e) {
+                  // console.log(chart, w, e)
+                }
+              }
+            },
+            colors: ['#008FFB', '#00E396', '#DBA800'],
+            plotOptions: {
+              bar: {
+                columnWidth: '45%',
+                distributed: true
+              }
+            },
+            dataLabels: {
+              enabled: true
+            },
+            legend: {
+              show: false
+            },
+            grid: {
+              show: true
+            },
+            xaxis: {
+              categories: ['CTE', 'Pre-approval', 'Course Equivalence'],
+              labels: {
+                style: {
+                  colors: [],
+                  fontSize: '12px'
+                }
+              }
+            }
           };
         });
       });
@@ -270,6 +364,8 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
             this.processing.push(0);
           }
 
+          this.courseEq.push(0);
+
           this.pieChartOptions = {
             series: [
               this.processing.length,
@@ -298,6 +394,51 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
               }
             ]
           };
+
+          this.barChartOptions = {
+            series: [
+              {
+                name: 'Form Types',
+                data: [this.cteForms.length, this.preApproval.length, this.courseEq.length]
+              }
+            ],
+            chart: {
+              height: 350,
+              type: 'bar',
+              events: {
+                click: function (chart, w, e) {
+                  // console.log(chart, w, e)
+                }
+              }
+            },
+            colors: ['#008FFB', '#00E396', '#DBA800'],
+            plotOptions: {
+              bar: {
+                columnWidth: '45%',
+                distributed: true
+              }
+            },
+            dataLabels: {
+              enabled: true
+            },
+            legend: {
+              show: false
+            },
+            grid: {
+              show: true
+            },
+            xaxis: {
+              categories: ['CTE', 'Pre-approval', 'Course Equivalence'],
+              labels: {
+                style: {
+                  colors: [],
+                  fontSize: '12px'
+                }
+              }
+            }
+          };
+
+
         });
       });
 
@@ -346,8 +487,8 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
     this.barChartOptions = {
       series: [
         {
-          name: 'submission',
-          data: [21, 22, 10, 28, 16, 21, 13]
+          name: 'Form Types',
+          data: [this.cteForms.length, this.preApproval.length, this.courseEq.length]
         }
       ],
       chart: {
@@ -359,7 +500,7 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
           }
         }
       },
-      colors: ['#008FFB', '#00E396'],
+      colors: ['#008FFB', '#00E396', '#DBA800'],
       plotOptions: {
         bar: {
           columnWidth: '45%',
@@ -376,7 +517,7 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
         show: true
       },
       xaxis: {
-        categories: ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'],
+        categories: ['CTE', 'Pre-approval', 'Course Equivalence'],
         labels: {
           style: {
             colors: [],
