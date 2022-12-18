@@ -10,6 +10,7 @@ import {formatDate} from "@angular/common";
   templateUrl: './view-equivalence-request-dialog.component.html',
   styleUrls: ['./view-equivalence-request-dialog.component.css']
 })
+
 export class ViewEquivalenceRequestDialogComponent implements OnInit {
   formStatus: string;
   instructorStatus: string;
@@ -18,6 +19,9 @@ export class ViewEquivalenceRequestDialogComponent implements OnInit {
   isFormApproved: boolean;
   format = 'dd/MM/yyyy h:mm';
   locale = 'en-TR';
+
+  userComment: string;
+
   constructor(
     public dialogRef: MatDialogRef<ViewEquivalenceRequestDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ViewEquivalenceRequest,
