@@ -46,7 +46,11 @@
         (click)="downloadPdf()">
         Download Pdf
       </button>
-      <button mat-raised-button color="accent" *ngIf="formStatus === 'Waiting'">
+      <button
+        mat-raised-button
+        color="accent"
+        *ngIf="formStatus === 'Waiting'"
+        (click)="uploadPdf($event)">
         Upload Pdf
       </button>
     </div>

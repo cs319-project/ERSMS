@@ -103,7 +103,6 @@ export class FormsAndRequestsComponent {
     this.studentDataSource = new MatTableDataSource<UserData>();
 
     if (this.currentUserRole !== 'Student') {
-
       cteFormService
         .getNonArchivedCTEFormsByDepartment(this.currentUserId)
         .toPromise()
@@ -205,9 +204,7 @@ export class FormsAndRequestsComponent {
           this.courseEquivalenceDataSource.sort = this.sorter4;
           this.AllFormsTable.renderRows();
         });
-    }
-    else if (this.currentUserRole === 'Student') {
-
+    } else if (this.currentUserRole === 'Student') {
       cteFormService
         .getCTEFormOfStudent(this.currentUserId)
         .toPromise()
@@ -302,27 +299,6 @@ export class FormsAndRequestsComponent {
           this.StudentTable.renderRows();
         });
     }
-
-    //console.log(this.preApprovalForms);
-    //console.log(preapprovalUsers);
-
-    // console.log(this.cteForms);
-    // console.log(users);
-    // for (let i = 1; i <= 10; i++) {
-    //   studentUser.push(createNewUser(i));
-    // }
-
-    /*
-    for (let k = 0; k < users.length; k++) {
-      if (users[k].type == 'PreApproval Form') {
-        preapprovalUsers.push(users[k]);
-      } else if (users[k].type == 'CTE Form') {
-        cteUsers.push(users[k]);
-      } else if (users[k].type == 'Course Eq. Request') {
-        courseequivalenceUsers.push(users[k]);
-      }
-    }
-    */
   }
 
   ngAfterViewInit() {

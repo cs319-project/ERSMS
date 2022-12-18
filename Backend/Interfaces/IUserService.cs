@@ -23,6 +23,7 @@ namespace Backend.Interfaces
         Task<IEnumerable<ExchangeCoordinatorDto>> GetExchangeCoordinatorsByDepartmentAsync(Department department);
         Task<IEnumerable<DeanDepartmentChairDto>> GetDeanDepartmentChairsByDepartmentAsync(Department department);
         Task<IEnumerable<CourseCoordinatorInstructorDto>> GetCourseCoordinatorsInstructorsByCourseCodeAsync(string courseCode);
+        Task<IEnumerable<StudentDto>> GetStudentsByDepartmentAsync(Department department);
         Task<IEnumerable<StudentDto>> GetStudentsAsync();
         Task<Object> UpdateUser(JObject dto);
         Task<bool> DeleteUser(string username);

@@ -139,24 +139,34 @@ namespace Backend.Services
             Department departmentOfStudent = student.Major.DepartmentName;
             string finalContent = ContentCreationNewForm(formType, firstName, lastName, studentIdNumber);
             // Create Notification for Exchange Coordinators
-            var exchangeCoordinators = await _userService.GetExchangeCoordinatorsByDepartmentAsync(departmentOfStudent);
-            foreach (var exchangeCoordinator in exchangeCoordinators)
+            if (formType != FormType.CTEForm)
             {
-                var notification = new Notification
+                var exchangeCoordinators = await _userService.GetExchangeCoordinatorsByDepartmentAsync(departmentOfStudent);
+                foreach (var exchangeCoordinator in exchangeCoordinators)
                 {
-                    content = finalContent,
-                    read = false
-                };
+                    var notification = new Notification
+                    {
+                        content = finalContent,
+                        read = false
+                    };
 
-                notification.userId = exchangeCoordinator.Id;
-                await _notificationRepository.AddNotification(notification);
+                    notification.userId = exchangeCoordinator.Id;
+                    await _notificationRepository.AddNotification(notification);
+                }
             }
 
             // Create Notification for other aux. users
             if (formType == FormType.CTEForm)
             {
                 var deanDepartmentChairs = await _userService.GetDeanDepartmentChairsByDepartmentAsync(departmentOfStudent);
-
+                var studentTemp = await _userService.GetStudent(studentIdNumber);
+                Notification notificationTemp = new Notification
+                {
+                    content = finalContent,
+                    read = false,
+                    userId = studentTemp.Id
+                };
+                await _notificationRepository.AddNotification(notificationTemp);
                 foreach (var deanDepartmentChair in deanDepartmentChairs)
                 {
                     var notification = new Notification
@@ -242,7 +252,8 @@ namespace Backend.Services
 
         private string ContentCreationNewForm(FormType formType, string firstName, string lastName, string studentIdNumber)
         {
-            return "New " + EnumStringify.FormTypeStringify(formType) + " has been submitted by "
+            return "New " + EnumStringify.FormTypeStringify(formType) + " has been submitted "
+                            + (formType == FormType.CTEForm ? "for " : "by ")
                             + firstName + " "
                             + lastName + " ("
                             + studentIdNumber + ")";

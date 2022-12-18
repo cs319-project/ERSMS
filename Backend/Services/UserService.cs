@@ -164,5 +164,12 @@ namespace Backend.Services
 
             return sameSchoolStudents;
         }
+
+        public async Task<IEnumerable<StudentDto>> GetStudentsByDepartmentAsync(Department department)
+        {
+            var students = await _userRepository.GetStudentsAsync();
+            var studentsByDepartment = students.Where(x => x.Major.DepartmentName == department);
+            return _mapper.Map<IEnumerable<StudentDto>>(studentsByDepartment);
+        }
     }
 }
