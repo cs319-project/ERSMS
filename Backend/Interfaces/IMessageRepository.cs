@@ -7,6 +7,7 @@ using Backend.Entities;
 
 namespace Backend.Interfaces
 {
+    /// <summary>An interface for the message repository.</summary>
     public interface IMessageRepository
     {
         Task<bool> AddMessage(Message message);

@@ -6,6 +6,7 @@ using Backend.Entities;
 
 namespace Backend.Interfaces
 {
+    /// <summary>An interface for the announcement repository.</summary>
     public interface IAnnouncementRepository
     {
         Task<bool> AddAnnouncement(Announcement announcement);

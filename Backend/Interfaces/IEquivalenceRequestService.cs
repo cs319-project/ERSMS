@@ -6,6 +6,7 @@ using Backend.DTOs;
 
 namespace Backend.Interfaces
 {
+    /// <summary>An interface for the equivalence request service.</summary>
     public interface IEquivalenceRequestService
     {
         Task<(byte[], string)> DownloadSyllabus(Guid id);

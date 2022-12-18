@@ -6,6 +6,7 @@ using Backend.DTOs;
 
 namespace Backend.Interfaces
 {
+    /// <summary>An interface for the message service.</summary>
     public interface IMessageService
     {
         Task<IEnumerable<MessageDto>> GetMessageThreadOneWay(string currentUserName, string recipientUserName);
