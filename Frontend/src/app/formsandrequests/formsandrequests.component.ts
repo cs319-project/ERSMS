@@ -36,6 +36,7 @@ import { PreApprovalFormService } from '../_services/preapprovalform.service';
 import { formatDate } from '@angular/common';
 import {ConfirmationDialogComponent} from "../appointments/confirmation-dialog/confirmation-dialog.component";
 import {ToastrService} from "ngx-toastr";
+import {ActorsEnum} from "../_models/enum/actors-enum";
 
 @Component({
   selector: 'app-formsandrequests',
@@ -70,6 +71,10 @@ export class FormsAndRequestsComponent {
 
   @ViewChild(MatTable) AllFormsTable!: MatTable<UserData>;
   @ViewChild(MatTable) StudentTable!: MatTable<UserData>;
+  @ViewChild(MatTable) PreApprovalTable!: MatTable<UserData>;
+  @ViewChild(MatTable) CTETable!: MatTable<UserData>;
+  @ViewChild(MatTable) CourseEqTable!: MatTable<UserData>;
+
 
   activatedRow = null;
   currentUserId: string;
@@ -105,7 +110,73 @@ export class FormsAndRequestsComponent {
     this.courseEquivalenceDataSource = new MatTableDataSource<UserData>();
     this.studentDataSource = new MatTableDataSource<UserData>();
 
-    if (this.currentUserRole !== 'Student') {
+    if(this.currentUserRole === ActorsEnum.CourseCoordinatorInstructor){
+      console.log("SDFASDFADFADSDF");
+      equivalenceRequestService
+        .getNonArchivedEquivalenceRequestsByDepartment(this.currentUserId)
+        .toPromise()
+        .then(data => {
+          data.forEach(element => {
+            const formattedDate = formatDate(
+              element.submissionDate.toString(),
+              this.format,
+              this.locale
+            );
+            let temp: UserData = {
+              formId: element.id,
+              id: element.studentId,
+              student: element.firstName + ' ' + element.lastName,
+              date: formattedDate,
+              type: 'Course Eq. Request',
+              school: element.hostUniversityName,
+              status: element.isRejected
+                ? 'Rejected'
+                : element.isApproved
+                  ? 'Approved'
+                  : 'Waiting'
+            };
+            this.equivalenceRequests.push(element);
+            this.courseEquivalenceDataSource.data.push(temp);
+            console.log(this.courseEquivalenceDataSource.data);
+          });
+          this.courseEquivalenceDataSource.paginator = this.paginator4;
+          this.courseEquivalenceDataSource.sort = this.sorter4;
+          this.CourseEqTable.renderRows();
+        });
+    }
+    else if(this.currentUserRole === ActorsEnum.DeanDepartmentChair){
+      cteFormService
+        .getNonArchivedCTEFormsByDepartment(this.currentUserId)
+        .toPromise()
+        .then(data => {
+          data.forEach(element => {
+            const formattedDate = formatDate(
+              element.submissionTime.toString(),
+              this.format,
+              this.locale
+            );
+            let temp: UserData = {
+              formId: element.id,
+              id: element.idNumber,
+              student: element.firstName + ' ' + element.lastName,
+              date: formattedDate,
+              type: 'CTE Form',
+              school: element.hostUniversityName,
+              status: element.isRejected
+                ? 'Rejected'
+                : element.isApproved
+                  ? 'Approved'
+                  : 'Waiting'
+            };
+            this.cteDataSource.data.push(temp);
+            this.cteForms.push(element);
+          });
+          this.cteDataSource.sort = this.sorter3;
+          this.cteDataSource.paginator = this.paginator3;
+          this.CTETable.renderRows();
+        });
+    }
+    else if (this.currentUserRole !== ActorsEnum.Student) {
       cteFormService
         .getNonArchivedCTEFormsByDepartment(this.currentUserId)
         .toPromise()
@@ -199,6 +270,7 @@ export class FormsAndRequestsComponent {
             };
             this.equivalenceRequests.push(element);
             this.courseEquivalenceDataSource.data.push(temp);
+            console.log(this.courseEquivalenceDataSource.data);
             this.dataSource.data.push(temp);
           });
           this.courseEquivalenceDataSource.paginator = this.paginator4;
@@ -208,7 +280,7 @@ export class FormsAndRequestsComponent {
           this.AllFormsTable.renderRows();
         });
     }
-    else if (this.currentUserRole === 'Student') {
+    else if (this.currentUserRole === ActorsEnum.Student) {
       cteFormService
         .getCTEFormOfStudent(this.currentUserId)
         .toPromise()

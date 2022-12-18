@@ -73,7 +73,6 @@ export class ViewEquivalenceRequestDialogComponent implements OnInit {
 
   approveFormCoordinator() {
     let approval: Approval = {
-      dateOfApproval: new Date(),
       isApproved: true,
       name: this.nameOfUser,
       comment: this.userComment
@@ -88,7 +87,6 @@ export class ViewEquivalenceRequestDialogComponent implements OnInit {
 
   rejectFormCoordinator() {
     let approval: Approval = {
-      dateOfApproval: new Date(),
       isApproved: false,
       name: this.nameOfUser,
       comment: this.userComment

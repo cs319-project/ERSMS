@@ -118,7 +118,7 @@
             <div
               class="approve-info-element"
               *ngIf="instructorStatus === 'Waiting'">
-              <span><b class="mr-2">Role:</b>Exchange Coordinator</span>
+              <span><b class="mr-2">Role:</b>Exchange Coordinator or Course Coordinator</span>
               <div class="status-text-container">
                 <span
                   class="status-text"
@@ -267,7 +267,7 @@
       <div
         class="decision-container"
         *ngIf="
-          roleOfUser === 'Course Coordinator Instructor' &&
+          (roleOfUser === 'Course Coordinator Instructor' ||  roleOfUser === 'Exchange Coordinator' )&&
           formStatus === 'Waiting'
         ">
         <span class="subtitle">Your Decision</span>
@@ -304,7 +304,7 @@
           data.eqReq.instructorApproval.comment != null &&
           data.eqReq.instructorApproval.comment != ''
         ">
-        <span class="subtitle">Course Coordinator's Decision</span>
+        <span class="subtitle">Coordinator's Decision</span>
         <div class="decision-buttons mb-2">
           <span
             class="status-text"
