@@ -83,64 +83,11 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
   public pieChartOptions: Partial<PieChartOptions>;
   public barChartOptions: Partial<BarChartOptions>;
 
-  activities: dayActivities[] = [
-    {
-      date: '12 September',
-      activities: [
-        {
-          name: 'Kutay Tire',
-          description: 'Added a new pre-approval form.',
-          time: '22:13'
-        },
-        {
-          name: 'Berk Çakar',
-          description: 'Added a new pre-approval form.',
-          time: '12:13'
-        },
-        {
-          name: 'Kutay Tire',
-          description: 'Added a new pre-approval form.',
-          time: '13:12'
-        },
-        {
-          name: 'Berk Çakar',
-          description: 'Added a new pre-approval form.',
-          time: '09:44'
-        }
-      ]
-    },
-    {
-      date: '15 September',
-      activities: [
-        {
-          name: 'Atak Talay Yücel',
-          description: 'Added a new pre-approval form.',
-          time: '10:15'
-        },
-        {
-          name: 'Borga Haktan Bilen',
-          description: 'Added a new pre-approval form.',
-          time: '07:07'
-        },
-        {
-          name: 'Atak Talay Yücel',
-          description: 'Added a new pre-approval form.',
-          time: '11:44'
-        },
-        {
-          name: 'Borga Haktan Bilen',
-          description: 'Added a new pre-approval form.',
-          time: '10:10'
-        }
-      ]
-    }
-  ];
-
 
 
   announcements: Announcement[] = [];
 
-  dateFormat = 'dd MM yyyy h:mm';
+  dateFormat = 'dd/MM/yyyy h:mm';
   timeFormat = 'h:mm';
   locale = 'en-TR';
 

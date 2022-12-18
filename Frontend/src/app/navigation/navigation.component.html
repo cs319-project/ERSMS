@@ -21,23 +21,12 @@
     <button
       *ngIf="this.role === actorsEnum.Student"
       mat-icon-button
-      routerLink="/profile"
-      style="
-        background-image: url('../assets/images/doggy.jpg');
-        background-size: cover;
-        background-position: center;
-      "
-      class="m-2"></button>
+      class="m-2"><mat-icon svgIcon="user" style="scale: 1.5"></mat-icon></button>
     <button
       *ngIf="this.role !== actorsEnum.Student"
       mat-icon-button
-      style="
-        background-image: url('../assets/images/doggy.jpg');
-        background-size: cover;
-        background-position: center;
-      "
       class="m-2"
-      disabled></button>
+      disabled><mat-icon svgIcon="user" style="scale: 1.5"  ></mat-icon></button>
     <div class="username">
       <span
         ><b>{{ name }}</b>

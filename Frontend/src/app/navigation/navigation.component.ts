@@ -161,6 +161,18 @@ export class NavigationComponent implements OnInit {
         '../assets/icons/delete.svg'
       )
     );
+    this.matIconRegistry.addSvgIcon(
+      `user`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/icons/user.svg'
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      `big-user`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/icons/big-user.svg'
+      )
+    );
     this.populateNotifications();
   }
 

@@ -39,7 +39,7 @@ export class StudentDashboardComponent implements OnInit {
   userName: string;
   announcements: Announcement[] = [];
 
-  dateFormat = 'dd MM yyyy h:mm';
+  dateFormat = 'dd/MM/yyyy h:mm';
   timeFormat = 'h:mm';
   locale = 'en-TR';
 
@@ -72,7 +72,7 @@ export class StudentDashboardComponent implements OnInit {
       );
     });
 
-    
+
     announcementService.getAllAnnouncements().subscribe(data => {
       if (data) {
         data.forEach(element => {
@@ -232,7 +232,7 @@ export class StudentDashboardComponent implements OnInit {
       );
     });
 
-    
+
   }
 
   formatTheDate(date: Date){
