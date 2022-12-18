@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ViewPreApprovalForm } from './viewPreApprovalForm';
 import { Approval } from '../../_models/approval';
 import { PreApprovalFormService } from 'src/app/_services/preapprovalform.service';
-import {formatDate} from "@angular/common";
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-view-preapproval-form-dialog',
@@ -133,12 +133,8 @@ export class ViewPreapprovalFormDialogComponent implements OnInit {
     }
   }
 
-  formatTheDate(date: Date){
-    const formattedDate = formatDate(
-      date.toString(),
-      this.format,
-      this.locale
-    );
+  formatTheDate(date: Date) {
+    const formattedDate = formatDate(date.toString(), this.format, this.locale);
     return formattedDate;
   }
 
@@ -153,4 +149,22 @@ export class ViewPreapprovalFormDialogComponent implements OnInit {
       }
     }
   }
+
+  downloadPdf() {
+    this.preApprovalFormService
+      .downloadPdf(this.data.preApprovalForm.id)
+      .subscribe(data => {
+        var file = new Blob([data], { type: 'application/pdf' });
+        var fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      });
+  }
+
+  // uploadPdf() {
+  //   this.preApprovalFormService
+  //     .uploadPdf(this.data.preApprovalForm.id, this.data.pdfFile)
+  //     .subscribe(data => {
+  //       this.dialogRef.close();
+  //     });
+  // }
 }

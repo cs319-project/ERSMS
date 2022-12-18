@@ -13,7 +13,7 @@
     <div class="course-groups" *ngFor="let courseGroup of this.data.transferredCourseGroups; let groupIndex = index">
       <div class="course-group mb-4">
         <div class="course-group-header">
-          <span>Group {{groupIndex + 1}}</span>
+          <span>Course Group {{groupIndex + 1}}</span>
           <button mat-raised-button color="warn" class="ml-4" (click)="onGroupDelete(groupIndex)">Delete</button>
         </div>
         <mat-divider style="width: 100%" class="mt-2 mb-2"></mat-divider>
@@ -82,6 +82,14 @@
                   </mat-option>
                 </mat-select>
               </mat-form-field>
+            </div>
+            <div>
+              <span *ngIf="courseGroup.exemptedCourse.courseType === 'Mandatory Course'">
+                <b>All Fields Below are Required</b>
+              </span>
+              <span *ngIf="courseGroup.exemptedCourse.courseType !== 'Mandatory Course'">
+                Course Code and Course Name are Optional
+              </span>
             </div>
             <div class="group-course mt-2">
               <mat-form-field style="width: 150px" appearance="outline">

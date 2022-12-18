@@ -12,7 +12,23 @@ export class PreApprovalFormService {
   baseApiUrl = environment.apiUrl;
   constructor(private http: HttpClient) {}
 
-  // TODO: add pdfs
+  uploadPdf(formId: GUID, pdf): Observable<any> {
+    const formData = new FormData();
+    formData.append('pdf', pdf);
+    return this.http.post<any>(
+      `${this.baseApiUrl}cteform/upload/?formId=${formId}`,
+      formData
+    );
+  }
+
+  downloadPdf(formId: GUID): Observable<any> {
+    return this.http.get(
+      `${this.baseApiUrl}preapprovalform/download/${formId}`,
+      {
+        responseType: 'blob'
+      }
+    );
+  }
 
   createPreApprovalForm(preApprovalForm: PreApprovalForm): Observable<any> {
     return this.http.post<any>(

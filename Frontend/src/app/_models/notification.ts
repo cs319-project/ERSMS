@@ -1,6 +1,6 @@
 import { GUID } from 'src/utils/guid';
 
-export interface Notification {
+export interface NotificationERSMS {
   id: GUID;
   read: boolean;
   content: string;

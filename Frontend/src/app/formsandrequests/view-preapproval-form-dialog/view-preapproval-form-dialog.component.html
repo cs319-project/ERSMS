@@ -39,7 +39,11 @@
       </span>
     </div>
     <div>
-      <button mat-raised-button color="primary" class="mr-3">
+      <button
+        mat-raised-button
+        color="primary"
+        class="mr-3"
+        (click)="downloadPdf()">
         Download Pdf
       </button>
       <button mat-raised-button color="accent" *ngIf="formStatus === 'Waiting'">
@@ -97,11 +101,11 @@
           </div>
           <mat-divider style="width: 100%"></mat-divider>
         </div>
-        <div
-          class="approval-info-container">
+        <div class="approval-info-container">
           <span class="subtitle mt-3 mb-3">Approvals</span>
           <div class="approve-info-content">
-            <div class="approve-info-element"
+            <div
+              class="approve-info-element"
               *ngIf="coordinatorStatus !== 'Waiting'">
               <span
                 ><b class="mr-2">Name:</b
@@ -113,7 +117,7 @@
               <span *ngIf="coordinatorStatus !== 'Waiting'">
                 <b class="mr-2">Approval Date:</b>
                 {{
-                formatTheDate(
+                  formatTheDate(
                     data.preApprovalForm.exchangeCoordinatorApproval
                       .dateOfApproval
                   )
@@ -134,21 +138,20 @@
                 >
               </div>
             </div>
-            <div class="approve-info-element"
-                 *ngIf="coordinatorStatus === 'Waiting'">
+            <div
+              class="approve-info-element"
+              *ngIf="coordinatorStatus === 'Waiting'">
               <span><b class="mr-2">Role:</b>Exchange Coordinator</span>
               <div class="status-text-container">
-                <span
-                  class="status-text"
-                  style="background-color: '#FF965D'"
-                >Waiting</span>
+                <span class="status-text" style="background-color: '#FF965D'"
+                  >Waiting</span
+                >
               </div>
             </div>
             <mat-divider
               vertical
               style="height: 150px"
-              class="mr-4 ml-4"
-              ></mat-divider>
+              class="mr-4 ml-4"></mat-divider>
             <div class="approve-info-element" *ngIf="boardStatus !== 'Waiting'">
               <span
                 ><b class="mr-2">Name:</b
@@ -160,7 +163,10 @@
               <span>
                 <b class="mr-2">Approval Time:</b>
                 {{
-                formatTheDate(data.preApprovalForm.facultyAdministrationBoardApproval.dateOfApproval)
+                  formatTheDate(
+                    data.preApprovalForm.facultyAdministrationBoardApproval
+                      .dateOfApproval
+                  )
                 }}
               </span>
               <div class="status-text-container">
@@ -181,13 +187,11 @@
             <div class="approve-info-element" *ngIf="boardStatus === 'Waiting'">
               <span><b class="mr-2">Role:</b>Administration Board</span>
               <div class="status-text-container">
-                <span
-                  class="status-text"
-                  style="background-color: '#FF965D'"
-                >Waiting</span>
+                <span class="status-text" style="background-color: '#FF965D'"
+                  >Waiting</span
+                >
               </div>
             </div>
-
           </div>
         </div>
       </div>

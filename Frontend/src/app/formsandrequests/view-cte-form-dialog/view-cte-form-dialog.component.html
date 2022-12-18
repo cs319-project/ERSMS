@@ -21,23 +21,27 @@
         class="status-text"
         *ngIf="formStatus === 'Waiting'"
         style="background-color: '#FF965D'"
-      >Waiting
+        >Waiting
       </span>
       <span
         class="status-text"
         *ngIf="formStatus === 'Accepted'"
         style="background-color: '#49C96D'"
-      >Accepted
+        >Accepted
       </span>
       <span
         class="status-text"
         *ngIf="formStatus === 'Rejected'"
         style="background-color: '#FD7972'"
-      >Rejected
+        >Rejected
       </span>
     </div>
     <div>
-      <button mat-raised-button color="primary" class="mr-3">
+      <button
+        mat-raised-button
+        color="primary"
+        class="mr-3"
+        (click)="downloadPdf()">
         Download Pdf
       </button>
       <button mat-raised-button color="accent" *ngIf="formStatus === 'Waiting'">
@@ -95,11 +99,11 @@
           </div>
           <mat-divider style="width: 100%"></mat-divider>
         </div>
-        <div
-          class="approval-info-container">
+        <div class="approval-info-container">
           <span class="subtitle mt-3 mb-3">Approvals</span>
           <div class="approve-info-content">
-            <div class="approve-info-element "
+            <div
+              class="approve-info-element"
               *ngIf="coordinatorStatus !== 'Waiting'">
               <span
                 ><b class="mr-2">Name:</b
@@ -109,7 +113,9 @@
               <span>
                 <b class="mr-2">Approval Date:</b>
                 {{
-                  formatTheDate(data.cteForm.exchangeCoordinatorApproval.dateOfApproval)
+                  formatTheDate(
+                    data.cteForm.exchangeCoordinatorApproval.dateOfApproval
+                  )
                 }}
               </span>
               <div class="status-text-container">
@@ -127,23 +133,23 @@
                 >
               </div>
             </div>
-            <div class="approve-info-element "
-                 *ngIf="coordinatorStatus === 'Waiting'">
+            <div
+              class="approve-info-element"
+              *ngIf="coordinatorStatus === 'Waiting'">
               <span><b class="mr-2">Role:</b>Exchange Coordinator</span>
               <div class="status-text-container">
                 <span
                   class="status-text"
                   *ngIf="deanStatus === 'Waiting'"
                   style="background-color: '#FF965D'"
-                >Waiting</span
+                  >Waiting</span
                 >
               </div>
             </div>
             <mat-divider
               vertical
               style="height: 150px"
-              class="mr-4 ml-4"
-            ></mat-divider>
+              class="mr-4 ml-4"></mat-divider>
             <div class="approve-info-element" *ngIf="deanStatus !== 'Waiting'">
               <span
                 ><b class="mr-2">Name:</b
@@ -178,15 +184,15 @@
                   class="status-text"
                   *ngIf="deanStatus === 'Waiting'"
                   style="background-color: '#FF965D'"
-                >Waiting</span>
+                  >Waiting</span
+                >
               </div>
             </div>
 
             <mat-divider
               vertical
               style="height: 150px"
-              class="mr-4 ml-4"
-              ></mat-divider>
+              class="mr-4 ml-4"></mat-divider>
             <div class="approve-info-element" *ngIf="chairStatus !== 'Waiting'">
               <span
                 ><b class="mr-2">Name:</b
@@ -219,14 +225,14 @@
                   class="status-text"
                   *ngIf="chairStatus === 'Waiting'"
                   style="background-color: '#FF965D'"
-                >Waiting</span>
+                  >Waiting</span
+                >
               </div>
             </div>
             <mat-divider
               vertical
               style="height: 150px"
-              class="mr-4 ml-4"
-              ></mat-divider>
+              class="mr-4 ml-4"></mat-divider>
             <div class="approve-info-element" *ngIf="boardStatus !== 'Waiting'">
               <span
                 ><b class="mr-2">Name:</b
@@ -238,7 +244,10 @@
               <span>
                 <b class="mr-2">Approval Date:</b>
                 {{
-                  formatTheDate(data.cteForm.facultyOfAdministrationBoardApproval.dateOfApproval)
+                  formatTheDate(
+                    data.cteForm.facultyOfAdministrationBoardApproval
+                      .dateOfApproval
+                  )
                 }}
               </span>
               <div class="status-text-container">
@@ -263,11 +272,10 @@
                   class="status-text"
                   *ngIf="boardStatus === 'Waiting'"
                   style="background-color: '#FF965D'"
-                >Waiting</span
+                  >Waiting</span
                 >
               </div>
             </div>
-
           </div>
         </div>
       </div>
@@ -357,7 +365,8 @@
                   </mat-form-field>
                 </div>
                 <div class="course-info">
-                  <mat-form-field style="width: 150px" appearance="outline">
+                  <mat-form-field *ngIf="courseGroup.exemptedCourse.courseName != ''"
+                  style="width: 150px" appearance="outline">
                     <mat-label>Course Code</mat-label>
                     <input
                       type="search"
@@ -365,7 +374,7 @@
                       [(ngModel)]="courseGroup.exemptedCourse.courseCode"
                       readonly />
                   </mat-form-field>
-                  <mat-form-field
+                  <mat-form-field *ngIf="courseGroup.exemptedCourse.courseName != ''"
                     style="flex-grow: 1"
                     class="mr-3 ml-3"
                     appearance="outline">
@@ -375,7 +384,7 @@
                       matInput
                       [(ngModel)]="courseGroup.exemptedCourse.courseName"
                       readonly />
-                  </mat-form-field>
+                  </mat-form-field >
                   <mat-form-field
                     style="width: 100px"
                     class="mr-3"
@@ -408,7 +417,7 @@
         </div>
       </div>
     </mat-tab>
-    <mat-tab label="Decision" *ngIf="roleOfUser != 'Student'">
+    <mat-tab label="Decision" *ngIf="roleOfUser !== 'Student'">
       <div class="decision-container" *ngIf="!isSelfApproved">
         <span class="subtitle">Your Decision</span>
         <mat-form-field appearance="outline" style="width: 500px">

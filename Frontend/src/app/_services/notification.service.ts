@@ -16,7 +16,7 @@ export class NotificationService {
   }
 
   readAllNotifications(userName: string): Observable<any> {
-    return this.http.put(
+    return this.http.patch(
       `${this.baseApiUrl}notification/markallasread/${userName}`,
       {}
     );

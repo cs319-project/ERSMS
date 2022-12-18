@@ -181,7 +181,7 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
 
           this.pieChartOptions = {
 
-            series: [this.approved.length,this.processing.length, this.rejected.length],
+            series: [this.processing.length, this.approved.length, this.rejected.length],
             chart: {
               type: 'donut',
               toolbar: {
@@ -233,7 +233,7 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
 
           this.pieChartOptions = {
 
-            series: [this.approved.length,this.processing.length, this.rejected.length],
+            series: [this.processing.length, this.approved.length, this.rejected.length],
             chart: {
               type: 'donut',
               toolbar: {
@@ -315,7 +315,7 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
 
     this.pieChartOptions = {
 
-      series: [this.approved.length,this.processing.length, this.rejected.length],
+      series: [this.processing.length, this.approved.length, this.rejected.length],
       chart: {
         type: 'donut',
         toolbar: {
@@ -338,7 +338,6 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
         }
       ]
     };
-
     this.barChartOptions = {
       series: [
         {

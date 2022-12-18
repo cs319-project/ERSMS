@@ -19,7 +19,7 @@ namespace Backend.DTOs
 
         public ICollection<TransferredCourseGroupDto> TransferredCourseGroups { get; set; }
 
-        public DateTime SubmissionTime { get; set; }
+        public DateTime SubmissionTime { get; set; } = DateTime.Now;
         public string FileName { get; set; }
 
         public DateTime ApprovalTime { get; set; }

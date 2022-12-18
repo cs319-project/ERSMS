@@ -33,7 +33,7 @@ import { EquivalenceRequestService } from '../_services/equivalencerequest.servi
 import { CTEFormService } from '../_services/cteform.service';
 import { UserService } from '../_services/user.service';
 import { PreApprovalFormService } from '../_services/preapprovalform.service';
-import {formatDate} from "@angular/common";
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-formsandrequests',
@@ -96,15 +96,13 @@ export class FormsAndRequestsComponent {
     // for (let i = 1; i <= 100; i++) {
     //   users.push(createNewUser(i, (status = 'Processing')));
     // }
+    this.dataSource = new MatTableDataSource<UserData>();
+    this.cteDataSource = new MatTableDataSource<UserData>();
+    this.preapprovalDataSource = new MatTableDataSource<UserData>();
+    this.courseEquivalenceDataSource = new MatTableDataSource<UserData>();
+    this.studentDataSource = new MatTableDataSource<UserData>();
 
-
-    if (
-      this.currentUserRole !== 'Student'
-    ) {
-      this.dataSource = new MatTableDataSource<UserData>();
-      this.cteDataSource = new MatTableDataSource<UserData>();
-      this.preapprovalDataSource = new MatTableDataSource<UserData>();
-      this.courseEquivalenceDataSource = new MatTableDataSource<UserData>();
+    if (this.currentUserRole !== 'Student') {
 
       cteFormService
         .getNonArchivedCTEFormsByDepartment(this.currentUserId)
@@ -209,7 +207,6 @@ export class FormsAndRequestsComponent {
         });
     }
     else if (this.currentUserRole === 'Student') {
-      this.studentDataSource = new MatTableDataSource<UserData>();
 
       cteFormService
         .getCTEFormOfStudent(this.currentUserId)
@@ -280,7 +277,7 @@ export class FormsAndRequestsComponent {
           // console.log(data);
           data.forEach(element => {
             const formattedDate = formatDate(
-              element.submissionTime.toString(),
+              element.submissionDate.toString(),
               this.format,
               this.locale
             );
@@ -380,6 +377,7 @@ export class FormsAndRequestsComponent {
   }
 
   openDialog(row) {
+    console.log(row);
     if (row.type == 'CTE Form') {
       this.userService
         .getUserDetails(row.id)
@@ -428,10 +426,8 @@ export class FormsAndRequestsComponent {
           dialogConfig.autoFocus = false;
           dialogConfig.data = viewCourseEquivalenceRequest;
           this.dialog.open(ViewEquivalenceRequestDialogComponent, dialogConfig);
-
         });
     }
-
   }
 
   openSnackBar(message: string, action: string, duration: number) {
@@ -466,11 +462,10 @@ export class FormsAndRequestsComponent {
     );
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         //TODO update table after new form
       }
     });
-
   }
 
   openCreateEquivalanceRequestDialog() {
@@ -504,8 +499,6 @@ export class FormsAndRequestsComponent {
       EquivalenceRequestDialogComponent,
       dialogConfig
     );
-
-
   }
 
   openCreateCTEFormDialog() {

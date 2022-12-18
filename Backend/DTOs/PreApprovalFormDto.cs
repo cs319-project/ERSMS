@@ -25,7 +25,7 @@ namespace Backend.DTOs
 
         public string Semester { get; set; }
 
-        public DateTime SubmissionTime { get; set; }
+        public DateTime SubmissionTime { get; set; } = DateTime.Now;
 
         public DateTime ApprovalTime { get; set; }
 
