@@ -9,9 +9,10 @@ using Backend.Utilities;
 
 namespace Backend.Data.Profiles
 {
+    /// <summary>A profile for mapping <see cref="PreApprovalForm"/> to <see cref="PreApprovalFormDto"/> and vice versa.</summary>
     public class PreApprovalFormProfile : Profile
     {
-        //Constructor
+        /// <summary>Creates a mapping between the <see cref="PreApprovalFormDto"/> and <see cref="PreApprovalForm"/>.</summary>
         public PreApprovalFormProfile()
         {
             CreateMap<PreApprovalForm, PreApprovalFormDto>()

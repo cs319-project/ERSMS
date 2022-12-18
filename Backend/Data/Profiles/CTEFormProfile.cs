@@ -9,9 +9,10 @@ using Backend.Utilities;
 
 namespace Backend.Data.Profiles
 {
+    /// <summary>A profile for mapping <see cref="CTEForm"/> to <see cref="CTEFormDto"/> and vice versa.</summary>
     public class CTEFormProfile : Profile
     {
-        //Constructor
+        /// <summary>Creates a mapping between the <see cref="CTEFormDto"/> and <see cref="CTEForm"/>.</summary>
         public CTEFormProfile()
         {
             CreateMap<CTEForm, CTEFormDto>()

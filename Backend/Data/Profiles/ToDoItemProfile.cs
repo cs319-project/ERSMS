@@ -8,9 +8,10 @@ using Backend.Entities;
 
 namespace Backend.Data.Profiles
 {
+    /// <summary>A profile for mapping <see cref="ToDoItem"/> to <see cref="ToDoItemDto"/> and vice versa.</summary>
     public class ToDoItemProfile : Profile
     {
-        // Constructor
+        /// <summary>Creates a mapping between the <see cref="ToDoItemDto"/> and <see cref="ToDoItem"/>.</summary>
         public ToDoItemProfile()
         {
             CreateMap<ToDoItem, ToDoItemDto>().ReverseMap();

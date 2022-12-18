@@ -9,9 +9,10 @@ using Backend.Utilities;
 
 namespace Backend.Data.Profiles
 {
+    /// <summary> A profile for mapping <see cref="LoggedTransferredCourse"/> to <see cref="LoggedTransferredCourseDto"/> and vice versa. </summary>
     public class LoggedTransferredCourseProfile : Profile
     {
-        // Constructor
+        /// <summary> Creates a mapping between the <see cref="LoggedTransferredCourseDto"/> and <see cref="LoggedTransferredCourse"/>. </summary>
         public LoggedTransferredCourseProfile()
         {
             CreateMap<LoggedTransferredCourse, LoggedTransferredCourseDto>();

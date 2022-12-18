@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Backend.DTOs;
+using Backend.Entities;
 
 namespace Backend.Data.Profiles
 {
+    /// <summary>A profile for mapping <see cref="Notification"/> to <see cref="NotificationDto"/> and vice versa.</summary>
     public class NotificationProfile : Profile
     {
-        // Constructor
+        /// <summary>Creates a mapping between the <see cref="NotificationDto"/> and <see cref="Notification"/>.</summary>
         public NotificationProfile()
         {
-            CreateMap<Entities.Notification, DTOs.NotificationDto>().ReverseMap();
+            CreateMap<Notification, NotificationDto>().ReverseMap();
         }
     }
 }

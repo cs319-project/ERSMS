@@ -2,17 +2,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend.DTOs;
+using Backend.Entities;
 using AutoMapper;
 
 namespace Backend.Data.Profiles
 {
+    /// <summary>A profile for mapping <see cref="Announcement"/> to <see cref="AnnouncementDto"/> and vice versa.</summary>
     public class AnnouncementProfile : Profile
     {
-        // Constructor
+        /// <summary>Creates a mapping between the <see cref="AnnouncementDto"/> and <see cref="Announcement"/>.</summary>
         public AnnouncementProfile()
         {
-            // Source -> Target
-            CreateMap<Entities.Announcement, DTOs.AnnouncementDto>().ReverseMap();
+            CreateMap<Announcement, AnnouncementDto>().ReverseMap();
         }
     }
 }
