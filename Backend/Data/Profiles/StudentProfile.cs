@@ -5,8 +5,10 @@ using Backend.Entities;
 
 namespace Backend.Data.Profiles
 {
+    /// <summary>A profile for mapping <see cref="Student"/> to <see cref="StudentDto"/> and vice versa.</summary>
     public class StudentProfile : Profile
     {
+        /// <summary>Creates a mapping between the <see cref="StudentDto"/> and <see cref="Student"/>.</summary>
         public StudentProfile()
         {
             CreateMap<StudentDto, Student>().ReverseMap();

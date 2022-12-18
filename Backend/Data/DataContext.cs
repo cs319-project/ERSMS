@@ -9,13 +9,18 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Backend.Data
 {
+    /// <summary>The data context for the application.</summary>
     public class DataContext : IdentityDbContext<AppUser, Role, Guid>
     {
 
+        /// <summary>Initializes a new instance of the <see cref="DataContext"/> class.</summary>
+        /// <param name="options">The options for this context.</param>
         public DataContext(DbContextOptions options) : base(options)
         {
         }
 
+        /// <summary>Configures the model builder.</summary>
+        /// <param name="builder">The model builder.</param>
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
