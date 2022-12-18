@@ -112,15 +112,29 @@ export class CTEFormService {
     );
   }
 
-  GetNonArchivedCTEFormsByFacultyForDean(userName: string): Observable<any> {
+  getNonArchivedCTEFormsByFacultyForDean(userName: string): Observable<any> {
     return this.http.get<any>(
       `${this.baseApiUrl}cteform/nonarchived/faculty/${userName}`
     );
   }
 
-  GetArchivedCTEFormsByFacultyForDean(userName: string): Observable<any> {
+  getArchivedCTEFormsByFacultyForDean(userName: string): Observable<any> {
     return this.http.get<any>(
       `${this.baseApiUrl}cteform/archived/faculty/${userName}`
+    );
+  }
+
+  getNonArchivedCTEFormsByDepartmentForChair(
+    userName: string
+  ): Observable<any> {
+    return this.http.get<any>(
+      `${this.baseApiUrl}cteform/nonarchived/department/chair/${userName}`
+    );
+  }
+
+  getArchivedCTEFormsByDepartmentForChair(userName: string): Observable<any> {
+    return this.http.get<any>(
+      `${this.baseApiUrl}cteform/archived/department/chair/${userName}`
     );
   }
 }

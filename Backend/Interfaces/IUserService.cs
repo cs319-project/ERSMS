@@ -24,6 +24,7 @@ namespace Backend.Interfaces
         Task<IEnumerable<ExchangeCoordinatorDto>> GetExchangeCoordinatorsByDepartmentAsync(Department department);
         Task<IEnumerable<DeanDepartmentChairDto>> GetDeanDepartmentChairsByDepartmentAsync(Department department);
         Task<DeanDepartmentChairDto> GetDean(String userName);
+        Task<DeanDepartmentChairDto> GetDepartmentChair(String userName);
         Task<IEnumerable<CourseCoordinatorInstructorDto>> GetCourseCoordinatorsInstructorsByCourseCodeAsync(string courseCode);
         Task<IEnumerable<StudentDto>> GetStudentsByDepartmentAsync(Department department);
         Task<IEnumerable<StudentDto>> GetStudentsAsync();

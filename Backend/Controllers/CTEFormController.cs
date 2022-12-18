@@ -214,6 +214,34 @@ namespace Backend.Controllers
             return BadRequest("Failed to get CTE Forms by Department");
         }
 
+        /// <summary>Gets all non-archived CTE Forms for a Chair.</summary>
+        /// <param name="userName">The user name of the Chair.</param>
+        /// <returns>A list of non-archived CTE Forms for a Chair.</returns>
+        [HttpGet("nonarchived/department/chair/{userName}")]
+        public async Task<ActionResult<IEnumerable<CTEFormDto>>> GetNonArchivedCTEFormsByDepartmentForChair(string userName)
+        {
+            var forms = await _cTEFormService.GetNonArchivedCTEFormsByDepartmentForChair(userName);
+            if (forms != null)
+            {
+                return Ok(forms);
+            }
+            return BadRequest("Failed to get CTE Forms by Department");
+        }
+
+        /// <summary>Gets all archived CTE Forms for a Chair.</summary>
+        /// <param name="userName">The user name of the Chair.</param>
+        /// <returns>A list of archived CTE Forms for a Chair.</returns>
+        [HttpGet("archived/department/chair/{userName}")]
+        public async Task<ActionResult<IEnumerable<CTEFormDto>>> GetArchivedCTEFormsByDepartmentForChair(string userName)
+        {
+            var forms = await _cTEFormService.GetArchivedCTEFormsByDepartmentForChair(userName);
+            if (forms != null)
+            {
+                return Ok(forms);
+            }
+            return BadRequest("Failed to get CTE Forms by Department");
+        }
+
         /// <summary>Gets all non-archived CTE Forms by a Faculty.</summary>
         /// <param name="userName">The user name of the Dean.</param>
         /// <returns>A list of non-archived CTE Forms of the Faculty.</returns>

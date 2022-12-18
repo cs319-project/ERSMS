@@ -184,5 +184,18 @@ namespace Backend.Services
                 return null;
             }
         }
+
+        public async Task<DeanDepartmentChairDto> GetDepartmentChair(string userName)
+        {
+            var deanDepartmentChair = await _userRepository.GetDeanDepartmentChairByUserName(userName);
+            if (!deanDepartmentChair.IsDean)
+            {
+                return _mapper.Map<DeanDepartmentChairDto>(deanDepartmentChair);
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }
