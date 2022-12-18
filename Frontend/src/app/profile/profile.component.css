@@ -2,8 +2,14 @@
   width: 100%;
 }
 
-.profile-header-container{
+.profile-header-container {
   height: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,7 +24,7 @@
   width: 85%;
   height: 70%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -42,7 +48,11 @@
 
 .buttons-container{
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+}
+
+.buttons-container button {
+  margin-right: 1rem;
 }
 
 .email-id-container{

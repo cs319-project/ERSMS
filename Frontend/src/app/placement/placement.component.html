@@ -92,8 +92,8 @@
 
             <mat-paginator
               #paginator
-              [pageSizeOptions]="[10]"
-              [pageSize]="10"
+              [pageSizeOptions]="[7]"
+              [pageSize]="7"
               [showFirstLastButtons]="true"
               [hidePageSize]="true"></mat-paginator>
           </div>
@@ -111,7 +111,7 @@
                   Student Name
                 </th>
                 <td mat-cell *matCellDef="let row">
-                  <div class="name-column-cell">
+                  <div class="name-column-cell" style="padding: 8px 12px 8px 0">
                     <div>
                       <img src="../assets/images/avatar.png" />
                     </div>
@@ -129,7 +129,7 @@
                   Preferences
                 </th>
                 <td mat-cell *matCellDef="let row">
-                  {{ row.preferences }}
+                  <div style="padding-right: 12px; line-height: 18px">{{ row.preferences }}</div>
                 </td>
               </ng-container>
 
@@ -166,8 +166,8 @@
 
             <mat-paginator
               #paginatorWaiting
-              [pageSizeOptions]="[10]"
-              [pageSize]="10"
+              [pageSizeOptions]="[7]"
+              [pageSize]="7"
               [showFirstLastButtons]="true"
               [hidePageSize]="true"></mat-paginator>
           </div>

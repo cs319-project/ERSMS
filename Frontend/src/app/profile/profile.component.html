@@ -1,37 +1,29 @@
 <div class="full-width profile-header-container">
   <div class="profile-header m-3">
-    <div class="profile-photo-container">
-      <img src="../assets/images/avatar.png">
-    </div>
-    <div class="m-3 name-dep-container">
-      <h2><strong>Berk Çakar</strong></h2>
-      <span class="gray-text">Computer Engineering</span>
-      <div class="buttons-container">
-        <button mat-icon-button>
-          <mat-icon svgIcon="mail"></mat-icon>
-        </button>
-        <button mat-icon-button>
-          <mat-icon svgIcon="messages"></mat-icon>
-        </button>
-        <button mat-icon-button>
-          <mat-icon svgIcon="logging"></mat-icon>
-        </button>
+    <div class="user-container">
+      <div class="profile-photo-container">
+        <img src="../assets/images/avatar.png">
       </div>
-    </div>
-    <div class="email-id-container m-3">
-      <div class="name-value-pair">
-        <span class="gray-text">Email</span>
-        <span>berk.cakar@ug.bilkent.edu.tr</span>
-      </div>
-      <div class="name-value-pair mt-2">
-        <span class="gray-text">Bilkent ID Number</span>
-        <span>22003021</span>
+      <div class="m-3 name-dep-container">
+        <h2><b>{{ this.fullName }}</b></h2>
+        <span class="gray-text">{{ this.department }}</span>
+        <div class="buttons-container">
+          <button mat-icon-button>
+            <mat-icon svgIcon="mail"></mat-icon>
+          </button>
+          <button mat-icon-button>
+            <mat-icon svgIcon="messages"></mat-icon>
+          </button>
+          <button mat-icon-button>
+            <mat-icon svgIcon="logging"></mat-icon>
+          </button>
+        </div>
       </div>
     </div>
     <div class="status-school-container m-3">
-      <div class="name-value-pair">
-        <span class="gray-text">Application Status</span>
-        <span>Pre-Approval Form Approved</span>
+      <div class="name-value-pair mt-2">
+        <span class="gray-text">Bilkent ID Number</span>
+        <span>{{ this.userName }}</span>
       </div>
       <div class="name-value-pair mt-2">
         <span class="gray-text">Exchange School</span>
@@ -80,18 +72,18 @@
         </button>
       </div>
       <div class="info-card-element ml-3 mr-3 mt-5">
-        <span class="gray-text">Name Surname</span>
-        <span>Berk Çakar</span>
+        <span class="gray-text">Full Name</span>
+        <span>{{ this.fullName }}</span>
       </div>
       <mat-divider></mat-divider>
       <div class="info-card-element ml-3 mr-3 mt-3">
         <span class="gray-text">Bilkent ID Number</span>
-        <span>22003021</span>
+        <span>{{ this.userName }}</span>
       </div>
       <mat-divider></mat-divider>
       <div class="info-card-element ml-3 mr-3 mt-3">
         <span class="gray-text">Email</span>
-        <span>berk.cakar@ug.bilkent.edu.tr</span>
+        <span>{{ this.email }}</span>
       </div>
       <mat-divider></mat-divider>
       <div class="info-card-element ml-3 mr-3 mt-3">
@@ -117,11 +109,6 @@
       <div class="info-card-element ml-3 mr-3 mt-3">
         <span class="gray-text">Placed Exchange School</span>
         <span>Kingston University</span>
-      </div>
-      <mat-divider></mat-divider>
-      <div class="info-card-element ml-3 mr-3 mt-3">
-        <span class="gray-text">Extra Language Proficiency</span>
-        <span>German-B1</span>
       </div>
     </div>
   </div>

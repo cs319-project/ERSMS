@@ -18,6 +18,7 @@
     </button>
 
     <button
+      *ngIf="this.role === actorsEnum.Student"
       mat-icon-button
       routerLink="/profile"
       style="
@@ -26,9 +27,19 @@
         background-position: center;
       "
       class="m-2"></button>
+    <button
+      *ngIf="this.role !== actorsEnum.Student"
+      mat-icon-button
+      style="
+        background-image: url('../assets/images/doggy.jpg');
+        background-size: cover;
+        background-position: center;
+      "
+      class="m-2"
+      disabled></button>
     <div class="username">
       <span
-        ><strong>{{ name }}</strong>
+        ><b>{{ name }}</b>
       </span>
       <span>{{ this.role === actorsEnum.OISEP ? "OISEP" : role }}</span>
     </div>
