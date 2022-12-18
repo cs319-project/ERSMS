@@ -43,9 +43,9 @@ namespace Backend.Data
             return await _context.Students.FirstOrDefaultAsync(x => x.AppUserId == id);
         }
 
-        /// <summary>Gets a student by their user name.</summary>
-        /// <param name="userName">The user name of the student.</param>
-        /// <returns>The student with the specified user name.</returns>
+        /// <summary>Gets a student by their username.</summary>
+        /// <param name="userName">The username of the student.</param>
+        /// <returns>The student with the specified username.</returns>
         public async Task<Student> GetStudentByUserName(string userName)
         {
             return await _context.Students.FirstOrDefaultAsync(x => x.IdentityUser.UserName == userName);
@@ -233,7 +233,7 @@ namespace Backend.Data
             }
         }
 
-        /// <summary>Gets the exchange coordinator by user name.</summary>
+        /// <summary>Gets the exchange coordinator by username.</summary>
         /// <param name="username">The username.</param>
         /// <returns>The exchange coordinator.</returns>
         public async Task<ExchangeCoordinator> GetExchangeCoordinatorByUserName(string username)

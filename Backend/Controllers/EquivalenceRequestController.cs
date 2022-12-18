@@ -199,7 +199,7 @@ namespace Backend.Controllers
         }
 
         /// <summary>Retrieves the archived equivalence requests for a department.</summary>
-        /// <param name="userName">The user name of the coordinator.</param>
+        /// <param name="userName">The username of the coordinator.</param>
         /// <returns>The archived equivalence requests for the department.</returns>
         [HttpGet("archived/department/{userName}")]
         public async Task<ActionResult<IEnumerable<EquivalenceRequestDto>>> GetArchivedEquivalenceRequestsByDepartment(string userName)
@@ -213,7 +213,7 @@ namespace Backend.Controllers
         }
 
         /// <summary>Gets non-archived equivalence requests by department.</summary>
-        /// <param name="userName">The user name.</param>
+        /// <param name="userName">The username.</param>
         /// <returns>The non-archived equivalence requests by department.</returns>
         [HttpGet("nonarchived/department/{userName}")]
         public async Task<ActionResult<IEnumerable<EquivalenceRequestDto>>> GetNonArchivedEquivalenceRequestsByDepartment(string userName)

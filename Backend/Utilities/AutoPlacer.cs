@@ -10,7 +10,6 @@ namespace Backend.Utilities
     /// It initiates a school which is given in the placement table (exchange score table).
     /// </para>
     /// </summary>
-    /// </remarks>
     public class SchoolInfo
     {
         public string Name;

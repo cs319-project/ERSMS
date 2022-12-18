@@ -346,7 +346,7 @@ namespace Backend.Services
         }
 
         /// <summary>Retrieves the CTE forms by department.</summary>
-        /// <param name="userName">The user name of the exchange coordinator.</param>
+        /// <param name="userName">The username of the exchange coordinator.</param>
         /// <returns>The CTE forms by department.</returns>
         public async Task<ICollection<CTEFormDto>> GetCTEFormsByDepartment(string userName)
         {
@@ -567,7 +567,7 @@ namespace Backend.Services
         }
 
         /// <summary>Retrieves all non-archived CTE forms for the dean.</summary>
-        /// <param name="userName">The user name of the dean.</param>
+        /// <param name="userName">The username of the dean.</param>
         /// <returns>A collection of CTE forms for the dean.</returns>
         public async Task<ICollection<CTEFormDto>> GetNonArchivedCTEFormsByFacultyForDean(string userName)
         {
@@ -590,7 +590,7 @@ namespace Backend.Services
         }
 
         /// <summary>Retrieves the archived CTE forms by faculty for the dean.</summary>
-        /// <param name="userName">The user name of the dean.</param>
+        /// <param name="userName">The username of the dean.</param>
         /// <returns>The archived CTE forms by faculty for the dean.</returns>
         public async Task<ICollection<CTEFormDto>> GetArchivedCTEFormsByFacultyForDean(string userName)
         {
@@ -613,7 +613,7 @@ namespace Backend.Services
         }
 
         /// <summary>Retrieves the non-archived CTE forms for the department chair.</summary>
-        /// <param name="userName">The user name of the department chair.</param>
+        /// <param name="userName">The username of the department chair.</param>
         /// <returns>The non-archived CTE forms for the department chair.</returns>
         public async Task<ICollection<CTEFormDto>> GetNonArchivedCTEFormsByDepartmentForChair(string userName)
         {
@@ -637,7 +637,7 @@ namespace Backend.Services
 
 
         /// <summary>Retrieves the archived CTE forms for the department chair.</summary>
-        /// <param name="userName">The user name of the department chair.</param>
+        /// <param name="userName">The username of the department chair.</param>
         /// <returns>The archived CTE forms for the department chair.</returns>
         public async Task<ICollection<CTEFormDto>> GetArchivedCTEFormsByDepartmentForChair(string userName)
         {

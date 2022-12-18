@@ -38,7 +38,6 @@ namespace Backend.Controllers
         /// <summary>Gets an announcement.</summary>
         /// <param name="id">The announcement's ID.</param>
         /// <returns>The announcement.</returns>
-        /// <exception cref="NotFoundException">Thrown when the announcement is not found.</exception>
         [HttpGet("{id}")]
         public async Task<ActionResult<AnnouncementDto>> GetAnnouncement(Guid id)
         {
@@ -54,7 +53,7 @@ namespace Backend.Controllers
 
         /// <summary>Adds an announcement to the database.</summary>
         /// <param name="announcement">The announcement to add.</param>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <returns>Returns the result of the add announcement operation.</returns>
         [HttpPost]
         public async Task<ActionResult> AddAnnouncement(AnnouncementDto announcement)
         {

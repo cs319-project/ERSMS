@@ -113,7 +113,6 @@ namespace Backend.Controllers
         /// <summary>Cancels a CTE Form.</summary>
         /// <param name="id">The ID of the CTE Form to cancel.</param>
         /// <returns>The canceled CTE Form.</returns>
-        /// <exception cref="NotFoundException">Thrown when the CTE Form is not found.</exception>
         [HttpDelete("{id}")]
         public async Task<ActionResult<CTEFormDto>> CancelCTEForm(Guid id)
         {
@@ -169,7 +168,7 @@ namespace Backend.Controllers
         }
 
         /// <summary>Gets all archived CTE Forms of a Student.</summary>
-        /// <param name="userName">The user name of the Student.</param>
+        /// <param name="userName">The username of the Student.</param>
         /// <returns>The archived CTE Forms of the Student.</returns>
         [HttpGet("archived/department/{userName}")]
         public async Task<ActionResult<IEnumerable<CTEFormDto>>> GetArchivedCTEFormsByDepartment(string userName)
@@ -196,7 +195,7 @@ namespace Backend.Controllers
         }
 
         /// <summary>Gets all non-archived CTE Forms of a Student.</summary>
-        /// <param name="userName">The user name of the Student.</param>
+        /// <param name="userName">The username of the Student.</param>
         /// <returns>A list of non-archived CTE Forms of the Student.</returns>
         [HttpGet("nonarchived/department/{userName}")]
         public async Task<ActionResult<IEnumerable<CTEFormDto>>> GetNonArchivedCTEFormsByDepartment(string userName)
@@ -210,7 +209,7 @@ namespace Backend.Controllers
         }
 
         /// <summary>Gets all non-archived CTE Forms for a Chair.</summary>
-        /// <param name="userName">The user name of the Chair.</param>
+        /// <param name="userName">The username of the Chair.</param>
         /// <returns>A list of non-archived CTE Forms for a Chair.</returns>
         [HttpGet("nonarchived/department/chair/{userName}")]
         public async Task<ActionResult<IEnumerable<CTEFormDto>>> GetNonArchivedCTEFormsByDepartmentForChair(string userName)
@@ -231,7 +230,7 @@ namespace Backend.Controllers
         }
 
         /// <summary>Gets all archived CTE Forms for a Chair.</summary>
-        /// <param name="userName">The user name of the Chair.</param>
+        /// <param name="userName">The username of the Chair.</param>
         /// <returns>A list of archived CTE Forms for a Chair.</returns>
         [HttpGet("archived/department/chair/{userName}")]
         public async Task<ActionResult<IEnumerable<CTEFormDto>>> GetArchivedCTEFormsByDepartmentForChair(string userName)
@@ -252,7 +251,7 @@ namespace Backend.Controllers
         }
 
         /// <summary>Gets all non-archived CTE Forms by a Faculty.</summary>
-        /// <param name="userName">The user name of the Dean.</param>
+        /// <param name="userName">The username of the Dean.</param>
         /// <returns>A list of non-archived CTE Forms of the Faculty.</returns>
         [HttpGet("nonarchived/faculty/{userName}")]
         public async Task<ActionResult<IEnumerable<CTEFormDto>>> GetNonArchivedCTEFormsByFacultyForDean(string userName)
@@ -273,7 +272,7 @@ namespace Backend.Controllers
         }
 
         /// <summary>Gets all rchived CTE Forms by a Faculty.</summary>
-        /// <param name="userName">The user name of the Dean.</param>
+        /// <param name="userName">The username of the Dean.</param>
         /// <returns>A list of archived CTE Forms of the Faculty.</returns>
         [HttpGet("archived/faculty/{userName}")]
         public async Task<ActionResult<IEnumerable<CTEFormDto>>> GetArchivedCTEFormsByFacultyForDean(string userName)
@@ -294,7 +293,7 @@ namespace Backend.Controllers
         }
 
         /// <summary>Gets all CTE forms for a given department.</summary>
-        /// <param name="userName">The user name of the department.</param>
+        /// <param name="userName">The username of the department.</param>
         /// <returns>All CTE forms for the department.</returns>
         [HttpGet("department/{userName}")]
         public async Task<ActionResult<IEnumerable<CTEFormDto>>> GetCTEFormsByDepartment(string userName)

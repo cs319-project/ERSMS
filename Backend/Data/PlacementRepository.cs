@@ -88,7 +88,7 @@ namespace Backend.Data
         }
 
         /// <summary>Gets a placed student.</summary>
-        /// <param name="studentId">The student id.</param>
+        /// <param name="studentId">The student ID.</param>
         /// <returns>The placed student.</returns>
         public async Task<PlacedStudent> GetPlacedStudent(String studentId)
         {

@@ -112,8 +112,8 @@ namespace Backend.Services
         }
 
         /// <summary>Gets the message thread between two users.</summary>
-        /// <param name="currentUserName">The current user name.</param>
-        /// <param name="recipientUserName">The recipient user name.</param>
+        /// <param name="currentUserName">The current username.</param>
+        /// <param name="recipientUserName">The recipient username.</param>
         /// <returns>The message thread between two users.</returns>
         public async Task<IEnumerable<MessageDto>> GetMessageThreadOneWay(string currentUserName, string recipientUserName)
         {

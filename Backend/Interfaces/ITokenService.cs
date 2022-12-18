@@ -1,6 +1,6 @@
 using Backend.Entities;
 
-namespace Backend.Services
+namespace Backend.Interfaces
 {
     /// <summary>An interface for the JWT token service.</summary>
     public interface ITokenService

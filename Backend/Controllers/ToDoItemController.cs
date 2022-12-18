@@ -26,7 +26,7 @@ namespace Backend.Controllers
         // Endpoints
 
         /// <summary>Adds a new to-do item.</summary>
-        /// <param name="userName">The user name.</param>
+        /// <param name="userName">The username.</param>
         /// <param name="toDoItem">The to-do item.</param>
         /// <returns>The added to-do item.</returns>
         /// <exception cref="ToDoListException">Thrown when the to-do item could not be added.</exception>
@@ -50,7 +50,6 @@ namespace Backend.Controllers
         /// <summary>Updates a to-do item.</summary>
         /// <param name="toDoItem">The to-do item to update.</param>
         /// <returns>The updated to-do item.</returns>
-        /// <exception cref="HttpResponseException">Thrown when the to-do item failed to update.</exception>
         [HttpPut]
         public async Task<ActionResult<ToDoItemDto>> UpdateToDoItem(ToDoItemDto toDoItem)
         {
@@ -72,7 +71,6 @@ namespace Backend.Controllers
         /// <summary>Deletes a to-do item.</summary>
         /// <param name="id">The ID of the to-do item to delete.</param>
         /// <returns>The deleted to-do item.</returns>
-        /// <exception cref="NotFoundException">Thrown when the to-do item is not found.</exception>
         [HttpDelete("{id}")]
         public async Task<ActionResult<ToDoItemDto>> DeleteToDoItem(Guid id)
         {
@@ -173,10 +171,8 @@ namespace Backend.Controllers
         }
 
         /// <summary>Gets the to-do list for an exchange coordinator.</summary>
-        /// <param name="userName">The user name of the exchange coordinator.</param>
+        /// <param name="userName">The username of the exchange coordinator.</param>
         /// <returns>The to-do list for the exchange coordinator.</returns>
-        /// <exception cref="NotFoundException">Thrown when the coordinator is not found.</exception>
-        /// <exception cref="BadRequestException">Thrown when the coordinator does not have a to-do list.</exception>
         [HttpGet("coordinatorToDoList/{userName}")]
         public async Task<ActionResult<IEnumerable<ToDoItemDto>>> GetCoordinatorToDoList(string userName)
         {
@@ -195,10 +191,8 @@ namespace Backend.Controllers
         }
 
         /// <summary>Gets the to-do list for a student.</summary>
-        /// <param name="userName">The user name of the student.</param>
+        /// <param name="userName">The username of the student.</param>
         /// <returns>The to-do list for the student.</returns>
-        /// <exception cref="NotFoundException">Thrown when the student is not found.</exception>
-        /// <exception cref="BadRequestException">Thrown when the student does not have a to-do list.</exception>
         [HttpGet("studentToDoList/{userName}")]
         public async Task<ActionResult<IEnumerable<ToDoItemDto>>> GetStudentToDoList(string userName)
         {

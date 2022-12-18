@@ -214,7 +214,7 @@ namespace Backend.Services
         }
 
         /// <summary>Gets the dean of the department.</summary>
-        /// <param name="userName">The user name of the dean.</param>
+        /// <param name="userName">The username of the dean.</param>
         /// <returns>The dean of the department.</returns>
         public async Task<DeanDepartmentChairDto> GetDean(string userName)
         {
@@ -230,7 +230,7 @@ namespace Backend.Services
         }
 
         /// <summary>Gets the department chair of the user.</summary>
-        /// <param name="userName">The user name.</param>
+        /// <param name="userName">The username.</param>
         /// <returns>The department chair of the user.</returns>
         public async Task<DeanDepartmentChairDto> GetDepartmentChair(string userName)
         {

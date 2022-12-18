@@ -19,7 +19,7 @@ namespace Backend.Data
         }
 
         /// <summary>Adds a to-do item to the current user's to-do list.</summary>
-        /// <param name="userName">The user name of the current user.</param>
+        /// <param name="userName">The username of the current user.</param>
         /// <param name="toDoItem">The to-do item to add.</param>
         /// <returns>Whether the to-do item was added successfully.</returns>
         public async Task<bool> AddToDoItem(string userName, ToDoItem toDoItem)

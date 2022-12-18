@@ -21,7 +21,7 @@ namespace Backend.Controllers
         // Endpoints
 
         /// <summary>Gets the notifications for the specified user.</summary>
-        /// <param name="userId">The user's id.</param>
+        /// <param name="userId">The user's ID.</param>
         /// <param name="unread">Whether to get only unread notifications.</param>
         /// <returns>The notifications for the specified user.</returns>
         [HttpGet("{userId}")]

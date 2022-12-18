@@ -25,7 +25,7 @@ namespace Backend.Services
         }
 
         /// <summary>Adds a new to-do item to the database.</summary>
-        /// <param name="userName">The user name.</param>
+        /// <param name="userName">The username.</param>
         /// <param name="toDoItem">The to-do item to add.</param>
         /// <returns>Whether the operation was successful.</returns>
         public async Task<bool> AddToDoItem(string userName, ToDoItemDto toDoItem)

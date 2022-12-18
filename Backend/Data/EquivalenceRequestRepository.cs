@@ -18,7 +18,7 @@ namespace Backend.Data
         }
 
         /// <summary>Adds an equivalence request to a student.</summary>
-        /// <param name="userName">The user name of the student.</param>
+        /// <param name="userName">The username of the student.</param>
         /// <param name="equivalenceRequest">The equivalence request to add.</param>
         /// <returns>True if the request was added successfully, false otherwise.</returns>
         public async Task<bool> AddEquivalenceRequestToStudent(string userName, EquivalenceRequest equivalenceRequest)

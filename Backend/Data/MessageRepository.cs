@@ -62,8 +62,8 @@ namespace Backend.Data
         }
 
         /// <summary>Gets a message thread.</summary>
-        /// <param name="senderUserName">The sender's user name.</param>
-        /// <param name="recipientUserName">The recipient's user name.</param>
+        /// <param name="senderUserName">The sender's username.</param>
+        /// <param name="recipientUserName">The recipient's username.</param>
         /// <returns>The message thread.</returns>
         public async Task<IEnumerable<MessageDto>> GetMessageThreadOneWay(string senderUserName, string recipientUserName)
         {

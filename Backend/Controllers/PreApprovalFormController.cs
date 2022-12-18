@@ -123,7 +123,6 @@ namespace Backend.Controllers
         /// <summary>Deletes a Pre-Approval Form.</summary>
         /// <param name="id">The ID of the Pre-Approval Form to delete.</param>
         /// <returns>The deleted Pre-Approval Form.</returns>
-        /// <exception cref="NotFoundException">Thrown when the Pre-Approval Form is not found.</exception>
         [HttpDelete("{id}")]
         public async Task<ActionResult<PreApprovalFormDto>> DeletePreApprovalForm(Guid id)
         {
@@ -169,7 +168,7 @@ namespace Backend.Controllers
         }
 
         /// <summary>Retrieves the archived pre-approval forms by department.</summary>
-        /// <param name="userName">The user name.</param>
+        /// <param name="userName">The username.</param>
         /// <returns>The archived pre-approval forms by department.</returns>
         [HttpGet("archived/department/{userName}")]
         public async Task<ActionResult<IEnumerable<PreApprovalFormDto>>> GetArchivedPreApprovalFormsByDepartment(string userName)
@@ -196,7 +195,7 @@ namespace Backend.Controllers
         }
 
         /// <summary>Gets all non-archived pre-approval forms for a department.</summary>
-        /// <param name="userName">The user name of the department.</param>
+        /// <param name="userName">The username of the department.</param>
         /// <returns>The non-archived pre-approval forms for the department.</returns>
         [HttpGet("nonarchived/department/{userName}")]
         public async Task<ActionResult<IEnumerable<PreApprovalFormDto>>> GetNonArchivedPreApprovalFormsByDepartment(string userName)
@@ -224,7 +223,7 @@ namespace Backend.Controllers
         }
 
         /// <summary>Gets the pre-approval forms by department.</summary>
-        /// <param name="userName">The user name.</param>
+        /// <param name="userName">The username.</param>
         /// <returns>The pre-approval forms by department.</returns>
         [HttpGet("department/{userName}")]
         public async Task<ActionResult<IEnumerable<PreApprovalFormDto>>> GetPreApprovalFormsByDepartment(string userName)

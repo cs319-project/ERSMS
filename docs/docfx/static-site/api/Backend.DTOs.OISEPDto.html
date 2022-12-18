@@ -1,0 +1,743 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class OISEPDto
+   | ERSMS API Source Code Documentation </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class OISEPDto
+   | ERSMS API Source Code Documentation ">
+    <meta name="generator" content="docfx 2.59.2.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc">
+    <meta property="docfx:tocrel" content="toc">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+                
+                <ul class="nav level1 navbar-nav">
+                      <li>
+                          <a href="../api/index.html" title="Api Documentation">Api Documentation</a>
+                      </li>
+                </ul>    </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div>
+              <div class="sidefilter">
+                <form class="toc-filter">
+                  <span class="glyphicon glyphicon-filter filter-icon"></span>
+                  <input type="text" id="toc_filter_input" placeholder="Enter here to filter..." onkeypress="if(event.keyCode==13) {return false;}">
+                </form>
+              </div>
+              <div class="sidetoc">
+                <div class="toc" id="toc">
+                  
+                  <ul class="nav level1">
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Backend.html" title="Backend" class="">Backend</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Backend.Program.html" title="Program" class="">Program</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Startup.html" title="Startup" class="">Startup</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Backend.Controllers.html" title="Backend.Controllers" class="">Backend.Controllers</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Backend.Controllers.AnnouncementController.html" title="AnnouncementController" class="">AnnouncementController</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Controllers.AuthenticationController.html" title="AuthenticationController" class="">AuthenticationController</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Controllers.BaseApiController.html" title="BaseApiController" class="">BaseApiController</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Controllers.CTEFormController.html" title="CTEFormController" class="">CTEFormController</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Controllers.EquivalenceRequestController.html" title="EquivalenceRequestController" class="">EquivalenceRequestController</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Controllers.LoggedCourseController.html" title="LoggedCourseController" class="">LoggedCourseController</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Controllers.MessageController.html" title="MessageController" class="">MessageController</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Controllers.NotificationController.html" title="NotificationController" class="">NotificationController</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Controllers.PlacementController.html" title="PlacementController" class="">PlacementController</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Controllers.PreApprovalFormController.html" title="PreApprovalFormController" class="">PreApprovalFormController</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Controllers.ToDoItemController.html" title="ToDoItemController" class="">ToDoItemController</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Controllers.UserController.html" title="UserController" class="">UserController</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Backend.Data.html" title="Backend.Data" class="">Backend.Data</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Backend.Data.AnnouncementRepository.html" title="AnnouncementRepository" class="">AnnouncementRepository</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.CTEFormRepository.html" title="CTEFormRepository" class="">CTEFormRepository</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.DataContext.html" title="DataContext" class="">DataContext</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.EquivalenceRequestRepository.html" title="EquivalenceRequestRepository" class="">EquivalenceRequestRepository</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.LoggedCourseRepository.html" title="LoggedCourseRepository" class="">LoggedCourseRepository</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.MessageRepository.html" title="MessageRepository" class="">MessageRepository</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.NotificationRepository.html" title="NotificationRepository" class="">NotificationRepository</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.PlacementRepository.html" title="PlacementRepository" class="">PlacementRepository</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.PreApprovalFormRepository.html" title="PreApprovalFormRepository" class="">PreApprovalFormRepository</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.ToDoItemRepository.html" title="ToDoItemRepository" class="">ToDoItemRepository</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.UserRepository.html" title="UserRepository" class="">UserRepository</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Backend.Data.Migrations.html" title="Backend.Data.Migrations" class="">Backend.Data.Migrations</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Backend.Data.Migrations.InitialMigration.html" title="InitialMigration" class="">InitialMigration</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Backend.Data.Profiles.html" title="Backend.Data.Profiles" class="">Backend.Data.Profiles</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Backend.Data.Profiles.AdminProfile.html" title="AdminProfile" class="">AdminProfile</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.Profiles.AnnouncementProfile.html" title="AnnouncementProfile" class="">AnnouncementProfile</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.Profiles.ApprovalProfile.html" title="ApprovalProfile" class="">ApprovalProfile</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.Profiles.CourseCoordinatorInstructorProfile.html" title="CourseCoordinatorInstructorProfile" class="">CourseCoordinatorInstructorProfile</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.Profiles.CourseProfile.html" title="CourseProfile" class="">CourseProfile</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.Profiles.CTEFormProfile.html" title="CTEFormProfile" class="">CTEFormProfile</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.Profiles.DeanDepartmentChairProfile.html" title="DeanDepartmentChairProfile" class="">DeanDepartmentChairProfile</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.Profiles.DepartmentInfoProfile.html" title="DepartmentInfoProfile" class="">DepartmentInfoProfile</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.Profiles.DomainUserProfile.html" title="DomainUserProfile" class="">DomainUserProfile</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.Profiles.EquivalenceRequestProfile.html" title="EquivalenceRequestProfile" class="">EquivalenceRequestProfile</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.Profiles.ExampleProfile.html" title="ExampleProfile" class="">ExampleProfile</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.Profiles.ExchangeCoordinatorProfile.html" title="ExchangeCoordinatorProfile" class="">ExchangeCoordinatorProfile</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.Profiles.LoggedEquivalentCourseProfile.html" title="LoggedEquivalentCourseProfile" class="">LoggedEquivalentCourseProfile</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.Profiles.LoggedTransferredCourseProfile.html" title="LoggedTransferredCourseProfile" class="">LoggedTransferredCourseProfile</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.Profiles.MessageProfile.html" title="MessageProfile" class="">MessageProfile</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.Profiles.NotificationProfile.html" title="NotificationProfile" class="">NotificationProfile</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.Profiles.OISEPProfile.html" title="OISEPProfile" class="">OISEPProfile</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.Profiles.PlacedStudentProfile.html" title="PlacedStudentProfile" class="">PlacedStudentProfile</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.Profiles.PlacementTableProfile.html" title="PlacementTableProfile" class="">PlacementTableProfile</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.Profiles.PreApprovalFormProfile.html" title="PreApprovalFormProfile" class="">PreApprovalFormProfile</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.Profiles.RequestedCourseGroupProfile.html" title="RequestedCourseGroupProfile" class="">RequestedCourseGroupProfile</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.Profiles.RequestedCourseProfile.html" title="RequestedCourseProfile" class="">RequestedCourseProfile</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.Profiles.StudentProfile.html" title="StudentProfile" class="">StudentProfile</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.Profiles.ToDoItemProfile.html" title="ToDoItemProfile" class="">ToDoItemProfile</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.Profiles.TransferredCourseGroupProfile.html" title="TransferredCourseGroupProfile" class="">TransferredCourseGroupProfile</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Data.Profiles.TransferredCourseProfile.html" title="TransferredCourseProfile" class="">TransferredCourseProfile</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Backend.DataAnnotations.html" title="Backend.DataAnnotations" class="">Backend.DataAnnotations</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Backend.DataAnnotations.BilkentMailAttribute.html" title="BilkentMailAttribute" class="">BilkentMailAttribute</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.DataAnnotations.UserNameAttribute.html" title="UserNameAttribute" class="">UserNameAttribute</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Backend.DTOs.html" title="Backend.DTOs" class="">Backend.DTOs</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Backend.DTOs.AdminDto.html" title="AdminDto" class="">AdminDto</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.DTOs.AnnouncementDto.html" title="AnnouncementDto" class="">AnnouncementDto</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.DTOs.ApprovalDto.html" title="ApprovalDto" class="">ApprovalDto</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.DTOs.AppUserDto.html" title="AppUserDto" class="">AppUserDto</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.DTOs.AuthenticationResultDto.html" title="AuthenticationResultDto" class="">AuthenticationResultDto</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.DTOs.CourseCoordinatorInstructorDto.html" title="CourseCoordinatorInstructorDto" class="">CourseCoordinatorInstructorDto</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.DTOs.CourseDto.html" title="CourseDto" class="">CourseDto</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.DTOs.CreateMessageDto.html" title="CreateMessageDto" class="">CreateMessageDto</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.DTOs.CTEFormDto.html" title="CTEFormDto" class="">CTEFormDto</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.DTOs.DeanDepartmentChairDto.html" title="DeanDepartmentChairDto" class="">DeanDepartmentChairDto</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.DTOs.DepartmentInfoDto.html" title="DepartmentInfoDto" class="">DepartmentInfoDto</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.DTOs.DomainUserDto.html" title="DomainUserDto" class="">DomainUserDto</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.DTOs.EquivalenceRequestDto.html" title="EquivalenceRequestDto" class="">EquivalenceRequestDto</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.DTOs.ExchangeCoordinatorDto.html" title="ExchangeCoordinatorDto" class="">ExchangeCoordinatorDto</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.DTOs.ExemptedCourseDto.html" title="ExemptedCourseDto" class="">ExemptedCourseDto</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.DTOs.LoggedCourseDto.html" title="LoggedCourseDto" class="">LoggedCourseDto</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.DTOs.LoggedEquivalentCourseDto.html" title="LoggedEquivalentCourseDto" class="">LoggedEquivalentCourseDto</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.DTOs.LoggedTransferredCourseDto.html" title="LoggedTransferredCourseDto" class="">LoggedTransferredCourseDto</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.DTOs.LoginDto.html" title="LoginDto" class="">LoginDto</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.DTOs.MessageDto.html" title="MessageDto" class="">MessageDto</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.DTOs.NotificationDto.html" title="NotificationDto" class="">NotificationDto</a>
+                          </li>
+                          <li class="active">
+                            <a href="Backend.DTOs.OISEPDto.html" title="OISEPDto" class="active">OISEPDto</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.DTOs.PlacedStudentDto.html" title="PlacedStudentDto" class="">PlacedStudentDto</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.DTOs.PlacementTableDto.html" title="PlacementTableDto" class="">PlacementTableDto</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.DTOs.PreApprovalFormDto.html" title="PreApprovalFormDto" class="">PreApprovalFormDto</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.DTOs.RegisterDto.html" title="RegisterDto" class="">RegisterDto</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.DTOs.RequestedCourseDto.html" title="RequestedCourseDto" class="">RequestedCourseDto</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.DTOs.RequestedCourseGroupDto.html" title="RequestedCourseGroupDto" class="">RequestedCourseGroupDto</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.DTOs.SemesterInfoDto.html" title="SemesterInfoDto" class="">SemesterInfoDto</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.DTOs.StudentDto.html" title="StudentDto" class="">StudentDto</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.DTOs.ToDoItemDto.html" title="ToDoItemDto" class="">ToDoItemDto</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.DTOs.TransferredCourseDto.html" title="TransferredCourseDto" class="">TransferredCourseDto</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.DTOs.TransferredCourseGroupDto.html" title="TransferredCourseGroupDto" class="">TransferredCourseGroupDto</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Backend.Entities.html" title="Backend.Entities" class="">Backend.Entities</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Backend.Entities.Admin.html" title="Admin" class="">Admin</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Entities.Announcement.html" title="Announcement" class="">Announcement</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Entities.Approval.html" title="Approval" class="">Approval</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Entities.AppUser.html" title="AppUser" class="">AppUser</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Entities.Course.html" title="Course" class="">Course</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Entities.CourseCoordinatorInstructor.html" title="CourseCoordinatorInstructor" class="">CourseCoordinatorInstructor</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Entities.CTEForm.html" title="CTEForm" class="">CTEForm</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Entities.DeanDepartmentChair.html" title="DeanDepartmentChair" class="">DeanDepartmentChair</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Entities.DepartmentInfo.html" title="DepartmentInfo" class="">DepartmentInfo</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Entities.DomainUser.html" title="DomainUser" class="">DomainUser</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Entities.EquivalenceRequest.html" title="EquivalenceRequest" class="">EquivalenceRequest</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Entities.ExchangeCoordinator.html" title="ExchangeCoordinator" class="">ExchangeCoordinator</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Entities.ExemptedCourse.html" title="ExemptedCourse" class="">ExemptedCourse</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Entities.Form.html" title="Form" class="">Form</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Entities.LoggedCourse.html" title="LoggedCourse" class="">LoggedCourse</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Entities.LoggedEquivalentCourse.html" title="LoggedEquivalentCourse" class="">LoggedEquivalentCourse</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Entities.LoggedTransferredCourse.html" title="LoggedTransferredCourse" class="">LoggedTransferredCourse</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Entities.Message.html" title="Message" class="">Message</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Entities.Notification.html" title="Notification" class="">Notification</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Entities.OISEP.html" title="OISEP" class="">OISEP</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Entities.PlacedStudent.html" title="PlacedStudent" class="">PlacedStudent</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Entities.PlacementTable.html" title="PlacementTable" class="">PlacementTable</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Entities.PreApprovalForm.html" title="PreApprovalForm" class="">PreApprovalForm</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Entities.RequestedCourse.html" title="RequestedCourse" class="">RequestedCourse</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Entities.RequestedCourseGroup.html" title="RequestedCourseGroup" class="">RequestedCourseGroup</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Entities.Role.html" title="Role" class="">Role</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Entities.SemesterInfo.html" title="SemesterInfo" class="">SemesterInfo</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Entities.Student.html" title="Student" class="">Student</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Entities.ToDoItem.html" title="ToDoItem" class="">ToDoItem</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Entities.TransferredCourse.html" title="TransferredCourse" class="">TransferredCourse</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Entities.TransferredCourseGroup.html" title="TransferredCourseGroup" class="">TransferredCourseGroup</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Backend.Entities.Exceptions.html" title="Backend.Entities.Exceptions" class="">Backend.Entities.Exceptions</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Backend.Entities.Exceptions.ToDoListException.html" title="ToDoListException" class="">ToDoListException</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Backend.Interfaces.html" title="Backend.Interfaces" class="">Backend.Interfaces</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Backend.Interfaces.IAnnouncementRepository.html" title="IAnnouncementRepository" class="">IAnnouncementRepository</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Interfaces.IAnnouncementService.html" title="IAnnouncementService" class="">IAnnouncementService</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Interfaces.IAuthenticationService.html" title="IAuthenticationService" class="">IAuthenticationService</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Interfaces.ICTEFormRepository.html" title="ICTEFormRepository" class="">ICTEFormRepository</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Interfaces.ICTEFormService.html" title="ICTEFormService" class="">ICTEFormService</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Interfaces.IEquivalenceRequestRepository.html" title="IEquivalenceRequestRepository" class="">IEquivalenceRequestRepository</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Interfaces.IEquivalenceRequestService.html" title="IEquivalenceRequestService" class="">IEquivalenceRequestService</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Interfaces.ILoggedCourseRepository.html" title="ILoggedCourseRepository" class="">ILoggedCourseRepository</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Interfaces.ILoggedCourseService.html" title="ILoggedCourseService" class="">ILoggedCourseService</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Interfaces.IMessageRepository.html" title="IMessageRepository" class="">IMessageRepository</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Interfaces.IMessageService.html" title="IMessageService" class="">IMessageService</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Interfaces.INotificationRepository.html" title="INotificationRepository" class="">INotificationRepository</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Interfaces.INotificationService.html" title="INotificationService" class="">INotificationService</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Interfaces.IPlacementRepository.html" title="IPlacementRepository" class="">IPlacementRepository</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Interfaces.IPlacementService.html" title="IPlacementService" class="">IPlacementService</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Interfaces.IPreApprovalFormRepository.html" title="IPreApprovalFormRepository" class="">IPreApprovalFormRepository</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Interfaces.IPreApprovalFormService.html" title="IPreApprovalFormService" class="">IPreApprovalFormService</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Interfaces.IToDoItemRepository.html" title="IToDoItemRepository" class="">IToDoItemRepository</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Interfaces.IToDoItemService.html" title="IToDoItemService" class="">IToDoItemService</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Interfaces.ITokenService.html" title="ITokenService" class="">ITokenService</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Interfaces.IUserRepository.html" title="IUserRepository" class="">IUserRepository</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Interfaces.IUserService.html" title="IUserService" class="">IUserService</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Backend.Services.html" title="Backend.Services" class="">Backend.Services</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Backend.Services.AnnouncementService.html" title="AnnouncementService" class="">AnnouncementService</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Services.AuthenticationService.html" title="AuthenticationService" class="">AuthenticationService</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Services.CTEFormService.html" title="CTEFormService" class="">CTEFormService</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Services.DataContextService.html" title="DataContextService" class="">DataContextService</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Services.EquivalenceRequestService.html" title="EquivalenceRequestService" class="">EquivalenceRequestService</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Services.LoggedCourseService.html" title="LoggedCourseService" class="">LoggedCourseService</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Services.MessageService.html" title="MessageService" class="">MessageService</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Services.NotificationService.html" title="NotificationService" class="">NotificationService</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Services.PlacementService.html" title="PlacementService" class="">PlacementService</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Services.PreApprovalFormService.html" title="PreApprovalFormService" class="">PreApprovalFormService</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Services.ToDoItemService.html" title="ToDoItemService" class="">ToDoItemService</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Services.TokenService.html" title="TokenService" class="">TokenService</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Services.UserService.html" title="UserService" class="">UserService</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Backend.Utilities.html" title="Backend.Utilities" class="">Backend.Utilities</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Backend.Utilities.AutoPlacer.html" title="AutoPlacer" class="">AutoPlacer</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Utilities.BCryptPasswordHasher.html" title="BCryptPasswordHasher" class="">BCryptPasswordHasher</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Utilities.DomainUserFactory.html" title="DomainUserFactory" class="">DomainUserFactory</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Utilities.EnumStringify.html" title="EnumStringify" class="">EnumStringify</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Utilities.Extensions.html" title="Extensions" class="">Extensions</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Utilities.SchoolInfo.html" title="SchoolInfo" class="">SchoolInfo</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Utilities.ToDoListSeeder.html" title="ToDoListSeeder" class="">ToDoListSeeder</a>
+                          </li>
+                        </ul>  </li>
+                    <li class="">
+                      <span class="expand-stub"></span>
+                      <a href="Backend.Utilities.Enum.html" title="Backend.Utilities.Enum" class="">Backend.Utilities.Enum</a>
+                        
+                        <ul class="nav level2">
+                          <li class="">
+                            <a href="Backend.Utilities.Enum.Actors.html" title="Actors" class="">Actors</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Utilities.Enum.CourseTypes.html" title="CourseTypes" class="">CourseTypes</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Utilities.Enum.Department.html" title="Department" class="">Department</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Utilities.Enum.Faculty.html" title="Faculty" class="">Faculty</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Utilities.Enum.FormType.html" title="FormType" class="">FormType</a>
+                          </li>
+                          <li class="">
+                            <a href="Backend.Utilities.Enum.Semester.html" title="Semester" class="">Semester</a>
+                          </li>
+                        </ul>  </li>
+                  </ul>        </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Backend.DTOs.OISEPDto">
+  
+  
+  <h1 id="Backend_DTOs_OISEPDto" data-uid="Backend.DTOs.OISEPDto" class="text-break">Class OISEPDto
+  </h1>
+  <div class="markdown level0 summary"><p>A data transfer object for an OISEP staff.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><a class="xref" href="Backend.DTOs.DomainUserDto.html">DomainUserDto</a></div>
+    <div class="level2"><span class="xref">OISEPDto</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Backend.DTOs.DomainUserDto.html#Backend_DTOs_DomainUserDto_Id">DomainUserDto.Id</a>
+    </div>
+    <div>
+      <a class="xref" href="Backend.DTOs.DomainUserDto.html#Backend_DTOs_DomainUserDto_ActorType">DomainUserDto.ActorType</a>
+    </div>
+    <div>
+      <a class="xref" href="Backend.DTOs.DomainUserDto.html#Backend_DTOs_DomainUserDto_FirstName">DomainUserDto.FirstName</a>
+    </div>
+    <div>
+      <a class="xref" href="Backend.DTOs.DomainUserDto.html#Backend_DTOs_DomainUserDto_LastName">DomainUserDto.LastName</a>
+    </div>
+    <div>
+      <a class="xref" href="Backend.DTOs.DomainUserDto.html#Backend_DTOs_DomainUserDto_IdentityUser">DomainUserDto.IdentityUser</a>
+    </div>
+    <div>
+      <a class="xref" href="Backend.DTOs.DomainUserDto.html#Backend_DTOs_DomainUserDto_MessagesSent">DomainUserDto.MessagesSent</a>
+    </div>
+    <div>
+      <a class="xref" href="Backend.DTOs.DomainUserDto.html#Backend_DTOs_DomainUserDto_MessagesReceived">DomainUserDto.MessagesReceived</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Backend.DTOs.html">Backend.DTOs</a></h6>
+  <h6><strong>Assembly</strong>: Backend.dll</h6>
+  <h5 id="Backend_DTOs_OISEPDto_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class OISEPDto : DomainUserDto</code></pre>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            Bilkent University | CS319 - Object-Oriented Software Engineering Course | 2022-2023 Fall Term Project | Group 1E
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

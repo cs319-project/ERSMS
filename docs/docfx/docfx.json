@@ -1,0 +1,51 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "files": ["**.csproj"],
+          "src": "../../Backend"
+        }
+      ],
+      "dest": "api",
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": ["api/**.yml", "api/index.md"]
+      },
+      {
+        "files": ["articles/**.md", "articles/**/toc.yml", "toc.yml", "*.md"]
+      }
+    ],
+    "resource": [
+      {
+        "files": ["images/**"]
+      }
+    ],
+    "overwrite": [
+      {
+        "files": ["apidoc/**.md"],
+        "exclude": ["obj/**", "static-site/**"]
+      }
+    ],
+    "dest": "static-site",
+    "globalMetadata": {
+      "_disableContribution": true,
+      "_appTitle": "ERSMS API Source Code Documentation",
+      "_appFooter": "Bilkent University | CS319 - Object-Oriented Software Engineering Course | 2022-2023 Fall Term Project | Group 1E"
+    },
+    "globalMetadataFiles": [],
+    "fileMetadataFiles": [],
+    "template": ["statictoc"],
+    "postProcessors": [],
+    "markdownEngineName": "markdig",
+    "noLangKeyword": false,
+    "keepFileLink": false,
+    "cleanupCacheHistory": false,
+    "disableGitFeatures": false
+  }
+}

@@ -9,9 +9,7 @@ namespace Backend.Utilities
     public class DomainUserFactory
     {
         /// <summary>Creates a new user.</summary>
-        /// <param name="actorType">The type of actor.</param>
-        /// <param name="configure">A delegate that configures the user.</param>
-        /// <param name="userName">The user name.</param>
+        /// <param name="register">Register information.</param>
         /// <returns>The new user.</returns>
         public static DomainUser Create(RegisterDto register) =>
             Create(register.ActorType, u =>
@@ -23,7 +21,7 @@ namespace Backend.Utilities
         /// <summary>Creates a new domain user.</summary>
         /// <param name="actorType">The type of actor.</param>
         /// <param name="initializer">The initializer.</param>
-        /// <param name="userName">The user name.</param>
+        /// <param name="userName">The username.</param>
         /// <returns>The domain user.</returns>
         public static DomainUser Create(string actorType, Action<DomainUser> initializer, string userName)
         {

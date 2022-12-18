@@ -79,7 +79,7 @@ namespace Backend.Controllers
         }
 
         /// <summary>Gets the list of messages sent to a user.</summary>
-        /// <param name="userName">The user name.</param>
+        /// <param name="userName">The username.</param>
         /// <returns>The list of messages sent to a user.</returns>
         [HttpGet("userlist/{userName}")]
         public async Task<ActionResult<IEnumerable<MessageDto>>> GetUserList(string userName)
