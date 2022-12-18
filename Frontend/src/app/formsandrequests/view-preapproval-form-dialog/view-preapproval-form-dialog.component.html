@@ -141,7 +141,7 @@
           <div class="approve-info-content">
             <div
               class="approve-info-element"
-              *ngIf="coordinatorStatus !== 'Waiting'">
+              *ngIf="coordinatorStatus !== 'Waiting' && data.preApprovalForm.exchangeCoordinatorApproval != null">
               <span
                 ><b class="mr-2">Name:</b
                 >{{
@@ -149,7 +149,7 @@
                 }}</span
               >
               <span><b class="mr-2">Role:</b>Exchange Coordinator</span>
-              <span *ngIf="coordinatorStatus !== 'Waiting'">
+              <span>
                 <b class="mr-2">Approval Date:</b>
                 {{
                   formatTheDate(
@@ -196,7 +196,8 @@
               vertical
               style="height: 150px"
               class="mr-4 ml-4"></mat-divider>
-            <div class="approve-info-element" *ngIf="boardStatus !== 'Waiting'">
+            <div class="approve-info-element" *ngIf="boardStatus !== 'Waiting' &&
+            data.preApprovalForm.facultyAdministrationBoardApproval != null">
               <span
                 ><b class="mr-2">Name:</b
                 >{{

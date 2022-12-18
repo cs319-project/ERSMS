@@ -140,7 +140,7 @@
           <div class="approve-info-content">
             <div
               class="approve-info-element"
-              *ngIf="coordinatorStatus !== 'Waiting'">
+              *ngIf="coordinatorStatus !== 'Waiting' && data.cteForm.exchangeCoordinatorApproval != null">
               <span
                 ><b class="mr-2">Name:</b
                 >{{ data.cteForm.exchangeCoordinatorApproval.name }}</span
@@ -192,7 +192,7 @@
               vertical
               style="height: 150px"
               class="mr-4 ml-4"></mat-divider>
-            <div class="approve-info-element" *ngIf="deanStatus !== 'Waiting'">
+            <div class="approve-info-element" *ngIf="deanStatus !== 'Waiting' &&  data.cteForm.deanApproval != null">
               <span
                 ><b class="mr-2">Name:</b
                 >{{ data.cteForm.deanApproval.name }}</span
@@ -241,7 +241,7 @@
               vertical
               style="height: 150px"
               class="mr-4 ml-4"></mat-divider>
-            <div class="approve-info-element" *ngIf="chairStatus !== 'Waiting'">
+            <div class="approve-info-element" *ngIf="chairStatus !== 'Waiting' && data.cteForm.chairApproval != null">
               <span
                 ><b class="mr-2">Name:</b
                 >{{ data.cteForm.chairApproval.name }}</span
@@ -287,7 +287,8 @@
               vertical
               style="height: 150px"
               class="mr-4 ml-4"></mat-divider>
-            <div class="approve-info-element" *ngIf="boardStatus !== 'Waiting'">
+            <div class="approve-info-element" *ngIf="boardStatus !== 'Waiting' &&
+            data.cteForm.facultyOfAdministrationBoardApproval != null">
               <span
                 ><b class="mr-2">Name:</b
                 >{{
