@@ -104,28 +104,31 @@
               </mat-error>
             </mat-form-field>
           </div>
-          <div class="flex">
-            <mat-form-field
-              style="flex-grow: 1"
-              class="mr-3 ml-3"
-              appearance="outline">
-              <input
-                matInput
-                [type]="hidePassword ? 'password' : 'text'"
-                placeholder="Password"
-                class="form-control"
-                formControlName="password" />
-              <mat-error
-                *ngIf="
-                  requiredForm.controls['password'].invalid &&
-                  requiredForm.controls['password'].touched
-                ">
-                Password is
-                <strong>required</strong>
-              </mat-error>
+          <div class="flex flex-row">
+            <div class="flex-center flex-row" style="width: 100%">
+              <mat-form-field
+                style="flex-grow: 1"
+                class="mr-3 ml-3"
+                appearance="outline">
+                <input
+                  matInput
+                  [type]="hidePassword ? 'password' : 'text'"
+                  placeholder="Password"
+                  class="form-control"
+                  formControlName="password" />
+                <mat-error
+                  *ngIf="
+                    requiredForm.controls['password'].invalid &&
+                    requiredForm.controls['password'].touched
+                  ">
+                  Password is
+                  <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
               <button
                 mat-icon-button
                 matSuffix
+                type="button"
                 (click)="hidePassword = !hidePassword"
                 [attr.aria-label]="'Hide password'"
                 [attr.aria-pressed]="hidePassword">
@@ -133,54 +136,56 @@
                   hidePassword ? "visibility_off" : "visibility"
                 }}</mat-icon>
               </button>
-            </mat-form-field>
-            <mat-form-field
-              style="flex-grow: 1"
-              class="mr-3 ml-3"
-              appearance="outline">
-              <input
-                matInput
-                [type]="hidePassword ? 'password' : 'text'"
-                placeholder="Confirm Password"
-                class="form-control"
-                formControlName="confirmPassword" />
-              <mat-error
-                *ngIf="
-                  requiredForm.controls['confirmPassword'].invalid &&
-                  requiredForm.controls['confirmPassword'].touched
-                ">
-                Passwords
-                <strong>do not match</strong>
-              </mat-error>
-
+            </div>
+            <div class="flex-center flex-row" style="width: 100%">
+              <mat-form-field
+                style="flex-grow: 1"
+                class="mr-3 ml-3"
+                appearance="outline">
+                <input
+                  matInput
+                  [type]="hidePasswordConfirm ? 'password' : 'text'"
+                  placeholder="Confirm Password"
+                  class="form-control"
+                  formControlName="confirmPassword" />
+                <mat-error
+                  *ngIf="
+                    requiredForm.controls['confirmPassword'].invalid &&
+                    requiredForm.controls['confirmPassword'].touched
+                  ">
+                  Passwords
+                  <strong>do not match</strong>
+                </mat-error>
+              </mat-form-field>
               <button
                 mat-icon-button
                 matSuffix
-                (click)="hidePassword = !hidePassword"
+                type="button"
+                (click)="hidePasswordConfirm = !hidePasswordConfirm"
                 [attr.aria-label]="'Hide password'"
-                [attr.aria-pressed]="hidePassword">
+                [attr.aria-pressed]="hidePasswordConfirm">
                 <mat-icon>{{
-                  hidePassword ? "visibility_off" : "visibility"
+                  hidePasswordConfirm ? "visibility_off" : "visibility"
                 }}</mat-icon>
               </button>
-            </mat-form-field>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div style="flex-grow: 1"></div>
-  <div class="form-footer mt-4">
-    <button mat-raised-button color="primary" (click)="dialogRef.close(null)">
-      Cancel
-    </button>
-    <button
-      [disabled]="this.requiredForm.invalid"
-      mat-raised-button
-      color="primary"
-      class="ml-5"
-      (click)="onSubmit()">
-      Submit
-    </button>
+    <div style="flex-grow: 1"></div>
+    <div class="form-footer mt-4">
+      <button mat-raised-button color="primary" (click)="dialogRef.close(null)">
+        Cancel
+      </button>
+      <button
+        [disabled]="this.requiredForm.invalid"
+        mat-raised-button
+        color="primary"
+        class="ml-5"
+        (click)="onSubmit()">
+        Submit
+      </button>
+    </div>
   </div>
 </div>

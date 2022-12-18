@@ -53,3 +53,7 @@ form{
   color: #007bff;
   cursor: pointer;
 }
+
+.flex-row {
+  flex-direction: row;
+}

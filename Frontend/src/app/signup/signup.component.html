@@ -73,25 +73,27 @@
               <strong>required</strong>
             </mat-error>
           </mat-form-field>
-          <mat-form-field class="full-width">
-            <input
-              matInput
-              [type]="hidePassword ? 'password' : 'text'"
-              placeholder="Password"
-              class="form-control"
-              formControlName="password" />
-            <mat-error
-              *ngIf="
-                requiredForm.controls['password'].invalid &&
-                requiredForm.controls['password'].touched
-              ">
-              Password is
-              <strong>required</strong>
-            </mat-error>
+          <div class="flex-center flex-row">
+            <mat-form-field class="full-width">
+              <input
+                matInput
+                [type]="hidePassword ? 'password' : 'text'"
+                placeholder="Password"
+                class="form-control"
+                formControlName="password" />
+              <mat-error
+                *ngIf="
+                  requiredForm.controls['password'].invalid &&
+                  requiredForm.controls['password'].touched
+                ">
+                Password is
+                <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
             <button
               mat-icon-button
-              type="button"
               matSuffix
+              type="button"
               (click)="hidePassword = !hidePassword"
               [attr.aria-label]="'Hide password'"
               [attr.aria-pressed]="hidePassword">
@@ -99,28 +101,28 @@
                 hidePassword ? "visibility_off" : "visibility"
               }}</mat-icon>
             </button>
-          </mat-form-field>
-          <mat-form-field class="full-width">
-            <input
-              matInput
-              type="button"
-              [type]="hidePasswordConfirm ? 'password' : 'text'"
-              placeholder="Confirm Password"
-              class="form-control"
-              formControlName="confirmPassword" />
-            <mat-error
-              *ngIf="
-                requiredForm.controls['confirmPassword'].invalid &&
-                requiredForm.controls['confirmPassword'].touched
-              ">
-              Passwords
-              <strong>do not match</strong>
-            </mat-error>
-
+          </div>
+          <div class="flex-center flex-row">
+            <mat-form-field class="full-width">
+              <input
+                matInput
+                [type]="hidePasswordConfirm ? 'password' : 'text'"
+                placeholder="Confirm Password"
+                class="form-control"
+                formControlName="confirmPassword" />
+              <mat-error
+                *ngIf="
+                  requiredForm.controls['confirmPassword'].invalid &&
+                  requiredForm.controls['confirmPassword'].touched
+                ">
+                Passwords
+                <strong>do not match</strong>
+              </mat-error>
+            </mat-form-field>
             <button
               mat-icon-button
-              type="button"
               matSuffix
+              type="button"
               (click)="hidePasswordConfirm = !hidePasswordConfirm"
               [attr.aria-label]="'Hide password'"
               [attr.aria-pressed]="hidePasswordConfirm">
@@ -128,7 +130,7 @@
                 hidePasswordConfirm ? "visibility_off" : "visibility"
               }}</mat-icon>
             </button>
-          </mat-form-field>
+          </div>
           <button
             (click)="signUp()"
             mat-raised-button
