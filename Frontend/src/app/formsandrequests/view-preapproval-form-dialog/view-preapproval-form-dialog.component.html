@@ -38,6 +38,12 @@
         style="background-color: '#FD7972'"
         >Rejected
       </span>
+      <span
+        class="status-text"
+        *ngIf="formStatus === 'Cancelled'"
+        style="background-color: #621324; color: white"
+      >Cancelled
+      </span>
     </div>
     <div style="display: flex; flex-direction: column; align-items: center">
       <div><span><b>Upload Official Document</b></span></div>
@@ -182,7 +188,7 @@
                   class="status-text"
                   *ngIf="formStatus !== 'Waiting'"
                   style="background-color: '#828491FF'; color: white"
-                  >Uncomplete</span
+                  >Incomplete</span
                 >
               </div>
             </div>
@@ -235,7 +241,7 @@
                   class="status-text"
                   *ngIf="formStatus !== 'Waiting'"
                   style="background-color: '#828491FF'; color: white"
-                  >Uncomplete</span
+                  >Incomplete</span
                 >
               </div>
             </div>
@@ -445,7 +451,7 @@
         </div>
       </div>
 
-      <div class="decision-container" *ngIf="coordinatorStatus !== 'Waiting' &&
+      <div class="decision-container" *ngIf="coordinatorStatus !== 'Waiting' && data.preApprovalForm.exchangeCoordinatorApproval != null &&
       data.preApprovalForm.exchangeCoordinatorApproval.comment != '' && data.preApprovalForm.exchangeCoordinatorApproval.comment != null">
         <span class="subtitle">Coordinator Decision</span>
         <div class="decision-buttons mb-2">
@@ -474,7 +480,7 @@
           ></textarea>
         </mat-form-field>
       </div>
-      <div class="decision-container" *ngIf="boardStatus !== 'Waiting' &&
+      <div class="decision-container" *ngIf="boardStatus !== 'Waiting' && data.preApprovalForm.facultyAdministrationBoardApproval != null &&
       data.preApprovalForm.facultyAdministrationBoardApproval.comment != '' && data.preApprovalForm.facultyAdministrationBoardApproval.comment != null">
         <span class="subtitle">FAB Decision</span>
         <div class="decision-buttons mb-2">

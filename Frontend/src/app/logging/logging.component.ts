@@ -91,7 +91,7 @@ export class LoggingComponent {
     if(this.currentUserRole === ActorsEnum.CourseCoordinatorInstructor){
       const courseCode: string = JSON.parse(localStorage.getItem('user'))
         .userDetails.course.courseCode;
-      
+
       equivalenceRequestService
         .getArchivedEquivalenceRequestsByCourseCode(courseCode)
         .toPromise()
@@ -111,7 +111,7 @@ export class LoggingComponent {
                 date: formattedDate,
                 type: 'Course Eq. Request',
                 school: element.hostUniversityName,
-                status: element.isRejected
+                status: element.isCanceled ? 'Cancelled' : element.isRejected
                   ? 'Rejected'
                   : element.isApproved
                     ? 'Approved'
@@ -147,7 +147,7 @@ export class LoggingComponent {
                 date: formattedDate,
                 type: 'CTE Form',
                 school: element.hostUniversityName,
-                status: element.isRejected
+                status: element.isCanceled ? 'Cancelled' : element.isRejected
                   ? 'Rejected'
                   : element.isApproved
                     ? 'Approved'
@@ -182,7 +182,7 @@ export class LoggingComponent {
                 date: formattedDate,
                 type: 'CTE Form',
                 school: element.hostUniversityName,
-                status: element.isRejected
+                status: element.isCanceled ? 'Cancelled' : element.isRejected
                   ? 'Rejected'
                   : element.isApproved
                     ? 'Approved'
@@ -217,11 +217,11 @@ export class LoggingComponent {
                 date: formattedDate,
                 type: 'CTE Form',
                 school: element.hostUniversityName,
-                status: element.isRejected
+                status: element.isCanceled ? 'Cancelled' : element.isRejected
                   ? 'Rejected'
                   : element.isApproved
                     ? 'Approved'
-                    : 'Processing'
+                    : 'Waiting'
               };
               this.dataSource.data.push(temp);
               this.cteDataSource.data.push(temp);
@@ -253,11 +253,11 @@ export class LoggingComponent {
                 date: formattedDate,
                 type: 'Pre-Approval Form',
                 school: element.hostUniversityName,
-                status: element.isRejected
+                status: element.isCanceled ? 'Cancelled' : element.isRejected
                   ? 'Rejected'
                   : element.isApproved
                     ? 'Approved'
-                    : 'Processing'
+                    : 'Waiting'
               };
               this.preApprovalForms.push(element);
               this.dataSource.data.push(temp);
@@ -289,11 +289,11 @@ export class LoggingComponent {
                 date: formattedDate,
                 type: 'Course Eq. Request',
                 school: element.hostUniversityName,
-                status: element.isRejected
+                status: element.isCanceled ? 'Cancelled' : element.isRejected
                   ? 'Rejected'
                   : element.isApproved
                     ? 'Approved'
-                    : 'Processing'
+                    : 'Waiting'
               };
               this.equivalenceRequests.push(element);
               this.courseEquivalenceDataSource.data.push(temp);

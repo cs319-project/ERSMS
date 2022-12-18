@@ -138,7 +138,7 @@ export class FormsAndRequestsComponent {
                 date: formattedDate,
                 type: 'Course Eq. Request',
                 school: element.hostUniversityName,
-                status: element.isRejected
+                status: element.isCanceled ? 'Cancelled' : element.isRejected
                   ? 'Rejected'
                   : element.isApproved
                   ? 'Approved'
@@ -173,11 +173,11 @@ export class FormsAndRequestsComponent {
                 date: formattedDate,
                 type: 'CTE Form',
                 school: element.hostUniversityName,
-                status: element.isRejected
+                status: element.isCanceled ? 'Cancelled' : element.isRejected
                   ? 'Rejected'
                   : element.isApproved
-                  ? 'Approved'
-                  : 'Waiting'
+                    ? 'Approved'
+                    : 'Waiting'
               };
               this.cteDataSource.data.push(temp);
               this.cteForms.push(element);
@@ -208,11 +208,11 @@ export class FormsAndRequestsComponent {
                 date: formattedDate,
                 type: 'CTE Form',
                 school: element.hostUniversityName,
-                status: element.isRejected
+                status: element.isCanceled ? 'Cancelled' : element.isRejected
                   ? 'Rejected'
                   : element.isApproved
-                  ? 'Approved'
-                  : 'Waiting'
+                    ? 'Approved'
+                    : 'Waiting'
               };
               this.cteDataSource.data.push(temp);
               this.cteForms.push(element);
@@ -241,11 +241,11 @@ export class FormsAndRequestsComponent {
                 date: formattedDate,
                 type: 'CTE Form',
                 school: element.hostUniversityName,
-                status: element.isRejected
+                status: element.isCanceled ? 'Cancelled' : element.isRejected
                   ? 'Rejected'
                   : element.isApproved
-                  ? 'Approved'
-                  : 'Waiting'
+                    ? 'Approved'
+                    : 'Waiting'
               };
               this.dataSource.data.push(temp);
               this.cteDataSource.data.push(temp);
@@ -277,11 +277,11 @@ export class FormsAndRequestsComponent {
                 date: formattedDate,
                 type: 'PreApproval Form',
                 school: element.hostUniversityName,
-                status: element.isRejected
+                status: element.isCanceled ? 'Cancelled' : element.isRejected
                   ? 'Rejected'
                   : element.isApproved
-                  ? 'Approved'
-                  : 'Waiting'
+                    ? 'Approved'
+                    : 'Waiting'
               };
               this.preApprovalForms.push(element);
               this.dataSource.data.push(temp);
@@ -313,11 +313,11 @@ export class FormsAndRequestsComponent {
                 date: formattedDate,
                 type: 'Course Eq. Request',
                 school: element.hostUniversityName,
-                status: element.isRejected
+                status: element.isCanceled ? 'Cancelled' : element.isRejected
                   ? 'Rejected'
                   : element.isApproved
-                  ? 'Approved'
-                  : 'Waiting'
+                    ? 'Approved'
+                    : 'Waiting'
               };
               this.equivalenceRequests.push(element);
               this.courseEquivalenceDataSource.data.push(temp);
@@ -350,11 +350,11 @@ export class FormsAndRequestsComponent {
                 date: formattedDate,
                 type: 'CTE Form',
                 school: element.hostUniversityName,
-                status: element.isRejected
+                status: element.isCanceled ? 'Cancelled' : element.isRejected
                   ? 'Rejected'
                   : element.isApproved
-                  ? 'Approved'
-                  : 'Waiting'
+                    ? 'Approved'
+                    : 'Waiting'
               };
               this.cteForms.push(element);
               this.studentDataSource.data.push(temp);
@@ -383,11 +383,11 @@ export class FormsAndRequestsComponent {
                 date: formattedDate,
                 type: 'PreApproval Form',
                 school: element.hostUniversityName,
-                status: element.isRejected
+                status: element.isCanceled ? 'Cancelled' : element.isRejected
                   ? 'Rejected'
                   : element.isApproved
-                  ? 'Approved'
-                  : 'Waiting'
+                    ? 'Approved'
+                    : 'Waiting'
               };
               this.preApprovalForms.push(element);
               this.studentDataSource.data.push(temp);
@@ -416,11 +416,11 @@ export class FormsAndRequestsComponent {
                 date: formattedDate,
                 type: 'Course Eq. Request',
                 school: element.hostUniversityName,
-                status: element.isRejected
+                status: element.isCanceled ? 'Cancelled' : element.isRejected
                   ? 'Rejected'
                   : element.isApproved
-                  ? 'Approved'
-                  : 'Waiting'
+                    ? 'Approved'
+                    : 'Waiting'
               };
               this.equivalenceRequests.push(element);
               this.studentDataSource.data.push(temp);
@@ -653,19 +653,56 @@ export class FormsAndRequestsComponent {
 
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
-        console.log(formId);
-        this.preApprovalFormService.cancelPreApprovalForm(formId).subscribe(
-          result => {
-            if (result) {
-              this.toastr.success('Form is succesfully cancelled');
-            } else {
+        if(type === 'Course Eq. Request'){
+          this.equivalenceRequestService.cancelEquivalenceRequest(formId).subscribe(
+            result => {
+              console.log(result);
+              if (result) {
+                this.toastr.success('Form is succesfully cancelled');
+                this.getFormData();
+              } else {
+
+                this.toastr.error('An error occured while canceling');
+              }
+            },
+            error => {
               this.toastr.error('An error occured while canceling');
             }
-          },
-          error => {
-            this.toastr.error('An error occured while canceling');
-          }
-        );
+          );
+        }
+        else if(type === 'CTE Form'){
+          this.cteFormService.cancelCTEForm(formId).subscribe(
+            result => {
+              console.log(result);
+              if (result) {
+                this.toastr.success('Form is succesfully cancelled');
+                this.getFormData();
+              } else {
+
+                this.toastr.error('An error occured while canceling');
+              }
+            },
+            error => {
+              this.toastr.error('An error occured while canceling');
+            }
+          );
+        }
+        else if(type === 'PreApproval Form'){
+          this.preApprovalFormService.cancelPreApprovalForm(formId).subscribe(
+            result => {
+              console.log(result);
+              if (result) {
+                this.toastr.success('Form is succesfully cancelled');
+                this.getFormData();
+              } else {
+                this.toastr.error('An error occured while canceling');
+              }
+            },
+            error => {
+              this.toastr.error('An error occured while canceling');
+            }
+          );
+        }
       }
     });
   }

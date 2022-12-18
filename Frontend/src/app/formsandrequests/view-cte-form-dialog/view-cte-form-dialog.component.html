@@ -37,6 +37,12 @@
         style="background-color: '#FD7972'"
       >Rejected
       </span>
+      <span
+        class="status-text"
+        *ngIf="formStatus === 'Cancelled'"
+        style="background-color: #621324; color: white"
+      >Cancelled
+      </span>
     </div>
     <div style="display: flex; flex-direction: column; align-items: center">
       <div><span><b>Upload Official Document</b></span></div>
@@ -178,7 +184,7 @@
                   class="status-text"
                   *ngIf="formStatus !== 'Waiting'"
                   style="background-color: '#828491FF'; color: white"
-                >Uncomplete</span
+                >Incomplete</span
                 >
               </div>
             </div>
@@ -226,7 +232,7 @@
                   class="status-text"
                   *ngIf="formStatus !== 'Waiting'"
                   style="background-color: '#828491FF'; color: white"
-                >Uncomplete</span
+                >Incomplete</span
                 >
               </div>
             </div>
@@ -273,7 +279,7 @@
                   class="status-text"
                   *ngIf="formStatus !== 'Waiting'"
                   style="background-color: '#828491FF'; color: white"
-                >Uncomplete</span
+                >Incomplete</span
                 >
               </div>
             </div>
@@ -326,7 +332,7 @@
                   class="status-text"
                   *ngIf="formStatus !== 'Waiting'"
                   style="background-color: '#828491FF'; color: white"
-                >Uncomplete</span
+                >Incomplete</span
                 >
               </div>
             </div>
@@ -539,7 +545,7 @@
           </button>
         </div>
       </div>
-      <div class="decision-container" *ngIf="coordinatorStatus != 'Waiting' &&
+      <div class="decision-container" *ngIf="coordinatorStatus != 'Waiting' && data.cteForm.exchangeCoordinatorApproval != null &&
       data.cteForm.exchangeCoordinatorApproval.comment != '' && data.cteForm.exchangeCoordinatorApproval.comment != null">
         <span class="subtitle">Coordinator Decision</span>
         <div class="decision-buttons mb-2">
@@ -568,7 +574,7 @@
           ></textarea>
         </mat-form-field>
       </div>
-      <div class="decision-container" *ngIf="deanStatus != 'Waiting' &&
+      <div class="decision-container" *ngIf="deanStatus != 'Waiting' &&  data.cteForm.deanApproval != null &&
       data.cteForm.deanApproval.comment != '' && data.cteForm.deanApproval.comment != null">
         <span class="subtitle">Dean Decision</span>
         <div class="decision-buttons mb-2">
@@ -597,7 +603,7 @@
           ></textarea>
         </mat-form-field>
       </div>
-      <div class="decision-container" *ngIf="chairStatus != 'Waiting' &&
+      <div class="decision-container" *ngIf="chairStatus != 'Waiting' && data.cteForm.chairApproval != null &&
       data.cteForm.chairApproval.comment != '' && data.cteForm.chairApproval.comment != null">
         <span class="subtitle">Chair Decision</span>
         <div class="decision-buttons mb-2">
@@ -625,7 +631,7 @@
             readonly></textarea>
         </mat-form-field>
       </div>
-      <div class="decision-container" *ngIf="boardStatus != 'Waiting' &&
+      <div class="decision-container" *ngIf="boardStatus != 'Waiting' && data.cteForm.facultyOfAdministrationBoardApproval != null &&
       data.cteForm.facultyOfAdministrationBoardApproval.comment != '' && data.cteForm.facultyOfAdministrationBoardApproval.comment != null">
         <span class="subtitle">FAB Decision</span>
         <div class="decision-buttons mb-2">

@@ -32,6 +32,12 @@
       style="background-color: '#FD7972'"
       >Rejected
     </span>
+    <span
+      class="status-text"
+      *ngIf="formStatus === 'Cancelled'"
+      style="background-color: #621324; color: white"
+    >Cancelled
+      </span>
   </div>
   <mat-tab-group>
     <mat-tab label="Form Information">
