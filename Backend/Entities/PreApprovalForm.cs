@@ -1,7 +1,5 @@
-﻿using Backend.Utilities.Enum;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using Backend.Utilities.Enum;
 
 namespace Backend.Entities
 {

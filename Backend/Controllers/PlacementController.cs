@@ -1,14 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Backend.Entities;
-using Backend.Interfaces;
-using Backend.DTOs;
-using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
-using System.Net.Http.Headers;
-using Microsoft.AspNetCore.Authorization;
+using Backend.DTOs;
+using Backend.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
 {

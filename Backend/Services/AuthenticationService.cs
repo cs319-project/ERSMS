@@ -1,19 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 using Backend.Data;
+using Backend.DTOs;
 using Backend.Entities;
 using Backend.Interfaces;
-using Backend.DTOs;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
 using Backend.Utilities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Backend.Utilities.Enum;
 
 namespace Backend.Services
 {

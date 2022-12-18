@@ -1,6 +1,4 @@
-﻿using System;
-using AutoMapper;
-using System.Reflection.Emit;
+﻿using AutoMapper;
 
 namespace Backend.Data.Profiles
 {

@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Backend.Interfaces;
 using Backend.Entities;
+using Backend.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Data

@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Backend.Interfaces;
-using Backend.Entities;
-using Backend.DTOs;
 using AutoMapper;
+using Backend.DTOs;
+using Backend.Entities;
+using Backend.Interfaces;
 using Backend.Utilities.Enum;
 using Newtonsoft.Json.Linq;
 

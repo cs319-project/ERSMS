@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace Backend.Entities.Exceptions
 {
     /// <summary>Exception thrown when an error occurs in the To-Do List operations.</summary>

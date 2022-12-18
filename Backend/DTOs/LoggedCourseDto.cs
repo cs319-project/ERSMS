@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Backend.Utilities.Enum;
-
 namespace Backend.DTOs
 {
     /// <summary>A data transfer object for a logged course.</summary>

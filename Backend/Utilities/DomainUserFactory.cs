@@ -1,7 +1,6 @@
-using Backend.Entities;
 using Backend.DTOs;
+using Backend.Entities;
 using Backend.Utilities.Enum;
-using Backend.Utilities;
 
 namespace Backend.Utilities
 {

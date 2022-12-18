@@ -1,17 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Threading.Tasks;
 using Backend.Data;
 using Backend.DTOs;
-using Backend.Entities;
 using Backend.Interfaces;
-using Backend.Services;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers
 {
