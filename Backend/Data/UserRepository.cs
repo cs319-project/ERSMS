@@ -91,7 +91,7 @@ namespace Backend.Data
         }
 
         /// <summary>Gets the dean of the department.</summary>
-        /// <param name="id">The id of the dean.</param>
+        /// <param name="id">The ID of the dean.</param>
         /// <returns>The dean of the department.</returns>
         public async Task<DeanDepartmentChair> GetDeanDepartmentChair(Guid id)
         {

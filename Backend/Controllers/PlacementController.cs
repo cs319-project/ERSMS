@@ -48,7 +48,7 @@ namespace Backend.Controllers
         }
 
         /// <summary>Downloads the placement table.</summary>
-        /// <param name="id">The id of the placement table.</param>
+        /// <param name="id">The ID of the placement table.</param>
         /// <returns>The placement table as a file.</returns>
         [HttpGet("download/{id:guid}")]
         public async Task<ActionResult> DownloadPlacementTable(Guid id)

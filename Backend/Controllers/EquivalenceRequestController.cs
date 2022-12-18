@@ -156,7 +156,7 @@ namespace Backend.Controllers
         }
 
         /// <summary>Updates the Syllabus of an Equivalence Request.</summary>
-        /// <param name="id">The id of the Equivalence Request.</param>
+        /// <param name="id">The ID of the Equivalence Request.</param>
         /// <param name="Syllabus">The Syllabus file.</param>
         /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         [HttpPatch("syllabus/{id:Guid}")]

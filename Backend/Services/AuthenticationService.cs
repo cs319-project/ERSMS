@@ -17,6 +17,7 @@ using Backend.Utilities.Enum;
 
 namespace Backend.Services
 {
+    /// <summary>A service for authentication operations.</summary>
     public class AuthenticationService : DataContextService, IAuthenticationService
     {
         private readonly SignInManager<AppUser> _signInManager;
@@ -25,6 +26,13 @@ namespace Backend.Services
         private readonly IPlacementRepository _placementRepository;
         private readonly ITokenService _tokenService;
 
+        /// <summary>Initializes a new instance of the <see cref="AuthenticationService"/> class.</summary>
+        /// <param name="dataContext">The data context.</param>
+        /// <param name="signInManager">The sign in manager.</param>
+        /// <param name="userManager">The user manager.</param>
+        /// <param name="roleManager">The role manager.</param>
+        /// <param name="placementRepository">The placement repository.</param>
+        /// <param name="tokenService">The token service.</param>
         public AuthenticationService(
             DataContext dataContext,
             SignInManager<AppUser> signInManager,
@@ -41,6 +49,10 @@ namespace Backend.Services
             _tokenService = tokenService;
         }
 
+        /// <summary>Registers a new user.</summary>
+        /// <param name="register">The user's registration information.</param>
+        /// <returns>The user's authentication result.</returns>
+        /// <exception cref="Exception">Thrown when the user already exists.</exception>
         public async Task<AuthenticationResultDto> Register(RegisterDto register)
         {
             try
@@ -151,11 +163,19 @@ namespace Backend.Services
             }
         }
 
+        /// <summary>Assigns a role to a user.</summary>
+        /// <param name="user">The user to assign the role to.</param>
+        /// <param name="actorType">The role to assign.</param>
+        /// <returns>The <see cref="IdentityResult"/> of the operation.</returns>
         public Task<IdentityResult> AssignRole(AppUser user, string actorType)
         {
             return _userManager.AddToRoleAsync(user, actorType);
         }
 
+        /// <summary>Logs in a user.</summary>
+        /// <param name="login">The login information.</param>
+        /// <returns>The authentication result.</returns>
+        /// <exception cref="Exception">Thrown when the user is not found or the password is invalid.</exception>
         public async Task<AuthenticationResultDto> LogIn(LoginDto login)
         {
             try
@@ -183,11 +203,14 @@ namespace Backend.Services
             }
         }
 
+        /// <summary>Signs the user out.</summary>
+        /// <returns>A task that completes when the sign out operation is complete.</returns>
         public Task LogOut()
         {
             return _signInManager.SignOutAsync();
         }
 
+        /// <summary>Creates the roles.</summary>
         public async Task CreateRoles()
         {
             var roles = EnumStringify.IdentityRoleList();
@@ -200,23 +223,40 @@ namespace Backend.Services
             }
         }
 
+        /// <summary>Gets a user by their ID.</summary>
+        /// <param name="id">The ID of the user.</param>
+        /// <returns>The user with the specified ID.</returns>
         public DomainUser GetUserById(string id)
         {
             var user = _dataContext.DomainUsers.SingleOrDefault(x => x.IdentityUser.UserName == id);
             return user;
         }
 
+        /// <summary>Changes the password for the specified user.</summary>
+        /// <param name="user">The user whose password should be changed.</param>
+        /// <param name="currentPassword">The current password for the user.</param>
+        /// <param name="newPassword">The new password for the user.</param>
+        /// <returns>The <see cref="IdentityResult"/> of the operation.</returns>
         public Task<IdentityResult> ChangePassword(AppUser user, string currentPassword, string newPassword)
         {
             return _userManager.ChangePasswordAsync(user, currentPassword, newPassword);
         }
 
+        /// <summary>Forcefully changes the password for the specified user.</summary>
+        /// <param name="user">The user whose password will be changed.</param>
+        /// <param name="newPassword">The new password for the user.</param>
+        /// <returns>The <see cref="IdentityResult"/> of the operation.</returns>
         public Task<IdentityResult> ForceChangePassword(AppUser user, string newPassword)
         {
             _userManager.RemovePasswordAsync(user);
             return _userManager.AddPasswordAsync(user, newPassword);
         }
 
+
+        /// <summary>Checks if a user exists in the database.</summary>
+        /// <param name="username">The username to check.</param>
+        /// <param name="email">The email to check.</param>
+        /// <returns>Whether the user exists.</returns>
         public async Task<bool> UserExists(string username, string email)
         {
             return await _userManager.Users.AnyAsync(x => (x.UserName == username.ToLower() || x.Email == email.ToLower()));

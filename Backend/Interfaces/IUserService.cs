@@ -12,7 +12,6 @@ namespace Backend.Interfaces
     /// <summary>An interface for the user service.</summary>
     public interface IUserService
     {
-        void Update(AppUser user);
         Task<Object> GetUser(string username);
         Task<IEnumerable<DomainUserDto>> GetUsers();
         Task<AppUser> GetUserByIdAsync(int id);
