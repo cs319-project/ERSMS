@@ -2,12 +2,14 @@
   <div class="profile-header m-3">
     <div class="user-container">
       <div class="profile-photo-container">
-        <img src="../assets/images/avatar.png">
+        <img src="../assets/images/avatar.png" />
       </div>
       <div class="m-3 name-dep-container">
-        <h2><b>{{ this.fullName }}</b></h2>
+        <h2>
+          <b>{{ this.fullName }}</b>
+        </h2>
         <span class="gray-text">{{ this.department }}</span>
-        <div class="buttons-container">
+        <!--<div class="buttons-container">
           <button mat-icon-button>
             <mat-icon svgIcon="mail"></mat-icon>
           </button>
@@ -17,7 +19,7 @@
           <button mat-icon-button>
             <mat-icon svgIcon="logging"></mat-icon>
           </button>
-        </div>
+        </div>-->
       </div>
     </div>
     <div class="status-school-container m-3">
@@ -36,40 +38,28 @@
 <div class="profile-content-container mt-5">
   <div class="profile-content">
     <div class="social-container">
-      <h3 class="mt-3">Other Students Going to Kingston University</h3>,
+      <h3 class="mt-3">Other Students Going to {{ this.exchangeSchool }}</h3>
       <mat-divider></mat-divider>
       <div class="social-profile-container">
-        <div class="other-student mt-3">
-          <img src="../assets/images/avatar.png">
+        <div *ngFor="let student of this.otherStudents" style="width: 100%; display: flex; align-items: center; justify-content: space-between" class="other-student mt-3">
+          <img src="../assets/images/avatar.png" />
           <div class="name-value-pair ml-5">
-            <span>Halil Bağcıoğlu</span>
-            <span class="gray-text">EEE</span>
+            <span>{{ student.fullName }}</span>
+            <span class="gray-text">{{ student.department }}</span>
           </div>
-        </div>
-        <div class="other-student mt-3">
-          <img src="../assets/images/avatar.png">
-          <div class="name-value-pair ml-5">
-            <span>Aziz Ayar</span>
-            <span class="gray-text">CS</span>
-          </div>
-        </div>
-        <div class="other-student mt-3">
-          <img src="../assets/images/avatar.png">
-          <div class="name-value-pair ml-5">
-            <span>Gamze Pınar</span>
-            <span class="gray-text">IE</span>
-          </div>
+          <a href="mailto:{{ student.email }}"><button *ngIf="student.email" mat-icon-button>
+            <mat-icon svgIcon="mail"></mat-icon>
+          </button></a>
         </div>
       </div>
-
     </div>
 
     <div class="information-card-container">
       <div class="info-card-element ml-3 mr-3 mt-3">
         <h3>Information Card</h3>
-        <button mat-icon-button>
+        <!--<button mat-icon-button>
           <mat-icon svgIcon="edit"></mat-icon>
-        </button>
+        </button>-->
       </div>
       <div class="info-card-element ml-3 mr-3 mt-5">
         <span class="gray-text">Full Name</span>
@@ -88,29 +78,28 @@
       <mat-divider></mat-divider>
       <div class="info-card-element ml-3 mr-3 mt-3">
         <span class="gray-text">Enterance Year</span>
-        <span>2020</span>
+        <span>{{ this.entranceYear }}</span>
       </div>
       <mat-divider></mat-divider>
       <div class="info-card-element ml-3 mr-3 mt-3">
         <span class="gray-text">CGPA</span>
-        <span>3.62</span>
+        <span>{{ this.cgpa }}</span>
       </div>
       <mat-divider></mat-divider>
       <div class="info-card-element ml-3 mr-3 mt-3">
-        <span class="gray-text">Preferred Term</span>
-        <span>2022-2023 Spring</span>
+        <span class="gray-text">Preferred Semester</span>
+        <span>{{ this.preferredSemester }}</span>
       </div>
       <mat-divider></mat-divider>
       <div class="info-card-element ml-3 mr-3 mt-3">
         <span class="gray-text">Exchange School Preferences</span>
-        <span>EPFL, Kingston University, TU Berlin</span>
+        <span style="text-align: end">{{ this.preferredSchools }}</span>
       </div>
       <mat-divider></mat-divider>
       <div class="info-card-element ml-3 mr-3 mt-3">
         <span class="gray-text">Placed Exchange School</span>
-        <span>Kingston University</span>
+        <span>{{ this.exchangeSchool }}</span>
       </div>
     </div>
   </div>
 </div>
-
