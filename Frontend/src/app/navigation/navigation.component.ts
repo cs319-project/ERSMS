@@ -15,6 +15,7 @@ import { GUID } from 'src/utils/guid';
 import { formatDate } from '@angular/common';
 import { NotificationService } from '../_services/notification.service';
 import { NotificationERSMS } from '../_models/notification';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-navigation',
@@ -52,7 +53,7 @@ export class NavigationComponent implements OnInit {
     private domSanitizer: DomSanitizer,
     private router: Router,
     private dialog: MatDialog,
-    private _snackBar: MatSnackBar,
+    private toastr: ToastrService,
     public authenticationService: AuthenticationService,
     public userService: UserService,
     private announcementService: AnnouncementService,
@@ -246,7 +247,7 @@ export class NavigationComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         console.log(result);
-        this.openSnackBar('Announcement sent', 'Close', 5);
+        this.toastr.success('Announcement is sent successfully');
         //console.log(result);
         let announcement: Announcement = {
           description: result,
@@ -258,9 +259,4 @@ export class NavigationComponent implements OnInit {
     });
   }
 
-  openSnackBar(message: string, action: string, duration: number) {
-    this._snackBar.open(message, action, {
-      duration: duration * 1000
-    });
-  }
 }
