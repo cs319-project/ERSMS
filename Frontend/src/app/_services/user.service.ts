@@ -40,4 +40,8 @@ export class UserService {
   deleteUser(userName: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}delete/${userName}`);
   }
+
+  getStudents(): Observable<any> {
+    return this.http.get(`${this.baseUrl}placedstudent/getall`);
+  }
 }

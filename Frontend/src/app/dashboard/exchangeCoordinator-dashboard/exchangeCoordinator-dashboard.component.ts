@@ -313,6 +313,31 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
 
     console.log(this.todoList);
 
+    this.pieChartOptions = {
+
+      series: [this.approved.length,this.processing.length, this.rejected.length],
+      chart: {
+        type: 'donut',
+        toolbar: {
+          show: true
+        }
+      },
+      colors: ['#FF965D', '#49C96D', '#FD7972'],
+      labels: ['Processing', 'Accepted  ', 'Rejected'],
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }
+      ]
+    };
 
     this.barChartOptions = {
       series: [

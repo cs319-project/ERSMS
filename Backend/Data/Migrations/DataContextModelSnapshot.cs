@@ -286,6 +286,9 @@ namespace Backend.Data.Migrations
                     b.Property<Guid?>("StudentId1")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("SubmissionDate")
+                        .HasColumnType("TEXT");
+
                     b.Property<byte[]>("Syllabus")
                         .HasColumnType("BLOB");
 

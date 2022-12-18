@@ -18,7 +18,7 @@ export class PlacementService {
     const formData = new FormData();
     formData.append('placementTable', file);
     return this.http.post(
-      `${this.baseApiUrl}placement/upload?departmentName=${departmentName}&facultyName=${facultyName}`,
+      `${this.baseApiUrl}placement/upload/?departmentName=${departmentName}&facultyName=${facultyName}`,
       formData
     );
   }
@@ -44,5 +44,12 @@ export class PlacementService {
 
   deletePlacementTable(guid: GUID): Observable<any> {
     return this.http.delete(`${this.baseApiUrl}placement/delete/${guid}`);
+  }
+
+  placeStudents(guid: GUID): Observable<any> {
+    return this.http.post(
+      `${this.baseApiUrl}placement/placeStudents/${guid}`,
+      {}
+    );
   }
 }
