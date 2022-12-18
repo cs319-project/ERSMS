@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend.Entities
 {
+    /// <summary>A class for representing a requested course group.</summary>
     public class RequestedCourseGroup
     {
         [Key]

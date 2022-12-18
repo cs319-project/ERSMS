@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Backend.Entities
 {
+    /// <summary>A class for representing an course equivalence request.</summary>
     public class EquivalenceRequest : Form
     {
         [Key]

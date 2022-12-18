@@ -10,6 +10,10 @@ using Backend.Utilities;
 
 namespace Backend.Entities
 {
+    /// <summary>A user of the application.</summary>
+    /// <remarks>
+    /// This class is used to represent a user of the application.
+    /// </remarks>
     public class AppUser : IdentityUser<Guid>
     {
         public AppUser() { }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Backend.Entities
 {
+    /// <summary>A class for representing an exchange coordinator.</summary>
     [Table("ExchangeCoordinators")]
     public class ExchangeCoordinator : DomainUser
     {

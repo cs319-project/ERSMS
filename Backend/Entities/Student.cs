@@ -8,6 +8,7 @@ using Backend.Utilities;
 
 namespace Backend.Entities
 {
+    /// <summary>A class for representing a student.</summary>
     [Table("Students")]
     public class Student : DomainUser
     {

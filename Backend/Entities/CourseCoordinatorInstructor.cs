@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Backend.Entities
 {
+    /// <summary>A class for a course coordinator or instructor of a course.</summary>
+    /// <remarks>
+    /// A course coordinator is a user who is responsible for a course.
+    /// </remarks>
     [Table("CourseCoordinatorInstructors")]
     public class CourseCoordinatorInstructor : DomainUser
     {

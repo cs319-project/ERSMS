@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Backend.Entities
 {
+    /// <summary>A class for representing a requested course.</summary>
     public class RequestedCourse
     {
         //[ForeignKey("RequestedCourseGroup")]
