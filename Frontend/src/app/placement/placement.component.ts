@@ -94,6 +94,9 @@ export class PlacementComponent {
             } else {
               this.users2.push(temp);
             }
+            if (this.users.length !== 0) {
+              this.placeStudentsButton.disabled = true;
+            }
           }
         });
 
