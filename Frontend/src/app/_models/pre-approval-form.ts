@@ -9,6 +9,7 @@ export interface PreApprovalForm {
   idNumber: string;
   department: string;
   hostUniversityName: string;
+  fileName?: string;
   academicYear: string;
   semester: string;
   submissionTime?: Date;

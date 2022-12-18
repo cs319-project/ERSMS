@@ -1,9 +1,16 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogConfig,
+  MatDialogRef
+} from '@angular/material/dialog';
 import { ViewPreApprovalForm } from './viewPreApprovalForm';
 import { Approval } from '../../_models/approval';
 import { PreApprovalFormService } from 'src/app/_services/preapprovalform.service';
 import { formatDate } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
+import { ScoreTableUploadDialogComponent } from 'src/app/dashboard/score-table-upload-dialog/score-table-upload-dialog.component';
 
 @Component({
   selector: 'app-view-preapproval-form-dialog',
@@ -11,6 +18,9 @@ import { formatDate } from '@angular/common';
   styleUrls: ['./view-preapproval-form-dialog.component.css']
 })
 export class ViewPreapprovalFormDialogComponent implements OnInit {
+  fileObj: File;
+  pdf: File;
+  error = true;
   formStatus: string;
   boardStatus: string;
   coordinatorStatus: string;
@@ -24,7 +34,9 @@ export class ViewPreapprovalFormDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ViewPreapprovalFormDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ViewPreApprovalForm,
-    private preApprovalFormService: PreApprovalFormService
+    private preApprovalFormService: PreApprovalFormService,
+    private dialog: MatDialog,
+    private toastr: ToastrService
   ) {
     this.nameOfUser =
       JSON.parse(localStorage.getItem('user')).userDetails.firstName +
@@ -167,4 +179,49 @@ export class ViewPreapprovalFormDialogComponent implements OnInit {
   //       this.dialogRef.close();
   //     });
   // }
+
+  // TODO: look for uploading mechanism
+  uploadPdf(event) {
+    this.fileObj = event.target.files[0];
+
+    if (
+      !(
+        this.fileObj.name.endsWith('.pdf') ||
+        this.fileObj.name.endsWith('.docx')
+      )
+    ) {
+      this.error = false;
+      this.toastr.error('Please upload a pdf or docx file for the syllabus');
+      this.fileObj = null;
+      return;
+    }
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = {
+      text: `Are you sure to upload this pdf (${this.fileObj.name})?`,
+      fileName: this.data.preApprovalForm
+    };
+
+    const dialogRef = this.dialog.open(
+      ScoreTableUploadDialogComponent,
+      dialogConfig
+    );
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // this.pdf = this.fileObj;
+        // this.data.preApprovalForm.fileName = this.fileObj.name;
+        this.preApprovalFormService
+          .uploadPdf(this.data.preApprovalForm.id, this.fileObj)
+          .subscribe(data => {
+            this.dialogRef.close();
+          });
+      } else {
+        this.fileObj = null;
+        // this.data.fileName = '';
+      }
+    });
+  }
 }
