@@ -80,7 +80,6 @@ export class ViewPreapprovalFormDialogComponent implements OnInit {
   approveForm() {
     if (this.roleOfUser == 'Exchange Coordinator') {
       let approval: Approval = {
-        dateOfApproval: new Date(),
         isApproved: true,
         name: this.nameOfUser,
         comment: this.userComment
@@ -99,7 +98,6 @@ export class ViewPreapprovalFormDialogComponent implements OnInit {
   approveFormFAB() {
     if (this.roleOfUser == 'Exchange Coordinator') {
       let approval: Approval = {
-        dateOfApproval: new Date(),
         isApproved: true,
         name: this.nameOfUser,
         comment: this.userComment
@@ -115,7 +113,6 @@ export class ViewPreapprovalFormDialogComponent implements OnInit {
   rejectForm() {
     if (this.roleOfUser == 'Exchange Coordinator') {
       let approval: Approval = {
-        dateOfApproval: new Date(),
         isApproved: false,
         name: this.nameOfUser,
         comment: this.userComment
@@ -134,7 +131,6 @@ export class ViewPreapprovalFormDialogComponent implements OnInit {
   rejectFormFAB() {
     if (this.roleOfUser == 'Exchange Coordinator') {
       let approval: Approval = {
-        dateOfApproval: new Date(),
         isApproved: false,
         name: this.nameOfUser,
         comment: this.userComment

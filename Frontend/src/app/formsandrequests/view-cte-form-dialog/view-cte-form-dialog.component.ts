@@ -111,7 +111,6 @@ export class ViewCteFormDialogComponent implements OnInit {
   approveForm() {
     if (this.roleOfUser == 'Exchange Coordinator') {
       let approval: Approval = {
-        dateOfApproval: new Date(),
         isApproved: true,
         name: this.nameOfUser,
         comment: this.userComment
@@ -123,7 +122,6 @@ export class ViewCteFormDialogComponent implements OnInit {
         });
     } else if (this.roleOfUser == 'Dean Department Chair') {
       let approval: Approval = {
-        dateOfApproval: new Date(),
         isApproved: true,
         name: this.nameOfUser,
         comment: this.userComment
@@ -148,7 +146,6 @@ export class ViewCteFormDialogComponent implements OnInit {
 
   approveFormFAB() {
     let approval: Approval = {
-      dateOfApproval: new Date(),
       isApproved: true,
       name: this.nameOfUser,
       comment: this.fabComment
@@ -162,7 +159,6 @@ export class ViewCteFormDialogComponent implements OnInit {
 
   rejectFormFAB() {
     let approval: Approval = {
-      dateOfApproval: new Date(),
       isApproved: false,
       name: this.nameOfUser,
       comment: this.fabComment
@@ -182,7 +178,6 @@ export class ViewCteFormDialogComponent implements OnInit {
   rejectForm() {
     if (this.roleOfUser == 'Exchange Coordinator') {
       let approval: Approval = {
-        dateOfApproval: new Date(),
         isApproved: false,
         name: this.nameOfUser,
         comment: this.userComment
@@ -194,7 +189,6 @@ export class ViewCteFormDialogComponent implements OnInit {
         });
     } else if (this.roleOfUser == 'Dean Department Chair') {
       let approval: Approval = {
-        dateOfApproval: new Date(),
         isApproved: false,
         name: this.nameOfUser,
         comment: this.userComment
