@@ -34,6 +34,8 @@ import { CTEFormService } from '../_services/cteform.service';
 import { UserService } from '../_services/user.service';
 import { PreApprovalFormService } from '../_services/preapprovalform.service';
 import { formatDate } from '@angular/common';
+import {ConfirmationDialogComponent} from "../appointments/confirmation-dialog/confirmation-dialog.component";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-formsandrequests',
@@ -83,6 +85,7 @@ export class FormsAndRequestsComponent {
   format = 'dd/MM/yyyy h:mm';
   locale = 'en-TR';
   constructor(
+    private toastr: ToastrService,
     private dialog: MatDialog,
     private _snackBar: MatSnackBar,
     private equivalenceRequestService: EquivalenceRequestService,
@@ -124,7 +127,7 @@ export class FormsAndRequestsComponent {
                 ? 'Rejected'
                 : element.isApproved
                 ? 'Approved'
-                : 'Processing'
+                : 'Waiting'
             };
             this.dataSource.data.push(temp);
             this.cteDataSource.data.push(temp);
@@ -158,7 +161,7 @@ export class FormsAndRequestsComponent {
                 ? 'Rejected'
                 : element.isApproved
                 ? 'Approved'
-                : 'Processing'
+                : 'Waiting'
             };
             this.preApprovalForms.push(element);
             this.dataSource.data.push(temp);
@@ -192,7 +195,7 @@ export class FormsAndRequestsComponent {
                 ? 'Rejected'
                 : element.isApproved
                 ? 'Approved'
-                : 'Processing'
+                : 'Waiting'
             };
             this.equivalenceRequests.push(element);
             this.courseEquivalenceDataSource.data.push(temp);
@@ -204,7 +207,8 @@ export class FormsAndRequestsComponent {
           this.courseEquivalenceDataSource.sort = this.sorter4;
           this.AllFormsTable.renderRows();
         });
-    } else if (this.currentUserRole === 'Student') {
+    }
+    else if (this.currentUserRole === 'Student') {
       cteFormService
         .getCTEFormOfStudent(this.currentUserId)
         .toPromise()
@@ -226,7 +230,7 @@ export class FormsAndRequestsComponent {
                 ? 'Rejected'
                 : element.isApproved
                 ? 'Approved'
-                : 'Processing'
+                : 'Waiting'
             };
             this.cteForms.push(element);
             this.studentDataSource.data.push(temp);
@@ -257,7 +261,7 @@ export class FormsAndRequestsComponent {
                 ? 'Rejected'
                 : element.isApproved
                 ? 'Approved'
-                : 'Processing'
+                : 'Waiting'
             };
             this.preApprovalForms.push(element);
             this.studentDataSource.data.push(temp);
@@ -289,7 +293,7 @@ export class FormsAndRequestsComponent {
                 ? 'Rejected'
                 : element.isApproved
                 ? 'Approved'
-                : 'Processing'
+                : 'Waiting'
             };
             this.equivalenceRequests.push(element);
             this.studentDataSource.data.push(temp);
@@ -496,5 +500,30 @@ export class FormsAndRequestsComponent {
     dialogConfig.data = this.cteForm;
 
     const dialogRef = this.dialog.open(CteFormDialogComponent, dialogConfig);
+  }
+
+  onCancelButton(e, type, formId) {
+    e.stopPropagation();
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {'text': 'Are you sure to cancel this ' + type + '?'}
+    dialogConfig.autoFocus = false;
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) {
+        console.log(formId);
+        this.preApprovalFormService.cancelPreApprovalForm(formId).subscribe(result => {
+          if(result){
+            this.toastr.success('Form is succesfully cancelled');
+          }
+          else{
+            this.toastr.error('An error occured while canceling');
+          }
+        },
+          error => {
+            this.toastr.error('An error occured while canceling');
+          });
+      }
+    });
   }
 }

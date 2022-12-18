@@ -8,7 +8,7 @@
     <!-- <button mat-icon-button [matMenuTriggerFor]="notificationsMenu">
       <mat-icon svgIcon="notification-idle" matBadge="2"></mat-icon>
     </button> -->
-    <button mat-icon-button (click)="populateNotifications()">
+    <button mat-icon-button>
       <mat-icon
         [matBadge]="unreadCount"
         matBadgeColor="warn"
@@ -73,7 +73,7 @@
     >No Notifications yet.</span
   >
   <button
-    mat-menu-item
+    mat-menu-item style="padding-top: 5px; padding-bottom: 5px"
     *ngFor="let notification of notifications"
     (click)="readNotification(notification)">
     <span>
@@ -102,7 +102,7 @@
 </mat-menu>
 
 <mat-sidenav-container>
-  <mat-sidenav
+  <mat-sidenav style="width: 250px"
     opened="true"
     #sidenav
     mode="side"
@@ -110,6 +110,7 @@
     class="app-sidenav">
     <mat-nav-list *ngIf="this.role === actorsEnum.OISEP">
       <mat-list-item
+        (click)="populateNotifications()"
         routerLink="/dashboard"
         routerLinkActive="active-list-item">
         <mat-icon svgIcon="dashboard" class="m-2"></mat-icon>
@@ -119,6 +120,7 @@
 
     <mat-nav-list *ngIf="this.role === actorsEnum.Admin">
       <mat-list-item
+        (click)="populateNotifications()"
         routerLink="/dashboard"
         routerLinkActive="active-list-item">
         <mat-icon svgIcon="dashboard" class="m-2"></mat-icon>
@@ -128,12 +130,13 @@
 
     <mat-nav-list *ngIf="this.role === actorsEnum.Student">
       <mat-list-item
+        (click)="populateNotifications()"
         routerLink="/dashboard"
         routerLinkActive="active-list-item">
         <mat-icon svgIcon="dashboard" class="m-2"></mat-icon>
         <span>Dashboard</span>
       </mat-list-item>
-      <mat-list-item routerLink="/formsandrequests">
+      <mat-list-item routerLink="/formsandrequests" (click)="populateNotifications()">
         <mat-icon svgIcon="forms" class="m-2"></mat-icon
         ><span>Forms and Requests</span>
       </mat-list-item>
@@ -146,18 +149,21 @@
         this.role !== actorsEnum.Admin
       ">
       <mat-list-item
+        (click)="populateNotifications()"
         routerLink="/dashboard"
         routerLinkActive="active-list-item">
-        <mat-icon>dashboard</mat-icon>
+        <mat-icon svgIcon="dashboard" class="m-2"></mat-icon>
         <span>Dashboard</span>
       </mat-list-item>
       <mat-list-item
+        (click)="populateNotifications()"
         routerLink="/formsandrequests"
         routerLinkActive="active-list-item">
         <mat-icon svgIcon="forms" class="m-2"></mat-icon
         ><span>Forms and Requests</span>
       </mat-list-item>
       <mat-list-item
+        (click)="populateNotifications()"
         routerLink="/appointments"
         routerLinkActive="active-list-item">
         <mat-icon svgIcon="calendar" class="m-2"></mat-icon
@@ -167,12 +173,13 @@
         <mat-icon svgIcon="logging" class="m-2"></mat-icon><span>Logging</span>
       </mat-list-item>
       <mat-list-item
+        (click)="populateNotifications()"
         routerLink="/placements"
         routerLinkActive="active-list-item">
         <mat-icon svgIcon="placements" class="m-2"></mat-icon
         ><span>Placements</span>
       </mat-list-item>
-      <mat-list-item routerLink="/messages" routerLinkActive="active-list-item">
+      <mat-list-item (click)="populateNotifications()" routerLink="/messages" routerLinkActive="active-list-item">
         <mat-icon
           svgIcon="messages"
           style="border-color: red"

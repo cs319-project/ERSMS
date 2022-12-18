@@ -161,6 +161,7 @@ export class NavigationComponent implements OnInit {
         '../assets/icons/delete.svg'
       )
     );
+    this.populateNotifications();
   }
 
   ngOnInit(): void {

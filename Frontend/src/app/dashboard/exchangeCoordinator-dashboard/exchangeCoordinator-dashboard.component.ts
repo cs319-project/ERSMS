@@ -24,6 +24,9 @@ import { PreApprovalFormService } from 'src/app/_services/preapprovalform.servic
 import { CteForm } from 'src/app/_models/cte-form';
 import { PreApprovalForm } from 'src/app/_models/pre-approval-form';
 import { EquivalenceRequest } from 'src/app/_models/equivalence-request';
+import { Announcement } from '../../_models/announcement';
+import { AnnouncementService } from '../../_services/announcement.service';
+import { formatDate } from '@angular/common';
 
 export type PieChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -57,6 +60,7 @@ export interface dayActivities {
 }
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'app-exchangeCoordinator-dashboard',
   templateUrl: './exchangeCoordinator-dashboard.component.html',
   styleUrls: ['./exchangeCoordinator-dashboard.component.css']
@@ -129,12 +133,21 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
     }
   ];
 
+
+
+  announcements: Announcement[] = [];
+
+  dateFormat = 'dd MM yyyy h:mm';
+  timeFormat = 'h:mm';
+  locale = 'en-TR';
+
   constructor(
     private _formBuilder: FormBuilder,
     private toDoService: ToDoItemService,
     private cteFormService: CTEFormService,
     private preapprovalFormService: PreApprovalFormService,
-    private courseEqService: EquivalenceRequestService
+    private courseEqService: EquivalenceRequestService,
+    private announcementService: AnnouncementService
   ) {
     this.role = JSON.parse(localStorage.getItem('user')).roles[0];
     this.userName = JSON.parse(localStorage.getItem('user')).userName;
@@ -287,7 +300,19 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
         });
       });
 
-    console.log(this.todoList);
+    announcementService.getAllAnnouncements().subscribe(data => {
+      if (data) {
+        data.forEach(element => {
+          let temp: Announcement = {
+            id: element.id,
+            sender: element.sender,
+            creationDate: element.creationDate,
+            description: element.description
+          };
+          this.announcements.push(temp);
+        });
+      }
+    });
 
     this.pieChartOptions = {
       series: [
@@ -389,6 +414,7 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
   toggleEditing() {
     this.editingItem = null;
   }
+
 
   OnTabChange(index) {
     console.log(index);
@@ -503,5 +529,14 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
         todoItem => todoItem.isComplete
       );
     });
+  }
+
+  formatTheDate(date: Date){
+    const formattedDate = formatDate(
+      date.toString(),
+      this.dateFormat,
+      this.locale
+    );
+    return formattedDate;
   }
 }
