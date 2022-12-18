@@ -33,6 +33,8 @@ export class ViewPreapprovalFormDialogComponent implements OnInit {
 
   format = 'dd/MM/yyyy h:mm';
   locale = 'en-TR';
+  fileName: string;
+
   constructor(
     public dialogRef: MatDialogRef<ViewPreapprovalFormDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ViewPreApprovalForm,
@@ -219,6 +221,41 @@ export class ViewPreapprovalFormDialogComponent implements OnInit {
       } else {
         this.fileObj = null;
         // this.data.fileName = '';
+      }
+    });
+  }
+  onFileSelected(event) {
+    const file: File = event.target.files[0];
+
+    if (file) {
+      this.fileName = file.name;
+    }
+
+    if (!this.fileName.endsWith('.pdf')) {
+      this.toastr.error('Please select a document (.pdf)');
+      return;
+    }
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      text: `Are you sure to upload this file?`,
+      fileName: this.fileName
+    };
+    const dialogRef = this.dialog.open(
+      ScoreTableUploadDialogComponent,
+      dialogConfig
+    );
+
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) {
+        this.preApprovalFormService
+          .uploadPdf(this.data.preApprovalForm.id, file)
+          .subscribe(result => {
+            if (result) {
+              this.toastr.success('Document is uploaded successfully');
+            } else {
+              this.toastr.error('Error uploading score table');
+            }
+          });
       }
     });
   }

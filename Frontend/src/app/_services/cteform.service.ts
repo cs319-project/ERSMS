@@ -22,7 +22,7 @@ export class CTEFormService {
   }
 
   downloadPdf(formId: GUID): Observable<any> {
-    return this.http.get(`${this.baseApiUrl}cteform/download/{formId}`, {
+    return this.http.get(`${this.baseApiUrl}cteform/download/${formId}`, {
       responseType: 'blob'
     });
   }

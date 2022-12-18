@@ -8,44 +8,73 @@
       <mat-icon>cancel</mat-icon>
     </button>
   </div>
-  <div class="mb-2">
-    <span><b>Submission Date</b></span>
-    <span class="ml-2">{{ formatTheDate(data.cteForm.submissionTime) }}</span>
-  </div>
-  <div style="display: flex; justify-content: space-between; align-items: center"
+  <div
+    style="display: flex; justify-content: space-between; align-items: center"
     class="mb-2">
     <div>
+      <div class="mb-2">
+        <span><b>Submission Date</b></span>
+        <span class="ml-2">{{
+          formatTheDate(data.cteForm.submissionTime)
+          }}</span>
+      </div>
       <span class="subtitle mr-3">Form Status:</span>
       <span
         class="status-text"
         *ngIf="formStatus === 'Waiting'"
         style="background-color: '#FF965D'"
-        >Waiting
+      >Waiting
       </span>
       <span
         class="status-text"
         *ngIf="formStatus === 'Accepted'"
         style="background-color: '#49C96D'"
-        >Accepted
+      >Accepted
       </span>
       <span
         class="status-text"
         *ngIf="formStatus === 'Rejected'"
         style="background-color: '#FD7972'"
-        >Rejected
+      >Rejected
       </span>
     </div>
-    <div>
-      <button
-        mat-raised-button
-        color="primary"
-        class="mr-3"
-        (click)="downloadPdf()">
-        Download Pdf
-      </button>
-      <button mat-raised-button color="accent" *ngIf="formStatus === 'Waiting'">
-        Upload Pdf
-      </button>
+    <div style="display: flex; flex-direction: column; align-items: center">
+      <div><span><b>Upload Official Document</b></span></div>
+      <div>
+        <span>File name: </span>
+      </div>
+      <div>
+        <button
+          mat-raised-button
+          color="primary"
+          class="mr-3"
+          (click)="downloadPdf()">
+          Download Pdf
+        </button>
+        <input
+          type="file"
+          class="file-input"
+          accept=".pdf"
+          (change)="onFileSelected($event)"
+          #fileUpload
+          hidden />
+        <button
+          mat-raised-button
+          color="accent"
+          class="mr-3"
+          *ngIf="formStatus === 'Waiting'"
+          (click)="fileUpload.click()">
+          Upload Pdf
+        </button>
+        <button
+          mat-raised-button
+          color="warn"
+          *ngIf="formStatus === 'Waiting'"
+          (click)="fileUpload.click()">
+          Delete Pdf
+        </button>
+      </div>
+
     </div>
   </div>
   <mat-tab-group>

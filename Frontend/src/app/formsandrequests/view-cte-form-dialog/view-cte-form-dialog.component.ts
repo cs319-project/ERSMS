@@ -1,10 +1,14 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material/dialog';
 import { ViewCTEForm } from './viewCTEForm';
 import { Approval } from '../../_models/approval';
 import { Student } from 'src/app/_models/student';
 import { CTEFormService } from 'src/app/_services/cteform.service';
 import { formatDate } from '@angular/common';
+import {ToastrService} from "ngx-toastr";
+import {
+  ScoreTableUploadDialogComponent
+} from "../../dashboard/score-table-upload-dialog/score-table-upload-dialog.component";
 
 @Component({
   selector: 'app-view-cte-form-dialog',
@@ -29,7 +33,10 @@ export class ViewCteFormDialogComponent implements OnInit {
   locale = 'en-TR';
   userComment: string;
 
+  fileName: string;
   constructor(
+    private dialog: MatDialog,
+    private toastr: ToastrService,
     public dialogRef: MatDialogRef<ViewCteFormDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ViewCTEForm,
     private cteFormService: CTEFormService
@@ -218,4 +225,43 @@ export class ViewCteFormDialogComponent implements OnInit {
       window.open(fileURL);
     });
   }
+
+
+
+  onFileSelected(event) {
+    const file: File = event.target.files[0];
+
+    if (file) {
+      this.fileName = file.name;
+    }
+
+    if (!(this.fileName.endsWith('.pdf'))) {
+      this.toastr.error('Please select a document (.pdf)');
+      return;
+    }
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      text: `Are you sure to upload this file?`,
+      fileName: this.fileName
+    };
+    const dialogRef = this.dialog.open(
+      ScoreTableUploadDialogComponent,
+      dialogConfig
+    );
+
+    dialogRef.afterClosed().subscribe(res => {
+      if(res){
+        this.cteFormService.uploadPdf(this.data.cteForm.id, file).subscribe(result => {
+          if(result){
+            this.toastr.success('Document is uploaded successfully');
+          }
+          else{
+            this.toastr.error('Error uploading score table');
+          }
+        })
+      }
+    })
+
+  }
+
 }
