@@ -23,7 +23,7 @@ import { CourseType } from 'src/app/_models/enum/course-type-enum';
 export class EquivalenceRequestDialogComponent implements OnInit {
   fileObj: File;
   courseTypes: string[] = Object.values(CourseType);
- 
+
   syllabus: File;
   userName: string;
 
@@ -52,6 +52,9 @@ export class EquivalenceRequestDialogComponent implements OnInit {
           this.data.hostUniversityName = result.exchangeSchool;
           this.data.firstName = result.firstName;
           this.data.lastName = result.lastName;
+          this.data.exemptedCourse.courseCode = this.data.exemptedCourse.courseCode.replace(/[^a-z0-9]/gi, '').toLocaleUpperCase();
+
+
           console.log(this.data);
           console.log(this.syllabus);
           this.eqReqService
