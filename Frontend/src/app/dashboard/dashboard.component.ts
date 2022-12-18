@@ -35,6 +35,7 @@ import { PlacementTable } from '../_models/placement-table';
 import { CTEFormService } from '../_services/cteform.service';
 import { PreApprovalFormService } from '../_services/preapprovalform.service';
 import { EquivalenceRequestService } from '../_services/equivalencerequest.service';
+import { DepartmentToFacultyMapper } from 'src/utils/department-to-faculty-mapper';
 
 export type PieChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -83,7 +84,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   role: string;
   oisepDepartment: string;
   _departmentsEnum = DepartmentsEnum;
-  departmentsEnum = Object.keys(DepartmentsEnum);
+  departmentsEnum = Object.keys(DepartmentsEnum).filter(
+    k => k !== 'NotSpecified'
+  );
   placementTables: PlacementTable[] = [];
   placementTable: PlacementTable;
 
@@ -111,7 +114,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   public barChartOptions: Partial<BarChartOptions>;
 
   todoList: todoItem[] = [
-    
     { description: 'Kutay Tire', isCompleted: false, isStarred: true },
     {
       description: 'Meeting with Kutay Tire at 15.30',
@@ -210,7 +212,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     private _formBuilder: FormBuilder,
     private toastr: ToastrService,
     private placementService: PlacementService
-    
   ) {
     this.role = JSON.parse(localStorage.getItem('user')).roles[0];
 
@@ -424,9 +425,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
-      text: `Are you sure to upload this score table for  ${
-        this._departmentsEnum[this.oisepDepartment]
-      }?`,
+      text: `Are you sure to upload this score table for  ${this.oisepDepartment}?`,
       fileName: this.fileName
     };
     const dialogRef = this.dialog.open(
@@ -439,8 +438,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         this.placementService
           .uploadPlacementTable(
             file,
-            this._departmentsEnum[this.oisepDepartment][0],
-            this._departmentsEnum[this.oisepDepartment][1]
+            this.oisepDepartment,
+            DepartmentToFacultyMapper.map(this.oisepDepartment).toString()
           )
           .subscribe(
             res => {
@@ -459,8 +458,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.placementTables = [];
     this.placementService
       .getPlacementTables(
-        this._departmentsEnum[this.oisepDepartment][0],
-        this._departmentsEnum[this.oisepDepartment][1]
+        this.oisepDepartment,
+        DepartmentToFacultyMapper.map(this.oisepDepartment).toString()
       )
       .subscribe(res => {
         this.placementTables = res;
@@ -498,6 +497,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       .subscribe(
         res => {
           this.updatePlacementTables();
+          this.placementTable = null;
         },
         err => {
           this.toastr.error('Error when deleting the score table');

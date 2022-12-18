@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from '../../_services/user.service';
 import { PreApprovalFormService } from '../../_services/preapprovalform.service';
 import { CourseType } from 'src/app/_models/enum/course-type-enum';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-preapproval-form-dialog',
@@ -57,7 +58,7 @@ export class PreapprovalFormDialogComponent implements OnInit {
   courseTypes: string[] = Object.values(CourseType);
 
   constructor(
-    private _snackBar: MatSnackBar,
+    private toastr: ToastrService,
     private userService: UserService,
     private preApprovalFormService: PreApprovalFormService,
     public dialogRef: MatDialogRef<PreapprovalFormDialogComponent>,
@@ -136,40 +137,20 @@ export class PreapprovalFormDialogComponent implements OnInit {
             .subscribe(
               res => {
                 if (res) {
-                  this._snackBar.open('Form is submitted', 'Close', {
-                    duration: 3000
-                  });
-                  this.dialogRef.close();
+                  this.toastr.success('Form is submitted successfully');
+                  this.dialogRef.close(this.data);
                 }
               },
               error => {
-                this._snackBar.open(
-                  'An Error occured while submitting',
-                  'Close',
-                  {
-                    duration: 3000
-                  }
-                );
+                this.toastr.error('An error occured while submitting the form');
               }
             );
         } else {
-          this._snackBar.open(
-            'No student with ID ' + this.data.idNumber,
-            'Close',
-            {
-              duration: 3000
-            }
-          );
+          this.toastr.error('No student with ID ' + this.data.idNumber);
         }
       },
       error => {
-        this._snackBar.open(
-          'No student with ID ' + this.data.idNumber,
-          'Close',
-          {
-            duration: 3000
-          }
-        );
+        this.toastr.error('No student with ID ' + this.data.idNumber);
       }
     );
 
@@ -183,9 +164,9 @@ export class PreapprovalFormDialogComponent implements OnInit {
       this.courseNameBilkent.hasError('required') ||
       this.courseType.hasError('required');
 
-    if (!this.error) {
-      console.log(this.data);
-      this.dialogRef.close(this.data);
-    }
+    // if (!this.error) {
+    //   console.log(this.data);
+    //   this.dialogRef.close(this.data);
+    // }
   }
 }

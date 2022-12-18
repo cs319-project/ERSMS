@@ -134,7 +134,7 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
     private toDoService: ToDoItemService,
     private cteFormService: CTEFormService,
     private preapprovalFormService: PreApprovalFormService,
-    private courseEqService: EquivalenceRequestService,
+    private courseEqService: EquivalenceRequestService
   ) {
     this.role = JSON.parse(localStorage.getItem('user')).roles[0];
     this.userName = JSON.parse(localStorage.getItem('user')).userName;
@@ -160,28 +160,65 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
       );
     });
 
-    cteFormService.getCTEFormsByDepartment(this.userName).subscribe(
-      data => {
+    cteFormService.getCTEFormsByDepartment(this.userName).subscribe(data => {
+      data.forEach(element => {
+        if (element.isRejected) {
+          this.rejected.push(0);
+        } else if (element.isApproved) {
+          this.approved.push(0);
+        } else if (!element.isCanceled && !element.isArchived) {
+          this.processing.push(0);
+        }
+
+        this.pieChartOptions = {
+          series: [
+            this.processing.length,
+            this.approved.length,
+            this.rejected.length
+          ],
+          chart: {
+            type: 'donut',
+            toolbar: {
+              show: true
+            }
+          },
+          colors: ['#FF965D', '#49C96D', '#FD7972'],
+          labels: ['Processing', 'Accepted  ', 'Rejected'],
+          responsive: [
+            {
+              breakpoint: 480,
+              options: {
+                chart: {
+                  width: 200
+                },
+                legend: {
+                  position: 'bottom'
+                }
+              }
+            }
+          ]
+        };
+      });
+    });
+
+    preapprovalFormService
+      .getPreApprovalFormsByDepartment(this.userName)
+      .subscribe(data => {
         data.forEach(element => {
-
-          if(element.isRejected) {
-
+          if (element.isRejected) {
             this.rejected.push(0);
-          }
-
-          else if (element.isApproved) {
-
+          } else if (element.isApproved) {
             this.approved.push(0);
-          }
-
-          else if(!element.isCanceled && !element.isArchived) {
-
+          } else if (!element.isCanceled && !element.isArchived) {
             this.processing.push(0);
           }
 
           this.pieChartOptions = {
-
-            series: [this.processing.length, this.approved.length, this.rejected.length],
+            series: [
+              this.processing.length,
+              this.approved.length,
+              this.rejected.length
+            ],
             chart: {
               type: 'donut',
               toolbar: {
@@ -204,36 +241,27 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
               }
             ]
           };
+        });
+      });
 
-        })
-      }
-    )
-
-
-
-    preapprovalFormService.getPreApprovalFormsByDepartment(this.userName).subscribe(
-      data => {
-
+    courseEqService
+      .getEquivalenceRequestsByDepartment(this.userName)
+      .subscribe(data => {
         data.forEach(element => {
-
-          if(element.isRejected) {
-
+          if (element.isRejected) {
             this.rejected.push(0);
-          }
-
-          else if (element.isApproved) {
-
+          } else if (element.isApproved) {
             this.approved.push(0);
-          }
-
-          else if(!element.isCanceled && !element.isArchived) {
-
+          } else if (!element.isCanceled && !element.isArchived) {
             this.processing.push(0);
           }
 
           this.pieChartOptions = {
-
-            series: [this.processing.length, this.approved.length, this.rejected.length],
+            series: [
+              this.processing.length,
+              this.approved.length,
+              this.rejected.length
+            ],
             chart: {
               type: 'donut',
               toolbar: {
@@ -256,66 +284,17 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
               }
             ]
           };
-
-        })
-      }
-    )
-
-    courseEqService.getEquivalenceRequestsByDepartment(this.userName).subscribe(
-      data => {
-
-        data.forEach(element => {
-
-          if(element.isRejected) {
-
-            this.rejected.push(0);
-          }
-
-          else if (element.isApproved) {
-
-            this.approved.push(0);
-          }
-
-          else if(!element.isCanceled && !element.isArchived) {
-
-            this.processing.push(0);
-          }
-
-          this.pieChartOptions = {
-
-            series: [this.processing.length, this.approved.length, this.rejected.length],
-            chart: {
-              type: 'donut',
-              toolbar: {
-                show: true
-              }
-            },
-            colors: ['#FF965D', '#49C96D', '#FD7972'],
-            labels: ['Processing', 'Accepted  ', 'Rejected'],
-            responsive: [
-              {
-                breakpoint: 480,
-                options: {
-                  chart: {
-                    width: 200
-                  },
-                  legend: {
-                    position: 'bottom'
-                  }
-                }
-              }
-            ]
-          };
-
-        })
-      }
-    )
+        });
+      });
 
     console.log(this.todoList);
 
     this.pieChartOptions = {
-
-      series: [this.processing.length, this.approved.length, this.rejected.length],
+      series: [
+        this.processing.length,
+        this.approved.length,
+        this.rejected.length
+      ],
       chart: {
         type: 'donut',
         toolbar: {

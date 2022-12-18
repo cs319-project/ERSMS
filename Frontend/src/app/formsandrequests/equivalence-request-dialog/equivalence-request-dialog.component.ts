@@ -84,7 +84,7 @@ export class EquivalenceRequestDialogComponent implements OnInit {
               res => {
                 if (res) {
                   this.toastr.success('Form is submitted successfully');
-                  this.dialogRef.close();
+                  this.dialogRef.close(this.data);
                 }
               },
               error => {
@@ -105,10 +105,10 @@ export class EquivalenceRequestDialogComponent implements OnInit {
       this.courseName.hasError('required') ||
       this.courseCodeBilkent.hasError('required') ||
       this.courseNameBilkent.hasError('required');
-    if (!this.error) {
-      console.log(this.data);
-      this.dialogRef.close(this.data);
-    }
+    // if (!this.error) {
+    //   console.log(this.data);
+    //   this.dialogRef.close(this.data);
+    // }
   }
 
   onFileSelected(event) {

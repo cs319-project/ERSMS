@@ -64,7 +64,7 @@ namespace Backend.Controllers
                 };
 
                 return await _equivalenceRequestService.AddEquivalenceRequestToStudent(request, Syllabus)
-                                ? Ok(request) : BadRequest("Failed to add Equivalance Request");
+                                ? Ok(request) : BadRequest("Failed to add Equivalence Request");
             }
             return BadRequest("Wrong formated syllabus");
         }
@@ -95,23 +95,23 @@ namespace Backend.Controllers
         [HttpGet("getAll")]
         public async Task<ActionResult<IEnumerable<EquivalenceRequestDto>>> GetEquivalenceRequests()
         {
-            IEnumerable<EquivalenceRequestDto> equivalanceRequests = await _equivalenceRequestService.GetEquivalenceRequests();
-            if (equivalanceRequests == null || equivalanceRequests.Count() == 0)
+            IEnumerable<EquivalenceRequestDto> equivalenceRequests = await _equivalenceRequestService.GetEquivalenceRequests();
+            if (equivalenceRequests == null || equivalenceRequests.Count() == 0)
             {
                 return NotFound();
             }
-            return Ok(equivalanceRequests);
+            return Ok(equivalenceRequests);
         }
 
         [HttpGet("{id:Guid}")]
         public async Task<ActionResult<EquivalenceRequestDto>> GetEquivalenceRequest(Guid id)
         {
-            var equivalanceRequest = await _equivalenceRequestService.GetEquivalenceRequest(id);
-            if (equivalanceRequest == null)
+            var equivalenceRequest = await _equivalenceRequestService.GetEquivalenceRequest(id);
+            if (equivalenceRequest == null)
             {
                 return NotFound();
             }
-            return Ok(equivalanceRequest);
+            return Ok(equivalenceRequest);
         }
 
         [HttpDelete("{id:Guid}")]
@@ -121,17 +121,17 @@ namespace Backend.Controllers
             {
                 return Ok(true);
             }
-            return BadRequest("Failed to delete Equivalance Request");
+            return BadRequest("Failed to delete Equivalence Request");
         }
 
         [HttpPut]
-        public async Task<ActionResult> UpdateEquivalenceRequest(EquivalenceRequestDto equivalanceRequest)
+        public async Task<ActionResult> UpdateEquivalenceRequest(EquivalenceRequestDto equivalenceRequest)
         {
-            if (await _equivalenceRequestService.UpdateEquivalenceRequest(equivalanceRequest))
+            if (await _equivalenceRequestService.UpdateEquivalenceRequest(equivalenceRequest))
             {
                 return Ok(true);
             }
-            return BadRequest("Failed to update Equivalance Request");
+            return BadRequest("Failed to update Equivalence Request");
         }
 
         [HttpPatch("syllabus/{id:Guid}")]
@@ -154,100 +154,100 @@ namespace Backend.Controllers
         [HttpGet("archived/all")]
         public async Task<ActionResult<IEnumerable<EquivalenceRequestDto>>> GetArchivedEquivalenceRequests()
         {
-            IEnumerable<EquivalenceRequestDto> equivalanceRequests = await _equivalenceRequestService.GetArchivedEquivalenceRequests();
-            if (equivalanceRequests == null || equivalanceRequests.Count() == 0)
+            IEnumerable<EquivalenceRequestDto> equivalenceRequests = await _equivalenceRequestService.GetArchivedEquivalenceRequests();
+            if (equivalenceRequests == null || equivalenceRequests.Count() == 0)
             {
                 return NotFound();
             }
-            return Ok(equivalanceRequests);
+            return Ok(equivalenceRequests);
         }
 
         [HttpGet("nonarchived/all")]
         public async Task<ActionResult<IEnumerable<EquivalenceRequestDto>>> GetNonArchivedEquivalenceRequests()
         {
-            IEnumerable<EquivalenceRequestDto> equivalanceRequests = await _equivalenceRequestService.GetNonArchivedEquivalenceRequests();
-            if (equivalanceRequests == null || equivalanceRequests.Count() == 0)
+            IEnumerable<EquivalenceRequestDto> equivalenceRequests = await _equivalenceRequestService.GetNonArchivedEquivalenceRequests();
+            if (equivalenceRequests == null || equivalenceRequests.Count() == 0)
             {
                 return NotFound();
             }
-            return Ok(equivalanceRequests);
+            return Ok(equivalenceRequests);
         }
 
         [HttpGet("archived/department/{userName}")]
         public async Task<ActionResult<IEnumerable<EquivalenceRequestDto>>> GetArchivedEquivalenceRequestsByDepartment(string userName)
         {
-            IEnumerable<EquivalenceRequestDto> equivalanceRequests = await _equivalenceRequestService.GetArchivedEquivalenceRequestsByDepartmentForCoordinator(userName);
-            if (equivalanceRequests == null || equivalanceRequests.Count() == 0)
+            IEnumerable<EquivalenceRequestDto> equivalenceRequests = await _equivalenceRequestService.GetArchivedEquivalenceRequestsByDepartmentForCoordinator(userName);
+            if (equivalenceRequests == null || equivalenceRequests.Count() == 0)
             {
                 return NotFound();
             }
-            return Ok(equivalanceRequests);
+            return Ok(equivalenceRequests);
         }
 
         [HttpGet("nonarchived/department/{userName}")]
         public async Task<ActionResult<IEnumerable<EquivalenceRequestDto>>> GetNonArchivedEquivalenceRequestsByDepartment(string userName)
         {
-            IEnumerable<EquivalenceRequestDto> equivalanceRequests = await _equivalenceRequestService.GetNonArchivedEquivalenceRequestsByDepartmentForCoordinator(userName);
-            if (equivalanceRequests == null || equivalanceRequests.Count() == 0)
+            IEnumerable<EquivalenceRequestDto> equivalenceRequests = await _equivalenceRequestService.GetNonArchivedEquivalenceRequestsByDepartmentForCoordinator(userName);
+            if (equivalenceRequests == null || equivalenceRequests.Count() == 0)
             {
                 return NotFound();
             }
-            return Ok(equivalanceRequests);
+            return Ok(equivalenceRequests);
         }
 
         [HttpGet("archived/course/{courseCode}")]
         public async Task<ActionResult<IEnumerable<EquivalenceRequestDto>>> GetArchivedEquivalenceRequestsByCourseCode(string courseCode)
         {
-            IEnumerable<EquivalenceRequestDto> equivalanceRequests = await _equivalenceRequestService.GetArchivedEquivalenceRequestsByCourseCode(courseCode);
-            if (equivalanceRequests == null || equivalanceRequests.Count() == 0)
+            IEnumerable<EquivalenceRequestDto> equivalenceRequests = await _equivalenceRequestService.GetArchivedEquivalenceRequestsByCourseCode(courseCode);
+            if (equivalenceRequests == null || equivalenceRequests.Count() == 0)
             {
                 return NotFound();
             }
-            return Ok(equivalanceRequests);
+            return Ok(equivalenceRequests);
         }
 
         [HttpGet("nonarchived/course/{courseCode}")]
         public async Task<ActionResult<IEnumerable<EquivalenceRequestDto>>> GetNonArchivedEquivalenceRequestsByCourseCode(string courseCode)
         {
-            IEnumerable<EquivalenceRequestDto> equivalanceRequests = await _equivalenceRequestService.GetNonArchivedEquivalenceRequestsByCourseCode(courseCode);
-            if (equivalanceRequests == null || equivalanceRequests.Count() == 0)
+            IEnumerable<EquivalenceRequestDto> equivalenceRequests = await _equivalenceRequestService.GetNonArchivedEquivalenceRequestsByCourseCode(courseCode);
+            if (equivalenceRequests == null || equivalenceRequests.Count() == 0)
             {
                 return NotFound();
             }
-            return Ok(equivalanceRequests);
+            return Ok(equivalenceRequests);
         }
 
         [HttpGet("student/{studentID}")]
         public async Task<ActionResult<ICollection<EquivalenceRequestDto>>> GetEquivalenceRequestsOfStudent(string studentID)
         {
-            var equivalanceRequests = await _equivalenceRequestService.GetEquivalenceRequestsOfStudent(studentID);
-            if (equivalanceRequests == null)
+            var equivalenceRequests = await _equivalenceRequestService.GetEquivalenceRequestsOfStudent(studentID);
+            if (equivalenceRequests == null)
             {
                 return NotFound();
             }
-            return Ok(equivalanceRequests);
+            return Ok(equivalenceRequests);
         }
 
         [HttpGet("department/{userName}")]
         public async Task<ActionResult<ICollection<EquivalenceRequestDto>>> GetEquivalenceRequestsByDepartmentForCoordinator(string userName)
         {
-            var equivalanceRequests = await _equivalenceRequestService.GetEquivalenceRequestsByDepartmentForCoordinator(userName);
-            if (equivalanceRequests == null)
+            var equivalenceRequests = await _equivalenceRequestService.GetEquivalenceRequestsByDepartmentForCoordinator(userName);
+            if (equivalenceRequests == null)
             {
                 return NotFound();
             }
-            return Ok(equivalanceRequests);
+            return Ok(equivalenceRequests);
         }
 
         [HttpGet("course/{courseCode}")]
         public async Task<ActionResult<ICollection<EquivalenceRequestDto>>> GetEquivalenceRequestByCourseCode(string courseCode)
         {
-            var equivalanceRequests = await _equivalenceRequestService.GetEquivalenceRequestByCourseCode(courseCode);
-            if (equivalanceRequests == null)
+            var equivalenceRequests = await _equivalenceRequestService.GetEquivalenceRequestByCourseCode(courseCode);
+            if (equivalenceRequests == null)
             {
                 return NotFound();
             }
-            return Ok(equivalanceRequests);
+            return Ok(equivalenceRequests);
         }
 
         [HttpPost("approve/{requestId:Guid}")]

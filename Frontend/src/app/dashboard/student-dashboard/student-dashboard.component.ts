@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActorsEnum } from 'src/app/_models/enum/actors-enum';
-import { DepartmentsEnum } from 'src/app/_models/enum/departments-enum';
 import { ToDoItem } from 'src/app/_models/to-do-item';
 import { ToDoItemService } from 'src/app/_services/todoitem.service';
 import { GUID } from 'src/utils/guid';
@@ -34,8 +33,6 @@ export class StudentDashboardComponent implements OnInit {
   actorsEnum = ActorsEnum;
   role: string;
   userName: string;
-  _departmentsEnum = DepartmentsEnum;
-  departmentsEnum = Object.keys(DepartmentsEnum);
 
   constructor(
     private _formBuilder: FormBuilder,

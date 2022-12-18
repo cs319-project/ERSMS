@@ -35,7 +35,7 @@ namespace Backend.Utilities.Enum
         [EnumMember(Value = "Faculty of Applied Sciences")]
         AppliedSciences,
 
-        [EnumMember(Value = "")]
+        [EnumMember(Value = "Not Specified")]
         NotSpecified
     }
 }

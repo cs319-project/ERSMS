@@ -19,8 +19,8 @@ namespace Backend.DTOs
         //public IEnumerable<DepartmentInfoDto> Majors { get; set; } = null!; // NEWLY ADDED
         //public string ExchangeSchool { get; set; } = null!; // NEWLY ADDED
         public DepartmentInfoDto Department { get; set; } = new DepartmentInfoDto();
-        [AllowNull] public bool? IsDean { get; set; } = null;
-        [AllowNull] public bool? IsCourseCoordinator { get; set; } = null;
+        public bool IsDean { get; set; } = false;
+        public bool IsCourseCoordinator { get; set; } = false;
         public CourseDto Course { get; set; } = new CourseDto();
     }
 }

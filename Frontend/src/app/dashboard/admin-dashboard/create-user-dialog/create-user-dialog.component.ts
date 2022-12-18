@@ -70,8 +70,9 @@ export class CreateUserDialogComponent implements OnInit {
     if (this.requiredForm.valid) {
       this.authService.register(this.requiredForm.value).subscribe(
         (response: any) => {
+          console.log(response);
           this.toastr.success('New user successfully created');
-          this.dialogRef.close();
+          this.dialogRef.close(response);
         },
         error => {
           const errorMsg = error.error ? error.error : error;

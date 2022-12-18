@@ -7,8 +7,6 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CreateUserDialogComponent } from './create-user-dialog/create-user-dialog.component';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
-import { GUID } from '../../../utils/guid';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmationDialogComponent } from '../../appointments/confirmation-dialog/confirmation-dialog.component';
 import { DomainUser } from 'src/app/_models/domain-user';
 import { UserService } from 'src/app/_services/user.service';
@@ -61,12 +59,19 @@ export class AdminDashboardComponent implements OnInit {
     const dialogRef = this.dialog.open(CreateUserDialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe((res: any) => {
-      this.userService.getUsers().subscribe((users: DomainUser[]) => {
-        this.users = users;
-        this.dataSource.data = this.users;
+      if (res) {
+        const newUser: DomainUser = {
+          id: res.userDetails.id,
+          firstName: res.userDetails.firstName,
+          lastName: res.userDetails.lastName,
+          identityUser: res.userDetails.identityUser,
+          actorType: res.userDetails.actorType
+        };
+
+        this.dataSource.data.push(newUser);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-      });
+      }
     });
   }
 
@@ -76,6 +81,26 @@ export class AdminDashboardComponent implements OnInit {
     dialogConfig.autoFocus = false;
     dialogConfig.data = row;
     const dialogRef = this.dialog.open(UserDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe((res: any) => {
+      if (res) {
+        const index = this.dataSource.data.findIndex(
+          x => x.id.toString() === res.id.toString()
+        );
+
+        const updatedUser: DomainUser = {
+          id: res.id,
+          firstName: res.firstName,
+          lastName: res.lastName,
+          identityUser: res.identityUser,
+          actorType: res.actorType
+        };
+
+        this.dataSource.data[index] = updatedUser;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+    });
   }
 
   deleteUser(row) {
@@ -112,11 +137,4 @@ export class AdminDashboardComponent implements OnInit {
       }
     });
   }
-}
-
-export interface AppUser {
-  id: GUID;
-  bilkentId: string;
-  name: string;
-  type: string;
 }

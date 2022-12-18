@@ -8,5 +8,6 @@ export enum FacultiesEnum {
   Law = 'Faculty of Law',
   Science = 'Faculty of Science',
   MusicPerformingArts = 'Faculty of Music and Performing Arts',
-  AppliedSciences = 'Faculty of Applied Sciences'
+  AppliedSciences = 'Faculty of Applied Sciences',
+  NotSpecified = 'Not Specified'
 }

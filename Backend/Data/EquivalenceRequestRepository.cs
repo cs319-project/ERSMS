@@ -24,7 +24,7 @@ namespace Backend.Data
         {
             var student = _context.Students.FirstOrDefault(x => x.IdentityUser.UserName == userName);
 
-            if (student.EquivalenceRequestForms == null) // if student has no equivalance requests
+            if (student.EquivalenceRequestForms == null) // if student has no equivalence requests
             {
                 student.EquivalenceRequestForms = new List<EquivalenceRequest>();
             }
@@ -35,24 +35,24 @@ namespace Backend.Data
 
         public async Task<bool> DeleteEquivalenceRequest(Guid id)
         {
-            var request = await _context.EquivalanceRequests.FindAsync(id);
-            _context.EquivalanceRequests.Remove(request);
+            var request = await _context.EquivalenceRequests.FindAsync(id);
+            _context.EquivalenceRequests.Remove(request);
             return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<EquivalenceRequest> GetEquivalenceRequest(Guid id)
         {
-            return await _context.EquivalanceRequests.FindAsync(id);
+            return await _context.EquivalenceRequests.FindAsync(id);
         }
 
         public async Task<IEnumerable<EquivalenceRequest>> GetEquivalenceRequests()
         {
-            return await _context.EquivalanceRequests.ToListAsync();
+            return await _context.EquivalenceRequests.ToListAsync();
         }
 
         public async Task<bool> UpdateEquivalenceRequest(EquivalenceRequest equivalenceRequest)
         {
-            var request = _context.EquivalanceRequests.Update(equivalenceRequest);
+            var request = _context.EquivalenceRequests.Update(equivalenceRequest);
             return await _context.SaveChangesAsync() > 0;
         }
     }

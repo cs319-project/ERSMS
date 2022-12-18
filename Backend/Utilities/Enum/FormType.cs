@@ -4,6 +4,6 @@ namespace Backend.Utilities.Enum
     {
         CTEForm,
         PreApprovalForm,
-        EquivalanceRequest
+        EquivalenceRequest
     }
 }

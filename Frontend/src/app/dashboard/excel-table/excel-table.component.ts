@@ -47,7 +47,6 @@ export class ExcelTableComponent implements OnInit, OnChanges {
           const wsname: string = wb.SheetNames[0];
           const ws: XLSX.WorkSheet = wb.Sheets[wsname];
           this.data = <AOA>XLSX.utils.sheet_to_json(ws, { header: 1 });
-          console.log(this.data);
         });
       });
   }

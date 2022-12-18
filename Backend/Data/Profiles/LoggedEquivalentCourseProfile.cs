@@ -9,10 +9,10 @@ using Backend.Utilities;
 
 namespace Backend.Data.Profiles
 {
-    public class LoggedEquivaalanteCourseProfile : Profile
+    public class LoggedEquivalentCourseProfile : Profile
     {
         // Constructor
-        public LoggedEquivaalanteCourseProfile()
+        public LoggedEquivalentCourseProfile()
         {
             CreateMap<LoggedEquivalentCourse, LoggedEquivalentCourseDto>();
             // .ForMember(d => d.BilkentCourseType,

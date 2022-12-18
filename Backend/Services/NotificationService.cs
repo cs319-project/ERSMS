@@ -28,7 +28,7 @@ namespace Backend.Services
         }
 
         // Methods
-        // Notify only the sender CTEForm -> Exchange Coordinator, PreApprovalForm -> Student, EquivalanceRequest -> Student
+        // Notify only the sender CTEForm -> Exchange Coordinator, PreApprovalForm -> Student, EquivalenceRequest -> Student
         public async Task<bool> CreateNewApprovalNotification(Form formObject, FormType formType,
                                                                  bool isApproved, string approverName)
         {
@@ -41,7 +41,7 @@ namespace Backend.Services
             {
                 formId = (formObject as PreApprovalForm).Id.ToString();
             }
-            else if (formType == FormType.EquivalanceRequest)
+            else if (formType == FormType.EquivalenceRequest)
             {
                 formId = (formObject as EquivalenceRequest).Id.ToString();
             }
@@ -85,7 +85,7 @@ namespace Backend.Services
                 notification.userId = student.Id;
                 await _notificationRepository.AddNotification(notification);
             }
-            else if (formType == FormType.EquivalanceRequest)
+            else if (formType == FormType.EquivalenceRequest)
             {
                 var form = formObject as EquivalenceRequest;
                 Student student = await _userService.GetStudent(form.StudentId);
@@ -122,7 +122,7 @@ namespace Backend.Services
                 lastName = form.LastName;
                 studentIdNumber = form.IDNumber;
             }
-            else if (formType == FormType.EquivalanceRequest)
+            else if (formType == FormType.EquivalenceRequest)
             {
                 var form = formObject as EquivalenceRequest;
                 var temp = await _userService.GetStudent(form.StudentId);
@@ -170,7 +170,7 @@ namespace Backend.Services
                 }
 
             }
-            else if (formType == FormType.EquivalanceRequest)
+            else if (formType == FormType.EquivalenceRequest)
             {
                 var form = formObject as EquivalenceRequest;
                 var instructors = await _userService.GetCourseCoordinatorsInstructorsByCourseCodeAsync(form.ExemptedCourse.CourseCode);

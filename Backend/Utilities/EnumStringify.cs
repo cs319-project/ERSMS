@@ -201,9 +201,9 @@ namespace Backend.Utilities
                 case Department.TourismHotelManagement:
                     return "Department of Tourism and Hotel Management";
                 case Department.NotSpecified:
-                    return "";
+                    return "Not Specified";
                 default:
-                    return "";
+                    return "Not Specified";
             }
         }
 
@@ -363,8 +363,8 @@ namespace Backend.Utilities
                     return "CTE Form";
                 case FormType.PreApprovalForm:
                     return "Pre-Approval Form";
-                case FormType.EquivalanceRequest:
-                    return "Equivalance Request Form";
+                case FormType.EquivalenceRequest:
+                    return "Equivalence Request Form";
                 default:
                     throw new Exception("FormType Exception");
             }

@@ -22,7 +22,7 @@ import { ViewPreapprovalFormDialogComponent } from '../formsandrequests/view-pre
 import { ViewEquivalenceRequest } from '../formsandrequests/view-equivalence-request-dialog/viewEquivalenceRequest';
 import { ViewEquivalenceRequestDialogComponent } from '../formsandrequests/view-equivalence-request-dialog/view-equivalence-request-dialog.component';
 import { ActorsEnum } from '../_models/enum/actors-enum';
-import {formatDate} from "@angular/common";
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-logging',
@@ -54,7 +54,7 @@ export class LoggingComponent {
   currentUserId: string;
 
   preApprovalForm: PreApprovalForm;
-  equivalanceRequest: EquivalenceRequest;
+  equivalenceRequest: EquivalenceRequest;
   cteForm: CteForm;
   cteForms: CteForm[] = [];
   preApprovalForms: PreApprovalForm[] = [];
@@ -130,7 +130,7 @@ export class LoggingComponent {
             id: element.idNumber,
             student: element.firstName + ' ' + element.lastName,
             date: formattedDate,
-            type: 'PreApproval Form',
+            type: 'Pre-Approval Form',
             school: element.hostUniversityName,
             status: element.isRejected
               ? 'Rejected'
@@ -254,8 +254,7 @@ export class LoggingComponent {
           dialogConfig.data = viewCTEForm;
           this.dialog.open(ViewCteFormDialogComponent, dialogConfig);
         });
-    }
-    else if (row.type == 'PreApproval Form') {
+    } else if (row.type == 'Pre-Approval Form') {
       this.userService
         .getUserDetails(row.id)
         .toPromise()
@@ -272,8 +271,7 @@ export class LoggingComponent {
           this.dialog.open(ViewPreapprovalFormDialogComponent, dialogConfig);
           console.log(viewPreApprovalForm);
         });
-    }
-    else if (row.type == 'Course Eq. Request') {
+    } else if (row.type == 'Course Eq. Request') {
       this.userService
         .getUserDetails(row.id)
         .toPromise()
@@ -376,7 +374,7 @@ export const SCHOOLS = [
   'TU Berlin',
   'ETH'
 ];
-export const TYPE = ['CTE Form', 'PreApproval Form', 'Course Eq. Request'];
+export const TYPE = ['CTE Form', 'Pre-Approval Form', 'Course Eq. Request'];
 export const STATUS = ['Rejected', 'Approved'];
 
 export interface UserData {

@@ -41,7 +41,7 @@ namespace Backend.Services
 
             if (flag)
             {
-                await _notificationService.CreateNewFormNotification(request, FormType.EquivalanceRequest);
+                await _notificationService.CreateNewFormNotification(request, FormType.EquivalenceRequest);
             }
 
             return flag;
@@ -107,16 +107,16 @@ namespace Backend.Services
         public async Task<ICollection<EquivalenceRequestDto>> GetEquivalenceRequestsOfStudent(string studentID)
         {
             Student student = await _userRepository.GetStudentByUserName(studentID);
-            ICollection<EquivalenceRequestDto> equivalanceRequests = _mapper.Map<ICollection<EquivalenceRequestDto>>(student.EquivalenceRequestForms);
+            ICollection<EquivalenceRequestDto> equivalenceRequests = _mapper.Map<ICollection<EquivalenceRequestDto>>(student.EquivalenceRequestForms);
 
-            foreach (var request in equivalanceRequests)
+            foreach (var request in equivalenceRequests)
             {
                 request.FirstName = student.FirstName;
                 request.LastName = student.LastName;
                 request.HostUniversityName = student.ExchangeSchool;
             }
 
-            return equivalanceRequests;
+            return equivalenceRequests;
         }
 
         public async Task<bool> ApproveRequest(Guid requestId, ApprovalDto approval)
@@ -146,7 +146,7 @@ namespace Backend.Services
                     await LogTheEquivalentCourse(requestDto);
                 }
 
-                await _notificationService.CreateNewApprovalNotification(request, FormType.EquivalanceRequest,
+                await _notificationService.CreateNewApprovalNotification(request, FormType.EquivalenceRequest,
                                                                             approvalEntity.IsApproved, approvalEntity.Name);
                 return await _equivalenceRequestRepository.UpdateEquivalenceRequest(request);
             }
@@ -155,10 +155,10 @@ namespace Backend.Services
 
         public async Task<ICollection<EquivalenceRequestDto>> GetEquivalenceRequestByCourseCode(string courseCode)
         {
-            IEnumerable<EquivalenceRequestDto> equivalanceRequests = await GetEquivalenceRequests();
+            IEnumerable<EquivalenceRequestDto> equivalenceRequests = await GetEquivalenceRequests();
             ICollection<EquivalenceRequestDto> listToReturn = new List<EquivalenceRequestDto>();
 
-            foreach (EquivalenceRequestDto request in equivalanceRequests)
+            foreach (EquivalenceRequestDto request in equivalenceRequests)
             {
                 if (request.ExemptedCourse.CourseCode == courseCode)
                 {
@@ -177,10 +177,10 @@ namespace Backend.Services
         {
             var coordinator = await _userService.GetExchangeCoordinator(userName);
             Department department = coordinator.Department.DepartmentName;
-            IEnumerable<EquivalenceRequestDto> equivalanceRequests = await GetEquivalenceRequests();
+            IEnumerable<EquivalenceRequestDto> equivalenceRequests = await GetEquivalenceRequests();
             ICollection<EquivalenceRequestDto> listToReturn = new List<EquivalenceRequestDto>();
 
-            foreach (EquivalenceRequestDto request in equivalanceRequests)
+            foreach (EquivalenceRequestDto request in equivalenceRequests)
             {
                 var student = await _userService.GetStudent(request.StudentId);
                 if (student == null)
@@ -280,10 +280,10 @@ namespace Backend.Services
         {
             ExchangeCoordinator coordinator = await _userService.GetExchangeCoordinator(userName);
             Department department = coordinator.Department.DepartmentName;
-            IEnumerable<EquivalenceRequestDto> equivalanceRequests = await GetArchivedEquivalenceRequests();
+            IEnumerable<EquivalenceRequestDto> equivalenceRequests = await GetArchivedEquivalenceRequests();
             ICollection<EquivalenceRequestDto> listToReturn = new List<EquivalenceRequestDto>();
 
-            foreach (EquivalenceRequestDto request in equivalanceRequests)
+            foreach (EquivalenceRequestDto request in equivalenceRequests)
             {
                 var student = await _userService.GetStudent(request.StudentId);
                 if (student == null)
@@ -305,10 +305,10 @@ namespace Backend.Services
         {
             ExchangeCoordinator coordinator = await _userService.GetExchangeCoordinator(userName);
             Department department = coordinator.Department.DepartmentName;
-            IEnumerable<EquivalenceRequestDto> equivalanceRequests = await GetNonArchivedEquivalenceRequests();
+            IEnumerable<EquivalenceRequestDto> equivalenceRequests = await GetNonArchivedEquivalenceRequests();
             ICollection<EquivalenceRequestDto> listToReturn = new List<EquivalenceRequestDto>();
 
-            foreach (EquivalenceRequestDto request in equivalanceRequests)
+            foreach (EquivalenceRequestDto request in equivalenceRequests)
             {
                 var student = await _userService.GetStudent(request.StudentId);
                 if (student == null)
@@ -337,10 +337,10 @@ namespace Backend.Services
 
         public async Task<ICollection<EquivalenceRequestDto>> GetArchivedEquivalenceRequestsByCourseCode(string courseCode)
         {
-            IEnumerable<EquivalenceRequestDto> equivalanceRequests = await GetArchivedEquivalenceRequests();
+            IEnumerable<EquivalenceRequestDto> equivalenceRequests = await GetArchivedEquivalenceRequests();
             ICollection<EquivalenceRequestDto> listToReturn = new List<EquivalenceRequestDto>();
 
-            foreach (EquivalenceRequestDto request in equivalanceRequests)
+            foreach (EquivalenceRequestDto request in equivalenceRequests)
             {
                 if (request.ExemptedCourse.CourseCode == courseCode)
                 {
@@ -356,10 +356,10 @@ namespace Backend.Services
 
         public async Task<ICollection<EquivalenceRequestDto>> GetNonArchivedEquivalenceRequestsByCourseCode(string courseCode)
         {
-            IEnumerable<EquivalenceRequestDto> equivalanceRequests = await GetNonArchivedEquivalenceRequests();
+            IEnumerable<EquivalenceRequestDto> equivalenceRequests = await GetNonArchivedEquivalenceRequests();
             ICollection<EquivalenceRequestDto> listToReturn = new List<EquivalenceRequestDto>();
 
-            foreach (EquivalenceRequestDto request in equivalanceRequests)
+            foreach (EquivalenceRequestDto request in equivalenceRequests)
             {
                 if (request.ExemptedCourse.CourseCode == courseCode)
                 {

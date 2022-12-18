@@ -13,6 +13,6 @@ namespace Backend.Entities
 
         // TODO: Convert this to a CourseList
         public Course Course { get; set; }
-        public bool? IsCourseCoordinator { get; set; }
+        public bool IsCourseCoordinator { get; set; } = false;
     }
 }

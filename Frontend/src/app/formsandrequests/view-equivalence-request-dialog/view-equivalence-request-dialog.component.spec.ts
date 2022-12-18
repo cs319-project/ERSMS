@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ViewEquivalenceRequestDialogComponent } from './view-equivalence-request-dialog.component';
 
-describe('ViewEquivalanceRequestDialogComponent', () => {
+describe('ViewEquivalenceRequestDialogComponent', () => {
   let component: ViewEquivalenceRequestDialogComponent;
   let fixture: ComponentFixture<ViewEquivalenceRequestDialogComponent>;
 

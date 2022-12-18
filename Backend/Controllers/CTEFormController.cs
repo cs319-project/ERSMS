@@ -125,11 +125,7 @@ namespace Backend.Controllers
         public async Task<ActionResult<IEnumerable<CTEFormDto>>> GetCTEFormsOfStudent(string studentID)
         {
             var forms = await _cTEFormService.GetCTEFormsOfStudent(studentID);
-            if (forms == null || forms.Count() == 0)
-            {
-                return NotFound();
-            }
-            return Ok(forms);
+            return forms != null ? Ok(forms) : NotFound("Failed to get CTE Forms of Student");
         }
 
         [HttpGet("archived/all")]

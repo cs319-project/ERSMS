@@ -88,7 +88,7 @@ export class PreApprovalFormService {
   }
 
   getPreApprovalFormsOfStudent(studentId: string): Observable<any> {
-    return this.http.get<any>(
+    return this.http.get<PreApprovalForm[]>(
       `${this.baseApiUrl}preapprovalform/student/${studentId}`
     );
   }

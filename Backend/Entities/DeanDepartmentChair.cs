@@ -10,6 +10,6 @@ namespace Backend.Entities
     public class DeanDepartmentChair : DomainUser
     {
         public DepartmentInfo Department { get; set; }
-        public bool? IsDean { get; set; }
+        public bool IsDean { get; set; } = false;
     }
 }

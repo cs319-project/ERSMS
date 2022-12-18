@@ -54,17 +54,16 @@ export class UserDialogComponent implements OnInit {
 
   onSave() {
     console.log(this.extraData.actorType);
-    this.userService
-      .updateUser(this.requiresExtraData ? this.extraData : this.data)
-      .subscribe(
-        (res: any) => {
-          this.toastr.success('User updated successfully');
-          this.dialogRef.close(null);
-        },
-        error => {
-          const errorMsg = error.error ? error.error : error;
-          this.toastr.error('User update failed: ' + errorMsg);
-        }
-      );
+    const postData = this.requiresExtraData ? this.extraData : this.data;
+    this.userService.updateUser(postData).subscribe(
+      (res: any) => {
+        this.toastr.success('User updated successfully');
+        this.dialogRef.close(postData);
+      },
+      error => {
+        const errorMsg = error.error ? error.error : error;
+        this.toastr.error('User update failed: ' + errorMsg);
+      }
+    );
   }
 }

@@ -19,7 +19,12 @@
             <span class="mt-3 user-list">User List</span>
           </div>
           <div class="table-content mat-elevation-z8">
-            <table mat-table matSort [dataSource]="dataSource">
+            <table
+              mat-table
+              matSort
+              [dataSource]="dataSource"
+              matSortActive="firstName"
+              matSortDirection="asc">
               <ng-container matColumnDef="firstName">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>
                   First Name

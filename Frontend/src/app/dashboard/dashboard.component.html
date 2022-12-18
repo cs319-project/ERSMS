@@ -7,7 +7,7 @@
       <span>Department: </span>
       <select [(ngModel)]="oisepDepartment" (change)="updatePlacementTables()">
         <option *ngFor="let department of this.departmentsEnum">
-          {{ department }}
+          {{ _departmentsEnum[department] }}
         </option>
       </select>
       <span style="margin-left: 5%">Score Tables: </span>
