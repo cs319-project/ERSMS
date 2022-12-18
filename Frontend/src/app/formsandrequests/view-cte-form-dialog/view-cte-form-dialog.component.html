@@ -452,7 +452,7 @@
         </div>
       </div>
     </mat-tab>
-    <mat-tab label="Decision">
+    <mat-tab label="Decision" *ngIf="roleOfUser !== 'Student' || formStatus !== 'Waiting'">
       <div class="decision-container" *ngIf="!isSelfApproved && formStatus === 'Waiting'">
         <span class="subtitle">Your Decision</span>
         <mat-form-field appearance="outline" style="width: 500px">

@@ -32,6 +32,7 @@ export class ViewEquivalenceRequestDialogComponent implements OnInit {
       ' ' +
       JSON.parse(localStorage.getItem('user')).userDetails.lastName;
     this.roleOfUser = JSON.parse(localStorage.getItem('user')).roles[0];
+    console.log(this.data.eqReq.instructorApproval);
   }
 
   ngOnInit(): void {
@@ -75,7 +76,7 @@ export class ViewEquivalenceRequestDialogComponent implements OnInit {
       dateOfApproval: new Date(),
       isApproved: true,
       name: this.nameOfUser,
-      comment: this.data.approvalComment
+      comment: this.userComment
     };
 
     this.eqReqService
@@ -90,7 +91,7 @@ export class ViewEquivalenceRequestDialogComponent implements OnInit {
       dateOfApproval: new Date(),
       isApproved: false,
       name: this.nameOfUser,
-      comment: this.data.approvalComment
+      comment: this.userComment
     };
 
     this.eqReqService

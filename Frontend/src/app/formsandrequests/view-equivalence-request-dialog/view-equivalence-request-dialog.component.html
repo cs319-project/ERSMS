@@ -263,7 +263,7 @@
         </div>
       </div>
     </mat-tab>
-    <mat-tab label="Decision" *ngIf="roleOfUser !== 'Student'">
+    <mat-tab label="Decision" *ngIf="roleOfUser !== 'Student' || formStatus !== 'Waiting'">
       <div
         class="decision-container"
         *ngIf="
@@ -300,9 +300,9 @@
       <div
         class="decision-container"
         *ngIf="
-          formStatus !== 'Waiting' &&
-          data.eqReq.instructorApproval.comment !== null &&
-          data.eqReq.instructorApproval.comment !== ''
+          formStatus != 'Waiting' &&
+          data.eqReq.instructorApproval.comment != null &&
+          data.eqReq.instructorApproval.comment != ''
         ">
         <span class="subtitle">Course Coordinator's Decision</span>
         <div class="decision-buttons mb-2">
@@ -327,7 +327,8 @@
             class="custom-scroll-bar"
             type="search"
             rows="10"
-            [(ngModel)]="userComment"
+            [(ngModel)]="data.eqReq.instructorApproval.comment"
+            readonly
             matInput></textarea>
         </mat-form-field>
       </div>
