@@ -27,6 +27,7 @@ import { StudentDashboardComponent } from './student-dashboard/student-dashboard
 import { UserDialogComponent } from './admin-dashboard/user-dialog/user-dialog.component';
 import { CreateUserDialogComponent } from './admin-dashboard/create-user-dialog/create-user-dialog.component';
 import { ExchangeCoordinatorDashboardComponent } from './exchangeCoordinator-dashboard/exchangeCoordinator-dashboard.component';
+import { OnlyAnnouncementDashboardComponent } from './onlyAnnouncement-dashboard/onlyAnnouncement-dashboard.component';
 
 @NgModule({
   imports: [
@@ -61,7 +62,9 @@ import { ExchangeCoordinatorDashboardComponent } from './exchangeCoordinator-das
     UserDialogComponent,
     CreateUserDialogComponent,
     ExchangeCoordinatorDashboardComponent,
-    ExcelTableComponent
+    ExcelTableComponent,
+    OnlyAnnouncementDashboardComponent
+   
   ],
   providers: []
 })

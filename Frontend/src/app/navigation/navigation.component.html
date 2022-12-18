@@ -134,6 +134,14 @@
 
     <mat-nav-list *ngIf="this.role === actorsEnum.DeanDepartmentChair
     || this.role === actorsEnum.CourseCoordinatorInstructor">
+
+    <mat-list-item
+        (click)="populateNotifications()"
+        routerLink="/dashboard"
+        routerLinkActive="active-list-item">
+        <mat-icon svgIcon="dashboard" class="m-2"></mat-icon>
+        <span>Dashboard</span>
+      </mat-list-item>
       <mat-list-item
         (click)="populateNotifications()"
         routerLink="/formsandrequests"
