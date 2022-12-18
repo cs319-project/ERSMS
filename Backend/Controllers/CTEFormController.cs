@@ -10,17 +10,25 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
 {
+    /// <summary>Controller for the CTE (Course Transfer and Exemption) Forms API</summary>
     public class CTEFormController : BaseApiController
     {
         private readonly ICTEFormService _cTEFormService;
         private readonly IUserService _userService;
 
+        /// <summary>Initializes a new instance of the <see cref="CTEFormController"/> class.</summary>
+        /// <param name="cTEFormService">The CTEForm service.</param>
+        /// <param name="userService">The user service.</param>
         public CTEFormController(ICTEFormService cTEFormService, IUserService userService)
         {
             _cTEFormService = cTEFormService;
             _userService = userService;
         }
 
+        /// <summary>Uploads a PDF file to the server.</summary>
+        /// <param name="formId">The ID of the form to which the file belongs.</param>
+        /// <param name="pdf">The PDF file to upload.</param>
+        /// <returns>An <see cref="ActionResult"/> indicating the success of the operation.</returns>
         [HttpPost("upload")]
         [Consumes("multipart/form-data")]
         public async Task<ActionResult> UploadPdf([FromQuery] Guid formId,
@@ -36,6 +44,11 @@ namespace Backend.Controllers
             return (result) ? Ok(result) : BadRequest("Error when uploading file");
         }
 
+        /// <summary>Downloads a PDF file.</summary>
+        /// <param name="id">The ID of the CTEForm.</param>
+        /// <returns>The PDF file.</returns>
+        /// <exception cref="ArgumentException">Thrown when the ID is invalid.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the application isn't in foreground.</exception>
         [HttpGet("download/{id:guid}")]
         public async Task<ActionResult> DownloadPdf(Guid id)
         {
@@ -52,6 +65,10 @@ namespace Backend.Controllers
             }
         }
 
+        /// <summary>Adds a CTE Form to a Student.</summary>
+        /// <param name="cTEForm">The CTE Form to add.</param>
+        /// <returns>The CTE Form that was added.</returns>
+        /// <exception cref="ToDoListException">Thrown when the CTE Form could not be added.</exception>
         [HttpPost]
         public async Task<ActionResult<CTEFormDto>> AddCTEFormToStudent(CTEFormDto cTEForm)
         {
@@ -72,6 +89,9 @@ namespace Backend.Controllers
             }
         }
 
+        /// <summary>Updates a CTE Form.</summary>
+        /// <param name="cTEForm">The CTE Form to update.</param>
+        /// <returns>The updated CTE Form.</returns>
         [HttpPut("update")]
         public async Task<ActionResult<CTEFormDto>> UpdateCTEForm(CTEFormDto cTEForm)
         {
@@ -82,6 +102,8 @@ namespace Backend.Controllers
             return BadRequest("Failed to update CTE Form");
         }
 
+        /// <summary>Gets all CTE forms.</summary>
+        /// <returns>All CTE forms.</returns>
         [HttpGet("getAll")]
         public async Task<ActionResult<IEnumerable<CTEFormDto>>> GetCTEForms()
         {
@@ -93,6 +115,10 @@ namespace Backend.Controllers
             return Ok(forms);
         }
 
+        /// <summary>Cancels a CTE Form.</summary>
+        /// <param name="id">The ID of the CTE Form to cancel.</param>
+        /// <returns>The canceled CTE Form.</returns>
+        /// <exception cref="NotFoundException">Thrown when the CTE Form is not found.</exception>
         [HttpDelete("{id}")]
         public async Task<ActionResult<CTEFormDto>> CancelCTEForm(Guid id)
         {
@@ -110,6 +136,9 @@ namespace Backend.Controllers
             return BadRequest("Failed to delete CTE Form");
         }
 
+        /// <summary>Gets a CTE Form.</summary>
+        /// <param name="id">The ID of the CTE Form.</param>
+        /// <returns>The CTE Form.</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<CTEFormDto>> GetCTEForm(Guid id)
         {
@@ -121,6 +150,9 @@ namespace Backend.Controllers
             return NotFound("Failed to get CTE Form");
         }
 
+        /// <summary>Gets the CTE Forms of a Student.</summary>
+        /// <param name="studentID">The ID of the Student.</param>
+        /// <returns>The CTE Forms of the Student.</returns>
         [HttpGet("student/{studentID}")]
         public async Task<ActionResult<IEnumerable<CTEFormDto>>> GetCTEFormsOfStudent(string studentID)
         {
@@ -128,6 +160,8 @@ namespace Backend.Controllers
             return forms != null ? Ok(forms) : NotFound("Failed to get CTE Forms of Student");
         }
 
+        /// <summary>Gets all archived CTE Forms.</summary>
+        /// <returns>All archived CTE Forms.</returns>
         [HttpGet("archived/all")]
         public async Task<ActionResult<IEnumerable<CTEFormDto>>> GetArchivedCTEForms()
         {
@@ -139,6 +173,9 @@ namespace Backend.Controllers
             return BadRequest("Failed to get CTE Forms of Student");
         }
 
+        /// <summary>Gets all archived CTE Forms of a Student.</summary>
+        /// <param name="userName">The user name of the Student.</param>
+        /// <returns>The archived CTE Forms of the Student.</returns>
         [HttpGet("archived/department/{userName}")]
         public async Task<ActionResult<IEnumerable<CTEFormDto>>> GetArchivedCTEFormsByDepartment(string userName)
         {
@@ -150,6 +187,8 @@ namespace Backend.Controllers
             return BadRequest("Failed to get CTE Forms of Student");
         }
 
+        /// <summary>Gets all non-archived CTE Forms.</summary>
+        /// <returns>All non-archived CTE Forms.</returns>
         [HttpGet("nonarchived/all")]
         public async Task<ActionResult<IEnumerable<CTEFormDto>>> GetNonArchivedCTEForms()
         {
@@ -161,6 +200,9 @@ namespace Backend.Controllers
             return BadRequest("Failed to get CTE Forms of Student");
         }
 
+        /// <summary>Gets all non-archived CTE Forms of a Student.</summary>
+        /// <param name="userName">The user name of the Student.</param>
+        /// <returns>A list of non-archived CTE Forms of the Student.</returns>
         [HttpGet("nonarchived/department/{userName}")]
         public async Task<ActionResult<IEnumerable<CTEFormDto>>> GetNonArchivedCTEFormsByDepartment(string userName)
         {
@@ -172,6 +214,9 @@ namespace Backend.Controllers
             return BadRequest("Failed to get CTE Forms of Student");
         }
 
+        /// <summary>Gets all CTE forms for a given department.</summary>
+        /// <param name="userName">The user name of the department.</param>
+        /// <returns>All CTE forms for the department.</returns>
         [HttpGet("department/{userName}")]
         public async Task<ActionResult<IEnumerable<CTEFormDto>>> GetCTEFormsByDepartment(string userName)
         {
@@ -183,6 +228,10 @@ namespace Backend.Controllers
             return Ok(forms);
         }
 
+        /// <summary>Approve a CTE Form by Dean.</summary>
+        /// <param name="formId">The ID of the CTE Form.</param>
+        /// <param name="approval">The approval data.</param>
+        /// <returns>A <see cref="bool"/> indicating whether the operation succeeded.</returns>
         [HttpPost("deanApprove/{formId}")]
         public async Task<ActionResult<bool>> ApproveFormDean(Guid formId, ApprovalDto approval)
         {
@@ -193,6 +242,10 @@ namespace Backend.Controllers
             return BadRequest("Failed to approve CTE Form");
         }
 
+        /// <summary>Approve a CTE Form by the Chair.</summary>
+        /// <param name="formId">The ID of the CTE Form.</param>
+        /// <param name="approval">The approval data.</param>
+        /// <returns>A <see cref="bool"/> indicating whether the operation was successful.</returns>
         [HttpPost("chairApprove/{formId}")]
         public async Task<ActionResult<bool>> ApproveFormChair(Guid formId, ApprovalDto approval)
         {
@@ -203,6 +256,10 @@ namespace Backend.Controllers
             return BadRequest("Failed to approve CTE Form");
         }
 
+        /// <summary>Approve a CTE Form by the Coordinator.</summary>
+        /// <param name="formId">The ID of the CTE Form.</param>
+        /// <param name="approval">The approval data.</param>
+        /// <returns>A <see cref="bool"/> indicating whether the CTE Form was approved.</returns>
         [HttpPost("coordinatorApprove/{formId}")]
         public async Task<ActionResult<bool>> ApproveFormCoordinator(Guid formId, ApprovalDto approval)
         {
@@ -213,6 +270,10 @@ namespace Backend.Controllers
             return BadRequest("Failed to approve CTE Form");
         }
 
+        /// <summary>Approve a CTE Form.</summary>
+        /// <param name="formId">The ID of the CTE Form.</param>
+        /// <param name="approval">The approval data.</param>
+        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         [HttpPost("fabApprove/{formId}")]
         public async Task<ActionResult<bool>> ApproveFormFAB(Guid formId, ApprovalDto approval)
         {
@@ -223,6 +284,9 @@ namespace Backend.Controllers
             return BadRequest("Failed to approve CTE Form");
         }
 
+        /// <summary>Cancels a CTE Form.</summary>
+        /// <param name="formId">The ID of the CTE Form to cancel.</param>
+        /// <returns>A <see cref="bool"/> indicating whether the CTE Form was successfully cancelled.</returns>
         [HttpPatch("cancel/{formId:guid}")]
         public async Task<ActionResult<bool>> CancelCTEFormByStudent(Guid formId)
         {

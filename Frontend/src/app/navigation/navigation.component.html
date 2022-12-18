@@ -58,18 +58,18 @@
       justify-content: space-between;
       align-items: center;
     ">
-    <span class="mat-h1 m-3"> Notifications</span>
+    <span class="mat-h3 m-3"> <b>Notifications</b> </span>
     <button
       mat-raised-button
       class="mr-2"
       color="primary"
       style="height: 30%"
       (click)="readAllNotifications()">
-      read all
+      Read All
     </button>
   </div>
   <mat-divider></mat-divider>
-  <span mat-menu-item *ngIf="notifications.length == 0" class="mt-2"
+  <span mat-menu-item *ngIf="notifications.length === 0" class="mt-2"
     >No Notifications yet.</span
   >
   <button
@@ -145,26 +145,34 @@
         this.role !== actorsEnum.Student &&
         this.role !== actorsEnum.Admin
       ">
-      <mat-list-item routerLink="/dashboard">
-        <mat-icon svgIcon="dashboard" class="m-2"></mat-icon>
+      <mat-list-item
+        routerLink="/dashboard"
+        routerLinkActive="active-list-item">
+        <mat-icon>dashboard</mat-icon>
         <span>Dashboard</span>
       </mat-list-item>
-      <mat-list-item routerLink="/formsandrequests">
+      <mat-list-item
+        routerLink="/formsandrequests"
+        routerLinkActive="active-list-item">
         <mat-icon svgIcon="forms" class="m-2"></mat-icon
         ><span>Forms and Requests</span>
       </mat-list-item>
-      <mat-list-item routerLink="/appointments">
+      <mat-list-item
+        routerLink="/appointments"
+        routerLinkActive="active-list-item">
         <mat-icon svgIcon="calendar" class="m-2"></mat-icon
         ><span>Appointments</span>
       </mat-list-item>
-      <mat-list-item routerLink="/logging">
+      <mat-list-item routerLink="/logging" routerLinkActive="active-list-item">
         <mat-icon svgIcon="logging" class="m-2"></mat-icon><span>Logging</span>
       </mat-list-item>
-      <mat-list-item routerLink="/placements">
+      <mat-list-item
+        routerLink="/placements"
+        routerLinkActive="active-list-item">
         <mat-icon svgIcon="placements" class="m-2"></mat-icon
         ><span>Placements</span>
       </mat-list-item>
-      <mat-list-item routerLink="/messages">
+      <mat-list-item routerLink="/messages" routerLinkActive="active-list-item">
         <mat-icon
           svgIcon="messages"
           style="border-color: red"

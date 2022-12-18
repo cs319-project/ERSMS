@@ -8,17 +8,26 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
 {
+    /// <summary>Controller for the notification API.</summary>
     public class NotificationController : BaseApiController
     {
         private readonly INotificationService _notificationService;
 
         // Constructor
+
+        /// <summary>Initializes a new instance of the <see cref="NotificationController"/> class.</summary>
+        /// <param name="notificationService">The notification service.</param>
         public NotificationController(INotificationService notificationService)
         {
             _notificationService = notificationService;
         }
 
         // Endpoints
+
+        /// <summary>Gets the notifications for the specified user.</summary>
+        /// <param name="userId">The user's id.</param>
+        /// <param name="unread">Whether to get only unread notifications.</param>
+        /// <returns>The notifications for the specified user.</returns>
         [HttpGet("{userId}")]
         public async Task<ActionResult<List<NotificationDto>>> GetNotifications(string userId, bool unread = true)
         {
@@ -31,6 +40,9 @@ namespace Backend.Controllers
             return Ok(notifications);
         }
 
+        /// <summary>Marks all notifications as read.</summary>
+        /// <param name="id">The user ID.</param>
+        /// <returns>An <see cref="ActionResult"/> indicating whether the operation succeeded.</returns>
         [HttpPatch("markAllAsRead/{id}")]
         public async Task<ActionResult> MarkAllAsRead(string id)
         {
@@ -43,6 +55,9 @@ namespace Backend.Controllers
             return Ok();
         }
 
+        /// <summary>Marks a notification as read.</summary>
+        /// <param name="id">The notification ID.</param>
+        /// <returns>An <see cref="ActionResult"/> indicating success.</returns>
         [HttpPatch("markAsRead/{id:guid}")]
         public async Task<ActionResult> MarkAsRead(Guid id)
         {

@@ -8,12 +8,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
 {
+    /// <summary>A controller for the EquivalenceRequest API.</summary>
     public class EquivalenceRequestController : BaseApiController
     {
         private readonly IEquivalenceRequestService _equivalenceRequestService;
         private readonly IUserService _userService;
 
         // Constructor
+
+        /// <summary>Initializes a new instance of the <see cref="EquivalenceRequestController"/> class.</summary>
+        /// <param name="equivalenceRequestService">The equivalence request service.</param>
+        /// <param name="userService">The user service.</param>
         public EquivalenceRequestController(IEquivalenceRequestService equivalenceRequestService, IUserService userService)
         {
             _equivalenceRequestService = equivalenceRequestService;
@@ -21,6 +26,8 @@ namespace Backend.Controllers
         }
 
         // Endpoints
+
+        /// <summary>Submits an equivalence request.</summary>
         [HttpPost]
         [Consumes("multipart/form-data")]
         public async Task<ActionResult<EquivalenceRequestDto>> SubmitEquivalenceForm([FromForm] string studentId,
@@ -69,6 +76,9 @@ namespace Backend.Controllers
             return BadRequest("Wrong formated syllabus");
         }
 
+        /// <summary>Downloads a syllabus.</summary>
+        /// <param name="id">The ID of the syllabus.</param>
+        /// <returns>The syllabus as a file.</returns>
         [HttpGet("download/{id:Guid}")]
         public async Task<ActionResult> DownloadSyllabus(Guid id)
         {
@@ -92,6 +102,8 @@ namespace Backend.Controllers
             }
         }
 
+        /// <summary>Gets all the equivalence requests.</summary>
+        /// <returns>The equivalence requests.</returns>
         [HttpGet("getAll")]
         public async Task<ActionResult<IEnumerable<EquivalenceRequestDto>>> GetEquivalenceRequests()
         {
@@ -103,6 +115,9 @@ namespace Backend.Controllers
             return Ok(equivalenceRequests);
         }
 
+        /// <summary>Gets an equivalence request.</summary>
+        /// <param name="id">The ID of the equivalence request.</param>
+        /// <returns>The equivalence request.</returns>
         [HttpGet("{id:Guid}")]
         public async Task<ActionResult<EquivalenceRequestDto>> GetEquivalenceRequest(Guid id)
         {
@@ -114,6 +129,9 @@ namespace Backend.Controllers
             return Ok(equivalenceRequest);
         }
 
+        /// <summary>Deletes an Equivalence Request.</summary>
+        /// <param name="id">The ID of the Equivalence Request to delete.</param>
+        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         [HttpDelete("{id:Guid}")]
         public async Task<ActionResult> DeleteEquivalenceRequest(Guid id)
         {
@@ -124,6 +142,9 @@ namespace Backend.Controllers
             return BadRequest("Failed to delete Equivalence Request");
         }
 
+        /// <summary>Updates an Equivalence Request.</summary>
+        /// <param name="equivalenceRequest">The Equivalence Request to update.</param>
+        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         [HttpPut]
         public async Task<ActionResult> UpdateEquivalenceRequest(EquivalenceRequestDto equivalenceRequest)
         {
@@ -134,6 +155,10 @@ namespace Backend.Controllers
             return BadRequest("Failed to update Equivalence Request");
         }
 
+        /// <summary>Updates the Syllabus of an Equivalence Request.</summary>
+        /// <param name="id">The id of the Equivalence Request.</param>
+        /// <param name="Syllabus">The Syllabus file.</param>
+        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         [HttpPatch("syllabus/{id:Guid}")]
         public async Task<ActionResult> UpdateSyllabus(Guid id, IFormFile Syllabus)
         {
@@ -151,6 +176,8 @@ namespace Backend.Controllers
             return BadRequest("Wrong formated syllabus");
         }
 
+        /// <summary>Gets all archived equivalence requests.</summary>
+        /// <returns>All archived equivalence requests.</returns>
         [HttpGet("archived/all")]
         public async Task<ActionResult<IEnumerable<EquivalenceRequestDto>>> GetArchivedEquivalenceRequests()
         {
@@ -162,6 +189,8 @@ namespace Backend.Controllers
             return Ok(equivalenceRequests);
         }
 
+        /// <summary>Gets all non-archived equivalence requests.</summary>
+        /// <returns>All non-archived equivalence requests.</returns>
         [HttpGet("nonarchived/all")]
         public async Task<ActionResult<IEnumerable<EquivalenceRequestDto>>> GetNonArchivedEquivalenceRequests()
         {
@@ -173,6 +202,9 @@ namespace Backend.Controllers
             return Ok(equivalenceRequests);
         }
 
+        /// <summary>Retrieves the archived equivalence requests for a department.</summary>
+        /// <param name="userName">The user name of the coordinator.</param>
+        /// <returns>The archived equivalence requests for the department.</returns>
         [HttpGet("archived/department/{userName}")]
         public async Task<ActionResult<IEnumerable<EquivalenceRequestDto>>> GetArchivedEquivalenceRequestsByDepartment(string userName)
         {
@@ -184,6 +216,9 @@ namespace Backend.Controllers
             return Ok(equivalenceRequests);
         }
 
+        /// <summary>Gets non-archived equivalence requests by department.</summary>
+        /// <param name="userName">The user name.</param>
+        /// <returns>The non-archived equivalence requests by department.</returns>
         [HttpGet("nonarchived/department/{userName}")]
         public async Task<ActionResult<IEnumerable<EquivalenceRequestDto>>> GetNonArchivedEquivalenceRequestsByDepartment(string userName)
         {
@@ -195,6 +230,9 @@ namespace Backend.Controllers
             return Ok(equivalenceRequests);
         }
 
+        /// <summary>Retrieves the archived equivalence requests for a course.</summary>
+        /// <param name="courseCode">The course code.</param>
+        /// <returns>The archived equivalence requests for the course.</returns>
         [HttpGet("archived/course/{courseCode}")]
         public async Task<ActionResult<IEnumerable<EquivalenceRequestDto>>> GetArchivedEquivalenceRequestsByCourseCode(string courseCode)
         {
@@ -206,6 +244,9 @@ namespace Backend.Controllers
             return Ok(equivalenceRequests);
         }
 
+        /// <summary>Gets all non-archived equivalence requests for a course.</summary>
+        /// <param name="courseCode">The course code.</param>
+        /// <returns>A list of non-archived equivalence requests for the course.</returns>
         [HttpGet("nonarchived/course/{courseCode}")]
         public async Task<ActionResult<IEnumerable<EquivalenceRequestDto>>> GetNonArchivedEquivalenceRequestsByCourseCode(string courseCode)
         {
@@ -217,6 +258,9 @@ namespace Backend.Controllers
             return Ok(equivalenceRequests);
         }
 
+        /// <summary>Gets the equivalence requests of a student.</summary>
+        /// <param name="studentID">The ID of the student.</param>
+        /// <returns>The equivalence requests of the student.</returns>
         [HttpGet("student/{studentID}")]
         public async Task<ActionResult<ICollection<EquivalenceRequestDto>>> GetEquivalenceRequestsOfStudent(string studentID)
         {
@@ -228,6 +272,9 @@ namespace Backend.Controllers
             return Ok(equivalenceRequests);
         }
 
+        /// <summary>Gets the equivalence requests by department for coordinator.</summary>
+        /// <param name="userName">Name of the user.</param>
+        /// <returns>The equivalence requests by department for coordinator.</returns>
         [HttpGet("department/{userName}")]
         public async Task<ActionResult<ICollection<EquivalenceRequestDto>>> GetEquivalenceRequestsByDepartmentForCoordinator(string userName)
         {
@@ -239,6 +286,9 @@ namespace Backend.Controllers
             return Ok(equivalenceRequests);
         }
 
+        /// <summary>Gets all equivalence requests for a course.</summary>
+        /// <param name="courseCode">The course code.</param>
+        /// <returns>A collection of equivalence requests.</returns>
         [HttpGet("course/{courseCode}")]
         public async Task<ActionResult<ICollection<EquivalenceRequestDto>>> GetEquivalenceRequestByCourseCode(string courseCode)
         {
@@ -250,6 +300,10 @@ namespace Backend.Controllers
             return Ok(equivalenceRequests);
         }
 
+        /// <summary>Approves a request.</summary>
+        /// <param name="requestId">The request ID.</param>
+        /// <param name="approval">The approval.</param>
+        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         [HttpPost("approve/{requestId:Guid}")]
         public async Task<ActionResult> ApproveRequest(Guid requestId, ApprovalDto approval)
         {
@@ -260,6 +314,9 @@ namespace Backend.Controllers
             return BadRequest("Failed to approve request");
         }
 
+        /// <summary>Cancels an equivalence request.</summary>
+        /// <param name="requestId">The ID of the request to cancel.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         [HttpPatch("cancel/{requestId:Guid}")]
         public async Task<ActionResult> CancelRequest(Guid requestId)
         {

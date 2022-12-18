@@ -8,17 +8,24 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
 {
+    /// <summary>A controller for handling announcements.</summary>
     public class AnnouncementController : BaseApiController
     {
         private readonly IAnnouncementService _announcementService;
 
         // Constructor
+
+        /// <summary>Initializes a new instance of the <see cref="AnnouncementController"/> class.</summary>
+        /// <param name="announcementService">The announcement service.</param>
         public AnnouncementController(IAnnouncementService announcementService)
         {
             _announcementService = announcementService;
         }
 
         // Endpoints
+
+        /// <summary>Gets all announcements.</summary>
+        /// <returns>A list of all announcements.</returns>
         [HttpGet("getall")]
         public async Task<ActionResult<IEnumerable<AnnouncementDto>>> GetAnnouncements()
         {
@@ -32,6 +39,10 @@ namespace Backend.Controllers
             return Ok(announcements);
         }
 
+        /// <summary>Gets an announcement.</summary>
+        /// <param name="id">The announcement's ID.</param>
+        /// <returns>The announcement.</returns>
+        /// <exception cref="NotFoundException">Thrown when the announcement is not found.</exception>
         [HttpGet("{id}")]
         public async Task<ActionResult<AnnouncementDto>> GetAnnouncement(Guid id)
         {
@@ -45,6 +56,9 @@ namespace Backend.Controllers
             return Ok(announcement);
         }
 
+        /// <summary>Adds an announcement to the database.</summary>
+        /// <param name="announcement">The announcement to add.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         [HttpPost]
         public async Task<ActionResult> AddAnnouncement(AnnouncementDto announcement)
         {
@@ -69,6 +83,9 @@ namespace Backend.Controllers
             return Ok("Announcement added");
         }
 
+        /// <summary>Updates an announcement.</summary>
+        /// <param name="announcement">The announcement to update.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         [HttpPut]
         public async Task<ActionResult> UpdateAnnouncement(AnnouncementDto announcement)
         {
@@ -87,6 +104,9 @@ namespace Backend.Controllers
             return Ok("Announcement updated");
         }
 
+        /// <summary>Deletes an announcement.</summary>
+        /// <param name="id">The ID of the announcement to delete.</param>
+        /// <returns>An <see cref="ActionResult"/> indicating whether the announcement was deleted.</returns>
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteAnnouncement(Guid id)
         {
