@@ -152,6 +152,7 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
     this.role = JSON.parse(localStorage.getItem('user')).roles[0];
     this.userName = JSON.parse(localStorage.getItem('user')).userName;
 
+
     toDoService.getCoordinatorToDoList(this.userName).subscribe(data => {
       //console.log(data);
       data.forEach(element => {

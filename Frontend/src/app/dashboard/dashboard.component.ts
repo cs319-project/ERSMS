@@ -36,6 +36,7 @@ import { CTEFormService } from '../_services/cteform.service';
 import { PreApprovalFormService } from '../_services/preapprovalform.service';
 import { EquivalenceRequestService } from '../_services/equivalencerequest.service';
 import { DepartmentToFacultyMapper } from 'src/utils/department-to-faculty-mapper';
+import {Router} from "@angular/router";
 
 export type PieChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -132,58 +133,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
   ];
 
-  activities: dayActivities[] = [
-    {
-      date: '12 September',
-      activities: [
-        {
-          name: 'Kutay Tire',
-          description: 'Added a new pre-approval form.',
-          time: '22:13'
-        },
-        {
-          name: 'Berk Çakar',
-          description: 'Added a new pre-approval form.',
-          time: '12:13'
-        },
-        {
-          name: 'Kutay Tire',
-          description: 'Added a new pre-approval form.',
-          time: '13:12'
-        },
-        {
-          name: 'Berk Çakar',
-          description: 'Added a new pre-approval form.',
-          time: '09:44'
-        }
-      ]
-    },
-    {
-      date: '15 September',
-      activities: [
-        {
-          name: 'Atak Talay Yücel',
-          description: 'Added a new pre-approval form.',
-          time: '10:15'
-        },
-        {
-          name: 'Borga Haktan Bilen',
-          description: 'Added a new pre-approval form.',
-          time: '07:07'
-        },
-        {
-          name: 'Atak Talay Yücel',
-          description: 'Added a new pre-approval form.',
-          time: '11:44'
-        },
-        {
-          name: 'Borga Haktan Bilen',
-          description: 'Added a new pre-approval form.',
-          time: '10:10'
-        }
-      ]
-    }
-  ];
 
   selectedTabIndex = 0;
 
@@ -207,6 +156,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   constructor(
+    private router: Router,
     private dialog: MatDialog,
     private _snackBar: MatSnackBar,
     private _formBuilder: FormBuilder,
@@ -214,7 +164,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     private placementService: PlacementService
   ) {
     this.role = JSON.parse(localStorage.getItem('user')).roles[0];
-
+    if(this.role === ActorsEnum.CourseCoordinatorInstructor || this.role === ActorsEnum.DeanDepartmentChair){
+      this.router.navigate(['/formsandrequests']);
+    }
     this.pieChartOptions = {
       series: [44, 55, 13],
       chart: {

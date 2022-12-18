@@ -87,7 +87,7 @@
                         'background-color':
                           row.status === 'Approved'
                             ? '#49C96D'
-                            : row.status === 'Processing'
+                            : row.status === 'Waiting'
                             ? '#FF965D'
                             : '#FD7972'
                       }">
@@ -135,6 +135,7 @@
             <div class="table-content mat-elevation-z8">
               <table
                 mat-table
+                #PreApprovalTable
                 [dataSource]="preapprovalDataSource"
                 matSort
                 #sorter2="matSort">
@@ -183,7 +184,7 @@
                         'background-color':
                           row.status === 'Approved'
                             ? '#49C96D'
-                            : row.status === 'Processing'
+                            : row.status === 'Waiting'
                             ? '#FF965D'
                             : '#FD7972'
                       }">
@@ -227,6 +228,7 @@
             <div class="table-content mat-elevation-z8">
               <table
                 mat-table
+                #CTETable
                 [dataSource]="cteDataSource"
                 matSort
                 #sorter3="matSort">
@@ -275,7 +277,7 @@
                         'background-color':
                           row.status === 'Approved'
                             ? '#49C96D'
-                            : row.status === 'Processing'
+                            : row.status === 'Waiting'
                             ? '#FF965D'
                             : '#FD7972'
                       }">
@@ -319,6 +321,7 @@
             <div class="table-content mat-elevation-z8">
               <table
                 mat-table
+                #CourseEqTable
                 [dataSource]="courseEquivalenceDataSource"
                 matSort
                 #sorter4="matSort">
@@ -367,7 +370,7 @@
                         'background-color':
                           row.status === 'Approved'
                             ? '#49C96D'
-                            : row.status === 'Processing'
+                            : row.status === 'Waiting'
                             ? '#FF965D'
                             : '#FD7972'
                       }">
