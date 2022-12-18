@@ -19,7 +19,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./preapproval-form-dialog.component.css']
 })
 export class PreapprovalFormDialogComponent implements OnInit {
-  
+
   userName: string;
 
   courseTypes: string[] = Object.values(CourseType);
@@ -90,7 +90,9 @@ export class PreapprovalFormDialogComponent implements OnInit {
           this.data.department = result.major.departmentName;
           this.data.academicYear = result.preferredSemester.academicYear;
           this.data.semester = result.preferredSemester.semester;
-          this.data.submissionTime = new Date();
+          this.data.requestedCourseGroups.forEach(group => {
+            group.requestedExemptedCourse.courseCode = group.requestedExemptedCourse.courseCode.replace(/[^a-z0-9]/gi, '').toLocaleUpperCase();
+          });
           console.log(this.data);
           this.preApprovalFormService
             .createPreApprovalForm(this.data)
