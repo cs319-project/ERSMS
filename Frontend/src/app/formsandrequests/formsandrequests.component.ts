@@ -96,12 +96,13 @@ export class FormsAndRequestsComponent {
     // for (let i = 1; i <= 100; i++) {
     //   users.push(createNewUser(i, (status = 'Processing')));
     // }
+    this.dataSource = new MatTableDataSource<UserData>();
+    this.cteDataSource = new MatTableDataSource<UserData>();
+    this.preapprovalDataSource = new MatTableDataSource<UserData>();
+    this.courseEquivalenceDataSource = new MatTableDataSource<UserData>();
+    this.studentDataSource = new MatTableDataSource<UserData>();
 
     if (this.currentUserRole !== 'Student') {
-      this.dataSource = new MatTableDataSource<UserData>();
-      this.cteDataSource = new MatTableDataSource<UserData>();
-      this.preapprovalDataSource = new MatTableDataSource<UserData>();
-      this.courseEquivalenceDataSource = new MatTableDataSource<UserData>();
 
       cteFormService
         .getNonArchivedCTEFormsByDepartment(this.currentUserId)
@@ -204,8 +205,8 @@ export class FormsAndRequestsComponent {
           this.courseEquivalenceDataSource.sort = this.sorter4;
           this.AllFormsTable.renderRows();
         });
-    } else if (this.currentUserRole === 'Student') {
-      this.studentDataSource = new MatTableDataSource<UserData>();
+    }
+    else if (this.currentUserRole === 'Student') {
 
       cteFormService
         .getCTEFormOfStudent(this.currentUserId)
@@ -276,7 +277,7 @@ export class FormsAndRequestsComponent {
           // console.log(data);
           data.forEach(element => {
             const formattedDate = formatDate(
-              element.submissionTime.toString(),
+              element.submissionDate.toString(),
               this.format,
               this.locale
             );
@@ -376,6 +377,7 @@ export class FormsAndRequestsComponent {
   }
 
   openDialog(row) {
+    console.log(row);
     if (row.type == 'CTE Form') {
       this.userService
         .getUserDetails(row.id)

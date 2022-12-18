@@ -85,9 +85,9 @@
                       class="status-text"
                       [ngStyle]="{
                         'background-color':
-                          row.status == 'Approved'
+                          row.status === 'Approved'
                             ? '#49C96D'
-                            : row.status == 'Processing'
+                            : row.status === 'Processing'
                             ? '#FF965D'
                             : '#FD7972'
                       }">
@@ -181,9 +181,9 @@
                       class="status-text"
                       [ngStyle]="{
                         'background-color':
-                          row.status == 'Approved'
+                          row.status === 'Approved'
                             ? '#49C96D'
-                            : row.status == 'Processing'
+                            : row.status === 'Processing'
                             ? '#FF965D'
                             : '#FD7972'
                       }">
@@ -273,9 +273,9 @@
                       class="status-text"
                       [ngStyle]="{
                         'background-color':
-                          row.status == 'Approved'
+                          row.status === 'Approved'
                             ? '#49C96D'
-                            : row.status == 'Processing'
+                            : row.status === 'Processing'
                             ? '#FF965D'
                             : '#FD7972'
                       }">
@@ -365,9 +365,9 @@
                       class="status-text"
                       [ngStyle]="{
                         'background-color':
-                          row.status == 'Approved'
+                          row.status === 'Approved'
                             ? '#49C96D'
-                            : row.status == 'Processing'
+                            : row.status === 'Processing'
                             ? '#FF965D'
                             : '#FD7972'
                       }">
@@ -485,8 +485,10 @@
                 hovered: row.hovered,
                 highlighted: selection.isSelected(row)
               }"
+              (click)="openDialog(row)"
               (mouseover)="row.hovered = true"
               (mouseout)="row.hovered = false"></tr>
+
           </table>
 
           <mat-paginator
