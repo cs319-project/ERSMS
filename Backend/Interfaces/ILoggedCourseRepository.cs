@@ -6,6 +6,7 @@ using Backend.Entities;
 
 namespace Backend.Interfaces
 {
+    /// <summary>An interface for the logged course repository.</summary>
     public interface ILoggedCourseRepository
     {
         Task<bool> CreateLoggedEquivalantCourse(LoggedEquivalentCourse loggedEquivalantCourse);

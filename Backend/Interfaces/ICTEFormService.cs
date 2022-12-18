@@ -6,6 +6,7 @@ using Backend.DTOs;
 
 namespace Backend.Interfaces
 {
+    /// <summary>An interface for the CTE (Course Transfer and Exemption) form service.</summary>
     public interface ICTEFormService
     {
         Task<bool> AddCTEFormToStudent(CTEFormDto cTEForm);

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 namespace Backend.Entities
 {
     // Accepted equivalence course pairs
+
+    /// <summary>A class for representing a course that is equivalent to another course.</summary>
     public class LoggedEquivalentCourse : LoggedCourse
     {
         public ExemptedCourse ExemptedCourse { get; set; }

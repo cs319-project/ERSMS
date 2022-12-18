@@ -7,6 +7,7 @@ using Backend.Utilities.Enum;
 
 namespace Backend.Interfaces
 {
+    /// <summary>An interface for the to-do item service.</summary>
     public interface IToDoItemService
     {
         Task<bool> AddToDoItem(string userName, ToDoItemDto toDoItem);

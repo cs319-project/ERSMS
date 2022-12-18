@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Backend.Entities
 {
+    /// <summary>A class for representing a message sent between users.</summary>
     public class Message
     {
         [Key]

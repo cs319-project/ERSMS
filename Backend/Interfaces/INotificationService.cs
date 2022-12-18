@@ -8,6 +8,7 @@ using Backend.Utilities.Enum;
 
 namespace Backend.Interfaces
 {
+    /// <summary>An interface for the notification service.</summary>
     public interface INotificationService
     {
         Task<bool> CreateNewFormNotification(Form formObject, FormType formType);

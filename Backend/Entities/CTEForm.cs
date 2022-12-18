@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend.Entities
 {
+    /// <summary>A class for representing a CTE (Course Transfer and Exemption) form.</summary>
     public class CTEForm : Form
     {
         [Key]

@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend.Entities
 {
+    /// <summary>A class representing an approval.</summary>
     public class Approval
     {
         //[ForeignKey("CTEForm")]

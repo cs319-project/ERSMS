@@ -6,6 +6,8 @@ namespace Backend.Entities
 {
     // This can be divided into inheritance relations as exemptedelective, exemptedgeneric rather than using enum and nullables
     // Course in Bilkent
+
+    /// <summary>A class for representing an exempted course.</summary>
     public class ExemptedCourse
     {
         [Key]

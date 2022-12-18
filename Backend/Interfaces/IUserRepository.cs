@@ -8,6 +8,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Backend.Interfaces
 {
+    /// <summary>An interface for the user repository.</summary>
     public interface IUserRepository
     {
         Task<Object> UpdateUser(JObject dto);

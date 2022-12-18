@@ -7,6 +7,7 @@ using Backend.DTOs;
 
 namespace Backend.Interfaces
 {
+    /// <summary>An interface for the placement service.</summary>
     public interface IPlacementService
     {
         Task<PlacementTableDto> UploadPlacementTable(String facultyName, String departmentName, IFormFile placementTable);

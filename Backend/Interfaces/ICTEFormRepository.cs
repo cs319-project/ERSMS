@@ -6,6 +6,7 @@ using Backend.Entities;
 
 namespace Backend.Interfaces
 {
+    /// <summary>An interface for the CTE (Course Transfer and Exemption) form repository.</summary>
     public interface ICTEFormRepository
     {
         Task<bool> AddCTEFormToStudent(string userName, CTEForm cTEForm);

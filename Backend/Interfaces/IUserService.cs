@@ -9,6 +9,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Backend.Interfaces
 {
+    /// <summary>An interface for the user service.</summary>
     public interface IUserService
     {
         void Update(AppUser user);

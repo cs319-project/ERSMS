@@ -6,6 +6,7 @@ using Backend.Entities;
 
 namespace Backend.Interfaces
 {
+    /// <summary>An interface for the pre-approval form repository.</summary>
     public interface IPreApprovalFormRepository
     {
         Task<bool> SubmitPreApprovalForm(PreApprovalForm preApprovalForm);

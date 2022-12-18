@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend.Entities
 {
+    /// <summary>A class for representing a pre-approval form.</summary>
     public class PreApprovalForm : Form
     {
         [Key]
