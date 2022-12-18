@@ -145,5 +145,24 @@ namespace Backend.Services
             var forms = await _userRepository.GetPlacedStudentsAsync();
             return _mapper.Map<IEnumerable<PlacedStudentDto>>(forms);
         }
+
+        public async Task<ICollection<StudentDto>> GetStudentsFromSameSchool(string username)
+        {
+            var students = await _userRepository.GetStudentsAsync();
+            var curStudent = await _userRepository.GetStudentByUserName(username);
+            List<StudentDto> sameSchoolStudents = new List<StudentDto>();
+
+            if (curStudent == null || string.IsNullOrEmpty(curStudent.ExchangeSchool)) return null;
+
+            foreach (var student in students)
+            {
+                if (!string.IsNullOrEmpty(student.ExchangeSchool) && student.ExchangeSchool == curStudent.ExchangeSchool)
+                {
+                    sameSchoolStudents.Add(_mapper.Map<StudentDto>(student));
+                }
+            }
+
+            return sameSchoolStudents;
+        }
     }
 }

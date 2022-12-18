@@ -55,5 +55,12 @@ namespace Backend.Controllers
             var deleteUser = await _userService.DeleteUser(username);
             return deleteUser ? Ok(deleteUser) : NotFound();
         }
+
+        [HttpGet("/student/{username}/sameSchool")]
+        public async Task<ActionResult> GetStudentsFromSameSchool(string username)
+        {
+            var students = await _userService.GetStudentsFromSameSchool(username);
+            return students != null ? Ok(students) : NotFound();
+        }
     }
 }
