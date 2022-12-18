@@ -23,33 +23,9 @@ import { CourseType } from 'src/app/_models/enum/course-type-enum';
 export class EquivalenceRequestDialogComponent implements OnInit {
   fileObj: File;
   courseTypes: string[] = Object.values(CourseType);
-  courseType = new FormControl('', [Validators.required]);
-  error = true;
-  submitted = false;
-  courseCode = new FormControl('', [Validators.required]);
-  courseName = new FormControl('', [Validators.required]);
-
+ 
   syllabus: File;
   userName: string;
-  file = new FormControl('', [Validators.required]);
-  courseCodeBilkent = new FormControl('', [Validators.required]);
-  courseNameBilkent = new FormControl('', [Validators.required]);
-
-  getErrorMessageEmpty() {
-    return this.courseCode.hasError('required')
-      ? 'All fields must be filled'
-      : this.courseName.hasError('required')
-      ? 'All fields must be filled'
-      : '';
-  }
-
-  getErrorMessageEmptyBilkent() {
-    return this.courseCodeBilkent.hasError('required')
-      ? 'All fields must be filled'
-      : this.courseNameBilkent.hasError('required')
-      ? 'All fields must be filled'
-      : '';
-  }
 
   @Input()
   requiredFileType: string; // TODO: set file type
@@ -99,16 +75,6 @@ export class EquivalenceRequestDialogComponent implements OnInit {
         this.toastr.error('No student with ID ' + this.data.studentId);
       }
     );
-    this.submitted = true;
-    this.error =
-      this.courseCode.hasError('required') ||
-      this.courseName.hasError('required') ||
-      this.courseCodeBilkent.hasError('required') ||
-      this.courseNameBilkent.hasError('required');
-    // if (!this.error) {
-    //   console.log(this.data);
-    //   this.dialogRef.close(this.data);
-    // }
   }
 
   onFileSelected(event) {
@@ -120,7 +86,6 @@ export class EquivalenceRequestDialogComponent implements OnInit {
         this.fileObj.name.endsWith('.docx')
       )
     ) {
-      this.error = false;
       this.toastr.error('Please upload a pdf or docx file for the syllabus');
       this.fileObj = null;
       return;

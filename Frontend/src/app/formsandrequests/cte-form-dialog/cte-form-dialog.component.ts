@@ -16,48 +16,7 @@ import { ActorsEnum } from '../../_models/enum/actors-enum';
   styleUrls: ['./cte-form-dialog.component.css']
 })
 export class CteFormDialogComponent implements OnInit {
-  error = true;
-  submitted = false;
-  studentid = new FormControl('', [Validators.required]);
-  courseCredit = new FormControl('', [Validators.required]);
-  courseCode = new FormControl('', [Validators.required]);
-  courseName = new FormControl('', [Validators.required]);
-  grade = new FormControl('', [Validators.required]);
-  courseType = new FormControl('', [Validators.required]);
-
-  courseCreditBilkent = new FormControl('', [Validators.required]);
-  courseCreditBilkentECTS = new FormControl('', [Validators.required]);
-  courseCodeBilkent = new FormControl('', [Validators.required]);
-  courseNameBilkent = new FormControl('', [Validators.required]);
-
-  getErrorMessageEmpty() {
-    return this.studentid.hasError('required')
-      ? 'All fields must be filled'
-      : this.courseCredit.hasError('required')
-      ? 'All fields must be filled'
-      : this.courseCode.hasError('required')
-      ? 'All fields must be filled'
-      : this.courseName.hasError('required')
-      ? 'All fields must be filled'
-      : this.grade.hasError('required')
-      ? 'All fields must be filled'
-      : '';
-  }
-
-  getErrorMessageEmptyBilkent() {
-    return this.courseCreditBilkentECTS.hasError('required')
-      ? 'All fields must be filled'
-      : this.courseCreditBilkent.hasError('required')
-      ? 'All fields must be filled'
-      : this.courseCodeBilkent.hasError('required')
-      ? 'All fields must be filled'
-      : this.courseNameBilkent.hasError('required')
-      ? 'All fields must be filled'
-      : this.courseType.hasError('required')
-      ? 'All fields must be filled'
-      : '';
-  }
-
+  
   courseTypes: string[] = [
     'Mandatory Course',
     'Techincal Elective',
@@ -176,20 +135,5 @@ export class CteFormDialogComponent implements OnInit {
       }
     );
 
-    this.error =
-      this.courseCredit.hasError('required') ||
-      this.studentid.hasError('required') ||
-      this.courseCode.hasError('required') ||
-      this.courseName.hasError('required') ||
-      this.grade.hasError('required') ||
-      this.courseCreditBilkent.hasError('required') ||
-      this.courseCodeBilkent.hasError('required') ||
-      this.courseNameBilkent.hasError('required') ||
-      this.courseType.hasError('required');
-
-    if (!this.error) {
-      console.log(this.data);
-      this.dialogRef.close(this.data);
-    }
   }
 }

@@ -19,41 +19,8 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./preapproval-form-dialog.component.css']
 })
 export class PreapprovalFormDialogComponent implements OnInit {
-  error = true;
-  submitted = false;
-
-  courseCredit = new FormControl('', [Validators.required]);
-  courseCode = new FormControl('', [Validators.required]);
-  courseName = new FormControl('', [Validators.required]);
-  courseType = new FormControl('', [Validators.required]);
-
-  courseCreditBilkent = new FormControl('', [Validators.required]);
-  courseCodeBilkent = new FormControl('', [Validators.required]);
-  courseNameBilkent = new FormControl('', [Validators.required]);
-
+  
   userName: string;
-
-  getErrorMessageEmpty() {
-    return this.courseCredit.hasError('required')
-      ? 'All fields must be filled'
-      : this.courseCode.hasError('required')
-      ? 'All fields must be filled'
-      : this.courseName.hasError('required')
-      ? 'All fields must be filled'
-      : '';
-  }
-
-  getErrorMessageEmptyBilkent() {
-    return this.courseCreditBilkent.hasError('required')
-      ? 'All fields must be filled'
-      : this.courseCodeBilkent.hasError('required')
-      ? 'All fields must be filled'
-      : this.courseNameBilkent.hasError('required')
-      ? 'All fields must be filled'
-      : this.courseType.hasError('required')
-      ? 'All fields must be filled'
-      : '';
-  }
 
   courseTypes: string[] = Object.values(CourseType);
 
@@ -85,13 +52,6 @@ export class PreapprovalFormDialogComponent implements OnInit {
         bilkentCredits: null
       }
     };
-
-    for (let i = 0; i < newGroup.requestedCourses.length; i++) {
-      this.courseCredit = new FormControl('', [Validators.required]);
-      this.courseCode = new FormControl('', [Validators.required]);
-      this.courseName = new FormControl('', [Validators.required]);
-      this.courseType = new FormControl('', [Validators.required]);
-    }
 
     if (this.data.requestedCourseGroups) {
       this.data.requestedCourseGroups.push(newGroup);
@@ -153,20 +113,5 @@ export class PreapprovalFormDialogComponent implements OnInit {
         this.toastr.error('No student with ID ' + this.data.idNumber);
       }
     );
-
-    this.submitted = true;
-    this.error =
-      this.courseCredit.hasError('required') ||
-      this.courseCode.hasError('required') ||
-      this.courseName.hasError('required') ||
-      this.courseCreditBilkent.hasError('required') ||
-      this.courseCodeBilkent.hasError('required') ||
-      this.courseNameBilkent.hasError('required') ||
-      this.courseType.hasError('required');
-
-    // if (!this.error) {
-    //   console.log(this.data);
-    //   this.dialogRef.close(this.data);
-    // }
   }
 }

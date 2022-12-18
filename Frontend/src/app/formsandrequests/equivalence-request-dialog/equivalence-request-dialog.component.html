@@ -12,8 +12,6 @@
           <mat-label>Course Code</mat-label>
           <input
             type="search"
-            [formControl]="courseCode"
-            required
             matInput
             [(ngModel)]="data.hostCourseCode" />
         </mat-form-field>
@@ -24,8 +22,6 @@
           <mat-label>Course Name</mat-label>
           <input
             type="search"
-            [formControl]="courseName"
-            required
             matInput
             [(ngModel)]="data.hostCourseName" />
         </mat-form-field>
@@ -43,8 +39,6 @@
       <input
         type="file"
         class="file-input"
-        [formControl]="file"
-        required
         [accept]="requiredFileType"
         (change)="onFileSelected($event)"
         #fileUpload
@@ -65,20 +59,13 @@
             : data.fileName || "No file uploaded."
         }}</span>
       </div>
-
-      <mat-error
-        style="width: 200px"
-        class="mr-3"
-        *ngIf="(courseCode.invalid || courseName.invalid) && submitted">
-        {{ getErrorMessageEmpty() }}
-      </mat-error>
     </div>
     <div class="course-container mb-4">
       <span class="request-subtitle">Bilkent University Course</span>
       <div class="course-info">
         <span class="mr-3">Course Type:</span>
         <mat-form-field style="flex-grow: 1; text-align: center" class="ml-2">
-          <mat-select required [(ngModel)]="data.exemptedCourse.courseType">
+          <mat-select [(ngModel)]="data.exemptedCourse.courseType">
             <mat-option *ngFor="let dep of courseTypes" [value]="dep">
               {{ dep }}
             </mat-option>
@@ -98,8 +85,6 @@
           <mat-label>Course Code</mat-label>
           <input
             type="search"
-            [formControl]="courseCodeBilkent"
-            required
             matInput
             [(ngModel)]="data.exemptedCourse.courseCode" />
         </mat-form-field>
@@ -110,15 +95,13 @@
           <mat-label>Course Name</mat-label>
           <input
             type="search"
-            [formControl]="courseNameBilkent"
-            required
             matInput
             [(ngModel)]="data.exemptedCourse.courseName" />
         </mat-form-field>
         <mat-form-field
           style="width: 100px; margin-right: 15px"
           appearance="outline">
-          <mat-label style="white-space: normal">Bilkent Credits</mat-label>
+          <mat-label style="white-space: normal"> Bilkent Credits</mat-label>
           <input
             type="number"
             step="1"
@@ -136,15 +119,6 @@
             [(ngModel)]="data.exemptedCourse.ects" />
         </mat-form-field>
       </div>
-
-      <mat-error
-        style="width: 200px"
-        class="mr-3"
-        *ngIf="
-          (courseCodeBilkent.invalid || courseNameBilkent.invalid) && submitted
-        ">
-        {{ getErrorMessageEmptyBilkent() }}
-      </mat-error>
     </div>
     <div class="notes-container">
       <span class="request-subtitle">Additional Notes</span>

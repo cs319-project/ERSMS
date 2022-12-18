@@ -41,9 +41,3 @@
   display: flex;
   flex-direction: column;
 }
-
-.mat-error {
-  font-size: x-small;
-  display: flex;
-  align-items: center;
-}
