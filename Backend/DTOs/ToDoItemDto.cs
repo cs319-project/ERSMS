@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Backend.DTOs
 {
-
+    /// <summary>A data transfer object for a to-do list item.</summary>
     public class ToDoItemDto
     {
         public Guid Id { get; set; }

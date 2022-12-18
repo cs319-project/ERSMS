@@ -2,6 +2,7 @@ using System.Runtime.Serialization;
 
 namespace Backend.Utilities.Enum
 {
+    /// <summary>An enum for representing the departments at the Bilkent University.</summary>
     public enum Department
     {
         // Departments at the Bilkent University

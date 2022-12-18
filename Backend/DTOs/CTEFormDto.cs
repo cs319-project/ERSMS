@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace Backend.DTOs
 {
+    /// <summary>A data transfer object for a CTE Form.</summary>
     public class CTEFormDto
     {
         public Guid Id { get; set; }

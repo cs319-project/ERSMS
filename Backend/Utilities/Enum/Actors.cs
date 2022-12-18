@@ -2,6 +2,7 @@ using System.Runtime.Serialization;
 
 namespace Backend.Utilities.Enum
 {
+    /// <summary>An enum for representing the actors in the application.</summary>
     public enum Actors
     {
 

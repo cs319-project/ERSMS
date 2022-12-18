@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace Backend.DTOs
 {
+    /// <summary>A data transfer object for a notification.</summary>
     public class NotificationDto
     {
         public Guid Id { get; set; }

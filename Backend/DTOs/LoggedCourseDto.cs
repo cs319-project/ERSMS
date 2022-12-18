@@ -6,6 +6,7 @@ using Backend.Utilities.Enum;
 
 namespace Backend.DTOs
 {
+    /// <summary>A data transfer object for a logged course.</summary>
     public abstract class LoggedCourseDto
     {
         public Guid Id { get; set; }

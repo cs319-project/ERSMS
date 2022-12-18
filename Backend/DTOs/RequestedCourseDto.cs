@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace Backend.DTOs
 {
+    /// <summary>A data transfer object for a requested course.</summary>
     public class RequestedCourseDto
     {
         public Guid Id { get; set; }

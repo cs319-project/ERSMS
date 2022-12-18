@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace Backend.DTOs
 {
+    /// <summary>A data transfer object for a pre-approval form.</summary>
     public class PreApprovalFormDto
     {
         public Guid Id { get; set; }

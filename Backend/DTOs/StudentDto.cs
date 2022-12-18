@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace Backend.DTOs
 {
+    /// <summary>A data transfer object for a student.</summary>
     public class StudentDto : DomainUserDto
     {
         public int EntranceYear { get; set; } // might be redundant

@@ -8,6 +8,7 @@ using Backend.DataAnnotations;
 
 namespace Backend.DTOs
 {
+    /// <summary>A data transfer object for registering a user.</summary>
     public class RegisterDto
     {
         [Required] public string ActorType { get; set; }
