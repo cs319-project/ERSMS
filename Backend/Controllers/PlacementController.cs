@@ -12,15 +12,24 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Backend.Controllers
 {
+    /// <summary>Controller for the Student Placement API.</summary>
     public class PlacementController : BaseApiController
     {
         private readonly IPlacementService _placementService;
 
+        /// <summary>Initializes a new instance of the <see cref="PlacementController"/> class.</summary>
+        /// <param name="placementService">The placement service.</param>
+        /// <param name="mapper">The mapper.</param>
         public PlacementController(IPlacementService placementService, IMapper mapper)
         {
             _placementService = placementService;
         }
 
+        /// <summary>Uploads a placement table.</summary>
+        /// <param name="facultyName">The name of the faculty.</param>
+        /// <param name="departmentName">The name of the department.</param>
+        /// <param name="placementTable">The placement table.</param>
+        /// <returns>The result of the upload.</returns>
         [HttpPost("upload")]
         [Consumes("multipart/form-data")]
         // [Authorize(Roles = "Office of International Students and Exchange Programs")]
@@ -38,6 +47,9 @@ namespace Backend.Controllers
             return (result != null) ? Ok(result) : BadRequest("Error when uploading file");
         }
 
+        /// <summary>Downloads the placement table.</summary>
+        /// <param name="id">The id of the placement table.</param>
+        /// <returns>The placement table as a file.</returns>
         [HttpGet("download/{id:guid}")]
         public async Task<ActionResult> DownloadPlacementTable(Guid id)
         {
@@ -59,12 +71,17 @@ namespace Backend.Controllers
             }
         }
 
+        /// <summary>Deletes a placement table.</summary>
+        /// <param name="id">The ID of the placement table to delete.</param>
+        /// <returns>An <see cref="ActionResult"/> indicating whether the placement table was deleted.</returns>
         [HttpDelete("delete/{id:guid}")]
         public async Task<ActionResult> DeletePlacementTable(Guid id)
         {
             return (await _placementService.DeletePlacementTable(id)) ? Ok() : NotFound();
         }
 
+        /// <summary>Gets all placement tables.</summary>
+        /// <returns>All placement tables.</returns>
         [HttpGet("getall")]
         public async Task<ActionResult<IEnumerable<PlacementTableDto>>> GetAllPlacementTables()
         {
@@ -73,6 +90,10 @@ namespace Backend.Controllers
             return Ok(result);
         }
 
+        /// <summary>Gets the placement tables for a given department.</summary>
+        /// <param name="facultyName">The name of the faculty.</param>
+        /// <param name="departmentName">The name of the department.</param>
+        /// <returns>The placement tables for the given department.</returns>
         [HttpGet("get")]
         public async Task<ActionResult<IEnumerable<PlacementTableDto>>> GetPlacementTables([FromQuery] String facultyName, [FromQuery] String departmentName)
         {
@@ -81,6 +102,9 @@ namespace Backend.Controllers
             return (result != null) ? Ok(result) : NotFound();
         }
 
+        /// <summary>Gets a placement table.</summary>
+        /// <param name="id">The ID of the placement table.</param>
+        /// <returns>The placement table.</returns>
         [HttpGet("get/{id:guid}")]
         public async Task<ActionResult<PlacementTableDto>> GetPlacementTable(Guid id)
         {
@@ -89,6 +113,9 @@ namespace Backend.Controllers
             return (result != null) ? Ok(result) : NotFound();
         }
 
+        /// <summary>Places students in the specified class.</summary>
+        /// <param name="id">The ID of the class to place students in.</param>
+        /// <returns>A list of placed students.</returns>
         [HttpPost("placeStudents/{id:guid}")]
         public async Task<ActionResult<IEnumerable<PlacedStudentDto>>> PlaceStudents(Guid id)
         {

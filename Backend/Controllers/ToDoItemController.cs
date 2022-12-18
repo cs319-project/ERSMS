@@ -10,12 +10,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
 {
+    /// <summary>Controller for the To-Do API</summary>
     public class ToDoItemController : BaseApiController
     {
         private readonly IToDoItemService _toDoItemService;
         private readonly IUserService _userService;
 
         // Constructor
+
+        /// <summary>Initializes a new instance of the <see cref="ToDoItemController"/> class.</summary>
+        /// <param name="toDoItemService">The to-do item service.</param>
+        /// <param name="userService">The user service.</param>
         public ToDoItemController(IToDoItemService toDoItemService, IUserService userService)
         {
             _toDoItemService = toDoItemService;
@@ -23,6 +28,12 @@ namespace Backend.Controllers
         }
 
         // Endpoints
+
+        /// <summary>Adds a new to-do item.</summary>
+        /// <param name="userName">The user name.</param>
+        /// <param name="toDoItem">The to-do item.</param>
+        /// <returns>The added to-do item.</returns>
+        /// <exception cref="ToDoListException">Thrown when the to-do item could not be added.</exception>
         [HttpPost("{userName}")]
         public async Task<ActionResult<ToDoItemDto>> AddToDoItem(string userName, ToDoItemDto toDoItem)
         {
@@ -32,7 +43,7 @@ namespace Backend.Controllers
                 {
                     return Ok(toDoItem);
                 }
-                return BadRequest("Failed to add to do item");
+                return BadRequest("Failed to add to-do item");
             }
             catch (ToDoListException e)
             {
@@ -40,6 +51,10 @@ namespace Backend.Controllers
             }
         }
 
+        /// <summary>Updates a to-do item.</summary>
+        /// <param name="toDoItem">The to-do item to update.</param>
+        /// <returns>The updated to-do item.</returns>
+        /// <exception cref="HttpResponseException">Thrown when the to-do item failed to update.</exception>
         [HttpPut]
         public async Task<ActionResult<ToDoItemDto>> UpdateToDoItem(ToDoItemDto toDoItem)
         {
@@ -47,15 +62,21 @@ namespace Backend.Controllers
             {
                 return Ok(toDoItem);
             }
-            return BadRequest("Failed to update to do item");
+            return BadRequest("Failed to update to-do item");
         }
 
+        /// <summary>Gets all the to-do items.</summary>
+        /// <returns>All the to-do items.</returns>
         [HttpGet("getAll")]
         public async Task<IEnumerable<ToDoItemDto>> GetToDoItems()
         {
             return await _toDoItemService.GetToDoItems();
         }
 
+        /// <summary>Deletes a to-do item.</summary>
+        /// <param name="id">The ID of the to-do item to delete.</param>
+        /// <returns>The deleted to-do item.</returns>
+        /// <exception cref="NotFoundException">Thrown when the to-do item is not found.</exception>
         [HttpDelete("{id}")]
         public async Task<ActionResult<ToDoItemDto>> DeleteToDoItem(Guid id)
         {
@@ -70,9 +91,13 @@ namespace Backend.Controllers
             {
                 return Ok(item);
             }
-            return BadRequest("Failed to delete to do item");
+            return BadRequest("Failed to delete to-do item");
         }
 
+        /// <summary>Marks a to-do item as complete.</summary>
+        /// <param name="id">The ID of the to-do item.</param>
+        /// <param name="isComplete">Whether the to-do item should be marked as complete.</param>
+        /// <returns>The to-do item.</returns>
         [HttpPut("complete/{id}")]
         public async Task<ActionResult<ToDoItemDto>> CompleteToDoItem(Guid id, [FromBody] bool isComplete)
         {
@@ -87,9 +112,13 @@ namespace Backend.Controllers
             {
                 return Ok(item);
             }
-            return BadRequest("Failed to complete to do item");
+            return BadRequest("Failed to complete to-do item");
         }
 
+        /// <summary>Changes the star status of a to-do item.</summary>
+        /// <param name="id">The ID of the to-do item.</param>
+        /// <param name="isStarred">The new star status.</param>
+        /// <returns>The updated to-do item.</returns>
         [HttpPut("star/{id}")]
         public async Task<ActionResult<ToDoItemDto>> StarToDoItem(Guid id, [FromBody] bool isStarred)
         {
@@ -104,9 +133,14 @@ namespace Backend.Controllers
             {
                 return Ok(item);
             }
-            return BadRequest("Failed to star to do item");
+            return BadRequest("Failed to star to-do item");
         }
 
+        /// <summary>Adds a to-do item to all departments.</summary>
+        /// <param name="toDoItem">The to-do item to add.</param>
+        /// <param name="department">The department to add the to-do item to.</param>
+        /// <returns>The added to-do item.</returns>
+        /// <exception cref="ToDoListException">Thrown when the to-do item couldn't be added to all departments.</exception>
         [HttpPost("addToAllDepartment/{department}")]
         public async Task<ActionResult<ToDoItemDto>> AddToDoItemToAll(ToDoItemDto toDoItem, string department)
         {
@@ -116,7 +150,7 @@ namespace Backend.Controllers
                 {
                     return Ok(toDoItem);
                 }
-                return BadRequest("Failed to add to do item to all");
+                return BadRequest("Failed to add to-do item to all");
             }
             catch (ToDoListException e)
             {
@@ -126,6 +160,9 @@ namespace Backend.Controllers
             }
         }
 
+        /// <summary>Gets a ToDoItem.</summary>
+        /// <param name="id">The ID of the ToDoItem.</param>
+        /// <returns>The ToDoItem.</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<ToDoItemDto>> GetToDoItem(Guid id)
         {
@@ -139,6 +176,11 @@ namespace Backend.Controllers
             return Ok(item);
         }
 
+        /// <summary>Gets the to-do list for an exchange coordinator.</summary>
+        /// <param name="userName">The user name of the exchange coordinator.</param>
+        /// <returns>The to-do list for the exchange coordinator.</returns>
+        /// <exception cref="NotFoundException">Thrown when the coordinator is not found.</exception>
+        /// <exception cref="BadRequestException">Thrown when the coordinator does not have a to-do list.</exception>
         [HttpGet("coordinatorToDoList/{userName}")]
         public async Task<ActionResult<IEnumerable<ToDoItemDto>>> GetCoordinatorToDoList(string userName)
         {
@@ -150,12 +192,17 @@ namespace Backend.Controllers
 
             if (coordinator.ToDoList == null)
             {
-                return BadRequest("Coordinator does not have a to do list");
+                return BadRequest("Coordinator does not have a to-do list");
             }
 
             return Ok(coordinator.ToDoList);
         }
 
+        /// <summary>Gets the to-do list for a student.</summary>
+        /// <param name="userName">The user name of the student.</param>
+        /// <returns>The to-do list for the student.</returns>
+        /// <exception cref="NotFoundException">Thrown when the student is not found.</exception>
+        /// <exception cref="BadRequestException">Thrown when the student does not have a to-do list.</exception>
         [HttpGet("studentToDoList/{userName}")]
         public async Task<ActionResult<IEnumerable<ToDoItemDto>>> GetStudentToDoList(string userName)
         {
@@ -167,7 +214,7 @@ namespace Backend.Controllers
 
             if (student.ToDoList == null)
             {
-                return BadRequest("Student does not have a to do list");
+                return BadRequest("Student does not have a to-do list");
             }
 
             return Ok(student.ToDoList);

@@ -9,12 +9,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
 {
+    /// <summary>Controller for the Pre-Approval Form API.</summary>
     public class PreApprovalFormController : BaseApiController
     {
         private readonly IPreApprovalFormService _preApprovalFormService;
         private readonly IUserService _userService;
 
         // Constructor
+
+        /// <summary>Initializes a new instance of the <see cref="PreApprovalFormController"/> class.</summary>
+        /// <param name="preApprovalFormService">The pre approval form service.</param>
+        /// <param name="userService">The user service.</param>
         public PreApprovalFormController(IPreApprovalFormService preApprovalFormService, IUserService userService)
         {
             _preApprovalFormService = preApprovalFormService;
@@ -22,6 +27,11 @@ namespace Backend.Controllers
         }
 
         // Endpoints
+
+        /// <summary>Uploads a PDF file to the pre-approval form.</summary>
+        /// <param name="formId">The ID of the pre-approval form.</param>
+        /// <param name="pdf">The PDF file to upload.</param>
+        /// <returns>An <see cref="ActionResult"/> indicating whether the upload was successful.</returns>
         [HttpPost("upload")]
         [Consumes("multipart/form-data")]
         public async Task<ActionResult> UploadPdf([FromQuery] Guid formId,
@@ -37,6 +47,9 @@ namespace Backend.Controllers
             return (result) ? Ok(result) : BadRequest("Error when uploading file");
         }
 
+        /// <summary>Downloads a PDF file.</summary>
+        /// <param name="id">The ID of the pre-approval form.</param>
+        /// <returns>The PDF file.</returns>
         [HttpGet("download/{id:guid}")]
         public async Task<ActionResult> DownloadPdf(Guid id)
         {
@@ -52,6 +65,10 @@ namespace Backend.Controllers
             }
         }
 
+        /// <summary>Submits a Pre-Approval Form to the Student.</summary>
+        /// <param name="preApprovalForm">The Pre-Approval Form to submit.</param>
+        /// <returns>The submitted Pre-Approval Form.</returns>
+        /// <exception cref="ToDoListException">Thrown when the Pre-Approval Form fails to submit.</exception>
         [HttpPost]
         public async Task<ActionResult<PreApprovalFormDto>> SubmitPreApprovalForm(PreApprovalFormDto preApprovalForm)
         {
@@ -71,6 +88,9 @@ namespace Backend.Controllers
             }
         }
 
+        /// <summary>Updates a Pre-Approval Form.</summary>
+        /// <param name="preApprovalForm">The Pre-Approval Form to update.</param>
+        /// <returns>The updated Pre-Approval Form.</returns>
         [HttpPut()]
         public async Task<ActionResult<PreApprovalFormDto>> UpdatePreApprovalForm(PreApprovalFormDto preApprovalForm)
         {
@@ -81,6 +101,8 @@ namespace Backend.Controllers
             return BadRequest("Failed to update Pre-Approval Form");
         }
 
+        /// <summary>Gets all pre-approval forms.</summary>
+        /// <returns>All pre-approval forms.</returns>
         [HttpGet("getAll")]
         public async Task<ActionResult<IEnumerable<PreApprovalFormDto>>> GetPreApprovalForms()
         {
@@ -92,6 +114,9 @@ namespace Backend.Controllers
             return Ok(forms);
         }
 
+        /// <summary>Cancels a Pre-Approval Form.</summary>
+        /// <param name="id">The ID of the Pre-Approval Form to cancel.</param>
+        /// <returns>An ActionResult indicating whether the Pre-Approval Form was successfully cancelled.</returns>
         [HttpPatch("cancel/{id:guid}")]
         public async Task<ActionResult> CancelPreApprovalForm(Guid id)
         {
@@ -99,6 +124,10 @@ namespace Backend.Controllers
             return (form) ? Ok() : BadRequest("Failed to cancel Pre-Approval Form");
         }
 
+        /// <summary>Deletes a Pre-Approval Form.</summary>
+        /// <param name="id">The ID of the Pre-Approval Form to delete.</param>
+        /// <returns>The deleted Pre-Approval Form.</returns>
+        /// <exception cref="NotFoundException">Thrown when the Pre-Approval Form is not found.</exception>
         [HttpDelete("{id}")]
         public async Task<ActionResult<PreApprovalFormDto>> DeletePreApprovalForm(Guid id)
         {
@@ -116,6 +145,9 @@ namespace Backend.Controllers
             return BadRequest("Failed to delete Pre-Approval Form");
         }
 
+        /// <summary>Gets a Pre-Approval Form.</summary>
+        /// <param name="id">The Pre-Approval Form ID.</param>
+        /// <returns>The Pre-Approval Form.</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<PreApprovalFormDto>> GetPreApprovalForm(Guid id)
         {
@@ -127,6 +159,8 @@ namespace Backend.Controllers
             return NotFound("Failed to get Pre-Approval Form");
         }
 
+        /// <summary>Gets all archived pre-approval forms.</summary>
+        /// <returns>All archived pre-approval forms.</returns>
         [HttpGet("archived/all")]
         public async Task<ActionResult<IEnumerable<PreApprovalFormDto>>> GetArchivedPreApprovalForms()
         {
@@ -138,6 +172,9 @@ namespace Backend.Controllers
             return Ok(forms);
         }
 
+        /// <summary>Retrieves the archived pre-approval forms by department.</summary>
+        /// <param name="userName">The user name.</param>
+        /// <returns>The archived pre-approval forms by department.</returns>
         [HttpGet("archived/department/{userName}")]
         public async Task<ActionResult<IEnumerable<PreApprovalFormDto>>> GetArchivedPreApprovalFormsByDepartment(string userName)
         {
@@ -149,6 +186,8 @@ namespace Backend.Controllers
             return Ok(forms);
         }
 
+        /// <summary>Gets all non-archived pre-approval forms.</summary>
+        /// <returns>All non-archived pre-approval forms.</returns>
         [HttpGet("nonarchived/all")]
         public async Task<ActionResult<IEnumerable<PreApprovalFormDto>>> GetNonArchivedPreApprovalForms()
         {
@@ -160,6 +199,9 @@ namespace Backend.Controllers
             return Ok(forms);
         }
 
+        /// <summary>Gets all non-archived pre-approval forms for a department.</summary>
+        /// <param name="userName">The user name of the department.</param>
+        /// <returns>The non-archived pre-approval forms for the department.</returns>
         [HttpGet("nonarchived/department/{userName}")]
         public async Task<ActionResult<IEnumerable<PreApprovalFormDto>>> GetNonArchivedPreApprovalFormsByDepartment(string userName)
         {
@@ -171,6 +213,9 @@ namespace Backend.Controllers
             return Ok(forms);
         }
 
+        /// <summary>Gets the pre-approval forms of a student.</summary>
+        /// <param name="studentId">The student's ID.</param>
+        /// <returns>The pre-approval forms of the student.</returns>
         [HttpGet("student/{studentId}")]
         public async Task<ActionResult<IEnumerable<PreApprovalFormDto>>> GetPreApprovalFormsOfStudent(string studentId)
         {
@@ -182,6 +227,9 @@ namespace Backend.Controllers
             return Ok(preApprovalForms);
         }
 
+        /// <summary>Gets the pre-approval forms by department.</summary>
+        /// <param name="userName">The user name.</param>
+        /// <returns>The pre-approval forms by department.</returns>
         [HttpGet("department/{userName}")]
         public async Task<ActionResult<IEnumerable<PreApprovalFormDto>>> GetPreApprovalFormsByDepartment(string userName)
         {
@@ -193,6 +241,10 @@ namespace Backend.Controllers
             return Ok(preApprovalForms);
         }
 
+        /// <summary>Approves a Pre-Approval Form by the Coordinator.</summary>
+        /// <param name="formId">The ID of the Pre-Approval Form.</param>
+        /// <param name="approval">The approval data.</param>
+        /// <returns>A <see cref="bool"/> indicating whether the operation was successful.</returns>
         [HttpPost("coordinatorApprove/{formId}")]
         public async Task<ActionResult<bool>> CoordinatorApprovePreApprovalForm(Guid formId, ApprovalDto approval)
         {
@@ -203,6 +255,10 @@ namespace Backend.Controllers
             return BadRequest("Failed to approve Pre-Approval Form");
         }
 
+        /// <summary>Approves a Pre-Approval Form.</summary>
+        /// <param name="formId">The ID of the Pre-Approval Form.</param>
+        /// <param name="approval">The approval data.</param>
+        /// <returns>A <see cref="bool"/> indicating whether the operation succeeded.</returns>
         [HttpPost("fabApprove/{formId}")]
         public async Task<ActionResult<bool>> FABApprovePreApprovalForm(Guid formId, ApprovalDto approval)
         {
