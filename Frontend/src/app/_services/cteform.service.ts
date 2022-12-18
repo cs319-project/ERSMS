@@ -27,6 +27,12 @@ export class CTEFormService {
     });
   }
 
+  deletePdf(formId: GUID): Observable<any> {
+    return this.http.delete<any>(
+      `${this.baseApiUrl}cteform/deletePdf/${formId}`
+    );
+  }
+
   getCTEForms(): Observable<any> {
     return this.http.get<any>(`${this.baseApiUrl}cteform/getall`);
   }

@@ -11,6 +11,7 @@ namespace Backend.Interfaces
         Task<ICollection<CTEFormDto>> GetNonArchivedCTEFormsByDepartmentForChair(string userName);
         Task<ICollection<CTEFormDto>> GetArchivedCTEFormsByDepartmentForChair(string userName);
         Task<(byte[], string)> DownloadPdf(Guid formId);
+        Task<bool> DeletePdf(Guid formId);
         Task<IEnumerable<CTEFormDto>> GetCTEForms();
         Task<bool> DeleteCTEForm(Guid id);
         Task<CTEFormDto> GetCTEForm(Guid id);

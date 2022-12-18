@@ -61,6 +61,17 @@ namespace Backend.Controllers
             }
         }
 
+        /// <summary>Deletes the pdf of PreApproval Form.</summary>
+        /// <param name="id">id of the PreApproval Form.</param>
+        /// <returns>true if the pdf is deleted, false otherwise.</returns>
+        [HttpDelete("deletePdf/{id:guid}")]
+        public async Task<ActionResult> DeletePdf(Guid id)
+        {
+            var result = await _preApprovalFormService.DeletePdf(id);
+
+            return (result) ? Ok(result) : BadRequest("Error when deleting file");
+        }
+
         /// <summary>Submits a Pre-Approval Form to the Student.</summary>
         /// <param name="preApprovalForm">The Pre-Approval Form to submit.</param>
         /// <returns>The submitted Pre-Approval Form.</returns>
