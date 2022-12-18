@@ -300,7 +300,7 @@ namespace Backend.Data.Migrations
 
                     b.HasIndex("StudentId1");
 
-                    b.ToTable("EquivalanceRequests");
+                    b.ToTable("EquivalenceRequests");
                 });
 
             modelBuilder.Entity("Backend.Entities.ExemptedCourse", b =>
@@ -832,7 +832,7 @@ namespace Backend.Data.Migrations
                 {
                     b.HasBaseType("Backend.Entities.DomainUser");
 
-                    b.Property<bool?>("IsCourseCoordinator")
+                    b.Property<bool>("IsCourseCoordinator")
                         .HasColumnType("INTEGER");
 
                     b.ToTable("CourseCoordinatorInstructors");
@@ -842,7 +842,7 @@ namespace Backend.Data.Migrations
                 {
                     b.HasBaseType("Backend.Entities.DomainUser");
 
-                    b.Property<bool?>("IsDean")
+                    b.Property<bool>("IsDean")
                         .HasColumnType("INTEGER");
 
                     b.ToTable("DeanDepartmentChairs");

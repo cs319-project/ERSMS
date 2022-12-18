@@ -171,5 +171,18 @@ namespace Backend.Services
             var studentsByDepartment = students.Where(x => x.Major.DepartmentName == department);
             return _mapper.Map<IEnumerable<StudentDto>>(studentsByDepartment);
         }
+
+        public async Task<DeanDepartmentChairDto> GetDean(string userName)
+        {
+            var deanDepartmentChair = await _userRepository.GetDeanDepartmentChairByUserName(userName);
+            if (deanDepartmentChair.IsDean)
+            {
+                return _mapper.Map<DeanDepartmentChairDto>(deanDepartmentChair);
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }
