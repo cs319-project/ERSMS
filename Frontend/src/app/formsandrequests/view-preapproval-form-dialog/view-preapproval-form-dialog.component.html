@@ -362,7 +362,7 @@
       </div>
     </mat-tab>
     <mat-tab label="Decision" *ngIf="roleOfUser !== 'Student'">
-      <div class="decision-container" *ngIf="coordinatorStatus === 'Waiting'">
+      <div class="decision-container" *ngIf="coordinatorStatus === 'Waiting' && formStatus === 'Waiting'">
         <span class="subtitle">Your Decision</span>
         <mat-form-field appearance="outline" style="width: 500px">
           <mat-label>Your Comments & Extra Notes</mat-label>
@@ -425,6 +425,20 @@
       <div class="decision-container" *ngIf="coordinatorStatus !== 'Waiting' &&
       data.preApprovalForm.exchangeCoordinatorApproval.comment != '' && data.preApprovalForm.exchangeCoordinatorApproval.comment != null">
         <span class="subtitle">Coordinator Decision</span>
+        <div class="decision-buttons mb-2">
+          <span
+            class="status-text"
+            *ngIf="coordinatorStatus === 'Accepted'"
+            style="background-color: '#49C96D'"
+          >Accepted</span
+          >
+          <span
+            class="status-text"
+            *ngIf="coordinatorStatus === 'Rejected'"
+            style="background-color: '#FD7972'"
+          >Rejected</span
+          >
+        </div>
         <mat-form-field appearance="outline" style="width: 500px">
           <mat-label>{{data.preApprovalForm.exchangeCoordinatorApproval.name}}'s Comments & Extra Notes</mat-label>
           <textarea
@@ -440,6 +454,20 @@
       <div class="decision-container" *ngIf="boardStatus !== 'Waiting' &&
       data.preApprovalForm.facultyAdministrationBoardApproval.comment != '' && data.preApprovalForm.facultyAdministrationBoardApproval.comment != null">
         <span class="subtitle">FAB Decision</span>
+        <div class="decision-buttons mb-2">
+          <span
+            class="status-text"
+            *ngIf="boardStatus === 'Accepted'"
+            style="background-color: '#49C96D'"
+          >Accepted</span
+          >
+          <span
+            class="status-text"
+            *ngIf="boardStatus === 'Rejected'"
+            style="background-color: '#FD7972'"
+          >Rejected</span
+          >
+        </div>
         <mat-form-field appearance="outline" style="width: 500px">
           <mat-label>{{data.preApprovalForm.facultyAdministrationBoardApproval.name}}'s Comments & Extra Notes</mat-label>
           <textarea

@@ -10,9 +10,7 @@
   </div>
   <div class="mb-2">
     <span><b>Submission Date</b></span>
-    <span class="ml-2">{{
-      formatTheDate(data.eqReq.submissionDate)
-      }}</span>
+    <span class="ml-2">{{ formatTheDate(data.eqReq.submissionDate) }}</span>
   </div>
   <div style="display: flex" class="mb-2">
     <span class="subtitle mr-3">Form Status:</span>
@@ -179,10 +177,27 @@
               (click)="downloadSyllabus()">
               <mat-icon>download</mat-icon> Download Syllabus
             </button>
+
             <div class="course-container mb-4">
               <span class="subtitle">Bilkent University Course</span>
               <div class="course-info">
-                <mat-form-field style="width: 150px" appearance="outline">
+                <mat-form-field style="width: 400px" appearance="outline">
+                  <mat-label>Course Type</mat-label>
+                  <input
+                    type="search"
+                    matInput
+                    [(ngModel)]="data.eqReq.exemptedCourse.courseType"
+                    readonly />
+                </mat-form-field>
+              </div>
+              <div class="course-info">
+                <mat-form-field
+                  style="width: 150px"
+                  appearance="outline"
+                  *ngIf="
+                    data.eqReq.exemptedCourse.courseName !== '' &&
+              data.eqReq.exemptedCourse.courseName !== null
+                  ">
                   <mat-label>Course Code</mat-label>
                   <input
                     type="search"
@@ -193,7 +208,11 @@
                 <mat-form-field
                   style="flex-grow: 1"
                   class="mr-3 ml-3"
-                  appearance="outline">
+                  appearance="outline"
+                  *ngIf="
+                    data.eqReq.exemptedCourse.courseName !== '' &&
+                    data.eqReq.exemptedCourse.courseName !== null
+                  ">
                   <mat-label>Course Name</mat-label>
                   <input
                     type="search"
@@ -245,7 +264,12 @@
       </div>
     </mat-tab>
     <mat-tab label="Decision" *ngIf="roleOfUser !== 'Student'">
-      <div class="decision-container" *ngIf="!isFormApproved">
+      <div
+        class="decision-container"
+        *ngIf="
+          roleOfUser === 'Course Coordinator Instructor' &&
+          formStatus === 'Waiting'
+        ">
         <span class="subtitle">Your Decision</span>
         <mat-form-field appearance="outline" style="width: 500px">
           <mat-label>Your Comments & Extra Notes</mat-label>
@@ -253,8 +277,7 @@
             class="custom-scroll-bar"
             type="search"
             rows="10"
-            id="decision-textarea"
-            [(ngModel)]="data.approvalComment"
+            [(ngModel)]="userComment"
             matInput></textarea>
         </mat-form-field>
         <div class="decision-buttons mb-5">
@@ -273,6 +296,40 @@
             Accept
           </button>
         </div>
+      </div>
+      <div
+        class="decision-container"
+        *ngIf="
+          formStatus !== 'Waiting' &&
+          data.eqReq.instructorApproval.comment !== null &&
+          data.eqReq.instructorApproval.comment !== ''
+        ">
+        <span class="subtitle">Course Coordinator's Decision</span>
+        <div class="decision-buttons mb-2">
+          <span
+            class="status-text"
+            *ngIf="instructorStatus === 'Accepted'"
+            style="background-color: '#49C96D'"
+            >Accepted</span
+          >
+          <span
+            class="status-text"
+            *ngIf="instructorStatus === 'Rejected'"
+            style="background-color: '#FD7972'"
+            >Rejected</span
+          >
+        </div>
+        <mat-form-field appearance="outline" style="width: 500px">
+          <mat-label
+            >{{ data.eqReq.instructorApproval.name }}'s & Extra Notes</mat-label
+          >
+          <textarea
+            class="custom-scroll-bar"
+            type="search"
+            rows="10"
+            [(ngModel)]="userComment"
+            matInput></textarea>
+        </mat-form-field>
       </div>
     </mat-tab>
   </mat-tab-group>

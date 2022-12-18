@@ -453,7 +453,7 @@
       </div>
     </mat-tab>
     <mat-tab label="Decision">
-      <div class="decision-container" *ngIf="!isSelfApproved">
+      <div class="decision-container" *ngIf="!isSelfApproved && formStatus === 'Waiting'">
         <span class="subtitle">Your Decision</span>
         <mat-form-field appearance="outline" style="width: 500px">
           <mat-label>Your Comments & Extra Notes</mat-label>
@@ -514,6 +514,20 @@
       <div class="decision-container" *ngIf="coordinatorStatus != 'Waiting' &&
       data.cteForm.exchangeCoordinatorApproval.comment != '' && data.cteForm.exchangeCoordinatorApproval.comment != null">
         <span class="subtitle">Coordinator Decision</span>
+        <div class="decision-buttons mb-2">
+          <span
+            class="status-text"
+            *ngIf="coordinatorStatus === 'Accepted'"
+            style="background-color: '#49C96D'"
+          >Accepted</span
+          >
+          <span
+            class="status-text"
+            *ngIf="coordinatorStatus === 'Rejected'"
+            style="background-color: '#FD7972'"
+          >Rejected</span
+          >
+        </div>
         <mat-form-field appearance="outline" style="width: 500px">
           <mat-label>{{data.cteForm.exchangeCoordinatorApproval.name}}'s Comments & Extra Notes</mat-label>
           <textarea
@@ -529,6 +543,20 @@
       <div class="decision-container" *ngIf="deanStatus != 'Waiting' &&
       data.cteForm.deanApproval.comment != '' && data.cteForm.deanApproval.comment != null">
         <span class="subtitle">Dean Decision</span>
+        <div class="decision-buttons mb-2">
+          <span
+            class="status-text"
+            *ngIf="deanStatus === 'Accepted'"
+            style="background-color: '#49C96D'"
+          >Accepted</span
+          >
+          <span
+            class="status-text"
+            *ngIf="deanStatus === 'Rejected'"
+            style="background-color: '#FD7972'"
+          >Rejected</span
+          >
+        </div>
         <mat-form-field appearance="outline" style="width: 500px">
           <mat-label>{{data.cteForm.deanApproval.name}}'s Comments & Extra Notes</mat-label>
           <textarea
@@ -544,6 +572,20 @@
       <div class="decision-container" *ngIf="chairStatus != 'Waiting' &&
       data.cteForm.chairApproval.comment != '' && data.cteForm.chairApproval.comment != null">
         <span class="subtitle">Chair Decision</span>
+        <div class="decision-buttons mb-2">
+          <span
+            class="status-text"
+            *ngIf="chairStatus === 'Accepted'"
+            style="background-color: '#49C96D'"
+          >Accepted</span
+          >
+          <span
+            class="status-text"
+            *ngIf="chairStatus === 'Rejected'"
+            style="background-color: '#FD7972'"
+          >Rejected</span
+          >
+        </div>
         <mat-form-field appearance="outline" style="width: 500px">
           <mat-label>{{data.cteForm.chairApproval.name}}'s Comments & Extra Notes</mat-label>
           <textarea
@@ -558,6 +600,20 @@
       <div class="decision-container" *ngIf="boardStatus != 'Waiting' &&
       data.cteForm.facultyOfAdministrationBoardApproval.comment != '' && data.cteForm.facultyOfAdministrationBoardApproval.comment != null">
         <span class="subtitle">FAB Decision</span>
+        <div class="decision-buttons mb-2">
+          <span
+            class="status-text"
+            *ngIf="boardStatus === 'Accepted'"
+            style="background-color: '#49C96D'"
+          >Accepted</span
+          >
+          <span
+            class="status-text"
+            *ngIf="boardStatus === 'Rejected'"
+            style="background-color: '#FD7972'"
+          >Rejected</span
+          >
+        </div>
         <mat-form-field appearance="outline" style="width: 500px">
           <mat-label>{{data.cteForm.facultyOfAdministrationBoardApproval.name}}'s Comments & Extra Notes</mat-label>
           <textarea
