@@ -10,6 +10,13 @@ using NPOI.SS.UserModel;
 
 namespace Backend.Utilities
 {
+    /// <summary>
+    /// <para>
+    /// This class is a placeholder class for implementing the auto-placement algorithm.
+    /// It initiates a school which is given in the placement table (exchange score table).
+    /// </para>
+    /// </summary>
+    /// </remarks>
     public class SchoolInfo
     {
         public string Name;
@@ -42,9 +49,20 @@ namespace Backend.Utilities
         }
     }
 
+    /// <summary>
+    /// <para>
+    /// This class is a singleton class that is used to place students.
+    /// It takes the placement table (exchange score table)'s Excel file as input, then parses the schools in that table.
+    /// Lastly, it places the students based on their preferences and exchange scores.
+    /// </para>
+    /// </summary>
     public static class AutoPlacer
     {
         private static HashSet<SchoolInfo> Schools = new HashSet<SchoolInfo>();
+
+        /// <summary>Parses the placement table's Excel file and returns a list of placed students.</summary>
+        /// <param name="excelFile">The Excel file to parse.</param>
+        /// <returns>A list of placed students.</returns>
         public static ICollection<PlacedStudent> PlaceStudents(byte[] excelFile)
         {
             ICollection<PlacedStudent> placedStudents = new List<PlacedStudent>();
@@ -173,6 +191,8 @@ namespace Backend.Utilities
             return placedStudents;
         }
 
+        /// <summary>Parses the schools from the placement table's excel file.</summary>
+        /// <param name="excelFile">The Excel file.</param>
         public static void parseSchools(byte[] excelFile)
         {
             using (var fs = new MemoryStream(excelFile))

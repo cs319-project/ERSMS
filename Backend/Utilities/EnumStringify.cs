@@ -6,8 +6,12 @@ using Backend.Utilities.Enum;
 
 namespace Backend.Utilities
 {
+    /// <summary>A mission critical singleton class to convert between an enum and its string representation.</summary>
     public static class EnumStringify
     {
+        /// <summary>Converts an actor string to the corresponding enum.</summary>
+        /// <param name="actor">The actor's string representation.</param>
+        /// <returns>The actor's enum representation.</returns>
         public static Actors ActorEnumarator(string actor)
         {
             switch (actor)
@@ -29,6 +33,9 @@ namespace Backend.Utilities
             }
         }
 
+        /// <summary>Converts a <see cref="Actors"/> to a string.</summary>
+        /// <param name="actor">The actor to convert.</param>
+        /// <returns>The string representation of the actor.</returns>
         public static string ActorStringify(Actors actor)
         {
             switch (actor)
@@ -50,6 +57,8 @@ namespace Backend.Utilities
             }
         }
 
+        /// <summary>Returns a list of roles that can be assigned to a user.</summary>
+        /// <returns>A list of roles that can be assigned to a user.</returns>
         public static List<string> IdentityRoleList()
         {
             return new List<string>
@@ -63,6 +72,9 @@ namespace Backend.Utilities
             };
         }
 
+        /// <summary>Converts a department string to the corresponding enum.</summary>
+        /// <param name="department">The department's string representation.</param>
+        /// <returns>The department's enum representation.</returns>
         public static Department DepartmentEnumarator(string department)
         {
             switch (department)
@@ -134,6 +146,9 @@ namespace Backend.Utilities
             }
         }
 
+        /// <summary>Converts a <see cref="Department"/> to a string.</summary>
+        /// <param name="department">The department to convert.</param>
+        /// <returns>The string representation of the department.</returns>
         public static string DepartmentStringify(Department department)
         {
             switch (department)
@@ -207,6 +222,9 @@ namespace Backend.Utilities
             }
         }
 
+        /// <summary>Converts a faculty string to the corresponding enum.</summary>
+        /// <param name="faculty">The faculty's string representation.</param>
+        /// <returns>The faculty's enum representation.</returns>
         public static Faculty FacultyEnumarator(string faculty)
         {
             switch (faculty)
@@ -236,6 +254,9 @@ namespace Backend.Utilities
             }
         }
 
+        /// <summary>Converts a <see cref="Faculty"/> to a string.</summary>
+        /// <param name="faculty">The faculty to convert.</param>
+        /// <returns>The string representation of the faculty.</returns>
         public static string FacultyStringify(Faculty faculty)
         {
             switch (faculty)
@@ -267,6 +288,10 @@ namespace Backend.Utilities
             }
         }
 
+        /// <summary>Converts a semester string to the corresponding enum.</summary>
+        /// <param name="semester">The semester's string representation.</param>
+        /// <returns>The semester's enum representation.</returns>
+        /// <exception cref="Exception">Thrown when the semester is not valid.</exception>
         public static Semester SemesterEnumarator(string semester)
         {
             switch (semester)
@@ -282,6 +307,10 @@ namespace Backend.Utilities
             }
         }
 
+        /// <summary>Converts a <see cref="Semester"/> to a string.</summary>
+        /// <param name="semester">The semester to convert.</param>
+        /// <returns>The string representation of the semester.</returns>
+        /// <exception cref="Exception">Thrown when the semester is not valid.</exception>
         public static string SemesterStringify(Semester semester)
         {
             switch (semester)
@@ -297,6 +326,10 @@ namespace Backend.Utilities
             }
         }
 
+        /// <summary>Converts a <see cref="CourseTypes"/> to a string.</summary>
+        /// <param name="courseType">The course type to convert.</param>
+        /// <returns>The string representation of the course type.</returns>
+        /// <exception cref="Exception">Thrown when the course type is not valid.</exception>
         public static string CourseTypeStringify(CourseTypes courseType)
         {
             switch (courseType)
@@ -326,6 +359,10 @@ namespace Backend.Utilities
             }
         }
 
+        /// <summary>Converts a course type string to the corresponding enum.</summary>
+        /// <param name="courseType">The course type's string representation.</param>
+        /// <returns>The course type's enum representation.</returns>
+        /// <exception cref="Exception">Thrown when the course type is not valid.</exception>
         public static CourseTypes CourseTypeEnumarator(string courseType)
         {
             switch (courseType)
@@ -355,6 +392,11 @@ namespace Backend.Utilities
             }
         }
 
+
+        /// <summary>Converts a <see cref="FormType"/> to a string.</summary>
+        /// <param name="formType">The form type to convert.</param>
+        /// <returns>The string representation of the form type.</returns>
+        /// <exception cref="Exception">Thrown when the form type is not valid.</exception>
         public static string FormTypeStringify(FormType formType)
         {
             switch (formType)
