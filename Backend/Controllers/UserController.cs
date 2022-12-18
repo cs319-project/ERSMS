@@ -1,3 +1,4 @@
+using Backend.DTOs;
 using Backend.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -75,6 +76,15 @@ namespace Backend.Controllers
         {
             var students = await _userService.GetStudentsFromSameSchool(username);
             return students != null ? Ok(students) : NotFound();
+        }
+
+        /// <summary>Gets the registered student's mail id tuple.</summary>
+        /// <returns>The mail id tuple of registered students.</returns>
+        [HttpGet("registeredStudents/tuples")]
+        public async Task<ActionResult> GetRegisteredStudentsTuples()
+        {
+            var studentsTuples = await _userService.GetRegisteredStudentsTuples();
+            return (studentsTuples != null && studentsTuples.Count() > 0) ? Ok(studentsTuples) : NotFound();
         }
     }
 }
