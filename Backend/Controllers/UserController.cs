@@ -70,7 +70,7 @@ namespace Backend.Controllers
         /// <summary>Gets the students from the same school.</summary>
         /// <param name="username">The username.</param>
         /// <returns>The students from the same school.</returns>
-        [HttpGet("/student/{username}/sameSchool")]
+        [HttpGet("student/{username}/sameSchool")]
         public async Task<ActionResult> GetStudentsFromSameSchool(string username)
         {
             var students = await _userService.GetStudentsFromSameSchool(username);
