@@ -78,6 +78,7 @@ export class FormsAndRequestsComponent {
   activatedRow = null;
   currentUserId: string;
   currentUserRole: string;
+  isDean: boolean;
 
   preApprovalForm: PreApprovalForm;
   equivalanceRequest: EquivalenceRequest;
@@ -99,6 +100,7 @@ export class FormsAndRequestsComponent {
   ) {
     this.currentUserId = JSON.parse(localStorage.getItem('user')).userName;
     this.currentUserRole = JSON.parse(localStorage.getItem('user')).roles[0];
+    this.isDean = JSON.parse(localStorage.getItem('user')).userDetails.isDean;
 
     // for (let i = 1; i <= 100; i++) {
     //   users.push(createNewUser(i, (status = 'Processing')));
@@ -144,11 +146,13 @@ export class FormsAndRequestsComponent {
           this.courseEquivalenceDataSource.sort = this.sorter4;
           this.CourseEqTable.renderRows();
         });
-    } else if (this.currentUserRole === ActorsEnum.DeanDepartmentChair) {
+    }
+    else if (this.currentUserRole === ActorsEnum.DeanDepartmentChair && this.isDean) {
       cteFormService
-        .getNonArchivedCTEFormsByDepartment(this.currentUserId)
+        .GetNonArchivedCTEFormsByFacultyForDean(this.currentUserId)
         .toPromise()
         .then(data => {
+          console.log(data);
           data.forEach(element => {
             const formattedDate = formatDate(
               element.submissionTime.toString(),
@@ -175,7 +179,41 @@ export class FormsAndRequestsComponent {
           this.cteDataSource.paginator = this.paginator3;
           this.CTETable.renderRows();
         });
-    } else if (this.currentUserRole !== ActorsEnum.Student) {
+    }
+
+    else if(this.currentUserRole === ActorsEnum.DeanDepartmentChair && !this.isDean){
+      cteFormService
+        .getNonArchivedCTEFormsByDepartment(this.currentUserId)
+        .toPromise()
+        .then(data => {
+          console.log(data);
+          data.forEach(element => {
+            const formattedDate = formatDate(
+              element.submissionTime.toString(),
+              this.format,
+              this.locale
+            );
+            let temp: UserData = {
+              formId: element.id,
+              id: element.idNumber,
+              student: element.firstName + ' ' + element.lastName,
+              date: formattedDate,
+              type: 'CTE Form',
+              school: element.hostUniversityName,
+              status: element.isRejected
+                ? 'Rejected'
+                : element.isApproved
+                  ? 'Approved'
+                  : 'Waiting'
+            };
+            this.cteDataSource.data.push(temp);
+            this.cteForms.push(element);
+          });
+          this.cteDataSource.sort = this.sorter3;
+          this.cteDataSource.paginator = this.paginator3;
+          this.CTETable.renderRows();
+        });
+    }else if (this.currentUserRole !== ActorsEnum.Student) {
       cteFormService
         .getNonArchivedCTEFormsByDepartment(this.currentUserId)
         .toPromise()
