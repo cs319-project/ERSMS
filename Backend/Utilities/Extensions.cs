@@ -7,8 +7,14 @@ using System.Threading.Tasks;
 
 namespace Backend.Utilities
 {
+    /// <summary>An utility class to add static helper methods</summary>
     public static class Extensions
     {
+        /// <summary>Gets the value of an enum member.</summary>
+        /// <typeparam name="T">The type of the enum.</typeparam>
+        /// <param name="value">The enum member.</param>
+        /// <returns>The value of the enum member.</returns>
+        [Obsolete("Use Utilities.EnumStringify instead")]
         public static String GetEnumMemberValue<T>(T value)
             where T : struct, IConvertible
         {

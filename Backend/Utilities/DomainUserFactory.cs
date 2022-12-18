@@ -5,8 +5,15 @@ using Backend.Utilities;
 
 namespace Backend.Utilities
 {
+
+    /// <summary> This class an example of factory design pattern which creates a domain user based on the actor type. </summary>
     public class DomainUserFactory
     {
+        /// <summary>Creates a new user.</summary>
+        /// <param name="actorType">The type of actor.</param>
+        /// <param name="configure">A delegate that configures the user.</param>
+        /// <param name="userName">The user name.</param>
+        /// <returns>The new user.</returns>
         public static DomainUser Create(RegisterDto register) =>
             Create(register.ActorType, u =>
             {
@@ -14,6 +21,11 @@ namespace Backend.Utilities
                 u.LastName = register.LastName;
             }, register.UserName);
 
+        /// <summary>Creates a new domain user.</summary>
+        /// <param name="actorType">The type of actor.</param>
+        /// <param name="initializer">The initializer.</param>
+        /// <param name="userName">The user name.</param>
+        /// <returns>The domain user.</returns>
         public static DomainUser Create(string actorType, Action<DomainUser> initializer, string userName)
         {
             DomainUser domainUser = null;

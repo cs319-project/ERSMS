@@ -6,8 +6,11 @@ using Backend.Entities;
 
 namespace Backend.Utilities
 {
+    /// <summary>A singleton class to generate a collection of to-do items.</summary>
     public static class ToDoListSeeder
     {
+        /// <summary>Returns a list of to-do items for seeding a student's to-do list with the pre-determined items.</summary>
+        /// <returns>A collection of to-do items.</returns>
         public static ICollection<ToDoItem> studentToDoListChecklistSeeding()
         {
             ICollection<ToDoItem> listToReturn = new List<ToDoItem>();
