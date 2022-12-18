@@ -7,6 +7,7 @@ import { UserService } from '../_services/user.service';
 import { PlacementService } from '../_services/placement.service';
 import { GUID } from '../../utils/guid';
 import { ToastrService } from 'ngx-toastr';
+import { MatButton } from "@angular/material/button";
 
 @Component({
   selector: 'app-placement',
@@ -26,6 +27,9 @@ export class PlacementComponent {
   @ViewChild('sort') sort: MatSort;
   @ViewChild('paginatorWaiting') paginatorWaiting: MatPaginator;
   @ViewChild('sortWaiting') sortWaiting: MatSort;
+
+  @ViewChild('placeStudentsButton') placeStudentsButton: MatButton;
+  @ViewChild('downloadTableButton') downloadTableButton: MatButton;
 
   @ViewChild(MatTable) PlacementTable!: MatTable<UserData>;
   @ViewChild(MatTable) WaitingTable!: MatTable<UserData>;
@@ -57,6 +61,15 @@ export class PlacementComponent {
       localStorage.getItem('user')
     ).userDetails.department.facultyName;
 
+    this.placementService
+      .getPlacementTables(this.currentUserDepartment, this.currentUserFaculty)
+      .subscribe(data => {
+        if (data.length === 0) {
+          this.placeStudentsButton.disabled = true;
+          this.downloadTableButton.disabled = true;
+        }
+      });
+
     this.userService
       .getStudents()
       .toPromise()
@@ -68,7 +81,7 @@ export class PlacementComponent {
             let temp: UserData = {
               departmentFull: element.department.departmentName,
               department: element.department.departmentName,
-              cpga: element.cgpa / 100,
+              cpga: element.cgpa,
               id: element.userName,
               name: `${element.firstName} ${element.lastName}`,
               preferences: element.preferredSchools.join(', '),
@@ -81,8 +94,12 @@ export class PlacementComponent {
             } else {
               this.users2.push(temp);
             }
+            if (this.users.length !== 0) {
+              this.placeStudentsButton.disabled = true;
+            }
           }
         });
+
         // Assign the data to the data source for the table to render
         this.dataSource = new MatTableDataSource(this.users);
         this.dataSourceWaiting = new MatTableDataSource(this.users2);
@@ -140,6 +157,7 @@ export class PlacementComponent {
           if (data.length === 0) {
             this.toastr.clear();
             this.toastr.error('No tables found.');
+            this.downloadTableButton.disabled = true;
           } else {
             this.placementService
               .placeStudents(new GUID(data[data.length - 1].id))
@@ -160,7 +178,7 @@ export class PlacementComponent {
                             let temp: UserData = {
                               departmentFull: element.department.departmentName,
                               department: element.department.departmentName,
-                              cpga: element.cgpa / 100,
+                              cpga: element.cgpa,
                               id: element.userName,
                               name: `${element.firstName} ${element.lastName}`,
                               preferences: element.preferredSchools.join(', '),
@@ -176,6 +194,10 @@ export class PlacementComponent {
                             }
                           }
                         });
+                        if (this.users.length !== 0) {
+                          this.placeStudentsButton.disabled = true;
+                        }
+
                         // Assign the data to the data source for the table to render
                         this.dataSource = new MatTableDataSource(this.users);
                         this.dataSourceWaiting = new MatTableDataSource(
@@ -202,6 +224,40 @@ export class PlacementComponent {
                 }
               );
           }
+        },
+        error => {
+          this.toastr.error('Request related error.');
+        }
+      );
+  }
+
+  downloadCurrentTable() {
+    this.placementService
+      .getPlacementTables(this.currentUserDepartment, this.currentUserFaculty)
+      .subscribe(
+        data => {
+          this.placementService
+            .downloadPlacementTable(new GUID(data[data.length - 1].id))
+            .subscribe(
+              res => {
+                const blob = new Blob([res], {
+                  type: data[data.length - 1].fileName.endsWith('.xlsx')
+                    ? 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                    : 'application/vnd.ms-excel'
+                });
+                const url = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = data[data.length - 1].fileName;
+                link.click();
+              },
+              err => {
+                this.toastr.error('Error when downloading the score table');
+              },
+              () => {
+                this.toastr.success('Score table downloaded successfully');
+              }
+            );
         },
         error => {
           this.toastr.error('Request related error.');

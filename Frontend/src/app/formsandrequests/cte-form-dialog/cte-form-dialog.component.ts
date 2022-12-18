@@ -16,7 +16,7 @@ import { ActorsEnum } from '../../_models/enum/actors-enum';
   styleUrls: ['./cte-form-dialog.component.css']
 })
 export class CteFormDialogComponent implements OnInit {
-  
+
   courseTypes: string[] = [
     'Mandatory Course',
     'Techincal Elective',
@@ -94,7 +94,9 @@ export class CteFormDialogComponent implements OnInit {
           this.data.firstName = result.firstName;
           this.data.lastName = result.lastName;
           this.data.department = result.major.departmentName;
-          this.data.submissionTime = new Date();
+          this.data.transferredCourseGroups.forEach(group => {
+            group.exemptedCourse.courseCode = group.exemptedCourse.courseCode.replace(/[^a-z0-9]/gi, '').toLocaleUpperCase();
+          });
           this.cteFormService.createCTEForm(this.data).subscribe(
             res => {
               if (res) {

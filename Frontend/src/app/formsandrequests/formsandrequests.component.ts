@@ -105,21 +105,26 @@ export class FormsAndRequestsComponent {
     // for (let i = 1; i <= 100; i++) {
     //   users.push(createNewUser(i, (status = 'Processing')));
     // }
+    this.getFormData();
+
+
+  }
+
+  getFormData(){
     this.dataSource = new MatTableDataSource<UserData>();
     this.cteDataSource = new MatTableDataSource<UserData>();
     this.preapprovalDataSource = new MatTableDataSource<UserData>();
     this.courseEquivalenceDataSource = new MatTableDataSource<UserData>();
     this.studentDataSource = new MatTableDataSource<UserData>();
-
     if (this.currentUserRole === ActorsEnum.CourseCoordinatorInstructor) {
       const courseCode: string = JSON.parse(localStorage.getItem('user'))
         .userDetails.course.courseCode;
 
-      equivalenceRequestService
+      this.equivalenceRequestService
         .getNonArchivedEquivalenceRequestsByCourseCode(courseCode)
         .toPromise()
         .then(data => {
-          if(data){
+          if (data) {
             data.forEach(element => {
               const formattedDate = formatDate(
                 element.submissionDate.toString(),
@@ -136,8 +141,8 @@ export class FormsAndRequestsComponent {
                 status: element.isRejected
                   ? 'Rejected'
                   : element.isApproved
-                    ? 'Approved'
-                    : 'Waiting'
+                  ? 'Approved'
+                  : 'Waiting'
               };
               this.equivalenceRequests.push(element);
               this.courseEquivalenceDataSource.data.push(temp);
@@ -150,11 +155,10 @@ export class FormsAndRequestsComponent {
         });
     }
     else if (this.currentUserRole === ActorsEnum.DeanDepartmentChair && this.isDean) {
-      cteFormService
-        .getNonArchivedCTEFormsByFacultyForDean(this.currentUserId)
+      this.cteFormService.getNonArchivedCTEFormsByFacultyForDean(this.currentUserId)
         .toPromise()
         .then(data => {
-          if(data){
+          if (data) {
             console.log(data);
             data.forEach(element => {
               const formattedDate = formatDate(
@@ -172,8 +176,8 @@ export class FormsAndRequestsComponent {
                 status: element.isRejected
                   ? 'Rejected'
                   : element.isApproved
-                    ? 'Approved'
-                    : 'Waiting'
+                  ? 'Approved'
+                  : 'Waiting'
               };
               this.cteDataSource.data.push(temp);
               this.cteForms.push(element);
@@ -186,11 +190,10 @@ export class FormsAndRequestsComponent {
     }
 
     else if(this.currentUserRole === ActorsEnum.DeanDepartmentChair && !this.isDean){
-      cteFormService
-        .getNonArchivedCTEFormsByDepartmentForChair(this.currentUserId)
+      this.cteFormService.getNonArchivedCTEFormsByDepartmentForChair(this.currentUserId)
         .toPromise()
         .then(data => {
-          if(data){
+          if (data) {
             console.log(data);
             data.forEach(element => {
               const formattedDate = formatDate(
@@ -208,8 +211,8 @@ export class FormsAndRequestsComponent {
                 status: element.isRejected
                   ? 'Rejected'
                   : element.isApproved
-                    ? 'Approved'
-                    : 'Waiting'
+                  ? 'Approved'
+                  : 'Waiting'
               };
               this.cteDataSource.data.push(temp);
               this.cteForms.push(element);
@@ -218,14 +221,13 @@ export class FormsAndRequestsComponent {
             this.cteDataSource.paginator = this.paginator3;
             this.CTETable.renderRows();
           }
-
         });
-    }else if (this.currentUserRole === ActorsEnum.ExchangeCoordinator) {
-      cteFormService
-        .getNonArchivedCTEFormsByDepartment(this.currentUserId)
+    }
+    else if (this.currentUserRole === ActorsEnum.ExchangeCoordinator) {
+      this.cteFormService.getNonArchivedCTEFormsByDepartment(this.currentUserId)
         .toPromise()
         .then(data => {
-          if(data){
+          if (data) {
             data.forEach(element => {
               const formattedDate = formatDate(
                 element.submissionTime.toString(),
@@ -242,8 +244,8 @@ export class FormsAndRequestsComponent {
                 status: element.isRejected
                   ? 'Rejected'
                   : element.isApproved
-                    ? 'Approved'
-                    : 'Waiting'
+                  ? 'Approved'
+                  : 'Waiting'
               };
               this.dataSource.data.push(temp);
               this.cteDataSource.data.push(temp);
@@ -257,11 +259,11 @@ export class FormsAndRequestsComponent {
           }
         });
 
-      preApprovalFormService
+      this.preApprovalFormService
         .getNonArchivedPreApprovalFormsByDepartment(this.currentUserId)
         .toPromise()
         .then(data => {
-          if(data){
+          if (data) {
             data.forEach(element => {
               const formattedDate = formatDate(
                 element.submissionTime.toString(),
@@ -278,8 +280,8 @@ export class FormsAndRequestsComponent {
                 status: element.isRejected
                   ? 'Rejected'
                   : element.isApproved
-                    ? 'Approved'
-                    : 'Waiting'
+                  ? 'Approved'
+                  : 'Waiting'
               };
               this.preApprovalForms.push(element);
               this.dataSource.data.push(temp);
@@ -293,11 +295,11 @@ export class FormsAndRequestsComponent {
           }
         });
 
-      equivalenceRequestService
+      this.equivalenceRequestService
         .getNonArchivedEquivalenceRequestsByDepartment(this.currentUserId)
         .toPromise()
         .then(data => {
-          if(data){
+          if (data) {
             data.forEach(element => {
               const formattedDate = formatDate(
                 element.submissionDate.toString(),
@@ -314,8 +316,8 @@ export class FormsAndRequestsComponent {
                 status: element.isRejected
                   ? 'Rejected'
                   : element.isApproved
-                    ? 'Approved'
-                    : 'Waiting'
+                  ? 'Approved'
+                  : 'Waiting'
               };
               this.equivalenceRequests.push(element);
               this.courseEquivalenceDataSource.data.push(temp);
@@ -330,11 +332,11 @@ export class FormsAndRequestsComponent {
           }
         });
     } else if (this.currentUserRole === ActorsEnum.Student) {
-      cteFormService
+      this.cteFormService
         .getCTEFormOfStudent(this.currentUserId)
         .toPromise()
         .then(data => {
-          if(data){
+          if (data) {
             data.forEach(element => {
               const formattedDate = formatDate(
                 element.submissionTime.toString(),
@@ -351,8 +353,8 @@ export class FormsAndRequestsComponent {
                 status: element.isRejected
                   ? 'Rejected'
                   : element.isApproved
-                    ? 'Approved'
-                    : 'Waiting'
+                  ? 'Approved'
+                  : 'Waiting'
               };
               this.cteForms.push(element);
               this.studentDataSource.data.push(temp);
@@ -363,11 +365,11 @@ export class FormsAndRequestsComponent {
           }
         });
 
-      preApprovalFormService
+      this.preApprovalFormService
         .getPreApprovalFormsOfStudent(this.currentUserId)
         .toPromise()
         .then(data => {
-          if(data){
+          if (data) {
             data.forEach(element => {
               const formattedDate = formatDate(
                 element.submissionTime.toString(),
@@ -384,8 +386,8 @@ export class FormsAndRequestsComponent {
                 status: element.isRejected
                   ? 'Rejected'
                   : element.isApproved
-                    ? 'Approved'
-                    : 'Waiting'
+                  ? 'Approved'
+                  : 'Waiting'
               };
               this.preApprovalForms.push(element);
               this.studentDataSource.data.push(temp);
@@ -396,11 +398,11 @@ export class FormsAndRequestsComponent {
           }
         });
 
-      equivalenceRequestService
+      this.equivalenceRequestService
         .getEquivalenceRequestsOfStudent(this.currentUserId)
         .toPromise()
         .then(data => {
-          if(data){
+          if (data) {
             data.forEach(element => {
               const formattedDate = formatDate(
                 element.submissionDate.toString(),
@@ -417,8 +419,8 @@ export class FormsAndRequestsComponent {
                 status: element.isRejected
                   ? 'Rejected'
                   : element.isApproved
-                    ? 'Approved'
-                    : 'Waiting'
+                  ? 'Approved'
+                  : 'Waiting'
               };
               this.equivalenceRequests.push(element);
               this.studentDataSource.data.push(temp);
@@ -428,7 +430,6 @@ export class FormsAndRequestsComponent {
             this.StudentTable.renderRows();
           }
           // console.log(data);
-
         });
     }
   }
@@ -571,7 +572,7 @@ export class FormsAndRequestsComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        //TODO update table after new form
+        this.getFormData();
       }
     });
   }
@@ -607,6 +608,11 @@ export class FormsAndRequestsComponent {
       EquivalenceRequestDialogComponent,
       dialogConfig
     );
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getFormData();
+      }
+    });
   }
 
   openCreateCTEFormDialog() {
@@ -628,6 +634,11 @@ export class FormsAndRequestsComponent {
     dialogConfig.data = this.cteForm;
 
     const dialogRef = this.dialog.open(CteFormDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getFormData();
+      }
+    });
   }
 
   onCancelButton(e, type, formId) {
