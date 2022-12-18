@@ -221,11 +221,18 @@ namespace Backend.Controllers
         public async Task<ActionResult<IEnumerable<CTEFormDto>>> GetNonArchivedCTEFormsByDepartmentForChair(string userName)
         {
             var forms = await _cTEFormService.GetNonArchivedCTEFormsByDepartmentForChair(userName);
-            if (forms != null)
+            if (forms != null && forms.Count() != 0)
             {
                 return Ok(forms);
             }
-            return BadRequest("Failed to get CTE Forms by Department");
+            else if (forms.Count() == 0)
+            {
+                return Ok("No non-archived CTE Forms");
+            }
+            else
+            {
+                return BadRequest("Failed to get CTE Forms by Department");
+            }
         }
 
         /// <summary>Gets all archived CTE Forms for a Chair.</summary>
@@ -235,11 +242,18 @@ namespace Backend.Controllers
         public async Task<ActionResult<IEnumerable<CTEFormDto>>> GetArchivedCTEFormsByDepartmentForChair(string userName)
         {
             var forms = await _cTEFormService.GetArchivedCTEFormsByDepartmentForChair(userName);
-            if (forms != null)
+            if (forms != null && forms.Count() != 0)
             {
                 return Ok(forms);
             }
-            return BadRequest("Failed to get CTE Forms by Department");
+            else if (forms.Count() == 0)
+            {
+                return Ok("No archived CTE Forms");
+            }
+            else
+            {
+                return BadRequest("Failed to get CTE Forms by Department");
+            }
         }
 
         /// <summary>Gets all non-archived CTE Forms by a Faculty.</summary>
@@ -253,7 +267,14 @@ namespace Backend.Controllers
             {
                 return Ok(forms);
             }
-            return BadRequest("Failed to get CTE Forms by Faculty");
+            else if (forms.Count() == 0)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return BadRequest("Failed to get CTE Forms by Faculty");
+            }
         }
 
         /// <summary>Gets all rchived CTE Forms by a Faculty.</summary>
@@ -267,7 +288,14 @@ namespace Backend.Controllers
             {
                 return Ok(forms);
             }
-            return BadRequest("Failed to get CTE Forms by Faculty");
+            else if (forms.Count() == 0)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return BadRequest("Failed to get CTE Forms by Faculty");
+            }
         }
 
         /// <summary>Gets all CTE forms for a given department.</summary>
