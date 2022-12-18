@@ -1,9 +1,13 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { Announcement } from 'src/app/_models/announcement';
 import { ActorsEnum } from 'src/app/_models/enum/actors-enum';
 import { ToDoItem } from 'src/app/_models/to-do-item';
+import { AnnouncementService } from 'src/app/_services/announcement.service';
 import { ToDoItemService } from 'src/app/_services/todoitem.service';
 import { GUID } from 'src/utils/guid';
+import { formatDate } from '@angular/common';
+
 /*
 export interface todoItem {
   description: string;
@@ -33,10 +37,16 @@ export class StudentDashboardComponent implements OnInit {
   actorsEnum = ActorsEnum;
   role: string;
   userName: string;
+  announcements: Announcement[] = [];
+
+  dateFormat = 'dd MM yyyy h:mm';
+  timeFormat = 'h:mm';
+  locale = 'en-TR';
 
   constructor(
     private _formBuilder: FormBuilder,
-    private toDoService: ToDoItemService
+    private toDoService: ToDoItemService,
+    private announcementService: AnnouncementService
   ) {
     this.role = JSON.parse(localStorage.getItem('user')).roles[0];
     this.userName = JSON.parse(localStorage.getItem('user')).userName;
@@ -62,7 +72,20 @@ export class StudentDashboardComponent implements OnInit {
       );
     });
 
-    console.log(this.todoList);
+    
+    announcementService.getAllAnnouncements().subscribe(data => {
+      if (data) {
+        data.forEach(element => {
+          let temp: Announcement = {
+            id: element.id,
+            sender: element.sender,
+            creationDate: element.creationDate,
+            description: element.description
+          };
+          this.announcements.push(temp);
+        });
+      }
+    })
   }
 
   stateForm = this._formBuilder.group({
@@ -208,5 +231,16 @@ export class StudentDashboardComponent implements OnInit {
         todoItem => todoItem.isComplete
       );
     });
+
+    
+  }
+
+  formatTheDate(date: Date){
+    const formattedDate = formatDate(
+      date.toString(),
+      this.dateFormat,
+      this.locale
+    );
+    return formattedDate;
   }
 }
