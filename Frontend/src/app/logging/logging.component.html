@@ -7,7 +7,7 @@
   <div class="logging-content mt-4">
     <div style="width: 80%">
       <mat-tab-group #tabGroup (selectedIndexChange)="_setDataSource($event)">
-        <mat-tab label="All">
+        <mat-tab label="All" *ngIf="currentUserRole === 'Exchange Coordinator'">
           <div class="mt-2 table-container">
             <div class="table-header">
               <mat-form-field>
@@ -115,7 +115,7 @@
             </div>
           </div>
         </mat-tab>
-        <mat-tab label="Pre-Approval Forms">
+        <mat-tab label="Pre-Approval Forms" *ngIf="currentUserRole === 'Exchange Coordinator'">
           <div class="mt-2 table-container">
             <div class="table-header">
               <mat-form-field>
@@ -130,6 +130,7 @@
             <div class="table-content mat-elevation-z8">
               <table
                 mat-table
+                #PreApprovalTable
                 [dataSource]="preapprovalDataSource"
                 matSort
                 #sorter2="matSort">
@@ -208,7 +209,7 @@
             </div>
           </div>
         </mat-tab>
-        <mat-tab label="CTE Forms">
+        <mat-tab label="CTE Forms" *ngIf="currentUserRole !== 'Course Coordinator Instructor'">
           <div class="mt-2 table-container">
             <div class="table-header">
               <mat-form-field>
@@ -225,6 +226,7 @@
                 mat-table
                 [dataSource]="cteDataSource"
                 matSort
+                #CTETable
                 #sorter3="matSort">
                 <!-- ID Column -->
                 <ng-container matColumnDef="id">
@@ -301,7 +303,7 @@
             </div>
           </div>
         </mat-tab>
-        <mat-tab label="Course Equivalence Request">
+        <mat-tab label="Course Equivalence Request" *ngIf="currentUserRole !== 'Dean Department Chair'">
           <div class="mt-2 table-container">
             <div class="table-header">
               <mat-form-field>
@@ -315,6 +317,7 @@
             </div>
             <div class="table-content mat-elevation-z8">
               <table
+                #CourseEqTable
                 mat-table
                 [dataSource]="courseEquivalenceDataSource"
                 matSort
