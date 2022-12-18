@@ -495,6 +495,46 @@ namespace Backend.Services
             }
         }
 
+        public async Task<ICollection<CTEFormDto>> GetNonArchivedCTEFormsByFacultyForDean(string userName)
+        {
+            DeanDepartmentChairDto dean = await _userService.GetDean(userName);
+            if (dean == null)
+            {
+                return null;
+            }
+            ICollection<CTEFormDto> forms = await GetNonArchivedCTEForms();
+            foreach (CTEFormDto form in forms)
+            {
+                var student = await _userRepository.GetStudentByUserName(form.IDNumber);
+                if (student.Major.FacultyName != EnumStringify.FacultyEnumarator(dean.Department.FacultyName))
+                {
+                    forms.Remove(form);
+                }
+            }
+
+            return forms;
+        }
+
+        public async Task<ICollection<CTEFormDto>> GetArchivedCTEFormsByFacultyForDean(string userName)
+        {
+            DeanDepartmentChairDto dean = await _userService.GetDean(userName);
+            if (dean == null)
+            {
+                return null;
+            }
+            ICollection<CTEFormDto> forms = await GetArchivedCTEForms();
+            foreach (CTEFormDto form in forms)
+            {
+                var student = await _userRepository.GetStudentByUserName(form.IDNumber);
+                if (student.Major.FacultyName != EnumStringify.FacultyEnumarator(dean.Department.FacultyName))
+                {
+                    forms.Remove(form);
+                }
+            }
+
+            return forms;
+        }
+
         private async Task<byte[]> SaveFile(IFormFile file)
         {
             // convert file to byte array

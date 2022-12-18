@@ -6,6 +6,7 @@ using Backend.DTOs;
 
 namespace Backend.Interfaces
 {
+    /// <summary>An interface for the pre-approval form service.</summary>
     public interface IPreApprovalFormService
     {
         Task<bool> SubmitPreApprovalForm(PreApprovalFormDto preApprovalForm);

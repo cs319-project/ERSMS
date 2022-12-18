@@ -299,5 +299,10 @@ namespace Backend.Data
         {
             return await _context.PlacedStudents.ToListAsync();
         }
+
+        public async Task<DeanDepartmentChair> GetDeanDepartmentChairByUserName(string username)
+        {
+            return await _context.DeanDepartmentChairs.FirstOrDefaultAsync(x => x.IdentityUser.UserName == username);
+        }
     }
 }

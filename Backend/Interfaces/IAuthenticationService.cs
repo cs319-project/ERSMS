@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Backend.Interfaces
 {
+    /// <summary>An interface for the authentication service.</summary>
     public interface IAuthenticationService
     {
         Task<AuthenticationResultDto> Register(RegisterDto registration);

@@ -6,9 +6,12 @@ using Backend.DTOs;
 
 namespace Backend.Interfaces
 {
+    /// <summary>An interface for the CTE (Course Transfer and Exemption) form service.</summary>
     public interface ICTEFormService
     {
         Task<bool> AddCTEFormToStudent(CTEFormDto cTEForm);
+        Task<ICollection<CTEFormDto>> GetNonArchivedCTEFormsByFacultyForDean(string userName);
+        Task<ICollection<CTEFormDto>> GetArchivedCTEFormsByFacultyForDean(string userName);
         Task<(byte[], string)> DownloadPdf(Guid formId);
         Task<IEnumerable<CTEFormDto>> GetCTEForms();
         Task<bool> DeleteCTEForm(Guid id);

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Backend.Entities
 {
+    /// <summary>A class for representing a placement table (exchange score table).</summary>
     [Table("PlacementTables")]
     public class PlacementTable
     {

@@ -6,6 +6,7 @@ using Backend.Entities;
 
 namespace Backend.Interfaces
 {
+    /// <summary>An interface for the notification repository.</summary>
     public interface INotificationRepository
     {
         Task<bool> AddNotification(Notification notification);

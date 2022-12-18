@@ -20,6 +20,16 @@
   align-items: center;
 }
 
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .user-type {
   display: flex;
   align-items: center;

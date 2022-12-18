@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Backend.Entities
 {
+    /// <summary>A class for representing a to-do item.</summary>
     public class ToDoItem
     {
         [Key]

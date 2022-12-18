@@ -34,9 +34,9 @@ import { CTEFormService } from '../_services/cteform.service';
 import { UserService } from '../_services/user.service';
 import { PreApprovalFormService } from '../_services/preapprovalform.service';
 import { formatDate } from '@angular/common';
-import {ConfirmationDialogComponent} from "../appointments/confirmation-dialog/confirmation-dialog.component";
-import {ToastrService} from "ngx-toastr";
-import {ActorsEnum} from "../_models/enum/actors-enum";
+import { ConfirmationDialogComponent } from '../appointments/confirmation-dialog/confirmation-dialog.component';
+import { ToastrService } from 'ngx-toastr';
+import { ActorsEnum } from '../_models/enum/actors-enum';
 
 @Component({
   selector: 'app-formsandrequests',
@@ -75,10 +75,10 @@ export class FormsAndRequestsComponent {
   @ViewChild(MatTable) CTETable!: MatTable<UserData>;
   @ViewChild(MatTable) CourseEqTable!: MatTable<UserData>;
 
-
   activatedRow = null;
   currentUserId: string;
   currentUserRole: string;
+  isDean: boolean;
 
   preApprovalForm: PreApprovalForm;
   equivalanceRequest: EquivalenceRequest;
@@ -100,6 +100,7 @@ export class FormsAndRequestsComponent {
   ) {
     this.currentUserId = JSON.parse(localStorage.getItem('user')).userName;
     this.currentUserRole = JSON.parse(localStorage.getItem('user')).roles[0];
+    this.isDean = JSON.parse(localStorage.getItem('user')).userDetails.isDean;
 
     // for (let i = 1; i <= 100; i++) {
     //   users.push(createNewUser(i, (status = 'Processing')));
@@ -110,10 +111,12 @@ export class FormsAndRequestsComponent {
     this.courseEquivalenceDataSource = new MatTableDataSource<UserData>();
     this.studentDataSource = new MatTableDataSource<UserData>();
 
-    if(this.currentUserRole === ActorsEnum.CourseCoordinatorInstructor){
-      console.log("SDFASDFADFADSDF");
+    if (this.currentUserRole === ActorsEnum.CourseCoordinatorInstructor) {
+      const courseCode: string = JSON.parse(localStorage.getItem('user'))
+        .userDetails.course.courseCode;
+
       equivalenceRequestService
-        .getNonArchivedEquivalenceRequestsByDepartment(this.currentUserId)
+        .getNonArchivedEquivalenceRequestsByCourseCode(courseCode)
         .toPromise()
         .then(data => {
           data.forEach(element => {
@@ -132,8 +135,8 @@ export class FormsAndRequestsComponent {
               status: element.isRejected
                 ? 'Rejected'
                 : element.isApproved
-                  ? 'Approved'
-                  : 'Waiting'
+                ? 'Approved'
+                : 'Waiting'
             };
             this.equivalenceRequests.push(element);
             this.courseEquivalenceDataSource.data.push(temp);
@@ -144,11 +147,46 @@ export class FormsAndRequestsComponent {
           this.CourseEqTable.renderRows();
         });
     }
-    else if(this.currentUserRole === ActorsEnum.DeanDepartmentChair){
+    else if (this.currentUserRole === ActorsEnum.DeanDepartmentChair && this.isDean) {
+      cteFormService
+        .GetNonArchivedCTEFormsByFacultyForDean(this.currentUserId)
+        .toPromise()
+        .then(data => {
+          console.log(data);
+          data.forEach(element => {
+            const formattedDate = formatDate(
+              element.submissionTime.toString(),
+              this.format,
+              this.locale
+            );
+            let temp: UserData = {
+              formId: element.id,
+              id: element.idNumber,
+              student: element.firstName + ' ' + element.lastName,
+              date: formattedDate,
+              type: 'CTE Form',
+              school: element.hostUniversityName,
+              status: element.isRejected
+                ? 'Rejected'
+                : element.isApproved
+                ? 'Approved'
+                : 'Waiting'
+            };
+            this.cteDataSource.data.push(temp);
+            this.cteForms.push(element);
+          });
+          this.cteDataSource.sort = this.sorter3;
+          this.cteDataSource.paginator = this.paginator3;
+          this.CTETable.renderRows();
+        });
+    }
+
+    else if(this.currentUserRole === ActorsEnum.DeanDepartmentChair && !this.isDean){
       cteFormService
         .getNonArchivedCTEFormsByDepartment(this.currentUserId)
         .toPromise()
         .then(data => {
+          console.log(data);
           data.forEach(element => {
             const formattedDate = formatDate(
               element.submissionTime.toString(),
@@ -175,8 +213,7 @@ export class FormsAndRequestsComponent {
           this.cteDataSource.paginator = this.paginator3;
           this.CTETable.renderRows();
         });
-    }
-    else if (this.currentUserRole !== ActorsEnum.Student) {
+    }else if (this.currentUserRole !== ActorsEnum.Student) {
       cteFormService
         .getNonArchivedCTEFormsByDepartment(this.currentUserId)
         .toPromise()
@@ -279,8 +316,7 @@ export class FormsAndRequestsComponent {
           this.courseEquivalenceDataSource.sort = this.sorter4;
           this.AllFormsTable.renderRows();
         });
-    }
-    else if (this.currentUserRole === ActorsEnum.Student) {
+    } else if (this.currentUserRole === ActorsEnum.Student) {
       cteFormService
         .getCTEFormOfStudent(this.currentUserId)
         .toPromise()
@@ -577,24 +613,28 @@ export class FormsAndRequestsComponent {
   onCancelButton(e, type, formId) {
     e.stopPropagation();
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = {'text': 'Are you sure to cancel this ' + type + '?'}
+    dialogConfig.data = { text: 'Are you sure to cancel this ' + type + '?' };
     dialogConfig.autoFocus = false;
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent, dialogConfig);
+    const dialogRef = this.dialog.open(
+      ConfirmationDialogComponent,
+      dialogConfig
+    );
 
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
         console.log(formId);
-        this.preApprovalFormService.cancelPreApprovalForm(formId).subscribe(result => {
-          if(result){
-            this.toastr.success('Form is succesfully cancelled');
-          }
-          else{
-            this.toastr.error('An error occured while canceling');
-          }
-        },
+        this.preApprovalFormService.cancelPreApprovalForm(formId).subscribe(
+          result => {
+            if (result) {
+              this.toastr.success('Form is succesfully cancelled');
+            } else {
+              this.toastr.error('An error occured while canceling');
+            }
+          },
           error => {
             this.toastr.error('An error occured while canceling');
-          });
+          }
+        );
       }
     });
   }

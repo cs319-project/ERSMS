@@ -211,7 +211,35 @@ namespace Backend.Controllers
             {
                 return Ok(forms);
             }
-            return BadRequest("Failed to get CTE Forms of Student");
+            return BadRequest("Failed to get CTE Forms by Department");
+        }
+
+        /// <summary>Gets all non-archived CTE Forms by a Faculty.</summary>
+        /// <param name="userName">The user name of the Dean.</param>
+        /// <returns>A list of non-archived CTE Forms of the Faculty.</returns>
+        [HttpGet("nonarchived/faculty/{userName}")]
+        public async Task<ActionResult<IEnumerable<CTEFormDto>>> GetNonArchivedCTEFormsByFacultyForDean(string userName)
+        {
+            var forms = await _cTEFormService.GetNonArchivedCTEFormsByFacultyForDean(userName);
+            if (forms != null && forms.Count() != 0)
+            {
+                return Ok(forms);
+            }
+            return BadRequest("Failed to get CTE Forms by Faculty");
+        }
+
+        /// <summary>Gets all rchived CTE Forms by a Faculty.</summary>
+        /// <param name="userName">The user name of the Dean.</param>
+        /// <returns>A list of archived CTE Forms of the Faculty.</returns>
+        [HttpGet("archived/faculty/{userName}")]
+        public async Task<ActionResult<IEnumerable<CTEFormDto>>> GetArchivedCTEFormsByFacultyForDean(string userName)
+        {
+            var forms = await _cTEFormService.GetArchivedCTEFormsByFacultyForDean(userName);
+            if (forms != null && forms.Count() != 0)
+            {
+                return Ok(forms);
+            }
+            return BadRequest("Failed to get CTE Forms by Faculty");
         }
 
         /// <summary>Gets all CTE forms for a given department.</summary>

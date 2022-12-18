@@ -8,6 +8,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Backend.Interfaces
 {
+    /// <summary>An interface for the user repository.</summary>
     public interface IUserRepository
     {
         Task<Object> UpdateUser(JObject dto);
@@ -17,6 +18,7 @@ namespace Backend.Interfaces
         Task<ExchangeCoordinator> GetExchangeCoordinatorByUserName(string username);
         Task<Admin> GetAdmin(Guid id);
         Task<DeanDepartmentChair> GetDeanDepartmentChair(Guid id);
+        Task<DeanDepartmentChair> GetDeanDepartmentChairByUserName(string username);
         Task<CourseCoordinatorInstructor> GetCourseCoordinatorInstructor(Guid id);
         Task<OISEP> GetOISEP(Guid id);
         Task<IList<String>> GetRoles(AppUser user);

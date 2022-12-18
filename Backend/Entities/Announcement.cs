@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Backend.Entities
 {
+    /// <summary>A class representing an announcement.</summary>
     public class Announcement
     {
         [Key]

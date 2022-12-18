@@ -28,6 +28,7 @@ export class CreateUserDialogComponent implements OnInit {
   ];
   requiredForm: FormGroup;
   hidePassword = true;
+  hidePasswordConfirm = true;
   actorType: string = '';
 
   constructor(

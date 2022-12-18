@@ -6,6 +6,7 @@ using Backend.DTOs;
 
 namespace Backend.Interfaces
 {
+    /// <summary>An interface for the logged course service.</summary>
     public interface ILoggedCourseService
     {
         Task<bool> CreateLoggedEquivalantCourse(LoggedEquivalentCourseDto loggedEquivalantCourse);

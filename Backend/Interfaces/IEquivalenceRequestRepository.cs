@@ -6,6 +6,7 @@ using Backend.Entities;
 
 namespace Backend.Interfaces
 {
+    /// <summary>An interface for the equivalence request repository.</summary>
     public interface IEquivalenceRequestRepository
     {
         Task<bool> AddEquivalenceRequestToStudent(string userName, EquivalenceRequest equivalenceRequest);

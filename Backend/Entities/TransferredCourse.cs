@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Backend.Entities
 {
     // Host university course for CTE form
+
+    /// <summary>A class for representing a course that has been transferred from another institution.</summary>
     public class TransferredCourse
     {
         //[ForeignKey("TransferredCourseGroup")]

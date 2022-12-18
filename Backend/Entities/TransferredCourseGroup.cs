@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 namespace Backend.Entities
 {
     // Group of transferred courses
+
+    /// <summary>A class for representing a group of courses that have been transferred from another institution..</summary>
     public class TransferredCourseGroup
     {
         //[ForeignKey("CTEForm")]

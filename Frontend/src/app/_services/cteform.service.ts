@@ -111,4 +111,16 @@ export class CTEFormService {
       {}
     );
   }
+
+  GetNonArchivedCTEFormsByFacultyForDean(userName: string): Observable<any> {
+    return this.http.get<any>(
+      `${this.baseApiUrl}cteform/nonarchived/faculty/${userName}`
+    );
+  }
+
+  GetArchivedCTEFormsByFacultyForDean(userName: string): Observable<any> {
+    return this.http.get<any>(
+      `${this.baseApiUrl}cteform/archived/faculty/${userName}`
+    );
+  }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Backend.Entities
 {
+    /// <summary>A class for representing a notification.</summary>
     public class Notification
     {
         [Key]

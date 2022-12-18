@@ -7,6 +7,7 @@ using Backend.Utilities.Enum;
 
 namespace Backend.Entities
 {
+    /// <summary>A class for representing a logged (archived) course.</summary>
     public abstract class LoggedCourse
     {
         [Key]

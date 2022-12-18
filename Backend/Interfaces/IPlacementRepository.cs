@@ -6,6 +6,7 @@ using Backend.Entities;
 
 namespace Backend.Interfaces
 {
+    /// <summary>An interface for the placement repository.</summary>
     public interface IPlacementRepository
     {
         Task<bool> UploadPlacementTable(PlacementTable placementTable);

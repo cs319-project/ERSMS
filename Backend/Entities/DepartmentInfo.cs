@@ -21,5 +21,10 @@ namespace Backend.Entities
             var info = obj as DepartmentInfo;
             return info.DepartmentName == DepartmentName && info.FacultyName == FacultyName;
         }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(DepartmentName, FacultyName);
+        }
     }
 }

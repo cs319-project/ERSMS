@@ -20,7 +20,8 @@ using Backend.Utilities.Enum;
 
 namespace Backend.Entities
 {
-    public abstract class DomainUser // : IAggregateRoot
+    /// <summary>Base class for representing actors in the application.</summary>
+    public abstract class DomainUser
     {
         [Required] public Guid Id { get; set; }
         [Required] public string FirstName { get; set; }
