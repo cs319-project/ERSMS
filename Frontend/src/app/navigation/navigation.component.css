@@ -76,14 +76,3 @@ mat-sidenav-container{
   /* add a tiny indicator on the left */
   border-left: 3px solid #0081FF;
 }
-
-
-.zoom-out {
-  -moz-transform: scale(0.8, 0.8); /* Moz-browsers */
-  zoom: 0.8; /* Other non-webkit browsers */
-  zoom: 80%; /* Webkit browsers */
-}
-
-mat-sidenav span{
-  font-size: 0.8rem!important;
-}

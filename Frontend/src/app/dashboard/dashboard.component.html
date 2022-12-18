@@ -1,4 +1,4 @@
-<div *ngIf="this.role === actorsEnum.OISEP" class="st-container m-3 p-2 zoom-out">
+<div *ngIf="this.role === actorsEnum.OISEP" class="st-container m-3 p-2">
   <div style="width: 100%">
     <div>
       <span class="dashboard-title">Exchange Score Tables</span>
@@ -71,15 +71,15 @@
   </div>
 </div>
 
-<div *ngIf="this.role === actorsEnum.Student" class="zoom-out">
+<div *ngIf="this.role === actorsEnum.Student">
   <app-student-dashboard></app-student-dashboard>
 </div>
 
-<div *ngIf="this.role === actorsEnum.Admin" class="zoom-out">
+<div *ngIf="this.role === actorsEnum.Admin" >
   <app-admin-dashboard></app-admin-dashboard>
 </div>
 
-<div *ngIf="this.role === actorsEnum.ExchangeCoordinator" class="zoom-out">
+<div *ngIf="this.role === actorsEnum.ExchangeCoordinator">
   <app-exchangeCoordinator-dashboard></app-exchangeCoordinator-dashboard>
 </div>
 
