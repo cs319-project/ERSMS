@@ -143,7 +143,7 @@ export class EquivalenceRequestDialogComponent implements OnInit {
               res => {
                 if (res) {
                   this.toastr.success('Form is submitted successfully');
-                  this.dialogRef.close(this.data);
+                  this.dialogRef.close(true);
                 }
               },
               error => {

@@ -9,7 +9,7 @@
     <!-- <button mat-icon-button [matMenuTriggerFor]="notificationsMenu">
       <mat-icon svgIcon="notification-idle" matBadge="2"></mat-icon>
     </button> -->
-    <button mat-icon-button>
+    <button mat-icon-button *ngIf="this.role !== actorsEnum.OISEP && this.role !== actorsEnum.Admin && notifications.length > 0">
       <mat-icon
         [matBadge]="unreadCount"
         matBadgeColor="warn"
@@ -17,6 +17,14 @@
         >notifications</mat-icon
       >
     </button>
+    <button mat-icon-button *ngIf="this.role !== actorsEnum.OISEP && this.role !== actorsEnum.Admin && notifications.length == 0">
+      <mat-icon
+        matBadgeColor="warn"
+        [matMenuTriggerFor]="notificationsMenu"
+      >notifications</mat-icon
+      >
+    </button>
+
 
     <button
       *ngIf="this.role === actorsEnum.Student"

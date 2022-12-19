@@ -85,7 +85,6 @@ export class CteFormDialogComponent implements OnInit {
   }
 
   onSubmit() {
-    //TODO Handle Empty Forms
     if (this.data.idNumber == null || this.data.idNumber == '') {
       this.toastr.error('Please enter an ID number');
       return;
@@ -200,7 +199,7 @@ export class CteFormDialogComponent implements OnInit {
             res => {
               if (res) {
                 this.toastr.success('Form is submitted');
-                this.dialogRef.close();
+                this.dialogRef.close(true);
               }
             },
             error => {

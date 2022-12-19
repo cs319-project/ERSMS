@@ -269,6 +269,14 @@
             "
             >Registered</span
           >
+          <span
+            style="color:darkred"
+            *ngIf="
+              selection.selected[0].email === null ||
+              selection.selected[0].email === ''
+            "
+          >Not Registered</span
+          >
         </div>
       </div>
     </div>
