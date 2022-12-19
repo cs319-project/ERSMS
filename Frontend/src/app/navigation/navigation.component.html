@@ -21,6 +21,7 @@
     <button
       *ngIf="this.role === actorsEnum.Student"
       mat-icon-button
+      routerLink="/profile"
       class="m-2"><mat-icon svgIcon="user" style="scale: 1.5"></mat-icon></button>
     <button
       *ngIf="this.role !== actorsEnum.Student"
@@ -130,7 +131,22 @@
         <mat-icon svgIcon="forms" class="m-2"></mat-icon
         ><span>Forms and Requests</span>
       </mat-list-item>
+      <mat-list-item
+        (click)="populateNotifications()"
+        routerLink="/appointments"
+        routerLinkActive="active-list-item">
+        <mat-icon svgIcon="calendar" class="m-2"></mat-icon
+        ><span>Appointments</span>
+      </mat-list-item>
+      <mat-list-item (click)="populateNotifications()" routerLink="/messages" routerLinkActive="active-list-item">
+        <mat-icon
+          svgIcon="messages"
+          style="border-color: red"
+          class="m-2"></mat-icon
+        ><span>Messages</span>
+      </mat-list-item>
     </mat-nav-list>
+
 
     <mat-nav-list *ngIf="this.role === actorsEnum.DeanDepartmentChair
     || this.role === actorsEnum.CourseCoordinatorInstructor">
