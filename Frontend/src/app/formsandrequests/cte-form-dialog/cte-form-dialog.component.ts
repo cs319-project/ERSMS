@@ -149,6 +149,24 @@ export class CteFormDialogComponent implements OnInit {
               return;
             }
 
+            if (
+              group.exemptedCourse.courseCode != '' &&
+              group.exemptedCourse.courseCode != null &&
+              (group.exemptedCourse.courseName == '' ||
+                group.exemptedCourse.courseName == null)
+            ) {
+              this.toastr.error('Please enter the course name');
+              return;
+            } else if (
+              (group.exemptedCourse.courseCode == '' ||
+                group.exemptedCourse.courseCode == null) &&
+              group.exemptedCourse.courseName != '' &&
+              group.exemptedCourse.courseName != null
+            ) {
+              this.toastr.error('Please enter the course code');
+              return;
+            }
+
             group.transferredCourses.forEach(transferredCourse => {
               if (
                 transferredCourse.courseCode == null ||

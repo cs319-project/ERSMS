@@ -127,6 +127,25 @@ export class EquivalenceRequestDialogComponent implements OnInit {
             this.toastr.error('Please enter ECTS for the exempted course');
             return;
           }
+
+          if (
+            this.data.exemptedCourse.courseCode != '' &&
+            this.data.exemptedCourse.courseCode != null &&
+            (this.data.exemptedCourse.courseName == '' ||
+              this.data.exemptedCourse.courseName == null)
+          ) {
+            this.toastr.error('Please enter the course name');
+            return;
+          } else if (
+            (this.data.exemptedCourse.courseCode == '' ||
+              this.data.exemptedCourse.courseCode == null) &&
+            this.data.exemptedCourse.courseName != '' &&
+            this.data.exemptedCourse.courseName != null
+          ) {
+            this.toastr.error('Please enter the course code');
+            return;
+          }
+
           this.data.hostUniversityName = result.exchangeSchool;
           this.data.firstName = result.firstName;
           this.data.lastName = result.lastName;
@@ -147,7 +166,16 @@ export class EquivalenceRequestDialogComponent implements OnInit {
                 }
               },
               error => {
-                this.toastr.error('An error occured while submitting the form');
+                if (error.status == 409) {
+                  this.toastr.clear();
+                  this.toastr.error('You already have an equivalent course');
+                } else {
+                  this.toastr.clear();
+                  this.toastr.error(
+                    'An error occured while submitting the form'
+                  );
+                  return;
+                }
               }
             );
         } else {

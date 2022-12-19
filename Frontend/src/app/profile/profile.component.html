@@ -1,8 +1,8 @@
-<div class="full-width  profile-header-container">
+<div class="full-width profile-header-container">
   <div class="profile-header m-3">
     <div class="user-container">
       <div class="profile-photo-container">
-        <img src="../assets/images/avatar.png" />
+        <img src="../assets/icons/big-user.svg" />
       </div>
       <div class="m-3 name-dep-container">
         <h2>
@@ -23,33 +23,42 @@
       </div>
     </div>
     <div class="status-school-container m-3">
-      <div class="name-value-pair mt-2">
+      <!-- <div class="name-value-pair mt-2">
         <span class="gray-text">Bilkent ID Number</span>
         <span>{{ this.userName }}</span>
-      </div>
-      <div class="name-value-pair mt-2">
+      </div> -->
+      <!-- <div class="name-value-pair mt-2">
         <span class="gray-text">Exchange School</span>
         <span>Kingston University</span>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
 
-<div class="profile-content-container  mt-5">
+<div class="profile-content-container mt-5">
   <div class="profile-content">
     <div class="social-container">
       <h3 class="mt-3">Other Students Going to {{ this.exchangeSchool }}</h3>
       <mat-divider></mat-divider>
       <div class="social-profile-container">
-        <div *ngFor="let student of this.otherStudents" style="width: 100%; display: flex; align-items: center; justify-content: space-between" class="other-student mt-3">
+        <div
+          *ngFor="let student of this.otherStudents"
+          style="
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          "
+          class="other-student mt-3">
           <img src="../assets/icons/big-user.svg" />
           <div class="name-value-pair ml-5">
             <span>{{ student.fullName }}</span>
             <span class="gray-text">{{ student.department }}</span>
           </div>
-          <a href="mailto:{{ student.email }}"><button *ngIf="student.email" mat-icon-button>
-            <mat-icon svgIcon="mail"></mat-icon>
-          </button></a>
+          <a href="mailto:{{ student.email }}"
+            ><button *ngIf="student.email" mat-icon-button>
+              <mat-icon svgIcon="mail"></mat-icon></button
+          ></a>
         </div>
       </div>
     </div>

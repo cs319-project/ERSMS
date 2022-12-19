@@ -145,6 +145,23 @@ export class PreapprovalFormDialogComponent implements OnInit {
               this.toastr.error('Please enter ECTS for the exempted course');
               return;
             }
+            if (
+              group.requestedExemptedCourse.courseCode != '' &&
+              group.requestedExemptedCourse.courseCode != null &&
+              (group.requestedExemptedCourse.courseName == '' ||
+                group.requestedExemptedCourse.courseName == null)
+            ) {
+              this.toastr.error('Please enter the course name');
+              return;
+            } else if (
+              (group.requestedExemptedCourse.courseCode == '' ||
+                group.requestedExemptedCourse.courseCode == null) &&
+              group.requestedExemptedCourse.courseName != '' &&
+              group.requestedExemptedCourse.courseName != null
+            ) {
+              this.toastr.error('Please enter the course code');
+              return;
+            }
 
             group.requestedCourses.forEach(requestedCourse => {
               if (
