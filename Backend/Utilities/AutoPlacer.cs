@@ -58,6 +58,7 @@ namespace Backend.Utilities
         /// <returns>A list of placed students.</returns>
         public static ICollection<PlacedStudent> PlaceStudents(byte[] excelFile)
         {
+            Schools = new HashSet<SchoolInfo>();
             ICollection<PlacedStudent> placedStudents = new List<PlacedStudent>();
 
             if (Schools.Count == 0)

@@ -19,7 +19,6 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./preapproval-form-dialog.component.css']
 })
 export class PreapprovalFormDialogComponent implements OnInit {
-
   userName: string;
 
   courseTypes: string[] = Object.values(CourseType);
@@ -84,15 +83,102 @@ export class PreapprovalFormDialogComponent implements OnInit {
     this.userService.getUserDetails(this.data.idNumber).subscribe(
       result => {
         if (result && result.actorType == ActorsEnum.Student) {
+          if (
+            this.data.requestedCourseGroups == null ||
+            this.data.requestedCourseGroups.length == 0
+          ) {
+            this.toastr.error('Please add at least one course group');
+            return;
+          }
+          this.data.requestedCourseGroups.forEach(group => {
+            if (group.requestedExemptedCourse.courseType == null) {
+              this.toastr.error('Please select a course type');
+              return;
+            }
+            if (
+              group.requestedExemptedCourse.courseType == 'Mandatory Course' &&
+              (group.requestedExemptedCourse.courseCode == null ||
+                group.requestedExemptedCourse.courseCode == '' ||
+                group.requestedExemptedCourse.courseName == null ||
+                group.requestedExemptedCourse.courseName == '')
+            ) {
+              this.toastr.error(
+                'Please enter a course code and course name for exempted course'
+              );
+              return;
+            } else if (
+              group.requestedExemptedCourse.courseType != 'Mandatory Course' &&
+              group.requestedExemptedCourse.courseCode != null &&
+              group.requestedExemptedCourse.courseCode != ''
+            ) {
+              group.requestedExemptedCourse.courseCode =
+                group.requestedExemptedCourse.courseCode
+                  .replace(/[^a-z0-9]/gi, '')
+                  .toLocaleUpperCase();
+            } else if (
+              group.requestedExemptedCourse.courseType == 'Mandatory Course'
+            ) {
+              group.requestedExemptedCourse.courseCode =
+                group.requestedExemptedCourse.courseCode
+                  .replace(/[^a-z0-9]/gi, '')
+                  .toLocaleUpperCase();
+            }
+            if (
+              group.requestedExemptedCourse.courseType != 'Additional Course' &&
+              (group.requestedExemptedCourse.bilkentCredits == null ||
+                group.requestedExemptedCourse.bilkentCredits == 0)
+            ) {
+              this.toastr.error('Please enter Bilkent Credits');
+              return;
+            }
+            if (
+              group.requestedExemptedCourse.courseType != 'Additional Course' &&
+              (group.requestedExemptedCourse.ects == null ||
+                group.requestedExemptedCourse.ects == 0)
+            ) {
+              this.toastr.error('Please enter ECTS for the exempted course');
+              return;
+            }
+
+            group.requestedCourses.forEach(requestedCourse => {
+              if (
+                requestedCourse.courseCode == null ||
+                requestedCourse.courseCode == ''
+              ) {
+                this.toastr.error(
+                  'Please enter a course code for host university'
+                );
+                return;
+              }
+              if (
+                requestedCourse.courseName == null ||
+                requestedCourse.courseName == ''
+              ) {
+                this.toastr.error(
+                  'Please enter a course name for host university'
+                );
+                return;
+              }
+
+              if (requestedCourse.ects == null || requestedCourse.ects == 0) {
+                this.toastr.error('Please enter ECTS');
+                return;
+              }
+            });
+          });
+
           this.data.hostUniversityName = result.exchangeSchool;
           this.data.firstName = result.firstName;
           this.data.lastName = result.lastName;
           this.data.department = result.major.departmentName;
           this.data.academicYear = result.preferredSemester.academicYear;
           this.data.semester = result.preferredSemester.semester;
-          this.data.requestedCourseGroups.forEach(group => {
-            group.requestedExemptedCourse.courseCode = group.requestedExemptedCourse.courseCode.replace(/[^a-z0-9]/gi, '').toLocaleUpperCase();
-          });
+          // this.data.requestedCourseGroups.forEach(group => {
+          //   group.requestedExemptedCourse.courseCode =
+          //     group.requestedExemptedCourse.courseCode
+          //       .replace(/[^a-z0-9]/gi, '')
+          //       .toLocaleUpperCase();
+          // });
           console.log(this.data);
           this.preApprovalFormService
             .createPreApprovalForm(this.data)

@@ -1,9 +1,25 @@
-<div class="placement-container  mr-3 ml-3">
+<div class="placement-container mr-3 ml-3">
   <div class="placement-header mt-3">
     <div>
       <span class="placement-title">Placements</span>
     </div>
     <div class="placement-buttons-container">
+      <div style="display: flex; align-items: center" class="mr-2">
+        <span class="mr-2" style="margin-left: 5%; width: 120px"
+          >Score Tables:
+        </span>
+        <select
+          [(ngModel)]="placementTable"
+          (change)="buttonReArrange()"
+          [disabled]="this.placementTables.length === 0">
+          <option value="Select a table" disabled selected>
+            Select a table
+          </option>
+          <option *ngFor="let table of this.placementTables" [ngValue]="table">
+            {{ table.fileName }}
+          </option>
+        </select>
+      </div>
       <button
         (click)="placeStudents()"
         mat-raised-button
@@ -202,12 +218,19 @@
         <img src="../assets/icons/big-user.svg" class="mt-3" />
         <span class="mt-2 preview-name">{{ selection.selected[0].name }}</span>
         <div class="preview-icons">
-          <button mat-icon-button>
-            <mat-icon svgIcon="mail"></mat-icon>
-          </button>
-          <button mat-icon-button>
+          <a href="mailto:{{ selection.selected[0].email }}">
+            <button
+              mat-icon-button
+              *ngIf="
+                selection.selected[0].email !== null &&
+                selection.selected[0].email !== ''
+              ">
+              <mat-icon svgIcon="mail"></mat-icon>
+            </button>
+          </a>
+          <!-- <button mat-icon-button>
             <mat-icon svgIcon="messages"></mat-icon>
-          </button>
+          </button> -->
         </div>
       </div>
       <mat-divider></mat-divider>
@@ -225,12 +248,27 @@
         <mat-divider></mat-divider>
         <div class="mt-2 preview-pair">
           <span class="gray-text">Department</span>
-          <span>{{ selection.selected[0].departmentFull }}</span>
+          <span style="text-align: right">{{
+            selection.selected[0].departmentFull
+          }}</span>
         </div>
         <mat-divider></mat-divider>
         <div class="mt-2 preview-pair">
           <span class="gray-text">Preferred Term</span>
-          <span>{{ selection.selected[0].prefTerm }}</span>
+          <span style="text-align: right">{{
+            selection.selected[0].prefTerm
+          }}</span>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="mt-2 preview-pair">
+          <span
+            class="green-text"
+            *ngIf="
+              selection.selected[0].email !== null &&
+              selection.selected[0].email !== ''
+            "
+            >Registered</span
+          >
         </div>
       </div>
     </div>

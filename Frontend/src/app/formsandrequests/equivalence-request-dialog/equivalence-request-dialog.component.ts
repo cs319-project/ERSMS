@@ -49,11 +49,91 @@ export class EquivalenceRequestDialogComponent implements OnInit {
     this.userService.getUserDetails(this.data.studentId).subscribe(
       result => {
         if (result && result.actorType == ActorsEnum.Student) {
+          if (
+            this.data.hostCourseCode == null ||
+            this.data.hostCourseCode == ''
+          ) {
+            this.toastr.error(
+              "Please enter a course code for the host university's course"
+            );
+            return;
+          }
+          if (
+            this.data.hostCourseECTS == null ||
+            this.data.hostCourseECTS == 0
+          ) {
+            this.toastr.error("Please enter the host university courses' ECTS");
+            return;
+          }
+          if (
+            this.data.hostCourseName == null ||
+            this.data.hostCourseName == ''
+          ) {
+            this.toastr.error("Please enter the host university's course name");
+            return;
+          }
+          if (
+            this.data.exemptedCourse.courseType == null ||
+            this.data.exemptedCourse.courseType == ''
+          ) {
+            this.toastr.error("Please enter the exempted course's type");
+            return;
+          }
+          if (this.data.exemptedCourse.courseType == 'Additional Course') {
+            this.data.exemptedCourse.ects = 0;
+            this.data.exemptedCourse.bilkentCredits = 0;
+          }
+          if (
+            this.data.exemptedCourse.courseType == 'Mandatory Course' &&
+            (this.data.exemptedCourse.courseCode == null ||
+              this.data.exemptedCourse.courseCode == '' ||
+              this.data.exemptedCourse.courseName == null ||
+              this.data.exemptedCourse.courseName == '')
+          ) {
+            this.toastr.error(
+              "Please enter the exempted course's code and name"
+            );
+            return;
+          } else if (
+            this.data.exemptedCourse.courseType != 'Mandatory Course' &&
+            this.data.exemptedCourse.courseCode != null &&
+            this.data.exemptedCourse.courseCode != ''
+          ) {
+            this.data.exemptedCourse.courseCode =
+              this.data.exemptedCourse.courseCode
+                .replace(/[^a-z0-9]/gi, '')
+                .toLocaleUpperCase();
+          } else if (
+            this.data.exemptedCourse.courseType == 'Mandatory Course'
+          ) {
+            this.data.exemptedCourse.courseCode =
+              this.data.exemptedCourse.courseCode
+                .replace(/[^a-z0-9]/gi, '')
+                .toLocaleUpperCase();
+          }
+          if (
+            this.data.exemptedCourse.courseType != 'Additional Course' &&
+            (this.data.exemptedCourse.bilkentCredits == null ||
+              this.data.exemptedCourse.bilkentCredits == 0)
+          ) {
+            this.toastr.error('Please enter Bilkent Credits');
+            return;
+          }
+          if (
+            this.data.exemptedCourse.courseType != 'Additional Course' &&
+            (this.data.exemptedCourse.ects == null ||
+              this.data.exemptedCourse.ects == 0)
+          ) {
+            this.toastr.error('Please enter ECTS for the exempted course');
+            return;
+          }
           this.data.hostUniversityName = result.exchangeSchool;
           this.data.firstName = result.firstName;
           this.data.lastName = result.lastName;
-          this.data.exemptedCourse.courseCode = this.data.exemptedCourse.courseCode.replace(/[^a-z0-9]/gi, '').toLocaleUpperCase();
-
+          // this.data.exemptedCourse.courseCode =
+          //   this.data.exemptedCourse.courseCode
+          //     .replace(/[^a-z0-9]/gi, '')
+          //     .toLocaleUpperCase();
 
           console.log(this.data);
           console.log(this.syllabus);

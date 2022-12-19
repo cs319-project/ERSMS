@@ -81,11 +81,52 @@ namespace Backend.Controllers
             //cTEForm.Id = Guid.NewGuid();
             try
             {
-                if (await _cTEFormService.AddCTEFormToStudent(cTEForm))
+                if (cTEForm.TransferredCourseGroups == null || cTEForm.TransferredCourseGroups.Count == 0)
                 {
-                    return Ok(cTEForm);
+                    return BadRequest("No course groups to transfer");
                 }
-                return BadRequest("Failed to add CTE Form to Student");
+                else
+                {
+                    foreach (var courseGroup in cTEForm.TransferredCourseGroups)
+                    {
+                        foreach (var course in courseGroup.TransferredCourses)
+                        {
+                            if (course.ECTS == 0)
+                            {
+                                return BadRequest("Course credits cannot be 0");
+                            }
+                            else if (string.IsNullOrEmpty(course.CourseCode))
+                            {
+                                return BadRequest("Course code cannot be empty");
+                            }
+                            else if (string.IsNullOrEmpty(course.CourseName))
+                            {
+                                return BadRequest("Course name cannot be empty");
+                            }
+                        }
+
+                        if (courseGroup.ExemptedCourse.BilkentCredits == 0)
+                        {
+                            return BadRequest("Course credits cannot be 0");
+                        }
+                        else if (courseGroup.ExemptedCourse.CourseType == "Mandatory Course" &&
+                                    string.IsNullOrEmpty(courseGroup.ExemptedCourse.CourseCode))
+                        {
+                            return BadRequest("Course code cannot be empty");
+                        }
+                        else if (courseGroup.ExemptedCourse.CourseType == "Mandatory Course" &&
+                                    string.IsNullOrEmpty(courseGroup.ExemptedCourse.CourseName))
+                        {
+                            return BadRequest("Course name cannot be empty");
+                        }
+                    }
+
+                    if (await _cTEFormService.AddCTEFormToStudent(cTEForm))
+                    {
+                        return Ok(cTEForm);
+                    }
+                    return BadRequest("Failed to add CTE Form to Student");
+                }
             }
             catch (ToDoListException e)
             {
