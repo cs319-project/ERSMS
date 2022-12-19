@@ -196,6 +196,7 @@ export class ViewPreapprovalFormDialogComponent implements OnInit {
         if (data) {
           this.toastr.success('File deleted');
           this.isDownloadable = false;
+          this.data.preApprovalForm.fileName = '';
         } else {
           this.toastr.error('File not found');
         }

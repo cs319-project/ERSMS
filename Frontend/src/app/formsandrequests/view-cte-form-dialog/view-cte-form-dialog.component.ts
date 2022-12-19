@@ -246,6 +246,7 @@ export class ViewCteFormDialogComponent implements OnInit {
       if (data) {
         this.isDownloadable = false;
         this.toastr.success('Document is deleted successfully');
+        this.data.cteForm.fileName = '';
       } else {
         this.toastr.error('No file found');
       }

@@ -1,6 +1,7 @@
 using AutoMapper;
 using Backend.DTOs;
 using Backend.Entities;
+using Backend.Entities.Exceptions;
 using Backend.Interfaces;
 using Backend.Utilities.Enum;
 
@@ -32,8 +33,11 @@ namespace Backend.Services
         public async Task<bool> AddEquivalenceRequestToStudent(EquivalenceRequestDto equivalenceRequest, IFormFile file)
         {
             var logs = (await _loggedCourseService.GetLoggedEquivalantCourses()).Select(x => (x.HostCourseCode == equivalenceRequest.HostCourseCode)
-                        && (x.ExemptedCourse.CourseCode == equivalenceRequest.ExemptedCourse.CourseCode) && (x.HostSchool == equivalenceRequest.HostUniversityName));
-            if (logs.Count() > 0) return false;
+                        && (x.HostSchool == equivalenceRequest.HostUniversityName));
+            foreach (var log in logs)
+            {
+                if (log) { throw new AlreadyLoggedException("Course with code " + equivalenceRequest.HostCourseCode + " already logged"); }
+            }
             EquivalenceRequest request = _mapper.Map<EquivalenceRequest>(equivalenceRequest);
             request.Syllabus = await SaveFile(file);
             var flag = await _equivalenceRequestRepository.AddEquivalenceRequestToStudent(equivalenceRequest.StudentId, request);

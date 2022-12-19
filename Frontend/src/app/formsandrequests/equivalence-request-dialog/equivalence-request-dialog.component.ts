@@ -149,13 +149,7 @@ export class EquivalenceRequestDialogComponent implements OnInit {
           this.data.hostUniversityName = result.exchangeSchool;
           this.data.firstName = result.firstName;
           this.data.lastName = result.lastName;
-          // this.data.exemptedCourse.courseCode =
-          //   this.data.exemptedCourse.courseCode
-          //     .replace(/[^a-z0-9]/gi, '')
-          //     .toLocaleUpperCase();
 
-          console.log(this.data);
-          console.log(this.syllabus);
           this.eqReqService
             .createEquivalenceRequest(this.data, this.syllabus)
             .subscribe(

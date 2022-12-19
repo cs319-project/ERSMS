@@ -12,6 +12,7 @@ namespace Backend.Entities
         public string HostCourseName { get; set; }
         public string HostCourseCode { get; set; }
         public double HostCourseECTS { get; set; }
+        public string HostUniversityName { get; set; }
         public DateTime SubmissionDate { get; set; } = DateTime.Now;
         public string FileName { get; set; }
         public byte[] Syllabus { get; set; }
