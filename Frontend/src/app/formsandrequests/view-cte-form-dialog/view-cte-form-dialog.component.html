@@ -8,13 +8,16 @@
       <mat-icon>cancel</mat-icon>
     </button>
   </div>
-  <div class="mb-2">
-    <span><b>Submission Date</b></span>
-    <span class="ml-2">{{ formatTheDate(data.cteForm.submissionTime) }}</span>
-  </div>
-  <div style="display: flex; justify-content: space-between; align-items: center"
+  <div
+    style="display: flex; justify-content: space-between; align-items: center"
     class="mb-2">
     <div>
+      <div class="mb-2">
+        <span><b>Submission Date</b></span>
+        <span class="ml-2">{{
+          formatTheDate(data.cteForm.submissionTime)
+        }}</span>
+      </div>
       <span class="subtitle mr-3">Form Status:</span>
       <span
         class="status-text"
@@ -34,18 +37,54 @@
         style="background-color: '#FD7972'"
         >Rejected
       </span>
+      <span
+        class="status-text"
+        *ngIf="formStatus === 'Cancelled'"
+        style="background-color: #621324; color: white"
+        >Cancelled
+      </span>
     </div>
-    <div>
-      <button
-        mat-raised-button
-        color="primary"
-        class="mr-3"
-        (click)="downloadPdf()">
-        Download Pdf
-      </button>
-      <button mat-raised-button color="accent" *ngIf="formStatus === 'Waiting'">
-        Upload Pdf
-      </button>
+    <div style="display: flex; flex-direction: column; align-items: center">
+      <div>
+        <span><b>Upload Official Document</b></span>
+      </div>
+      <div
+        *ngIf="data.cteForm.fileName !== null && data.cteForm.fileName !== ''">
+        <span>File name: {{ data.cteForm.fileName }}</span>
+      </div>
+      <div>
+        <button
+          mat-raised-button
+          color="primary"
+          class="mr-3"
+          (click)="downloadPdf()"
+          [disabled]="!isDownloadable">
+          Download Pdf
+        </button>
+        <input
+          type="file"
+          class="file-input"
+          accept=".pdf"
+          (change)="onFileSelected($event)"
+          #fileUpload
+          hidden />
+        <button
+          mat-raised-button
+          color="accent"
+          class="mr-3"
+          *ngIf="formStatus === 'Waiting'"
+          (click)="fileUpload.click()">
+          Upload Pdf
+        </button>
+        <button
+          mat-raised-button
+          color="warn"
+          *ngIf="formStatus === 'Waiting'"
+          (click)="deletePdf()"
+          [disabled]="!isDownloadable">
+          Delete Pdf
+        </button>
+      </div>
     </div>
   </div>
   <mat-tab-group>
@@ -105,7 +144,7 @@
           <div class="approve-info-content">
             <div
               class="approve-info-element"
-              *ngIf="coordinatorStatus !== 'Waiting'">
+              *ngIf="coordinatorStatus !== 'Waiting' && data.cteForm.exchangeCoordinatorApproval != null">
               <span
                 ><b class="mr-2">Name:</b
                 >{{ data.cteForm.exchangeCoordinatorApproval.name }}</span
@@ -143,13 +182,13 @@
                   class="status-text"
                   *ngIf="formStatus === 'Waiting'"
                   style="background-color: '#FF965D'"
-                >Waiting</span
+                  >Waiting</span
                 >
                 <span
                   class="status-text"
                   *ngIf="formStatus !== 'Waiting'"
                   style="background-color: '#828491FF'; color: white"
-                >Uncomplete</span
+                  >Incomplete</span
                 >
               </div>
             </div>
@@ -157,7 +196,7 @@
               vertical
               style="height: 150px"
               class="mr-4 ml-4"></mat-divider>
-            <div class="approve-info-element" *ngIf="deanStatus !== 'Waiting'">
+            <div class="approve-info-element" *ngIf="deanStatus !== 'Waiting' &&  data.cteForm.deanApproval != null">
               <span
                 ><b class="mr-2">Name:</b
                 >{{ data.cteForm.deanApproval.name }}</span
@@ -191,13 +230,13 @@
                   class="status-text"
                   *ngIf="formStatus === 'Waiting'"
                   style="background-color: '#FF965D'"
-                >Waiting</span
+                  >Waiting</span
                 >
                 <span
                   class="status-text"
                   *ngIf="formStatus !== 'Waiting'"
                   style="background-color: '#828491FF'; color: white"
-                >Uncomplete</span
+                  >Incomplete</span
                 >
               </div>
             </div>
@@ -206,7 +245,7 @@
               vertical
               style="height: 150px"
               class="mr-4 ml-4"></mat-divider>
-            <div class="approve-info-element" *ngIf="chairStatus !== 'Waiting'">
+            <div class="approve-info-element" *ngIf="chairStatus !== 'Waiting' && data.cteForm.chairApproval != null">
               <span
                 ><b class="mr-2">Name:</b
                 >{{ data.cteForm.chairApproval.name }}</span
@@ -238,13 +277,13 @@
                   class="status-text"
                   *ngIf="formStatus === 'Waiting'"
                   style="background-color: '#FF965D'"
-                >Waiting</span
+                  >Waiting</span
                 >
                 <span
                   class="status-text"
                   *ngIf="formStatus !== 'Waiting'"
                   style="background-color: '#828491FF'; color: white"
-                >Uncomplete</span
+                  >Incomplete</span
                 >
               </div>
             </div>
@@ -252,7 +291,8 @@
               vertical
               style="height: 150px"
               class="mr-4 ml-4"></mat-divider>
-            <div class="approve-info-element" *ngIf="boardStatus !== 'Waiting'">
+            <div class="approve-info-element" *ngIf="boardStatus !== 'Waiting' &&
+            data.cteForm.facultyOfAdministrationBoardApproval != null">
               <span
                 ><b class="mr-2">Name:</b
                 >{{
@@ -291,13 +331,13 @@
                   class="status-text"
                   *ngIf="formStatus === 'Waiting'"
                   style="background-color: '#FF965D'"
-                >Waiting</span
+                  >Waiting</span
                 >
                 <span
                   class="status-text"
                   *ngIf="formStatus !== 'Waiting'"
                   style="background-color: '#828491FF'; color: white"
-                >Uncomplete</span
+                  >Incomplete</span
                 >
               </div>
             </div>
@@ -393,7 +433,7 @@
                   <mat-form-field
                     *ngIf="
                       courseGroup.exemptedCourse.courseName != '' &&
-                   courseGroup.exemptedCourse.courseName != null
+                      courseGroup.exemptedCourse.courseName != null
                     "
                     style="width: 150px"
                     appearance="outline">
@@ -407,7 +447,7 @@
                   <mat-form-field
                     *ngIf="
                       courseGroup.exemptedCourse.courseName != '' &&
-                   courseGroup.exemptedCourse.courseName != null
+                      courseGroup.exemptedCourse.courseName != null
                     "
                     style="flex-grow: 1"
                     class="mr-3 ml-3"
@@ -451,8 +491,12 @@
         </div>
       </div>
     </mat-tab>
-    <mat-tab label="Decision" *ngIf="roleOfUser !== 'Student' || formStatus !== 'Waiting'">
-      <div class="decision-container" *ngIf="!isSelfApproved && formStatus === 'Waiting'">
+    <mat-tab
+      label="Decision"
+      *ngIf="roleOfUser !== 'Student' || formStatus !== 'Waiting'">
+      <div
+        class="decision-container"
+        *ngIf="!isSelfApproved && formStatus === 'Waiting'">
         <span class="subtitle">Your Decision</span>
         <mat-form-field appearance="outline" style="width: 500px">
           <mat-label>Your Comments & Extra Notes</mat-label>
@@ -461,8 +505,7 @@
             type="search"
             rows="10"
             matInput
-            [(ngModel)]="userComment"
-          ></textarea>
+            [(ngModel)]="userComment"></textarea>
         </mat-form-field>
         <div class="decision-buttons mb-5">
           <button
@@ -481,8 +524,14 @@
           </button>
         </div>
       </div>
-      <div class="decision-container" *ngIf="boardStatus === 'Waiting' &&
-      coordinatorStatus === 'Accepted' && deanStatus === 'Accepted' && chairStatus === 'Accepted'">
+      <div
+        class="decision-container"
+        *ngIf="
+          boardStatus === 'Waiting' &&
+          coordinatorStatus === 'Accepted' &&
+          deanStatus === 'Accepted' &&
+          chairStatus === 'Accepted'
+        ">
         <span class="subtitle">F.A.B. Decision</span>
         <mat-form-field appearance="outline" style="width: 500px">
           <mat-label>Your Comments & Extra Notes</mat-label>
@@ -510,83 +559,110 @@
           </button>
         </div>
       </div>
-      <div class="decision-container" *ngIf="coordinatorStatus != 'Waiting' &&
-      data.cteForm.exchangeCoordinatorApproval.comment != '' && data.cteForm.exchangeCoordinatorApproval.comment != null">
+      <div
+        class="decision-container"
+        *ngIf="
+          coordinatorStatus != 'Waiting' &&
+          data.cteForm.exchangeCoordinatorApproval != null &&
+          data.cteForm.exchangeCoordinatorApproval.comment != '' &&
+          data.cteForm.exchangeCoordinatorApproval.comment != null
+        ">
         <span class="subtitle">Coordinator Decision</span>
         <div class="decision-buttons mb-2">
           <span
             class="status-text"
             *ngIf="coordinatorStatus === 'Accepted'"
             style="background-color: '#49C96D'"
-          >Accepted</span
+            >Accepted</span
           >
           <span
             class="status-text"
             *ngIf="coordinatorStatus === 'Rejected'"
             style="background-color: '#FD7972'"
-          >Rejected</span
+            >Rejected</span
           >
         </div>
         <mat-form-field appearance="outline" style="width: 500px">
-          <mat-label>{{data.cteForm.exchangeCoordinatorApproval.name}}'s Comments & Extra Notes</mat-label>
+          <mat-label
+            >{{ data.cteForm.exchangeCoordinatorApproval.name }}'s Comments &
+            Extra Notes</mat-label
+          >
           <textarea
             class="custom-scroll-bar"
             type="search"
             rows="10"
             matInput
             readonly
-            [(ngModel)]="data.cteForm.exchangeCoordinatorApproval.comment"
-          ></textarea>
+            [(ngModel)]="
+              data.cteForm.exchangeCoordinatorApproval.comment
+            "></textarea>
         </mat-form-field>
       </div>
-      <div class="decision-container" *ngIf="deanStatus != 'Waiting' &&
-      data.cteForm.deanApproval.comment != '' && data.cteForm.deanApproval.comment != null">
+      <div
+        class="decision-container"
+        *ngIf="
+          deanStatus != 'Waiting' &&
+          data.cteForm.deanApproval != null &&
+          data.cteForm.deanApproval.comment != '' &&
+          data.cteForm.deanApproval.comment != null
+        ">
         <span class="subtitle">Dean Decision</span>
         <div class="decision-buttons mb-2">
           <span
             class="status-text"
             *ngIf="deanStatus === 'Accepted'"
             style="background-color: '#49C96D'"
-          >Accepted</span
+            >Accepted</span
           >
           <span
             class="status-text"
             *ngIf="deanStatus === 'Rejected'"
             style="background-color: '#FD7972'"
-          >Rejected</span
+            >Rejected</span
           >
         </div>
         <mat-form-field appearance="outline" style="width: 500px">
-          <mat-label>{{data.cteForm.deanApproval.name}}'s Comments & Extra Notes</mat-label>
+          <mat-label
+            >{{ data.cteForm.deanApproval.name }}'s Comments & Extra
+            Notes</mat-label
+          >
           <textarea
             class="custom-scroll-bar"
             type="search"
             rows="10"
             matInput
-          readonly
-            [(ngModel)]="data.cteForm.deanApproval.comment"
-          ></textarea>
+            readonly
+            [(ngModel)]="data.cteForm.deanApproval.comment"></textarea>
         </mat-form-field>
       </div>
-      <div class="decision-container" *ngIf="chairStatus != 'Waiting' &&
-      data.cteForm.chairApproval.comment != '' && data.cteForm.chairApproval.comment != null">
+      <div
+        class="decision-container"
+        *ngIf="
+          chairStatus != 'Waiting' &&
+          data.cteForm.chairApproval != null &&
+          data.cteForm.chairApproval.comment != '' &&
+          data.cteForm.chairApproval.comment != null
+        ">
         <span class="subtitle">Chair Decision</span>
         <div class="decision-buttons mb-2">
           <span
             class="status-text"
             *ngIf="chairStatus === 'Accepted'"
             style="background-color: '#49C96D'"
-          >Accepted</span
+            >Accepted</span
           >
           <span
             class="status-text"
             *ngIf="chairStatus === 'Rejected'"
             style="background-color: '#FD7972'"
-          >Rejected</span
+            >Rejected</span
           >
         </div>
         <mat-form-field appearance="outline" style="width: 500px">
-          <mat-label>{{data.cteForm.chairApproval.name}}'s Comments & Extra Notes</mat-label>
+          <mat-label
+            >{{ data.cteForm.chairApproval.name }}'s Comments & Extra
+            Notes</mat-label
+          >
           <textarea
             class="custom-scroll-bar"
             type="search"
@@ -596,31 +672,42 @@
             readonly></textarea>
         </mat-form-field>
       </div>
-      <div class="decision-container" *ngIf="boardStatus != 'Waiting' &&
-      data.cteForm.facultyOfAdministrationBoardApproval.comment != '' && data.cteForm.facultyOfAdministrationBoardApproval.comment != null">
+      <div
+        class="decision-container"
+        *ngIf="
+          boardStatus != 'Waiting' &&
+          data.cteForm.facultyOfAdministrationBoardApproval != null &&
+          data.cteForm.facultyOfAdministrationBoardApproval.comment != '' &&
+          data.cteForm.facultyOfAdministrationBoardApproval.comment != null
+        ">
         <span class="subtitle">FAB Decision</span>
         <div class="decision-buttons mb-2">
           <span
             class="status-text"
             *ngIf="boardStatus === 'Accepted'"
             style="background-color: '#49C96D'"
-          >Accepted</span
+            >Accepted</span
           >
           <span
             class="status-text"
             *ngIf="boardStatus === 'Rejected'"
             style="background-color: '#FD7972'"
-          >Rejected</span
+            >Rejected</span
           >
         </div>
         <mat-form-field appearance="outline" style="width: 500px">
-          <mat-label>{{data.cteForm.facultyOfAdministrationBoardApproval.name}}'s Comments & Extra Notes</mat-label>
+          <mat-label
+            >{{ data.cteForm.facultyOfAdministrationBoardApproval.name }}'s
+            Comments & Extra Notes</mat-label
+          >
           <textarea
             class="custom-scroll-bar"
             type="search"
             rows="10"
             matInput
-            [(ngModel)]="data.cteForm.facultyOfAdministrationBoardApproval.comment"
+            [(ngModel)]="
+              data.cteForm.facultyOfAdministrationBoardApproval.comment
+            "
             readonly></textarea>
         </mat-form-field>
       </div>

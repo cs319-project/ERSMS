@@ -48,4 +48,8 @@ export class UserService {
   getSameSchoolStudents(userName: string): Observable<any> {
     return this.http.get(`${this.baseUrl}student/${userName}/sameSchool`);
   }
+
+  getUserTuples(): Observable<any> {
+    return this.http.get(`${this.baseUrl}registeredStudents/tuples`);
+  }
 }

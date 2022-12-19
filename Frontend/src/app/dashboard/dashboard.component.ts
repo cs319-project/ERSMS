@@ -164,9 +164,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     private placementService: PlacementService
   ) {
     this.role = JSON.parse(localStorage.getItem('user')).roles[0];
-    if(this.role === ActorsEnum.CourseCoordinatorInstructor || this.role === ActorsEnum.DeanDepartmentChair){
-      this.router.navigate(['/formsandrequests']);
-    }
     this.pieChartOptions = {
       series: [44, 55, 13],
       chart: {

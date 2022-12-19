@@ -70,6 +70,9 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
   approved: number[] = [];
   rejected: number[] = [];
   processing: number[] = [];
+  cteForms: number[] = [];
+  preApproval: number[] = [];
+  courseEq: number[] = [];
   actorsEnum = ActorsEnum;
   role: string;
   userName: string;
@@ -80,64 +83,11 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
   public pieChartOptions: Partial<PieChartOptions>;
   public barChartOptions: Partial<BarChartOptions>;
 
-  activities: dayActivities[] = [
-    {
-      date: '12 September',
-      activities: [
-        {
-          name: 'Kutay Tire',
-          description: 'Added a new pre-approval form.',
-          time: '22:13'
-        },
-        {
-          name: 'Berk Çakar',
-          description: 'Added a new pre-approval form.',
-          time: '12:13'
-        },
-        {
-          name: 'Kutay Tire',
-          description: 'Added a new pre-approval form.',
-          time: '13:12'
-        },
-        {
-          name: 'Berk Çakar',
-          description: 'Added a new pre-approval form.',
-          time: '09:44'
-        }
-      ]
-    },
-    {
-      date: '15 September',
-      activities: [
-        {
-          name: 'Atak Talay Yücel',
-          description: 'Added a new pre-approval form.',
-          time: '10:15'
-        },
-        {
-          name: 'Borga Haktan Bilen',
-          description: 'Added a new pre-approval form.',
-          time: '07:07'
-        },
-        {
-          name: 'Atak Talay Yücel',
-          description: 'Added a new pre-approval form.',
-          time: '11:44'
-        },
-        {
-          name: 'Borga Haktan Bilen',
-          description: 'Added a new pre-approval form.',
-          time: '10:10'
-        }
-      ]
-    }
-  ];
-
 
 
   announcements: Announcement[] = [];
 
-  dateFormat = 'dd MM yyyy h:mm';
+  dateFormat = 'dd/MM/yyyy h:mm';
   timeFormat = 'h:mm';
   locale = 'en-TR';
 
@@ -184,6 +134,8 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
           this.processing.push(0);
         }
 
+        this.cteForms.push(0);
+
         this.pieChartOptions = {
           series: [
             this.processing.length,
@@ -212,6 +164,50 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
             }
           ]
         };
+
+        this.barChartOptions = {
+          series: [
+            {
+              name: 'Form Types',
+              data: [this.cteForms.length, this.preApproval.length, this.courseEq.length]
+            }
+          ],
+          chart: {
+            height: 350,
+            type: 'bar',
+            events: {
+              click: function (chart, w, e) {
+                // console.log(chart, w, e)
+              }
+            }
+          },
+          colors: ['#008FFB', '#00E396', '#DBA800'],
+          plotOptions: {
+            bar: {
+              columnWidth: '45%',
+              distributed: true
+            }
+          },
+          dataLabels: {
+            enabled: true
+          },
+          legend: {
+            show: false
+          },
+          grid: {
+            show: true
+          },
+          xaxis: {
+            categories: ['CTE', 'Pre-approval', 'Course Equivalence'],
+            labels: {
+              style: {
+                colors: [],
+                fontSize: '12px'
+              }
+            }
+          }
+        };
+
       });
     });
 
@@ -226,6 +222,8 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
           } else if (!element.isCanceled && !element.isArchived) {
             this.processing.push(0);
           }
+
+          this.preApproval.push(0);
 
           this.pieChartOptions = {
             series: [
@@ -254,6 +252,49 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
                 }
               }
             ]
+          };
+
+          this.barChartOptions = {
+            series: [
+              {
+                name: 'Form Types',
+                data: [this.cteForms.length, this.preApproval.length, this.courseEq.length]
+              }
+            ],
+            chart: {
+              height: 350,
+              type: 'bar',
+              events: {
+                click: function (chart, w, e) {
+                  // console.log(chart, w, e)
+                }
+              }
+            },
+            colors: ['#008FFB', '#00E396', '#DBA800'],
+            plotOptions: {
+              bar: {
+                columnWidth: '45%',
+                distributed: true
+              }
+            },
+            dataLabels: {
+              enabled: true
+            },
+            legend: {
+              show: false
+            },
+            grid: {
+              show: true
+            },
+            xaxis: {
+              categories: ['CTE', 'Pre-approval', 'Course Equivalence'],
+              labels: {
+                style: {
+                  colors: [],
+                  fontSize: '12px'
+                }
+              }
+            }
           };
         });
       });
@@ -270,6 +311,8 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
             this.processing.push(0);
           }
 
+          this.courseEq.push(0);
+
           this.pieChartOptions = {
             series: [
               this.processing.length,
@@ -298,6 +341,51 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
               }
             ]
           };
+
+          this.barChartOptions = {
+            series: [
+              {
+                name: 'Form Types',
+                data: [this.cteForms.length, this.preApproval.length, this.courseEq.length]
+              }
+            ],
+            chart: {
+              height: 350,
+              type: 'bar',
+              events: {
+                click: function (chart, w, e) {
+                  // console.log(chart, w, e)
+                }
+              }
+            },
+            colors: ['#008FFB', '#00E396', '#DBA800'],
+            plotOptions: {
+              bar: {
+                columnWidth: '45%',
+                distributed: true
+              }
+            },
+            dataLabels: {
+              enabled: true
+            },
+            legend: {
+              show: false
+            },
+            grid: {
+              show: true
+            },
+            xaxis: {
+              categories: ['CTE', 'Pre-approval', 'Course Equivalence'],
+              labels: {
+                style: {
+                  colors: [],
+                  fontSize: '12px'
+                }
+              }
+            }
+          };
+
+
         });
       });
 
@@ -346,8 +434,8 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
     this.barChartOptions = {
       series: [
         {
-          name: 'submission',
-          data: [21, 22, 10, 28, 16, 21, 13]
+          name: 'Form Types',
+          data: [this.cteForms.length, this.preApproval.length, this.courseEq.length]
         }
       ],
       chart: {
@@ -359,7 +447,7 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
           }
         }
       },
-      colors: ['#008FFB', '#00E396'],
+      colors: ['#008FFB', '#00E396', '#DBA800'],
       plotOptions: {
         bar: {
           columnWidth: '45%',
@@ -376,7 +464,7 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
         show: true
       },
       xaxis: {
-        categories: ['Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'],
+        categories: ['CTE', 'Pre-approval', 'Course Equivalence'],
         labels: {
           style: {
             colors: [],

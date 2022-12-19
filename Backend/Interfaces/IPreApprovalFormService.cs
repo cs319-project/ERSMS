@@ -22,5 +22,6 @@ namespace Backend.Interfaces
         Task<ICollection<PreApprovalFormDto>> GetNonArchivedPreApprovalFormsByDepartment(string userName);
         Task<(byte[], string)> DownloadPdf(Guid formId);
         Task<bool> UploadPdf(Guid formId, IFormFile fileName);
+        Task<bool> DeletePdf(Guid formId);
     }
 }

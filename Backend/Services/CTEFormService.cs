@@ -659,6 +659,25 @@ namespace Backend.Services
             return forms;
         }
 
+        /// <summary>Deletes the pdf of the specified CTE Form.</summary>
+        /// <param name="formId">GUID of the CTE Form</param>
+        /// <returns>true if deleted, false otherwise</returns>
+        public async Task<bool> DeletePdf(Guid formId)
+        {
+            var form = await _cTEFormRepository.GetCTEForm(formId);
+            if (form == null || form.PDF == null || form.PDF.Length == 0)
+            {
+                return false;
+            }
+            else
+            {
+                form.PDF = new byte[0];
+                form.FileName = string.Empty;
+
+                return await _cTEFormRepository.UpdateCTEForm(form);
+            }
+        }
+
         /// <summary>Converts a file to a byte array.</summary>
         /// <param name="file">The file.</param>
         /// <returns>Byte array of the file</returns>

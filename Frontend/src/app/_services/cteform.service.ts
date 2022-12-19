@@ -22,9 +22,15 @@ export class CTEFormService {
   }
 
   downloadPdf(formId: GUID): Observable<any> {
-    return this.http.get(`${this.baseApiUrl}cteform/download/{formId}`, {
+    return this.http.get(`${this.baseApiUrl}cteform/download/${formId}`, {
       responseType: 'blob'
     });
+  }
+
+  deletePdf(formId: GUID): Observable<any> {
+    return this.http.delete<any>(
+      `${this.baseApiUrl}cteform/deletePdf/${formId}`
+    );
   }
 
   getCTEForms(): Observable<any> {

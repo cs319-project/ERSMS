@@ -23,6 +23,7 @@ import { ViewEquivalenceRequest } from '../formsandrequests/view-equivalence-req
 import { ViewEquivalenceRequestDialogComponent } from '../formsandrequests/view-equivalence-request-dialog/view-equivalence-request-dialog.component';
 import { ActorsEnum } from '../_models/enum/actors-enum';
 import { formatDate } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-logging',
@@ -70,7 +71,7 @@ export class LoggingComponent {
 
   constructor(
     private dialog: MatDialog,
-    private _snackBar: MatSnackBar,
+    private toastr: ToastrService,
     private equivalenceRequestService: EquivalenceRequestService,
     private cteFormService: CTEFormService,
     private userService: UserService,
@@ -88,15 +89,15 @@ export class LoggingComponent {
     this.preapprovalDataSource = new MatTableDataSource<UserData>();
     this.courseEquivalenceDataSource = new MatTableDataSource<UserData>();
 
-    if(this.currentUserRole === ActorsEnum.CourseCoordinatorInstructor){
+    if (this.currentUserRole === ActorsEnum.CourseCoordinatorInstructor) {
       const courseCode: string = JSON.parse(localStorage.getItem('user'))
         .userDetails.course.courseCode;
-      
+
       equivalenceRequestService
         .getArchivedEquivalenceRequestsByCourseCode(courseCode)
         .toPromise()
         .then(data => {
-          if(data){
+          if (data) {
             console.log(data);
             data.forEach(element => {
               const formattedDate = formatDate(
@@ -111,11 +112,13 @@ export class LoggingComponent {
                 date: formattedDate,
                 type: 'Course Eq. Request',
                 school: element.hostUniversityName,
-                status: element.isRejected
+                status: element.isCanceled
+                  ? 'Cancelled'
+                  : element.isRejected
                   ? 'Rejected'
                   : element.isApproved
-                    ? 'Approved'
-                    : 'Waiting'
+                  ? 'Approved'
+                  : 'Waiting'
               };
               this.equivalenceRequests.push(element);
               this.courseEquivalenceDataSource.data.push(temp);
@@ -126,13 +129,15 @@ export class LoggingComponent {
             this.CourseEqTable.renderRows();
           }
         });
-    }
-    else if(this.currentUserRole === ActorsEnum.DeanDepartmentChair && this.isDean){
+    } else if (
+      this.currentUserRole === ActorsEnum.DeanDepartmentChair &&
+      this.isDean
+    ) {
       cteFormService
         .getArchivedCTEFormsByFacultyForDean(this.currentUserId)
         .toPromise()
         .then(data => {
-          if(data){
+          if (data) {
             console.log(data);
             data.forEach(element => {
               const formattedDate = formatDate(
@@ -147,11 +152,13 @@ export class LoggingComponent {
                 date: formattedDate,
                 type: 'CTE Form',
                 school: element.hostUniversityName,
-                status: element.isRejected
+                status: element.isCanceled
+                  ? 'Cancelled'
+                  : element.isRejected
                   ? 'Rejected'
                   : element.isApproved
-                    ? 'Approved'
-                    : 'Waiting'
+                  ? 'Approved'
+                  : 'Waiting'
               };
               this.cteDataSource.data.push(temp);
               this.cteForms.push(element);
@@ -161,13 +168,15 @@ export class LoggingComponent {
             this.CTETable.renderRows();
           }
         });
-    }
-    else if(this.currentUserRole === ActorsEnum.DeanDepartmentChair && !this.isDean){
+    } else if (
+      this.currentUserRole === ActorsEnum.DeanDepartmentChair &&
+      !this.isDean
+    ) {
       cteFormService
         .getArchivedCTEFormsByDepartmentForChair(this.currentUserId)
         .toPromise()
         .then(data => {
-          if(data){
+          if (data) {
             console.log(data);
             data.forEach(element => {
               const formattedDate = formatDate(
@@ -182,11 +191,13 @@ export class LoggingComponent {
                 date: formattedDate,
                 type: 'CTE Form',
                 school: element.hostUniversityName,
-                status: element.isRejected
+                status: element.isCanceled
+                  ? 'Cancelled'
+                  : element.isRejected
                   ? 'Rejected'
                   : element.isApproved
-                    ? 'Approved'
-                    : 'Waiting'
+                  ? 'Approved'
+                  : 'Waiting'
               };
               this.cteDataSource.data.push(temp);
               this.cteForms.push(element);
@@ -195,15 +206,13 @@ export class LoggingComponent {
             this.cteDataSource.paginator = this.paginator3;
             this.CTETable.renderRows();
           }
-
         });
-    }
-    else{
+    } else {
       cteFormService
         .getArchivedCTEFormsByDepartment(this.currentUserId)
         .toPromise()
         .then(data => {
-          if(data){
+          if (data) {
             data.forEach(element => {
               const formattedDate = formatDate(
                 element.submissionTime.toString(),
@@ -217,11 +226,13 @@ export class LoggingComponent {
                 date: formattedDate,
                 type: 'CTE Form',
                 school: element.hostUniversityName,
-                status: element.isRejected
+                status: element.isCanceled
+                  ? 'Cancelled'
+                  : element.isRejected
                   ? 'Rejected'
                   : element.isApproved
-                    ? 'Approved'
-                    : 'Processing'
+                  ? 'Approved'
+                  : 'Waiting'
               };
               this.dataSource.data.push(temp);
               this.cteDataSource.data.push(temp);
@@ -239,7 +250,7 @@ export class LoggingComponent {
         .getArchivedPreApprovalFormsByDepartment(this.currentUserId)
         .toPromise()
         .then(data => {
-          if(data){
+          if (data) {
             data.forEach(element => {
               const formattedDate = formatDate(
                 element.submissionTime.toString(),
@@ -253,11 +264,13 @@ export class LoggingComponent {
                 date: formattedDate,
                 type: 'Pre-Approval Form',
                 school: element.hostUniversityName,
-                status: element.isRejected
+                status: element.isCanceled
+                  ? 'Cancelled'
+                  : element.isRejected
                   ? 'Rejected'
                   : element.isApproved
-                    ? 'Approved'
-                    : 'Processing'
+                  ? 'Approved'
+                  : 'Waiting'
               };
               this.preApprovalForms.push(element);
               this.dataSource.data.push(temp);
@@ -275,7 +288,7 @@ export class LoggingComponent {
         .getArchivedEquivalenceRequestsByDepartment(this.currentUserId)
         .toPromise()
         .then(data => {
-          if(data){
+          if (data) {
             data.forEach(element => {
               const formattedDate = formatDate(
                 element.submissionDate.toString(),
@@ -289,11 +302,13 @@ export class LoggingComponent {
                 date: formattedDate,
                 type: 'Course Eq. Request',
                 school: element.hostUniversityName,
-                status: element.isRejected
+                status: element.isCanceled
+                  ? 'Cancelled'
+                  : element.isRejected
                   ? 'Rejected'
                   : element.isApproved
-                    ? 'Approved'
-                    : 'Processing'
+                  ? 'Approved'
+                  : 'Waiting'
               };
               this.equivalenceRequests.push(element);
               this.courseEquivalenceDataSource.data.push(temp);
@@ -306,7 +321,6 @@ export class LoggingComponent {
             this.AllFormsTable.renderRows();
           }
           // console.log(data);
-
         });
     }
   }
@@ -415,12 +429,6 @@ export class LoggingComponent {
           this.dialog.open(ViewEquivalenceRequestDialogComponent, dialogConfig);
         });
     }
-  }
-
-  openSnackBar(message: string, action: string, duration: number) {
-    this._snackBar.open(message, action, {
-      duration: duration * 1000
-    });
   }
 }
 

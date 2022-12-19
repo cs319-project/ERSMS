@@ -346,5 +346,19 @@ namespace Backend.Services
         {
             return !form.IsApproved && !form.IsRejected && !form.IsArchived && !form.IsCanceled;
         }
+
+        public async Task<bool> DeletePdf(Guid formId)
+        {
+            var form = await _preApprovalFormRepository.GetPreApprovalForm(formId);
+
+            if (form == null || form.PDF == null || form.PDF.Length == 0)
+            {
+                return false;
+            }
+
+            form.PDF = new byte[0];
+            form.FileName = string.Empty;
+            return await _preApprovalFormRepository.UpdatePreApprovalForm(form);
+        }
     }
 }

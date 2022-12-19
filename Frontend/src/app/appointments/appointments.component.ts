@@ -6,6 +6,7 @@ import {
   CreateAppointmentDialogComponent
 } from "./create-appointment-dialog/create-appointment-dialog.component";
 import {ConfirmationDialogComponent} from "./confirmation-dialog/confirmation-dialog.component";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-appointments',
@@ -52,7 +53,8 @@ export class AppointmentsComponent implements OnInit {
 
 
 
-  constructor(private dialog: MatDialog, private _snackBar: MatSnackBar) { }
+  constructor(private dialog: MatDialog, private toastr: ToastrService,
+) { }
 
   ngOnInit(): void {
   }
@@ -66,7 +68,7 @@ export class AppointmentsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.openSnackBar("Announcement sent", 'Close', 5);
+        this.toastr.success("Announcement sent", );
       }
     });
 
@@ -82,7 +84,7 @@ export class AppointmentsComponent implements OnInit {
         if (this.appointmentsList[dayAppointmentsIndex]['appointments'].length == 0) {
           this.appointmentsList.splice(appointmentIndex, 1);
         }
-        this.openSnackBar("Appointment deleted", 'Close', 5);
+        this.toastr.success("Appointment deleted", );
       }
     });
   }
@@ -97,7 +99,7 @@ export class AppointmentsComponent implements OnInit {
         if (this.appointmentsList2[dayAppointmentsIndex]['appointments'].length == 0) {
           this.appointmentsList2.splice(appointmentIndex, 1);
         }
-        this.openSnackBar("Appointment deleted", 'Close', 5);
+        this.toastr.success("Appointment deleted", );
       }
     });
   }
@@ -112,17 +114,10 @@ export class AppointmentsComponent implements OnInit {
         if (this.appointmentsList3[dayAppointmentsIndex]['appointments'].length == 0) {
           this.appointmentsList3.splice(appointmentIndex, 1);
         }
-        this.openSnackBar("Appointment deleted", 'Close', 5);
+        this.toastr.success("Appointment deleted", );
       }
     });
   }
-
-  openSnackBar(message: string, action: string, duration: number) {
-    this._snackBar.open(message, action, {
-      duration: duration * 1000
-    });
-  }
-
 }
 
 

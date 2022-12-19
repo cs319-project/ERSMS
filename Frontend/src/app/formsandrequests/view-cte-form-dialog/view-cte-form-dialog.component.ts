@@ -1,10 +1,17 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogConfig,
+  MatDialogRef
+} from '@angular/material/dialog';
 import { ViewCTEForm } from './viewCTEForm';
 import { Approval } from '../../_models/approval';
 import { Student } from 'src/app/_models/student';
 import { CTEFormService } from 'src/app/_services/cteform.service';
 import { formatDate } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
+import { ScoreTableUploadDialogComponent } from '../../dashboard/score-table-upload-dialog/score-table-upload-dialog.component';
 
 @Component({
   selector: 'app-view-cte-form-dialog',
@@ -20,6 +27,7 @@ export class ViewCteFormDialogComponent implements OnInit {
   coordinatorStatus: string;
   roleOfUser: string;
   nameOfUser: string;
+  isDownloadable: boolean = false;
   isFABApproved: boolean;
   isSelfApproved: boolean;
 
@@ -29,7 +37,10 @@ export class ViewCteFormDialogComponent implements OnInit {
   locale = 'en-TR';
   userComment: string;
 
+  fileName: string;
   constructor(
+    private dialog: MatDialog,
+    private toastr: ToastrService,
     public dialogRef: MatDialogRef<ViewCteFormDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ViewCTEForm,
     private cteFormService: CTEFormService
@@ -93,6 +104,13 @@ export class ViewCteFormDialogComponent implements OnInit {
       }
     } else {
       this.isSelfApproved = true;
+    }
+
+    if (
+      this.data.cteForm.fileName != null &&
+      this.data.cteForm.fileName != ''
+    ) {
+      this.isDownloadable = true;
     }
   }
 
@@ -213,9 +231,62 @@ export class ViewCteFormDialogComponent implements OnInit {
 
   downloadPdf() {
     this.cteFormService.downloadPdf(this.data.cteForm.id).subscribe(data => {
-      var file = new Blob([data], { type: 'application/pdf' });
-      var fileURL = URL.createObjectURL(file);
-      window.open(fileURL);
+      if (data) {
+        var file = new Blob([data], { type: 'application/pdf' });
+        var fileURL = URL.createObjectURL(file);
+        window.open(fileURL);
+      } else {
+        this.toastr.error('No file found');
+      }
+    });
+  }
+
+  deletePdf() {
+    this.cteFormService.deletePdf(this.data.cteForm.id).subscribe(data => {
+      if (data) {
+        this.isDownloadable = false;
+        this.toastr.success('Document is deleted successfully');
+      } else {
+        this.toastr.error('No file found');
+      }
+    });
+  }
+
+  onFileSelected(event) {
+    const file: File = event.target.files[0];
+
+    if (file) {
+      this.fileName = file.name;
+    }
+
+    if (!this.fileName.endsWith('.pdf')) {
+      this.toastr.error('Please select a document (.pdf)');
+      return;
+    }
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      text: `Are you sure to upload this file?`,
+      fileName: this.fileName
+    };
+    const dialogRef = this.dialog.open(
+      ScoreTableUploadDialogComponent,
+      dialogConfig
+    );
+
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) {
+        this.cteFormService
+          .uploadPdf(this.data.cteForm.id, file)
+          .subscribe(result => {
+            if (result) {
+              this.toastr.success('Document is uploaded successfully');
+              this.isDownloadable = true;
+              this.data.cteForm.fileName = this.fileName;
+            } else {
+              this.toastr.error('Error uploading score table');
+            }
+          });
+      }
     });
   }
 }

@@ -60,6 +60,17 @@ namespace Backend.Controllers
             }
         }
 
+        /// <summary>Deletes the pdf of CTE Form.</summary>
+        /// <param name="id">id of the CTE form.</param>
+        /// <returns>true if the pdf is deleted, false otherwise.</returns>
+        [HttpDelete("deletePdf/{id:guid}")]
+        public async Task<ActionResult> DeletePdf(Guid id)
+        {
+            var result = await _cTEFormService.DeletePdf(id);
+
+            return (result) ? Ok(result) : BadRequest("Error when deleting file");
+        }
+
         /// <summary>Adds a CTE Form to a Student.</summary>
         /// <param name="cTEForm">The CTE Form to add.</param>
         /// <returns>The CTE Form that was added.</returns>

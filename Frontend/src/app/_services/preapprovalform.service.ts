@@ -16,7 +16,7 @@ export class PreApprovalFormService {
     const formData = new FormData();
     formData.append('pdf', pdf);
     return this.http.post<any>(
-      `${this.baseApiUrl}cteform/upload/?formId=${formId}`,
+      `${this.baseApiUrl}preapprovalform/upload/?formId=${formId}`,
       formData
     );
   }
@@ -27,6 +27,12 @@ export class PreApprovalFormService {
       {
         responseType: 'blob'
       }
+    );
+  }
+
+  deletePdf(formId: GUID): Observable<any> {
+    return this.http.delete<any>(
+      `${this.baseApiUrl}preapprovalform/deletePdf/${formId}`
     );
   }
 

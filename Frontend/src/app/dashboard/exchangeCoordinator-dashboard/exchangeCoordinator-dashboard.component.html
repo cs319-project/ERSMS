@@ -5,7 +5,7 @@
   <div class="dashboard-content mt-3">
     <div class="charts-container">
       <div class="chart-content card-effect">
-        <span class="mt-1">Forms and Requests</span>
+        <span class="mt-1">Forms and Requests Statuses</span>
         <apx-chart
           [series]="pieChartOptions.series"
           [chart]="pieChartOptions.chart"
@@ -14,7 +14,7 @@
           [colors]="pieChartOptions.colors"></apx-chart>
       </div>
       <div class="chart-content m-2 card-effect">
-        <span>Submitted Forms and Requests</span>
+        <span>Forms and Requests Types</span>
         <apx-chart
           [series]="barChartOptions.series"
           [chart]="barChartOptions.chart"
@@ -358,7 +358,7 @@
             class="activities"
             *ngFor="let announcement of announcements">
             <div class="activity">
-              <img src="../assets/images/avatar.png" />
+              <img src="../assets/icons/big-user.svg" />
               <div class="activity-description ml-3">
                 <span class="activity-user">{{ announcement.sender }}</span>
                 <span class="gray-text">{{ announcement.description }}</span>

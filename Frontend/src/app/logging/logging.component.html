@@ -80,12 +80,16 @@
                     Status
                   </th>
                   <td mat-cell *matCellDef="let row">
-                    <div
-                      class="status-text"
-                      [ngStyle]="{
-                        'background-color':
-                          row.status == 'Approved' ? '#49C96D' : '#FD7972'
-                      }">
+                    <div *ngIf="row.status === 'Cancelled'"
+                         class="status-text" style="background-color: #621324; color: white">
+                      {{ row.status }}
+                    </div>
+                    <div *ngIf="row.status !== 'Cancelled'"
+                         class="status-text"
+                         [ngStyle]="{
+                    'background-color':
+                      row.status == 'Approved' ? '#49C96D' : '#FD7972'
+                  }">
                       {{ row.status }}
                     </div>
                   </td>
@@ -178,12 +182,16 @@
                     Status
                   </th>
                   <td mat-cell *matCellDef="let row">
-                    <div
-                      class="status-text"
-                      [ngStyle]="{
-                        'background-color':
-                          row.status == 'Approved' ? '#49C96D' : '#FD7972'
-                      }">
+                    <div *ngIf="row.status === 'Cancelled'"
+                         class="status-text" style="background-color: #621324; color: white">
+                      {{ row.status }}
+                    </div>
+                    <div *ngIf="row.status !== 'Cancelled'"
+                         class="status-text"
+                         [ngStyle]="{
+                    'background-color':
+                      row.status == 'Approved' ? '#49C96D' : '#FD7972'
+                  }">
                       {{ row.status }}
                     </div>
                   </td>
@@ -272,12 +280,16 @@
                     Status
                   </th>
                   <td mat-cell *matCellDef="let row">
-                    <div
-                      class="status-text"
-                      [ngStyle]="{
-                        'background-color':
-                          row.status == 'Approved' ? '#49C96D' : '#FD7972'
-                      }">
+                    <div *ngIf="row.status === 'Cancelled'"
+                         class="status-text" style="background-color: #621324; color: white">
+                      {{ row.status }}
+                    </div>
+                    <div *ngIf="row.status !== 'Cancelled'"
+                         class="status-text"
+                         [ngStyle]="{
+                    'background-color':
+                      row.status == 'Approved' ? '#49C96D' : '#FD7972'
+                  }">
                       {{ row.status }}
                     </div>
                   </td>
@@ -366,12 +378,16 @@
                     Status
                   </th>
                   <td mat-cell *matCellDef="let row">
-                    <div
-                      class="status-text"
-                      [ngStyle]="{
-                        'background-color':
-                          row.status == 'Approved' ? '#49C96D' : '#FD7972'
-                      }">
+                    <div *ngIf="row.status === 'Cancelled'"
+                         class="status-text" style="background-color: #621324; color: white">
+                      {{ row.status }}
+                    </div>
+                    <div *ngIf="row.status !== 'Cancelled'"
+                         class="status-text"
+                         [ngStyle]="{
+                    'background-color':
+                      row.status == 'Approved' ? '#49C96D' : '#FD7972'
+                  }">
                       {{ row.status }}
                     </div>
                   </td>
