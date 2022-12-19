@@ -83,6 +83,10 @@
   <app-exchangeCoordinator-dashboard></app-exchangeCoordinator-dashboard>
 </div>
 
+<div *ngIf="this.role === actorsEnum.CourseCoordinatorInstructor || this.role === actorsEnum.DeanDepartmentChair">
+  <app-onlyAnnouncement-dashboard></app-onlyAnnouncement-dashboard>
+</div>
+
 <!--
 <div class="student-dashboard-container m-3">
   <div>
