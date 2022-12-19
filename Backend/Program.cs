@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -13,7 +14,7 @@ namespace Backend
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            CreateWebHost(args).Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -22,5 +23,11 @@ namespace Backend
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
+        public static IWebHost CreateWebHost(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+            .UseStartup<Startup>().
+            UseUrls("http://*:5000", "https://*:5001")
+            .Build();
     }
 }

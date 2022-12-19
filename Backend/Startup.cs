@@ -46,7 +46,14 @@ namespace Backend
             });
             services.AddDbContext<Backend.Data.DataContext>(options =>
             {
-                options.UseSqlite(_config.GetConnectionString("DefaultConnection"));
+                if (Environment.GetEnvironmentVariable("ERSMS_USE_POSTGRESQL") == "1")
+                {
+                    options.UseNpgsql(_config.GetConnectionString("PostgreSQLConnection"));
+                }
+                else
+                {
+                    options.UseSqlite(_config.GetConnectionString("DefaultConnection"));
+                }
             });
             services.AddIdentity<AppUser, Role>().AddEntityFrameworkStores<Backend.Data.DataContext>().AddDefaultTokenProviders();
             services.AddScoped<IPasswordHasher<AppUser>, Backend.Utilities.BCryptPasswordHasher>();
@@ -75,6 +82,7 @@ namespace Backend
             services.AddScoped<ILoggedCourseRepository, LoggedCourseRepository>();
             //Automappper setup
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies().Where(p => !p.IsDynamic));
+            services.AddHealthChecks();
             services.AddControllers();
             services.AddCors();
             // services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -97,6 +105,14 @@ namespace Backend
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseHealthChecks("/healthcheck");
+
+            if (Environment.GetEnvironmentVariable("ERSMS_USE_POSTGRESQL") == "1")
+            {
+                System.AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
+            }
+
             using (var scope = app.ApplicationServices.CreateScope())
             {
                 scope.ServiceProvider.GetRequiredService<IAuthenticationService>().CreateRoles().Wait();
@@ -113,7 +129,7 @@ namespace Backend
 
             app.UseRouting();
 
-            app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
+            app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200", "http://localhost:8000", "https://localhost:8001"));
 
             app.UseAuthentication();
 
