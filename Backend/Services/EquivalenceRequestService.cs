@@ -31,6 +31,9 @@ namespace Backend.Services
         // Method
         public async Task<bool> AddEquivalenceRequestToStudent(EquivalenceRequestDto equivalenceRequest, IFormFile file)
         {
+            var logs = (await _loggedCourseService.GetLoggedEquivalantCourses()).Select(x => (x.HostCourseCode == equivalenceRequest.HostCourseCode)
+                        && (x.ExemptedCourse.CourseCode == equivalenceRequest.ExemptedCourse.CourseCode) && (x.HostSchool == equivalenceRequest.HostUniversityName));
+            if (logs.Count() > 0) return false;
             EquivalenceRequest request = _mapper.Map<EquivalenceRequest>(equivalenceRequest);
             request.Syllabus = await SaveFile(file);
             var flag = await _equivalenceRequestRepository.AddEquivalenceRequestToStudent(equivalenceRequest.StudentId, request);
@@ -407,7 +410,8 @@ namespace Backend.Services
                 ExemptedCourse = equivalentRequest.ExemptedCourse,
                 HostCourseCode = equivalentRequest.HostCourseCode,
                 HostCourseName = equivalentRequest.HostCourseName,
-                HostCourseECTS = equivalentRequest.HostCourseECTS
+                HostCourseECTS = equivalentRequest.HostCourseECTS,
+                HostSchool = equivalentRequest.HostUniversityName
             };
 
             form.ExemptedCourse.Id = Guid.NewGuid();

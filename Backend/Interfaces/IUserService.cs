@@ -26,6 +26,6 @@ namespace Backend.Interfaces
         Task<Object> UpdateUser(JObject dto);
         Task<bool> DeleteUser(string username);
         Task<ICollection<StudentDto>> GetStudentsFromSameSchool(string username);
-        Task<ICollection<StudentDto>> GetRegisteredStudentsTuples();
+        Task<ICollection<MailUserNameTupleDto>> GetRegisteredStudentsTuples();
     }
 }

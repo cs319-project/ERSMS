@@ -27,6 +27,7 @@ import { EquivalenceRequest } from 'src/app/_models/equivalence-request';
 import { Announcement } from '../../_models/announcement';
 import { AnnouncementService } from '../../_services/announcement.service';
 import { formatDate } from '@angular/common';
+import {ToastrService} from "ngx-toastr";
 
 export type PieChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -92,6 +93,7 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
   locale = 'en-TR';
 
   constructor(
+    private toastr: ToastrService,
     private _formBuilder: FormBuilder,
     private toDoService: ToDoItemService,
     private cteFormService: CTEFormService,
@@ -102,27 +104,7 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
     this.role = JSON.parse(localStorage.getItem('user')).roles[0];
     this.userName = JSON.parse(localStorage.getItem('user')).userName;
 
-
-    toDoService.getCoordinatorToDoList(this.userName).subscribe(data => {
-      //console.log(data);
-      data.forEach(element => {
-        let temp: ToDoItem = {
-          cascadeId: null,
-          title: '',
-          description: element.description,
-          isComplete: element.isComplete,
-          isStarred: element.isStarred,
-          id: element.id
-        };
-        //console.log(element);
-        this.addItem2(temp);
-      });
-      this.waitingList = this.todoList.filter(todoItem => !todoItem.isComplete);
-      this.starredList = this.todoList.filter(todoItem => todoItem.isStarred);
-      this.completedList = this.todoList.filter(
-        todoItem => todoItem.isComplete
-      );
-    });
+    this.PopulateToDoList();
 
     cteFormService.getCTEFormsByDepartment(this.userName).subscribe(data => {
       data.forEach(element => {
@@ -475,6 +457,30 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
     };
   }
 
+  PopulateToDoList(){
+    this.todoList = [];
+    this.toDoService.getCoordinatorToDoList(this.userName).subscribe(data => {
+      //console.log(data);
+      data.forEach(element => {
+        let temp: ToDoItem = {
+          cascadeId: null,
+          title: '',
+          description: element.description,
+          isComplete: element.isComplete,
+          isStarred: element.isStarred,
+          id: element.id
+        };
+        //console.log(element);
+        this.addItem2(temp);
+      });
+      this.waitingList = this.todoList.filter(todoItem => !todoItem.isComplete);
+      this.starredList = this.todoList.filter(todoItem => todoItem.isStarred);
+      this.completedList = this.todoList.filter(
+        todoItem => todoItem.isComplete
+      );
+    });
+  }
+
   stateForm = this._formBuilder.group({
     stateGroup: ''
   });
@@ -581,16 +587,24 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
     this.toDoService
       .createToDoItem(newItem, this.userName)
       .subscribe(result => {
-        if (result) {
-          this.todoList.push(newItem);
-          this.waitingList = this.todoList.filter(
-            todoItem => !todoItem.isComplete
-          );
-        }
-      });
-    this.addingValue = '';
-    this.isAdding = false;
-    this.selectedTabIndex = 0;
+          if (result) {
+            this.PopulateToDoList();
+            this.waitingList = this.todoList.filter(
+              todoItem => !todoItem.isComplete
+            );
+            this.toastr.success("ToDo Item is successfully added");
+            this.addingValue = '';
+            this.isAdding = false;
+            this.selectedTabIndex = 0;
+          }
+          else{
+            this.toastr.error("Error Occured while adding the ToDo Item");
+          }
+        },
+        error => {
+          this.toastr.error("Error Occured while adding the ToDo Item");
+        });
+
   }
 
   addItem2(todoItem: ToDoItem) {

@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -14,11 +13,11 @@ namespace Backend.Data.Migrations
                 name: "Announcements",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Sender = table.Column<string>(type: "text", nullable: true),
-                    Title = table.Column<string>(type: "text", nullable: true),
-                    Description = table.Column<string>(type: "text", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Sender = table.Column<string>(type: "TEXT", nullable: true),
+                    Title = table.Column<string>(type: "TEXT", nullable: true),
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -29,11 +28,11 @@ namespace Backend.Data.Migrations
                 name: "Approval",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    DateOfApproval = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Comment = table.Column<string>(type: "text", nullable: true),
-                    IsApproved = table.Column<bool>(type: "boolean", nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    DateOfApproval = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Comment = table.Column<string>(type: "TEXT", nullable: true),
+                    IsApproved = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -44,10 +43,10 @@ namespace Backend.Data.Migrations
                 name: "AspNetRoles",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    NormalizedName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -58,21 +57,21 @@ namespace Backend.Data.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
-                    PasswordHash = table.Column<string>(type: "text", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "text", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
+                    PasswordHash = table.Column<string>(type: "TEXT", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "TEXT", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "TEXT", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -83,12 +82,12 @@ namespace Backend.Data.Migrations
                 name: "ExemptedCourse",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    BilkentCredits = table.Column<int>(type: "integer", nullable: false),
-                    ECTS = table.Column<double>(type: "double precision", nullable: false),
-                    CourseCode = table.Column<string>(type: "text", nullable: true),
-                    CourseName = table.Column<string>(type: "text", nullable: true),
-                    CourseType = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    BilkentCredits = table.Column<int>(type: "INTEGER", nullable: false),
+                    ECTS = table.Column<double>(type: "REAL", nullable: false),
+                    CourseCode = table.Column<string>(type: "TEXT", nullable: true),
+                    CourseName = table.Column<string>(type: "TEXT", nullable: true),
+                    CourseType = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -99,7 +98,7 @@ namespace Backend.Data.Migrations
                 name: "LoggedTransferredCourses",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -110,10 +109,10 @@ namespace Backend.Data.Migrations
                 name: "Notifications",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    read = table.Column<bool>(type: "boolean", nullable: false),
-                    content = table.Column<string>(type: "text", nullable: false),
-                    userId = table.Column<Guid>(type: "uuid", nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    read = table.Column<bool>(type: "INTEGER", nullable: false),
+                    content = table.Column<string>(type: "TEXT", nullable: false),
+                    userId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -124,19 +123,19 @@ namespace Backend.Data.Migrations
                 name: "PlacedStudents",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    FirstName = table.Column<string>(type: "text", nullable: true),
-                    LastName = table.Column<string>(type: "text", nullable: true),
-                    UserName = table.Column<string>(type: "text", nullable: true),
-                    DepartmentName = table.Column<int>(type: "integer", nullable: true),
-                    FacultyName = table.Column<int>(type: "integer", nullable: true),
-                    CGPA = table.Column<double>(type: "double precision", nullable: false),
-                    ExchangeScore = table.Column<double>(type: "double precision", nullable: false),
-                    PreferredSemester_AcademicYear = table.Column<string>(type: "text", nullable: true),
-                    PreferredSemester_Semester = table.Column<int>(type: "integer", nullable: true),
-                    PreferredSchools = table.Column<string>(type: "text", nullable: true),
-                    ExchangeSchool = table.Column<string>(type: "text", nullable: true),
-                    IsPlaced = table.Column<bool>(type: "boolean", nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    FirstName = table.Column<string>(type: "TEXT", nullable: true),
+                    LastName = table.Column<string>(type: "TEXT", nullable: true),
+                    UserName = table.Column<string>(type: "TEXT", nullable: true),
+                    DepartmentName = table.Column<int>(type: "INTEGER", nullable: true),
+                    FacultyName = table.Column<int>(type: "INTEGER", nullable: true),
+                    CGPA = table.Column<double>(type: "REAL", nullable: false),
+                    ExchangeScore = table.Column<double>(type: "REAL", nullable: false),
+                    PreferredSemester_AcademicYear = table.Column<string>(type: "TEXT", nullable: true),
+                    PreferredSemester_Semester = table.Column<int>(type: "INTEGER", nullable: true),
+                    PreferredSchools = table.Column<string>(type: "TEXT", nullable: true),
+                    ExchangeSchool = table.Column<string>(type: "TEXT", nullable: true),
+                    IsPlaced = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -147,12 +146,12 @@ namespace Backend.Data.Migrations
                 name: "PlacementTables",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    DepartmentName = table.Column<int>(type: "integer", nullable: true),
-                    FacultyName = table.Column<int>(type: "integer", nullable: true),
-                    FileName = table.Column<string>(type: "text", nullable: true),
-                    ExcelFile = table.Column<byte[]>(type: "bytea", nullable: true),
-                    UploadTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    DepartmentName = table.Column<int>(type: "INTEGER", nullable: true),
+                    FacultyName = table.Column<int>(type: "INTEGER", nullable: true),
+                    FileName = table.Column<string>(type: "TEXT", nullable: true),
+                    ExcelFile = table.Column<byte[]>(type: "BLOB", nullable: true),
+                    UploadTime = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -163,11 +162,11 @@ namespace Backend.Data.Migrations
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    RoleId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ClaimType = table.Column<string>(type: "text", nullable: true),
-                    ClaimValue = table.Column<string>(type: "text", nullable: true)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    RoleId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    ClaimType = table.Column<string>(type: "TEXT", nullable: true),
+                    ClaimValue = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -184,11 +183,11 @@ namespace Backend.Data.Migrations
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ClaimType = table.Column<string>(type: "text", nullable: true),
-                    ClaimValue = table.Column<string>(type: "text", nullable: true)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UserId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    ClaimType = table.Column<string>(type: "TEXT", nullable: true),
+                    ClaimValue = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -205,10 +204,10 @@ namespace Backend.Data.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "text", nullable: false),
-                    ProviderKey = table.Column<string>(type: "text", nullable: false),
-                    ProviderDisplayName = table.Column<string>(type: "text", nullable: true),
-                    UserId = table.Column<Guid>(type: "uuid", nullable: false)
+                    LoginProvider = table.Column<string>(type: "TEXT", nullable: false),
+                    ProviderKey = table.Column<string>(type: "TEXT", nullable: false),
+                    ProviderDisplayName = table.Column<string>(type: "TEXT", nullable: true),
+                    UserId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -225,8 +224,8 @@ namespace Backend.Data.Migrations
                 name: "AspNetUserRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    RoleId = table.Column<Guid>(type: "uuid", nullable: false)
+                    UserId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    RoleId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -249,10 +248,10 @@ namespace Backend.Data.Migrations
                 name: "AspNetUserTokens",
                 columns: table => new
                 {
-                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    LoginProvider = table.Column<string>(type: "text", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Value = table.Column<string>(type: "text", nullable: true)
+                    UserId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    LoginProvider = table.Column<string>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Value = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -269,11 +268,11 @@ namespace Backend.Data.Migrations
                 name: "DomainUsers",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    FirstName = table.Column<string>(type: "text", nullable: false),
-                    LastName = table.Column<string>(type: "text", nullable: false),
-                    AppUserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ActorType = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    FirstName = table.Column<string>(type: "TEXT", nullable: false),
+                    LastName = table.Column<string>(type: "TEXT", nullable: false),
+                    AppUserId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    ActorType = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -290,11 +289,11 @@ namespace Backend.Data.Migrations
                 name: "LoggedEquivalentCourses",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    ExemptedCourseId = table.Column<Guid>(type: "uuid", nullable: true),
-                    HostCourseCode = table.Column<string>(type: "text", nullable: true),
-                    HostCourseName = table.Column<string>(type: "text", nullable: true),
-                    HostCourseECTS = table.Column<double>(type: "double precision", nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    ExemptedCourseId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    HostCourseCode = table.Column<string>(type: "TEXT", nullable: true),
+                    HostCourseName = table.Column<string>(type: "TEXT", nullable: true),
+                    HostCourseECTS = table.Column<double>(type: "REAL", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -310,7 +309,7 @@ namespace Backend.Data.Migrations
                 name: "Admins",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -327,12 +326,12 @@ namespace Backend.Data.Migrations
                 name: "CourseCoordinatorInstructors",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    DepartmentName = table.Column<int>(type: "integer", nullable: true),
-                    FacultyName = table.Column<int>(type: "integer", nullable: true),
-                    Course_CourseCode = table.Column<string>(type: "text", nullable: true),
-                    Course_CourseName = table.Column<string>(type: "text", nullable: true),
-                    IsCourseCoordinator = table.Column<bool>(type: "boolean", nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    DepartmentName = table.Column<int>(type: "INTEGER", nullable: true),
+                    FacultyName = table.Column<int>(type: "INTEGER", nullable: true),
+                    Course_CourseCode = table.Column<string>(type: "TEXT", nullable: true),
+                    Course_CourseName = table.Column<string>(type: "TEXT", nullable: true),
+                    IsCourseCoordinator = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -349,10 +348,10 @@ namespace Backend.Data.Migrations
                 name: "DeanDepartmentChairs",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    DepartmentName = table.Column<int>(type: "integer", nullable: true),
-                    FacultyName = table.Column<int>(type: "integer", nullable: true),
-                    IsDean = table.Column<bool>(type: "boolean", nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    DepartmentName = table.Column<int>(type: "INTEGER", nullable: true),
+                    FacultyName = table.Column<int>(type: "INTEGER", nullable: true),
+                    IsDean = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -369,9 +368,9 @@ namespace Backend.Data.Migrations
                 name: "ExchangeCoordinators",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    DepartmentName = table.Column<int>(type: "integer", nullable: true),
-                    FacultyName = table.Column<int>(type: "integer", nullable: true)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    DepartmentName = table.Column<int>(type: "INTEGER", nullable: true),
+                    FacultyName = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -388,13 +387,13 @@ namespace Backend.Data.Migrations
                 name: "Messages",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    SenderUsername = table.Column<string>(type: "text", nullable: true),
-                    RecipientUsername = table.Column<string>(type: "text", nullable: true),
-                    Content = table.Column<string>(type: "text", nullable: true),
-                    MessageSent = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    DomainUserId = table.Column<Guid>(type: "uuid", nullable: true),
-                    DomainUserId1 = table.Column<Guid>(type: "uuid", nullable: true)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    SenderUsername = table.Column<string>(type: "TEXT", nullable: true),
+                    RecipientUsername = table.Column<string>(type: "TEXT", nullable: true),
+                    Content = table.Column<string>(type: "TEXT", nullable: true),
+                    MessageSent = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    DomainUserId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    DomainUserId1 = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -415,7 +414,7 @@ namespace Backend.Data.Migrations
                 name: "OISEPs",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -432,16 +431,16 @@ namespace Backend.Data.Migrations
                 name: "Students",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    EntranceYear = table.Column<int>(type: "integer", nullable: false),
-                    DepartmentName = table.Column<int>(type: "integer", nullable: true),
-                    FacultyName = table.Column<int>(type: "integer", nullable: true),
-                    CGPA = table.Column<double>(type: "double precision", nullable: false),
-                    ExchangeScore = table.Column<double>(type: "double precision", nullable: false),
-                    PreferredSemester_AcademicYear = table.Column<string>(type: "text", nullable: true),
-                    PreferredSemester_Semester = table.Column<int>(type: "integer", nullable: true),
-                    PreferredSchools = table.Column<string>(type: "text", nullable: true),
-                    ExchangeSchool = table.Column<string>(type: "text", nullable: true)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    EntranceYear = table.Column<int>(type: "INTEGER", nullable: false),
+                    DepartmentName = table.Column<int>(type: "INTEGER", nullable: true),
+                    FacultyName = table.Column<int>(type: "INTEGER", nullable: true),
+                    CGPA = table.Column<double>(type: "REAL", nullable: false),
+                    ExchangeScore = table.Column<double>(type: "REAL", nullable: false),
+                    PreferredSemester_AcademicYear = table.Column<string>(type: "TEXT", nullable: true),
+                    PreferredSemester_Semester = table.Column<int>(type: "INTEGER", nullable: true),
+                    PreferredSchools = table.Column<string>(type: "TEXT", nullable: true),
+                    ExchangeSchool = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -458,26 +457,26 @@ namespace Backend.Data.Migrations
                 name: "CTEForms",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    FirstName = table.Column<string>(type: "text", nullable: false),
-                    LastName = table.Column<string>(type: "text", nullable: false),
-                    IDNumber = table.Column<string>(type: "text", nullable: false),
-                    Department = table.Column<int>(type: "integer", nullable: false),
-                    HostUniversityName = table.Column<string>(type: "text", nullable: false),
-                    SubmissionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ApprovalTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    PDF = table.Column<byte[]>(type: "bytea", nullable: true),
-                    FileName = table.Column<string>(type: "text", nullable: true),
-                    ChairApprovalId = table.Column<Guid>(type: "uuid", nullable: true),
-                    DeanApprovalId = table.Column<Guid>(type: "uuid", nullable: true),
-                    ExchangeCoordinatorApprovalId = table.Column<Guid>(type: "uuid", nullable: true),
-                    FacultyOfAdministrationBoardApprovalId = table.Column<Guid>(type: "uuid", nullable: true),
-                    ToDoItemId = table.Column<Guid>(type: "uuid", nullable: false),
-                    IsCanceled = table.Column<bool>(type: "boolean", nullable: false),
-                    IsRejected = table.Column<bool>(type: "boolean", nullable: false),
-                    IsApproved = table.Column<bool>(type: "boolean", nullable: false),
-                    IsArchived = table.Column<bool>(type: "boolean", nullable: false),
-                    StudentId = table.Column<Guid>(type: "uuid", nullable: true)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    FirstName = table.Column<string>(type: "TEXT", nullable: false),
+                    LastName = table.Column<string>(type: "TEXT", nullable: false),
+                    IDNumber = table.Column<string>(type: "TEXT", nullable: false),
+                    Department = table.Column<int>(type: "INTEGER", nullable: false),
+                    HostUniversityName = table.Column<string>(type: "TEXT", nullable: false),
+                    SubmissionTime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ApprovalTime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    PDF = table.Column<byte[]>(type: "BLOB", nullable: true),
+                    FileName = table.Column<string>(type: "TEXT", nullable: true),
+                    ChairApprovalId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    DeanApprovalId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    ExchangeCoordinatorApprovalId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    FacultyOfAdministrationBoardApprovalId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    ToDoItemId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    IsCanceled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsRejected = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsApproved = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsArchived = table.Column<bool>(type: "INTEGER", nullable: false),
+                    StudentId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -513,22 +512,22 @@ namespace Backend.Data.Migrations
                 name: "EquivalenceRequests",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    StudentId = table.Column<string>(type: "text", nullable: false),
-                    HostCourseName = table.Column<string>(type: "text", nullable: true),
-                    HostCourseCode = table.Column<string>(type: "text", nullable: true),
-                    HostCourseECTS = table.Column<double>(type: "double precision", nullable: false),
-                    SubmissionDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    FileName = table.Column<string>(type: "text", nullable: true),
-                    Syllabus = table.Column<byte[]>(type: "bytea", nullable: true),
-                    ExemptedCourseId = table.Column<Guid>(type: "uuid", nullable: true),
-                    InstructorApprovalId = table.Column<Guid>(type: "uuid", nullable: true),
-                    AdditionalNotes = table.Column<string>(type: "text", nullable: true),
-                    IsCanceled = table.Column<bool>(type: "boolean", nullable: false),
-                    IsRejected = table.Column<bool>(type: "boolean", nullable: false),
-                    IsApproved = table.Column<bool>(type: "boolean", nullable: false),
-                    IsArchived = table.Column<bool>(type: "boolean", nullable: false),
-                    StudentId1 = table.Column<Guid>(type: "uuid", nullable: true)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    StudentId = table.Column<string>(type: "TEXT", nullable: false),
+                    HostCourseName = table.Column<string>(type: "TEXT", nullable: true),
+                    HostCourseCode = table.Column<string>(type: "TEXT", nullable: true),
+                    HostCourseECTS = table.Column<double>(type: "REAL", nullable: false),
+                    SubmissionDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    FileName = table.Column<string>(type: "TEXT", nullable: true),
+                    Syllabus = table.Column<byte[]>(type: "BLOB", nullable: true),
+                    ExemptedCourseId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    InstructorApprovalId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    AdditionalNotes = table.Column<string>(type: "TEXT", nullable: true),
+                    IsCanceled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsRejected = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsApproved = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsArchived = table.Column<bool>(type: "INTEGER", nullable: false),
+                    StudentId1 = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -554,26 +553,26 @@ namespace Backend.Data.Migrations
                 name: "PreApprovalForms",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    FirstName = table.Column<string>(type: "text", nullable: false),
-                    LastName = table.Column<string>(type: "text", nullable: false),
-                    IDNumber = table.Column<string>(type: "text", nullable: false),
-                    Department = table.Column<int>(type: "integer", nullable: false),
-                    HostUniversityName = table.Column<string>(type: "text", nullable: false),
-                    AcademicYear = table.Column<string>(type: "text", nullable: false),
-                    Semester = table.Column<int>(type: "integer", nullable: false),
-                    PDF = table.Column<byte[]>(type: "bytea", nullable: true),
-                    FileName = table.Column<string>(type: "text", nullable: true),
-                    SubmissionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ApprovalTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ExchangeCoordinatorApprovalId = table.Column<Guid>(type: "uuid", nullable: true),
-                    FacultyAdministrationBoardApprovalId = table.Column<Guid>(type: "uuid", nullable: true),
-                    ToDoItemId = table.Column<Guid>(type: "uuid", nullable: false),
-                    IsCanceled = table.Column<bool>(type: "boolean", nullable: false),
-                    IsRejected = table.Column<bool>(type: "boolean", nullable: false),
-                    IsApproved = table.Column<bool>(type: "boolean", nullable: false),
-                    IsArchived = table.Column<bool>(type: "boolean", nullable: false),
-                    StudentId = table.Column<Guid>(type: "uuid", nullable: true)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    FirstName = table.Column<string>(type: "TEXT", nullable: false),
+                    LastName = table.Column<string>(type: "TEXT", nullable: false),
+                    IDNumber = table.Column<string>(type: "TEXT", nullable: false),
+                    Department = table.Column<int>(type: "INTEGER", nullable: false),
+                    HostUniversityName = table.Column<string>(type: "TEXT", nullable: false),
+                    AcademicYear = table.Column<string>(type: "TEXT", nullable: false),
+                    Semester = table.Column<int>(type: "INTEGER", nullable: false),
+                    PDF = table.Column<byte[]>(type: "BLOB", nullable: true),
+                    FileName = table.Column<string>(type: "TEXT", nullable: true),
+                    SubmissionTime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ApprovalTime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ExchangeCoordinatorApprovalId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    FacultyAdministrationBoardApprovalId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    ToDoItemId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    IsCanceled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsRejected = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsApproved = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsArchived = table.Column<bool>(type: "INTEGER", nullable: false),
+                    StudentId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -584,7 +583,7 @@ namespace Backend.Data.Migrations
                         principalTable: "Approval",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_PreApprovalForms_Approval_FacultyAdministrationBoardApprova~",
+                        name: "FK_PreApprovalForms_Approval_FacultyAdministrationBoardApprovalId",
                         column: x => x.FacultyAdministrationBoardApprovalId,
                         principalTable: "Approval",
                         principalColumn: "Id");
@@ -599,11 +598,10 @@ namespace Backend.Data.Migrations
                 name: "Students_Minors",
                 columns: table => new
                 {
-                    StudentId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    DepartmentName = table.Column<int>(type: "integer", nullable: false),
-                    FacultyName = table.Column<int>(type: "integer", nullable: false)
+                    StudentId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false),
+                    DepartmentName = table.Column<int>(type: "INTEGER", nullable: false),
+                    FacultyName = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -620,14 +618,14 @@ namespace Backend.Data.Migrations
                 name: "ToDoItems",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CascadeId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Title = table.Column<string>(type: "text", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
-                    IsComplete = table.Column<bool>(type: "boolean", nullable: false),
-                    IsStarred = table.Column<bool>(type: "boolean", nullable: false),
-                    ExchangeCoordinatorId = table.Column<Guid>(type: "uuid", nullable: true),
-                    StudentId = table.Column<Guid>(type: "uuid", nullable: true)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    CascadeId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Title = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    IsComplete = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsStarred = table.Column<bool>(type: "INTEGER", nullable: false),
+                    ExchangeCoordinatorId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    StudentId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -648,10 +646,10 @@ namespace Backend.Data.Migrations
                 name: "TransferredCourseGroup",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    ExemptedCourseId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CTEFormId = table.Column<Guid>(type: "uuid", nullable: true),
-                    LoggedTransferredCourseId = table.Column<Guid>(type: "uuid", nullable: true)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    ExemptedCourseId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    CTEFormId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    LoggedTransferredCourseId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -668,7 +666,7 @@ namespace Backend.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TransferredCourseGroup_LoggedTransferredCourses_LoggedTrans~",
+                        name: "FK_TransferredCourseGroup_LoggedTransferredCourses_LoggedTransferredCourseId",
                         column: x => x.LoggedTransferredCourseId,
                         principalTable: "LoggedTransferredCourses",
                         principalColumn: "Id");
@@ -678,15 +676,15 @@ namespace Backend.Data.Migrations
                 name: "RequestedCourseGroup",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    RequestedExemptedCourseId = table.Column<Guid>(type: "uuid", nullable: false),
-                    PreApprovalFormId = table.Column<Guid>(type: "uuid", nullable: true)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    RequestedExemptedCourseId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    PreApprovalFormId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RequestedCourseGroup", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_RequestedCourseGroup_ExemptedCourse_RequestedExemptedCourse~",
+                        name: "FK_RequestedCourseGroup_ExemptedCourse_RequestedExemptedCourseId",
                         column: x => x.RequestedExemptedCourseId,
                         principalTable: "ExemptedCourse",
                         principalColumn: "Id",
@@ -702,18 +700,18 @@ namespace Backend.Data.Migrations
                 name: "TransferredCourse",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CourseCode = table.Column<string>(type: "text", nullable: false),
-                    CourseName = table.Column<string>(type: "text", nullable: false),
-                    ECTS = table.Column<double>(type: "double precision", nullable: false),
-                    Grade = table.Column<string>(type: "text", nullable: false),
-                    TransferredCourseGroupId = table.Column<Guid>(type: "uuid", nullable: true)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    CourseCode = table.Column<string>(type: "TEXT", nullable: false),
+                    CourseName = table.Column<string>(type: "TEXT", nullable: false),
+                    ECTS = table.Column<double>(type: "REAL", nullable: false),
+                    Grade = table.Column<string>(type: "TEXT", nullable: false),
+                    TransferredCourseGroupId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TransferredCourse", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TransferredCourse_TransferredCourseGroup_TransferredCourseG~",
+                        name: "FK_TransferredCourse_TransferredCourseGroup_TransferredCourseGroupId",
                         column: x => x.TransferredCourseGroupId,
                         principalTable: "TransferredCourseGroup",
                         principalColumn: "Id");
@@ -723,11 +721,11 @@ namespace Backend.Data.Migrations
                 name: "RequestedCourse",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CourseCode = table.Column<string>(type: "text", nullable: false),
-                    CourseName = table.Column<string>(type: "text", nullable: false),
-                    ECTS = table.Column<double>(type: "double precision", nullable: false),
-                    RequestedCourseGroupId = table.Column<Guid>(type: "uuid", nullable: true)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    CourseCode = table.Column<string>(type: "TEXT", nullable: false),
+                    CourseName = table.Column<string>(type: "TEXT", nullable: false),
+                    ECTS = table.Column<double>(type: "REAL", nullable: false),
+                    RequestedCourseGroupId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {

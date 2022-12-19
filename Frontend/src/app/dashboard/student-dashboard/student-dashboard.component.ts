@@ -7,6 +7,7 @@ import { AnnouncementService } from 'src/app/_services/announcement.service';
 import { ToDoItemService } from 'src/app/_services/todoitem.service';
 import { GUID } from 'src/utils/guid';
 import { formatDate } from '@angular/common';
+import {ToastrService} from "ngx-toastr";
 
 /*
 export interface todoItem {
@@ -44,6 +45,7 @@ export class StudentDashboardComponent implements OnInit {
   locale = 'en-TR';
 
   constructor(
+    private toastr: ToastrService,
     private _formBuilder: FormBuilder,
     private toDoService: ToDoItemService,
     private announcementService: AnnouncementService
@@ -51,7 +53,27 @@ export class StudentDashboardComponent implements OnInit {
     this.role = JSON.parse(localStorage.getItem('user')).roles[0];
     this.userName = JSON.parse(localStorage.getItem('user')).userName;
 
-    toDoService.getStudentToDoList(this.userName).subscribe(data => {
+    this.PopulateToDoList();
+
+
+    announcementService.getAllAnnouncements().subscribe(data => {
+      if (data) {
+        data.forEach(element => {
+          let temp: Announcement = {
+            id: element.id,
+            sender: element.sender,
+            creationDate: element.creationDate,
+            description: element.description
+          };
+          this.announcements.push(temp);
+        });
+      }
+    })
+  }
+
+  PopulateToDoList(){
+    this.todoList = [];
+    this.toDoService.getStudentToDoList(this.userName).subscribe(data => {
       //console.log(data);
       data.forEach(element => {
         let temp: ToDoItem = {
@@ -71,21 +93,6 @@ export class StudentDashboardComponent implements OnInit {
         todoItem => todoItem.isComplete
       );
     });
-
-
-    announcementService.getAllAnnouncements().subscribe(data => {
-      if (data) {
-        data.forEach(element => {
-          let temp: Announcement = {
-            id: element.id,
-            sender: element.sender,
-            creationDate: element.creationDate,
-            description: element.description
-          };
-          this.announcements.push(temp);
-        });
-      }
-    })
   }
 
   stateForm = this._formBuilder.group({
@@ -195,15 +202,23 @@ export class StudentDashboardComponent implements OnInit {
       .createToDoItem(newItem, this.userName)
       .subscribe(result => {
         if (result) {
-          this.todoList.push(newItem);
+          this.PopulateToDoList();
           this.waitingList = this.todoList.filter(
             todoItem => !todoItem.isComplete
           );
+          this.toastr.success("ToDo Item is successfully added");
+          this.addingValue = '';
+          this.isAdding = false;
+          this.selectedTabIndex = 0;
         }
-      });
-    this.addingValue = '';
-    this.isAdding = false;
-    this.selectedTabIndex = 0;
+        else{
+          this.toastr.error("Error Occured while adding the ToDo Item");
+        }
+      },
+        error => {
+          this.toastr.error("Error Occured while adding the ToDo Item");
+        });
+
   }
 
   addItem2(todoItem: ToDoItem) {
