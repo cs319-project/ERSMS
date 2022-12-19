@@ -28,6 +28,7 @@ export class ViewPreapprovalFormDialogComponent implements OnInit {
   roleOfUser: string;
   coordinatorApproved: boolean;
   fabApproved: boolean;
+  isDownloadable: boolean = false;
 
   userComment: string;
 
@@ -77,6 +78,10 @@ export class ViewPreapprovalFormDialogComponent implements OnInit {
     } else {
       this.formStatus = 'Waiting';
     }
+
+    this.isDownloadable =
+      this.data.preApprovalForm.fileName != null &&
+      this.data.preApprovalForm.fileName != '';
   }
 
   approveForm() {
@@ -166,9 +171,13 @@ export class ViewPreapprovalFormDialogComponent implements OnInit {
     this.preApprovalFormService
       .downloadPdf(this.data.preApprovalForm.id)
       .subscribe(data => {
-        var file = new Blob([data], { type: 'application/pdf' });
-        var fileURL = URL.createObjectURL(file);
-        window.open(fileURL);
+        if (data) {
+          var file = new Blob([data], { type: 'application/pdf' });
+          var fileURL = URL.createObjectURL(file);
+          window.open(fileURL);
+        } else {
+          this.toastr.error('File not found');
+        }
       });
   }
 
@@ -180,7 +189,19 @@ export class ViewPreapprovalFormDialogComponent implements OnInit {
   //     });
   // }
 
-  // TODO: look for uploading mechanism
+  deletePdf() {
+    this.preApprovalFormService
+      .deletePdf(this.data.preApprovalForm.id)
+      .subscribe(data => {
+        if (data) {
+          this.toastr.success('File deleted');
+          this.isDownloadable = false;
+        } else {
+          this.toastr.error('File not found');
+        }
+      });
+  }
+
   uploadPdf(event) {
     this.fileObj = event.target.files[0];
 
@@ -211,8 +232,6 @@ export class ViewPreapprovalFormDialogComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // this.pdf = this.fileObj;
-        // this.data.preApprovalForm.fileName = this.fileObj.name;
         this.preApprovalFormService
           .uploadPdf(this.data.preApprovalForm.id, this.fileObj)
           .subscribe(data => {
@@ -220,7 +239,6 @@ export class ViewPreapprovalFormDialogComponent implements OnInit {
           });
       } else {
         this.fileObj = null;
-        // this.data.fileName = '';
       }
     });
   }
@@ -252,6 +270,8 @@ export class ViewPreapprovalFormDialogComponent implements OnInit {
           .subscribe(result => {
             if (result) {
               this.toastr.success('Document is uploaded successfully');
+              this.isDownloadable = true;
+              this.data.preApprovalForm.fileName = this.fileName;
             } else {
               this.toastr.error('Error uploading score table');
             }

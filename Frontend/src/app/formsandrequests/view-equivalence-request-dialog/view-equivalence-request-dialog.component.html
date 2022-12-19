@@ -32,6 +32,12 @@
       style="background-color: '#FD7972'"
       >Rejected
     </span>
+    <span
+      class="status-text"
+      *ngIf="formStatus === 'Cancelled'"
+      style="background-color: #621324; color: white"
+    >Cancelled
+      </span>
   </div>
   <mat-tab-group>
     <mat-tab label="Form Information">
@@ -88,7 +94,7 @@
           <div class="approve-info-content">
             <div
               class="approve-info-element"
-              *ngIf="instructorStatus !== 'Waiting'">
+              *ngIf="instructorStatus !== 'Waiting' && data.eqReq.instructorApproval != null">
               <span
                 ><b class="mr-2">Name:</b
                 >{{ data.eqReq.instructorApproval.name }}</span
@@ -113,6 +119,7 @@
                   style="background-color: '#FD7972'"
                   >Rejected</span
                 >
+
               </div>
             </div>
             <div
@@ -122,9 +129,15 @@
               <div class="status-text-container">
                 <span
                   class="status-text"
-                  *ngIf="instructorStatus === 'Waiting'"
+                  *ngIf="formStatus === 'Waiting'"
                   style="background-color: '#FF965D'"
-                  >Waiting</span
+                >Waiting</span
+                >
+                <span
+                  class="status-text"
+                  *ngIf="formStatus !== 'Waiting'"
+                  style="background-color: '#828491FF'; color: white"
+                >Incomplete</span
                 >
               </div>
             </div>
@@ -300,7 +313,7 @@
       <div
         class="decision-container"
         *ngIf="
-          formStatus != 'Waiting' &&
+          formStatus != 'Waiting' && data.eqReq.instructorApproval != null &&
           data.eqReq.instructorApproval.comment != null &&
           data.eqReq.instructorApproval.comment != ''
         ">

@@ -92,7 +92,6 @@ export class FormsAndRequestsComponent {
   constructor(
     private toastr: ToastrService,
     private dialog: MatDialog,
-    private _snackBar: MatSnackBar,
     private equivalenceRequestService: EquivalenceRequestService,
     private cteFormService: CTEFormService,
     private userService: UserService,
@@ -106,11 +105,9 @@ export class FormsAndRequestsComponent {
     //   users.push(createNewUser(i, (status = 'Processing')));
     // }
     this.getFormData();
-
-
   }
 
-  getFormData(){
+  getFormData() {
     this.dataSource = new MatTableDataSource<UserData>();
     this.cteDataSource = new MatTableDataSource<UserData>();
     this.preapprovalDataSource = new MatTableDataSource<UserData>();
@@ -138,7 +135,9 @@ export class FormsAndRequestsComponent {
                 date: formattedDate,
                 type: 'Course Eq. Request',
                 school: element.hostUniversityName,
-                status: element.isRejected
+                status: element.isCanceled
+                  ? 'Cancelled'
+                  : element.isRejected
                   ? 'Rejected'
                   : element.isApproved
                   ? 'Approved'
@@ -153,9 +152,12 @@ export class FormsAndRequestsComponent {
             this.CourseEqTable.renderRows();
           }
         });
-    }
-    else if (this.currentUserRole === ActorsEnum.DeanDepartmentChair && this.isDean) {
-      this.cteFormService.getNonArchivedCTEFormsByFacultyForDean(this.currentUserId)
+    } else if (
+      this.currentUserRole === ActorsEnum.DeanDepartmentChair &&
+      this.isDean
+    ) {
+      this.cteFormService
+        .getNonArchivedCTEFormsByFacultyForDean(this.currentUserId)
         .toPromise()
         .then(data => {
           if (data) {
@@ -173,7 +175,9 @@ export class FormsAndRequestsComponent {
                 date: formattedDate,
                 type: 'CTE Form',
                 school: element.hostUniversityName,
-                status: element.isRejected
+                status: element.isCanceled
+                  ? 'Cancelled'
+                  : element.isRejected
                   ? 'Rejected'
                   : element.isApproved
                   ? 'Approved'
@@ -187,10 +191,12 @@ export class FormsAndRequestsComponent {
             this.CTETable.renderRows();
           }
         });
-    }
-
-    else if(this.currentUserRole === ActorsEnum.DeanDepartmentChair && !this.isDean){
-      this.cteFormService.getNonArchivedCTEFormsByDepartmentForChair(this.currentUserId)
+    } else if (
+      this.currentUserRole === ActorsEnum.DeanDepartmentChair &&
+      !this.isDean
+    ) {
+      this.cteFormService
+        .getNonArchivedCTEFormsByDepartmentForChair(this.currentUserId)
         .toPromise()
         .then(data => {
           if (data) {
@@ -208,7 +214,9 @@ export class FormsAndRequestsComponent {
                 date: formattedDate,
                 type: 'CTE Form',
                 school: element.hostUniversityName,
-                status: element.isRejected
+                status: element.isCanceled
+                  ? 'Cancelled'
+                  : element.isRejected
                   ? 'Rejected'
                   : element.isApproved
                   ? 'Approved'
@@ -222,9 +230,9 @@ export class FormsAndRequestsComponent {
             this.CTETable.renderRows();
           }
         });
-    }
-    else if (this.currentUserRole === ActorsEnum.ExchangeCoordinator) {
-      this.cteFormService.getNonArchivedCTEFormsByDepartment(this.currentUserId)
+    } else if (this.currentUserRole === ActorsEnum.ExchangeCoordinator) {
+      this.cteFormService
+        .getNonArchivedCTEFormsByDepartment(this.currentUserId)
         .toPromise()
         .then(data => {
           if (data) {
@@ -241,7 +249,9 @@ export class FormsAndRequestsComponent {
                 date: formattedDate,
                 type: 'CTE Form',
                 school: element.hostUniversityName,
-                status: element.isRejected
+                status: element.isCanceled
+                  ? 'Cancelled'
+                  : element.isRejected
                   ? 'Rejected'
                   : element.isApproved
                   ? 'Approved'
@@ -277,7 +287,9 @@ export class FormsAndRequestsComponent {
                 date: formattedDate,
                 type: 'PreApproval Form',
                 school: element.hostUniversityName,
-                status: element.isRejected
+                status: element.isCanceled
+                  ? 'Cancelled'
+                  : element.isRejected
                   ? 'Rejected'
                   : element.isApproved
                   ? 'Approved'
@@ -313,7 +325,9 @@ export class FormsAndRequestsComponent {
                 date: formattedDate,
                 type: 'Course Eq. Request',
                 school: element.hostUniversityName,
-                status: element.isRejected
+                status: element.isCanceled
+                  ? 'Cancelled'
+                  : element.isRejected
                   ? 'Rejected'
                   : element.isApproved
                   ? 'Approved'
@@ -350,7 +364,9 @@ export class FormsAndRequestsComponent {
                 date: formattedDate,
                 type: 'CTE Form',
                 school: element.hostUniversityName,
-                status: element.isRejected
+                status: element.isCanceled
+                  ? 'Cancelled'
+                  : element.isRejected
                   ? 'Rejected'
                   : element.isApproved
                   ? 'Approved'
@@ -383,7 +399,9 @@ export class FormsAndRequestsComponent {
                 date: formattedDate,
                 type: 'PreApproval Form',
                 school: element.hostUniversityName,
-                status: element.isRejected
+                status: element.isCanceled
+                  ? 'Cancelled'
+                  : element.isRejected
                   ? 'Rejected'
                   : element.isApproved
                   ? 'Approved'
@@ -416,7 +434,9 @@ export class FormsAndRequestsComponent {
                 date: formattedDate,
                 type: 'Course Eq. Request',
                 school: element.hostUniversityName,
-                status: element.isRejected
+                status: element.isCanceled
+                  ? 'Cancelled'
+                  : element.isRejected
                   ? 'Rejected'
                   : element.isApproved
                   ? 'Approved'
@@ -539,12 +559,6 @@ export class FormsAndRequestsComponent {
     }
   }
 
-  openSnackBar(message: string, action: string, duration: number) {
-    this._snackBar.open(message, action, {
-      duration: duration * 1000
-    });
-  }
-
   openCreatePreapprovalFormDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -653,19 +667,54 @@ export class FormsAndRequestsComponent {
 
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
-        console.log(formId);
-        this.preApprovalFormService.cancelPreApprovalForm(formId).subscribe(
-          result => {
-            if (result) {
-              this.toastr.success('Form is succesfully cancelled');
-            } else {
+        if (type === 'Course Eq. Request') {
+          this.equivalenceRequestService
+            .cancelEquivalenceRequest(formId)
+            .subscribe(
+              result => {
+                console.log(result);
+                if (result) {
+                  this.toastr.success('Form is succesfully cancelled');
+                  this.getFormData();
+                } else {
+                  this.toastr.error('An error occured while canceling');
+                }
+              },
+              error => {
+                this.toastr.error('An error occured while canceling');
+              }
+            );
+        } else if (type === 'CTE Form') {
+          this.cteFormService.cancelCTEForm(formId).subscribe(
+            result => {
+              console.log(result);
+              if (result) {
+                this.toastr.success('Form is succesfully cancelled');
+                this.getFormData();
+              } else {
+                this.toastr.error('An error occured while canceling');
+              }
+            },
+            error => {
               this.toastr.error('An error occured while canceling');
             }
-          },
-          error => {
-            this.toastr.error('An error occured while canceling');
-          }
-        );
+          );
+        } else if (type === 'PreApproval Form') {
+          this.preApprovalFormService.cancelPreApprovalForm(formId).subscribe(
+            result => {
+              console.log(result);
+              if (result) {
+                this.toastr.success('Form is succesfully cancelled');
+                this.getFormData();
+              } else {
+                this.toastr.error('An error occured while canceling');
+              }
+            },
+            error => {
+              this.toastr.error('An error occured while canceling');
+            }
+          );
+        }
       }
     });
   }

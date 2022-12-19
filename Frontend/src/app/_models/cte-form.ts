@@ -7,6 +7,7 @@ export interface CteForm {
   firstName: string;
   lastName: string;
   idNumber: string;
+  fileName?: string;
   department: string;
   hostUniversityName: string;
   transferredCourseGroups: TransferredCourseGroup[];

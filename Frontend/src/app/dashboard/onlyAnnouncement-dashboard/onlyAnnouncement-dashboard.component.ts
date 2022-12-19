@@ -28,18 +28,18 @@ export interface dayActivities {
 }
 
 @Component({
-  selector: 'app-student-dashboard',
-  templateUrl: './student-dashboard.component.html',
-  styleUrls: ['./student-dashboard.component.css']
+  selector: 'app-onlyAnnouncement-dashboard',
+  templateUrl: './onlyAnnouncement-dashboard.component.html',
+  styleUrls: ['./onlyAnnouncement-dashboard.component.css']
 })
-export class StudentDashboardComponent implements OnInit {
+export class OnlyAnnouncementDashboardComponent implements OnInit {
   todoList: ToDoItem[] = [];
   actorsEnum = ActorsEnum;
   role: string;
   userName: string;
   announcements: Announcement[] = [];
 
-  dateFormat = 'dd/MM/yyyy h:mm';
+  dateFormat = 'dd MM yyyy h:mm';
   timeFormat = 'h:mm';
   locale = 'en-TR';
 
@@ -72,7 +72,7 @@ export class StudentDashboardComponent implements OnInit {
       );
     });
 
-
+    
     announcementService.getAllAnnouncements().subscribe(data => {
       if (data) {
         data.forEach(element => {
@@ -232,7 +232,7 @@ export class StudentDashboardComponent implements OnInit {
       );
     });
 
-
+    
   }
 
   formatTheDate(date: Date){

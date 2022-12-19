@@ -30,6 +30,12 @@ export class PreApprovalFormService {
     );
   }
 
+  deletePdf(formId: GUID): Observable<any> {
+    return this.http.delete<any>(
+      `${this.baseApiUrl}preapprovalform/deletePdf/${formId}`
+    );
+  }
+
   createPreApprovalForm(preApprovalForm: PreApprovalForm): Observable<any> {
     return this.http.post<any>(
       `${this.baseApiUrl}preapprovalform`,

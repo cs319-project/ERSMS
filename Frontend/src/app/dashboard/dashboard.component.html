@@ -20,7 +20,6 @@
         </option>
       </select>
     </div>
-    Debug: {{ _departmentsEnum[oisepDepartment] }}
 
     <div class="button-container mt-2">
       <input
@@ -75,12 +74,16 @@
   <app-student-dashboard></app-student-dashboard>
 </div>
 
-<div *ngIf="this.role === actorsEnum.Admin">
+<div *ngIf="this.role === actorsEnum.Admin" >
   <app-admin-dashboard></app-admin-dashboard>
 </div>
 
 <div *ngIf="this.role === actorsEnum.ExchangeCoordinator">
   <app-exchangeCoordinator-dashboard></app-exchangeCoordinator-dashboard>
+</div>
+
+<div *ngIf="this.role === actorsEnum.CourseCoordinatorInstructor || this.role === actorsEnum.DeanDepartmentChair">
+  <app-onlyAnnouncement-dashboard></app-onlyAnnouncement-dashboard>
 </div>
 
 <!--

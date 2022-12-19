@@ -9,6 +9,7 @@ import { CTEFormService } from '../../_services/cteform.service';
 import { UserService } from '../../_services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActorsEnum } from '../../_models/enum/actors-enum';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-cte-form-dialog',
@@ -28,7 +29,7 @@ export class CteFormDialogComponent implements OnInit {
   ];
 
   constructor(
-    private _snackBar: MatSnackBar,
+    private toastr: ToastrService,
     private userService: UserService,
     private cteFormService: CTEFormService,
     public dialogRef: MatDialogRef<CteFormDialogComponent>,
@@ -100,39 +101,25 @@ export class CteFormDialogComponent implements OnInit {
           this.cteFormService.createCTEForm(this.data).subscribe(
             res => {
               if (res) {
-                this._snackBar.open('Form is submitted', 'Close', {
-                  duration: 3000
-                });
+                this.toastr.success('Form is submitted');
                 this.dialogRef.close();
               }
             },
             error => {
-              this._snackBar.open(
+              this.toastr.error(
                 'An Error occured while submitting',
-                'Close',
-                {
-                  duration: 3000
-                }
               );
             }
           );
         } else {
-          this._snackBar.open(
-            'No student with ID ' + this.data.idNumber,
-            'Close',
-            {
-              duration: 3000
-            }
-          );
+          this.toastr.error(
+              'No student with ID ' + this.data.idNumber
+            );
         }
       },
       error => {
-        this._snackBar.open(
+        this.toastr.error(
           'No student with ID ' + this.data.idNumber,
-          'Close',
-          {
-            duration: 3000
-          }
         );
       }
     );

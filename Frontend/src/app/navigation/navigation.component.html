@@ -1,4 +1,5 @@
-<mat-toolbar>
+<div></div>
+<mat-toolbar >
   <mat-toolbar-row style="background: white; height: 60px">
     <button mat-icon-button (click)="sidenav.toggle()">
       <mat-icon>menu</mat-icon>
@@ -21,22 +22,12 @@
       *ngIf="this.role === actorsEnum.Student"
       mat-icon-button
       routerLink="/profile"
-      style="
-        background-image: url('../assets/images/doggy.jpg');
-        background-size: cover;
-        background-position: center;
-      "
-      class="m-2"></button>
+      class="m-2"><mat-icon svgIcon="user" style="scale: 1.5"></mat-icon></button>
     <button
       *ngIf="this.role !== actorsEnum.Student"
       mat-icon-button
-      style="
-        background-image: url('../assets/images/doggy.jpg');
-        background-size: cover;
-        background-position: center;
-      "
       class="m-2"
-      disabled></button>
+      disabled><mat-icon svgIcon="user" style="scale: 1.5"  ></mat-icon></button>
     <div class="username">
       <span
         ><b>{{ name }}</b>
@@ -102,7 +93,7 @@
 </mat-menu>
 
 <mat-sidenav-container>
-  <mat-sidenav style="width: 250px"
+  <mat-sidenav style="width: 200px"
     opened="true"
     #sidenav
     mode="side"
@@ -140,10 +131,33 @@
         <mat-icon svgIcon="forms" class="m-2"></mat-icon
         ><span>Forms and Requests</span>
       </mat-list-item>
+      <mat-list-item
+        (click)="populateNotifications()"
+        routerLink="/appointments"
+        routerLinkActive="active-list-item">
+        <mat-icon svgIcon="calendar" class="m-2"></mat-icon
+        ><span>Appointments</span>
+      </mat-list-item>
+      <mat-list-item (click)="populateNotifications()" routerLink="/messages" routerLinkActive="active-list-item">
+        <mat-icon
+          svgIcon="messages"
+          style="border-color: red"
+          class="m-2"></mat-icon
+        ><span>Messages</span>
+      </mat-list-item>
     </mat-nav-list>
+
 
     <mat-nav-list *ngIf="this.role === actorsEnum.DeanDepartmentChair
     || this.role === actorsEnum.CourseCoordinatorInstructor">
+
+    <mat-list-item
+        (click)="populateNotifications()"
+        routerLink="/dashboard"
+        routerLinkActive="active-list-item">
+        <mat-icon svgIcon="dashboard" class="m-2"></mat-icon>
+        <span>Dashboard</span>
+      </mat-list-item>
       <mat-list-item
         (click)="populateNotifications()"
         routerLink="/formsandrequests"
