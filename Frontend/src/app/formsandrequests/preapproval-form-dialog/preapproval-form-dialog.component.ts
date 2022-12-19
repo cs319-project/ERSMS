@@ -96,6 +96,12 @@ export class PreapprovalFormDialogComponent implements OnInit {
               return;
             }
             if (
+              group.requestedExemptedCourse.courseType == 'Additional Course'
+            ) {
+              group.requestedExemptedCourse.ects = 0;
+              group.requestedExemptedCourse.bilkentCredits = 0;
+            }
+            if (
               group.requestedExemptedCourse.courseType == 'Mandatory Course' &&
               (group.requestedExemptedCourse.courseCode == null ||
                 group.requestedExemptedCourse.courseCode == '' ||

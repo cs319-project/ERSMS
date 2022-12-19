@@ -105,6 +105,10 @@ export class CteFormDialogComponent implements OnInit {
               this.toastr.error('Please select a course type');
               return;
             }
+            if (group.exemptedCourse.courseType == 'Additional Course') {
+              group.exemptedCourse.ects = 0;
+              group.exemptedCourse.bilkentCredits = 0;
+            }
             if (
               group.exemptedCourse.courseType == 'Mandatory Course' &&
               (group.exemptedCourse.courseCode == null ||
