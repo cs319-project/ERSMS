@@ -26,8 +26,8 @@ namespace Backend
 
         public static IWebHost CreateWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-            .UseStartup<Startup>().
-            UseUrls("http://*:5000", "https://*:5001")
+            .UseStartup<Startup>()
+            .UseUrls("http://*:5500", "https://*:5501")
             .Build();
     }
 }
