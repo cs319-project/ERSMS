@@ -252,5 +252,12 @@ namespace Backend.Services
             { Email = s.IdentityUser.Email, UserName = s.IdentityUser.UserName }).ToList();
             return studentsTuples;
         }
+
+        public async Task<bool> CancelPlacedStudentApplication(string username)
+        {
+            var success = _userRepository.CancelPlacedStudentApplication(username);
+            return await success;
+
+        }
     }
 }

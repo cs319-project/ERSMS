@@ -27,7 +27,7 @@ import { EquivalenceRequest } from 'src/app/_models/equivalence-request';
 import { Announcement } from '../../_models/announcement';
 import { AnnouncementService } from '../../_services/announcement.service';
 import { formatDate } from '@angular/common';
-import {ToastrService} from "ngx-toastr";
+import { ToastrService } from 'ngx-toastr';
 
 export type PieChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -83,8 +83,6 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
   @ViewChild('chart') chart: ChartComponent;
   public pieChartOptions: Partial<PieChartOptions>;
   public barChartOptions: Partial<BarChartOptions>;
-
-
 
   announcements: Announcement[] = [];
 
@@ -151,7 +149,11 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
           series: [
             {
               name: 'Form Types',
-              data: [this.cteForms.length, this.preApproval.length, this.courseEq.length]
+              data: [
+                this.cteForms.length,
+                this.preApproval.length,
+                this.courseEq.length
+              ]
             }
           ],
           chart: {
@@ -189,7 +191,6 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
             }
           }
         };
-
       });
     });
 
@@ -240,7 +241,11 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
             series: [
               {
                 name: 'Form Types',
-                data: [this.cteForms.length, this.preApproval.length, this.courseEq.length]
+                data: [
+                  this.cteForms.length,
+                  this.preApproval.length,
+                  this.courseEq.length
+                ]
               }
             ],
             chart: {
@@ -328,7 +333,11 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
             series: [
               {
                 name: 'Form Types',
-                data: [this.cteForms.length, this.preApproval.length, this.courseEq.length]
+                data: [
+                  this.cteForms.length,
+                  this.preApproval.length,
+                  this.courseEq.length
+                ]
               }
             ],
             chart: {
@@ -366,8 +375,6 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
               }
             }
           };
-
-
         });
       });
 
@@ -380,7 +387,7 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
             creationDate: element.creationDate,
             description: element.description
           };
-          this.announcements.push(temp);
+          this.announcements.unshift(temp);
         });
       }
     });
@@ -417,7 +424,11 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
       series: [
         {
           name: 'Form Types',
-          data: [this.cteForms.length, this.preApproval.length, this.courseEq.length]
+          data: [
+            this.cteForms.length,
+            this.preApproval.length,
+            this.courseEq.length
+          ]
         }
       ],
       chart: {
@@ -457,7 +468,7 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
     };
   }
 
-  PopulateToDoList(){
+  PopulateToDoList() {
     this.todoList = [];
     this.toDoService.getCoordinatorToDoList(this.userName).subscribe(data => {
       //console.log(data);
@@ -509,7 +520,6 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
   toggleEditing() {
     this.editingItem = null;
   }
-
 
   OnTabChange(index) {
     console.log(index);
@@ -584,31 +594,29 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
       isStarred: false,
       title: ''
     };
-    this.toDoService
-      .createToDoItem(newItem, this.userName)
-      .subscribe(result => {
-          if (result) {
-            this.PopulateToDoList();
-            this.waitingList = this.todoList.filter(
-              todoItem => !todoItem.isComplete
-            );
-            this.toastr.success("ToDo Item is successfully added");
-            this.addingValue = '';
-            this.isAdding = false;
-            this.selectedTabIndex = 0;
-          }
-          else{
-            this.toastr.error("Error Occured while adding the ToDo Item");
-          }
-        },
-        error => {
-          this.toastr.error("Error Occured while adding the ToDo Item");
-        });
-
+    this.toDoService.createToDoItem(newItem, this.userName).subscribe(
+      result => {
+        if (result) {
+          this.PopulateToDoList();
+          this.waitingList = this.todoList.filter(
+            todoItem => !todoItem.isComplete
+          );
+          this.toastr.success('ToDo Item is successfully added');
+          this.addingValue = '';
+          this.isAdding = false;
+          this.selectedTabIndex = 0;
+        } else {
+          this.toastr.error('Error Occured while adding the ToDo Item');
+        }
+      },
+      error => {
+        this.toastr.error('Error Occured while adding the ToDo Item');
+      }
+    );
   }
 
   addItem2(todoItem: ToDoItem) {
-    this.todoList.push({
+    this.todoList.unshift({
       description: todoItem.description,
       isComplete: todoItem.isComplete,
       cascadeId: undefined,
@@ -634,7 +642,7 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
     });
   }
 
-  formatTheDate(date: Date){
+  formatTheDate(date: Date) {
     const formattedDate = formatDate(
       date.toString(),
       this.dateFormat,

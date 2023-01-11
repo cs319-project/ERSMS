@@ -145,7 +145,6 @@ export class FormsAndRequestsComponent {
               };
               this.equivalenceRequests.push(element);
               this.courseEquivalenceDataSource.data.push(temp);
-              console.log(this.courseEquivalenceDataSource.data);
             });
             this.courseEquivalenceDataSource.paginator = this.paginator4;
             this.courseEquivalenceDataSource.sort = this.sorter4;
@@ -521,7 +520,15 @@ export class FormsAndRequestsComponent {
           dialogConfig.disableClose = true;
           dialogConfig.autoFocus = false;
           dialogConfig.data = viewCTEForm;
-          this.dialog.open(ViewCteFormDialogComponent, dialogConfig);
+          const dialogRef = this.dialog.open(
+            ViewCteFormDialogComponent,
+            dialogConfig
+          );
+          dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+              this.getFormData();
+            }
+          });
         });
     } else if (row.type == 'PreApproval Form') {
       this.userService
@@ -537,8 +544,15 @@ export class FormsAndRequestsComponent {
           dialogConfig.disableClose = true;
           dialogConfig.autoFocus = false;
           dialogConfig.data = viewPreApprovalForm;
-          this.dialog.open(ViewPreapprovalFormDialogComponent, dialogConfig);
-          console.log(viewPreApprovalForm);
+          const dialogRef = this.dialog.open(
+            ViewPreapprovalFormDialogComponent,
+            dialogConfig
+          );
+          dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+              this.getFormData();
+            }
+          });
         });
     } else if (row.type == 'Course Eq. Request') {
       this.userService
@@ -554,7 +568,15 @@ export class FormsAndRequestsComponent {
           dialogConfig.disableClose = true;
           dialogConfig.autoFocus = false;
           dialogConfig.data = viewCourseEquivalenceRequest;
-          this.dialog.open(ViewEquivalenceRequestDialogComponent, dialogConfig);
+          const dialogRef = this.dialog.open(
+            ViewEquivalenceRequestDialogComponent,
+            dialogConfig
+          );
+          dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+              this.getFormData();
+            }
+          });
         });
     }
   }

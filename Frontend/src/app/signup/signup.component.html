@@ -4,45 +4,6 @@
       <mat-card-content class="full-width flex-center full-height">
         <form [formGroup]="requiredForm">
           <h1 class="login-header">Create Account</h1>
-          <div class="form-row form-group">
-            <div class="col">
-              <!-- First name -->
-              <mat-form-field>
-                <input
-                  matInput
-                  placeholder="First Name"
-                  class="form-control"
-                  formControlName="firstName" />
-                <mat-error
-                  *ngIf="
-                    requiredForm.controls['firstName'].invalid &&
-                    requiredForm.controls['firstName'].touched
-                  ">
-                  First name is
-                  <strong>required</strong>
-                </mat-error>
-              </mat-form-field>
-            </div>
-
-            <div class="col">
-              <!-- Last name -->
-              <mat-form-field>
-                <input
-                  matInput
-                  placeholder="Last Name"
-                  class="form-control"
-                  formControlName="lastName" />
-                <mat-error
-                  *ngIf="
-                    requiredForm.controls['lastName'].invalid &&
-                    requiredForm.controls['lastName'].touched
-                  ">
-                  Last name is
-                  <strong>required</strong>
-                </mat-error>
-              </mat-form-field>
-            </div>
-          </div>
           <mat-form-field class="full-width">
             <input
               matInput

@@ -10,6 +10,8 @@ import { ToastrService } from 'ngx-toastr';
 import { MatButton } from '@angular/material/button';
 import { PlacementTable } from '../_models/placement-table';
 import { DepartmentToFacultyMapper } from 'src/utils/department-to-faculty-mapper';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ManualPlacementDialogComponent } from './manual-placement-dialog/manual-placement-dialog.component';
 
 @Component({
   selector: 'app-placement',
@@ -43,6 +45,7 @@ export class PlacementComponent implements OnInit {
   users2: UserData[] = [];
   tuplesArr: any[] = [];
 
+  schools: Set<string> = new Set<string>();
   sample: UserData = {
     name: 'Student Name',
     department: 'Student Department',
@@ -58,7 +61,8 @@ export class PlacementComponent implements OnInit {
   constructor(
     private userService: UserService,
     private placementService: PlacementService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private dialog: MatDialog
   ) {
     this.currentUserDepartment = JSON.parse(
       localStorage.getItem('user')
@@ -116,9 +120,18 @@ export class PlacementComponent implements OnInit {
                 temp.email = element2.email;
               }
             });
-            if (element.isPlaced) {
+            console.log(element.preferredSchools);
+            const schools = element.preferredSchools;
+            for (let school of schools) {
+              if (school[0] !== "'") {
+                this.schools.add(school.trim());
+              } else {
+                this.schools.add(school.substr(1).trim());
+              }
+            }
+            if (element.isPlaced && element.exchangeSchool) {
               this.users.push(temp);
-            } else {
+            } else if (!element.isPlaced && !element.exchangeSchool) {
               this.users2.push(temp);
             }
             // if (this.users.length !== 0) {
@@ -276,9 +289,9 @@ export class PlacementComponent implements OnInit {
                       prefTerm: `${element.preferredSemester.academicYear} ${element.preferredSemester.semester}`,
                       hostUniversity: element.exchangeSchool
                     };
-                    if (element.isPlaced) {
+                    if (element.isPlaced && element.exchangeSchool) {
                       this.users.push(temp);
-                    } else {
+                    } else if (!element.isPlaced && !element.exchangeSchool) {
                       this.users2.push(temp);
                     }
                   }
@@ -418,6 +431,17 @@ export class PlacementComponent implements OnInit {
         this.toastr.error('Request related error.');
       };
   }
+
+  editStudent(student) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = false;
+    dialogConfig.data = {
+      user: student,
+      schools: this.schools
+    };
+    this.dialog.open(ManualPlacementDialogComponent, dialogConfig);
+  }
 }
 
 /** Builds and returns a new User. */
@@ -500,6 +524,11 @@ const PREFERENCES = [
 ];
 
 const IDS = [21902534, 22074268, 21956239, 21877324];
+
+export interface ManualPlacementData {
+  user: UserData;
+  schools: Set<string>;
+}
 
 export interface UserData {
   email?: string;

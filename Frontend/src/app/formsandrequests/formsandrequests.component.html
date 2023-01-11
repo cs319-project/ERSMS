@@ -1,4 +1,4 @@
-<div class="fnr-container mr-3  ml-3" *ngIf="currentUserRole !== 'Student'">
+<div class="fnr-container mr-3 ml-3" *ngIf="currentUserRole !== 'Student'">
   <div class="fnr-header mt-3">
     <div style="width: 80%">
       <span class="fnr-title">Forms and Requests</span>
@@ -6,7 +6,8 @@
   </div>
   <div class="fnr-content mt-4">
     <div style="width: 80%">
-      <button *ngIf="currentUserRole === 'Exchange Coordinator'"
+      <button
+        *ngIf="currentUserRole === 'Exchange Coordinator'"
         mat-raised-button
         color="primary"
         class="mb-3 mt-3"
@@ -14,7 +15,9 @@
         Create CTE Form
       </button>
       <mat-tab-group #tabGroup (selectedIndexChange)="_setDataSource($event)">
-        <mat-tab label="All Forms & Requests" *ngIf="currentUserRole === 'Exchange Coordinator'">
+        <mat-tab
+          label="All Forms & Requests"
+          *ngIf="currentUserRole === 'Exchange Coordinator'">
           <div class="mt-2 table-container">
             <div class="table-header">
               <mat-form-field>
@@ -83,21 +86,27 @@
                   <td mat-cell *matCellDef="let row">
                     <div style="display: flex; align-items: center">
                       <div
-                           class="status-text"
-                           [ngStyle]="{
-                    'background-color':
-                      row.status === 'Approved'
-                        ? '#49C96D'
-                        : row.status === 'Waiting'
-                        ? '#FF965D'
-                        : '#FD7972'
-                  }">
+                        class="status-text"
+                        [ngStyle]="{
+                          'background-color':
+                            row.status === 'Approved'
+                              ? '#49C96D'
+                              : row.status === 'Waiting'
+                              ? '#FF965D'
+                              : '#FD7972'
+                        }">
                         {{ row.status }}
                       </div>
-                      <div style="width: 40px" class="ml-2" *ngIf="row.type !== 'CTE Form'">
-
-                      </div>
-                      <button *ngIf="row.type === 'CTE Form' " mat-icon-button style="width: 40px" class="ml-2" (click)="onCancelButton($event,  row.type, row.formId)">
+                      <div
+                        style="width: 40px"
+                        class="ml-2"
+                        *ngIf="row.type !== 'CTE Form'"></div>
+                      <button
+                        *ngIf="row.type === 'CTE Form'"
+                        mat-icon-button
+                        style="width: 40px"
+                        class="ml-2"
+                        (click)="onCancelButton($event, row.type, row.formId)">
                         <mat-icon>close</mat-icon>
                       </button>
                     </div>
@@ -128,7 +137,9 @@
             </div>
           </div>
         </mat-tab>
-        <mat-tab label="Pre-Approval Forms" *ngIf="currentUserRole === 'Exchange Coordinator'">
+        <mat-tab
+          label="Pre-Approval Forms"
+          *ngIf="currentUserRole === 'Exchange Coordinator'">
           <div class="mt-2 table-container">
             <div class="table-header">
               <mat-form-field>
@@ -221,7 +232,9 @@
             </div>
           </div>
         </mat-tab>
-        <mat-tab label="CTE Forms" *ngIf="currentUserRole !== 'Course Coordinator Instructor'">
+        <mat-tab
+          label="CTE Forms"
+          *ngIf="currentUserRole !== 'Course Coordinator Instructor'">
           <div class="mt-2 table-container">
             <div class="table-header">
               <mat-form-field>
@@ -283,16 +296,20 @@
                       <div
                         class="status-text"
                         [ngStyle]="{
-                    'background-color':
-                      row.status === 'Approved'
-                        ? '#49C96D'
-                        : row.status === 'Waiting'
-                        ? '#FF965D'
-                        : '#FD7972'
-                  }">
+                          'background-color':
+                            row.status === 'Approved'
+                              ? '#49C96D'
+                              : row.status === 'Waiting'
+                              ? '#FF965D'
+                              : '#FD7972'
+                        }">
                         {{ row.status }}
                       </div>
-                      <button mat-icon-button style="width: 40px" class="ml-2" (click)="onCancelButton($event,  row.type, row.formId)">
+                      <button
+                        mat-icon-button
+                        style="width: 40px"
+                        class="ml-2"
+                        (click)="onCancelButton($event, row.type, row.formId)">
                         <mat-icon>close</mat-icon>
                       </button>
                     </div>
@@ -319,7 +336,9 @@
             </div>
           </div>
         </mat-tab>
-        <mat-tab label="Course Equivalence Requests" *ngIf="currentUserRole !== 'Dean Department Chair'">
+        <mat-tab
+          label="Course Equivalence Requests"
+          *ngIf="currentUserRole !== 'Dean Department Chair'">
           <div class="mt-2 table-container">
             <div class="table-header">
               <mat-form-field>
@@ -418,7 +437,7 @@
   </div>
 </div>
 
-<div class="fnr-container mr-3  ml-3" *ngIf="currentUserRole === 'Student'">
+<div class="fnr-container mr-3 ml-3" *ngIf="currentUserRole === 'Student'">
   <div class="fnr-header mt-3">
     <div style="width: 80%">
       <span class="fnr-title">Forms and Requests</span>
@@ -433,7 +452,7 @@
             color="primary"
             class="mr-3"
             (click)="openCreatePreapprovalFormDialog()">
-            Create PreApproval Form
+            Create Pre-Approval Form
           </button>
           <button
             mat-raised-button
@@ -477,26 +496,37 @@
               <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
               <td mat-cell *matCellDef="let row">
                 <div style="display: flex; align-items: center">
-                  <div *ngIf="row.status === 'Cancelled'"
-                    class="status-text" style="background-color: #621324; color: #cccaca">
+                  <div
+                    *ngIf="row.status === 'Cancelled'"
+                    class="status-text"
+                    style="background-color: #621324; color: #cccaca">
                     {{ row.status }}
                   </div>
-                  <div *ngIf="row.status !== 'Cancelled'"
+                  <div
+                    *ngIf="row.status !== 'Cancelled'"
                     class="status-text"
                     [ngStyle]="{
-                    'background-color':
-                      row.status === 'Approved'
-                        ? '#49C96D'
-                        : row.status === 'Waiting'
-                        ? '#FF965D'
-                        : '#FD7972'
-                  }">
+                      'background-color':
+                        row.status === 'Approved'
+                          ? '#49C96D'
+                          : row.status === 'Waiting'
+                          ? '#FF965D'
+                          : '#FD7972'
+                    }">
                     {{ row.status }}
                   </div>
-                  <div style="width: 40px" class="ml-2" *ngIf="row.type === 'CTE Form' || row.status !== 'Waiting'">
-
-                  </div>
-                  <button *ngIf="row.type !== 'CTE Form' && row.status === 'Waiting'" mat-icon-button style="width: 40px" class="ml-2" (click)="onCancelButton($event,  row.type, row.formId)">
+                  <div
+                    style="width: 40px"
+                    class="ml-2"
+                    *ngIf="
+                      row.type === 'CTE Form' || row.status !== 'Waiting'
+                    "></div>
+                  <button
+                    *ngIf="row.type !== 'CTE Form' && row.status === 'Waiting'"
+                    mat-icon-button
+                    style="width: 40px"
+                    class="ml-2"
+                    (click)="onCancelButton($event, row.type, row.formId)">
                     <mat-icon>close</mat-icon>
                   </button>
                 </div>

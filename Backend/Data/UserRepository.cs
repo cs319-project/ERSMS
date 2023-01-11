@@ -160,10 +160,40 @@ namespace Backend.Data
 
             switch (role)
             {
-                // case "Student":
-                //     var student = (Student)dto;
-                //     _context.Students.Update(student);
-                //     break;
+                case "Student":
+                    var student = _context.Students.SingleAsync(x => x.Id == Guid.Parse(dto["id"].ToString())).Result;
+                    student.EntranceYear = int.Parse(dto["entranceYear"].ToString());
+                    student.Major = new DepartmentInfo();
+                    student.Major.DepartmentName = EnumStringify.DepartmentEnumarator(dto["major"]["departmentName"].ToString());
+                    student.Major.FacultyName = EnumStringify.FacultyEnumarator(dto["major"]["facultyName"].ToString());
+                    student.Minors = new List<DepartmentInfo>();
+                    foreach (var minor in dto["minors"])
+                    {
+                        var minorDepartment = new DepartmentInfo();
+                        minorDepartment.DepartmentName = EnumStringify.DepartmentEnumarator(minor["departmentName"].ToString());
+                        minorDepartment.FacultyName = EnumStringify.FacultyEnumarator(minor["facultyName"].ToString());
+                        student.Minors.Add(minorDepartment);
+                    }
+                    student.IdentityUser.Email = dto["identityUser"]["email"].ToString();
+                    student.IdentityUser.UserName = dto["identityUser"]["userName"].ToString();
+                    student.CGPA = double.Parse(dto["cgpa"].ToString());
+                    student.FirstName = dto["firstName"].ToString();
+                    student.LastName = dto["lastName"].ToString();
+                    student.ExchangeScore = int.Parse(dto["exchangeScore"].ToString());
+                    student.PreferredSemester = new SemesterInfo();
+                    student.PreferredSemester.Semester = EnumStringify.SemesterEnumarator(dto["preferredSemester"]["semester"].ToString());
+                    student.PreferredSemester.AcademicYear = dto["preferredSemester"]["academicYear"].ToString();
+                    student.ExchangeSchool = dto["exchangeSchool"].ToString();
+                    student.PreferredSchools = new List<string>();
+                    foreach (string school in dto["preferredSchools"])
+                    {
+                        student.PreferredSchools.Add(school.ToString());
+                    }
+
+                    _context.Students.Update(student);
+                    await _context.SaveChangesAsync();
+
+                    return _mapper.Map<Student, StudentDto>(student);
                 case "Exchange Coordinator":
                     var exchangeCoordinator = _context.ExchangeCoordinators.SingleAsync(x => x.Id == Guid.Parse(dto["id"].ToString())).Result;
                     exchangeCoordinator.FirstName = dto["firstName"].ToString();
@@ -299,6 +329,33 @@ namespace Backend.Data
         public async Task<DeanDepartmentChair> GetDeanDepartmentChairByUserName(string username)
         {
             return await _context.DeanDepartmentChairs.FirstOrDefaultAsync(x => x.IdentityUser.UserName == username);
+        }
+
+        public async Task<bool> CancelPlacedStudentApplication(string username)
+        {
+            var placedStudent = await _context.PlacedStudents.SingleAsync(x => x.UserName == username);
+
+            if (placedStudent.ExchangeSchool == null || placedStudent.ExchangeSchool == "")
+            {
+                return false;
+            }
+
+            placedStudent.ExchangeSchool = null;
+
+            await _context.SaveChangesAsync();
+
+            var student = await _context.Students.SingleOrDefaultAsync(x => x.IdentityUser.UserName == username);
+
+            if (student == null) { return false; }
+
+            if (student.ExchangeSchool == null || student.ExchangeSchool == "")
+            {
+                return false;
+            }
+
+            student.ExchangeSchool = null;
+
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }

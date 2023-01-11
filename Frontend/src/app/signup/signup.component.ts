@@ -51,8 +51,8 @@ export class SignupComponent implements OnInit {
   buildForm() {
     this.requiredForm = this.formBuilder.group({
       actorType: [ActorsEnum.Student.toString(), Validators.required],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      firstName: ['test', Validators.required],
+      lastName: ['test', Validators.required],
       userName: ['', Validators.required],
       email: ['', Validators.required],
       password: ['', Validators.required],

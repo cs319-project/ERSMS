@@ -228,6 +228,12 @@
               <mat-icon svgIcon="mail"></mat-icon>
             </button>
           </a>
+          <button
+            mat-icon-button
+            *ngIf="selection.selected[0].cpga !== 0"
+            (click)="editStudent(selection.selected[0])">
+            <mat-icon svgIcon="edit"></mat-icon>
+          </button>
           <!-- <button mat-icon-button>
             <mat-icon svgIcon="messages"></mat-icon>
           </button> -->
@@ -270,12 +276,12 @@
             >Registered</span
           >
           <span
-            style="color:darkred"
+            style="color: darkred"
             *ngIf="
               selection.selected[0].email === null ||
               selection.selected[0].email === ''
             "
-          >Not Registered</span
+            >Not Registered</span
           >
         </div>
       </div>

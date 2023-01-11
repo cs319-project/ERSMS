@@ -331,23 +331,22 @@
       <span class="recent-activity-title mt-1">Announcements</span>
       <mat-divider style="width: 100%" class="mt-2"></mat-divider>
       <div class="recent-activity-content mt-3 custom-activities-scroll-bar">
-          <div
-            class="activities"
-            *ngFor="let announcement of announcements">
-            <div class="activity">
-              <img src="../assets/icons/big-user.svg" />
-              <div class="activity-description ml-3">
-                <span class="activity-user">{{ announcement.sender }}</span>
-                <span class="gray-text">{{ announcement.description }}</span>
-                <span
-                ><small>{{ formatTheDate(announcement.creationDate) }}</small></span
-                >
-              </div>
+        <div class="activities" *ngFor="let announcement of announcements">
+          <div class="activity">
+            <img src="../assets/icons/big-user.svg" />
+            <div class="activity-description ml-3">
+              <span class="activity-user">{{ announcement.sender }}</span>
+              <span class="gray-text">{{ announcement.description }}</span>
+              <span
+                ><small>{{
+                  formatTheDate(announcement.creationDate)
+                }}</small></span
+              >
             </div>
-          <div class="mb-4"></div>
+          </div>
+          <div class="mb-3"></div>
         </div>
       </div>
     </div>
-
   </div>
 </div>

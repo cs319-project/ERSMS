@@ -96,10 +96,18 @@
               </mat-form-field>
             </div>
             <div>
-              <span *ngIf="courseGroup.requestedExemptedCourse.courseType === 'Mandatory Course'">
+              <span
+                *ngIf="
+                  courseGroup.requestedExemptedCourse.courseType ===
+                  'Mandatory Course'
+                ">
                 <b>All Fields Below are Required</b>
               </span>
-              <span *ngIf="courseGroup.requestedExemptedCourse.courseType !== 'Mandatory Course'">
+              <span
+                *ngIf="
+                  courseGroup.requestedExemptedCourse.courseType !==
+                  'Mandatory Course'
+                ">
                 Course Code and Course Name are Optional
               </span>
             </div>

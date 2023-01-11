@@ -8,4 +8,5 @@ export interface LoggedEquivalentCourse {
   hostCourseName: string;
   logTime?: Date;
   hostCourseEcts: number;
+  hostSchool: string;
 }

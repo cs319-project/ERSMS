@@ -4,6 +4,7 @@ namespace Backend.DTOs
     public abstract class LoggedCourseDto
     {
         public Guid Id { get; set; }
+        public DateTime LogTime { get; set; } = DateTime.Now;
         // public string HostCourseCode { get; set; }
         // public string HostCourseName { get; set; }
         // public double HostCourseECTS { get; set; }

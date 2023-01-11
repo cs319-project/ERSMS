@@ -7,7 +7,7 @@ import { AnnouncementService } from 'src/app/_services/announcement.service';
 import { ToDoItemService } from 'src/app/_services/todoitem.service';
 import { GUID } from 'src/utils/guid';
 import { formatDate } from '@angular/common';
-import {ToastrService} from "ngx-toastr";
+import { ToastrService } from 'ngx-toastr';
 
 /*
 export interface todoItem {
@@ -55,7 +55,6 @@ export class StudentDashboardComponent implements OnInit {
 
     this.PopulateToDoList();
 
-
     announcementService.getAllAnnouncements().subscribe(data => {
       if (data) {
         data.forEach(element => {
@@ -65,13 +64,13 @@ export class StudentDashboardComponent implements OnInit {
             creationDate: element.creationDate,
             description: element.description
           };
-          this.announcements.push(temp);
+          this.announcements.unshift(temp);
         });
       }
-    })
+    });
   }
 
-  PopulateToDoList(){
+  PopulateToDoList() {
     this.todoList = [];
     this.toDoService.getStudentToDoList(this.userName).subscribe(data => {
       //console.log(data);
@@ -198,31 +197,29 @@ export class StudentDashboardComponent implements OnInit {
       isStarred: false,
       title: ''
     };
-    this.toDoService
-      .createToDoItem(newItem, this.userName)
-      .subscribe(result => {
+    this.toDoService.createToDoItem(newItem, this.userName).subscribe(
+      result => {
         if (result) {
           this.PopulateToDoList();
           this.waitingList = this.todoList.filter(
             todoItem => !todoItem.isComplete
           );
-          this.toastr.success("ToDo Item is successfully added");
+          this.toastr.success('ToDo Item is successfully added');
           this.addingValue = '';
           this.isAdding = false;
           this.selectedTabIndex = 0;
-        }
-        else{
-          this.toastr.error("Error Occured while adding the ToDo Item");
+        } else {
+          this.toastr.error('Error Occured while adding the ToDo Item');
         }
       },
-        error => {
-          this.toastr.error("Error Occured while adding the ToDo Item");
-        });
-
+      error => {
+        this.toastr.error('Error Occured while adding the ToDo Item');
+      }
+    );
   }
 
   addItem2(todoItem: ToDoItem) {
-    this.todoList.push({
+    this.todoList.unshift({
       description: todoItem.description,
       isComplete: todoItem.isComplete,
       cascadeId: undefined,
@@ -246,11 +243,9 @@ export class StudentDashboardComponent implements OnInit {
         todoItem => todoItem.isComplete
       );
     });
-
-
   }
 
-  formatTheDate(date: Date){
+  formatTheDate(date: Date) {
     const formattedDate = formatDate(
       date.toString(),
       this.dateFormat,

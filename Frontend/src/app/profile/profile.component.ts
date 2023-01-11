@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_services/user.service';
 import { Student } from '../_models/student';
+import { ScoreTableUploadDialogComponent } from '../dashboard/score-table-upload-dialog/score-table-upload-dialog.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ConfigurableFocusTrap } from '@angular/cdk/a11y';
+import { ConfirmationDialogComponent } from '../appointments/confirmation-dialog/confirmation-dialog.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-profile',
@@ -20,7 +25,11 @@ export class ProfileComponent implements OnInit {
   entranceYear: number;
   otherStudents: any[];
 
-  constructor(private userService: UserService) {
+  constructor(
+    private userService: UserService,
+    private dialog: MatDialog,
+    private toaster: ToastrService
+  ) {
     const user = JSON.parse(localStorage.getItem('user'));
     this.userName = user.userName;
     this.actorType = user.userDetails.actorType;
@@ -33,12 +42,11 @@ export class ProfileComponent implements OnInit {
     this.entranceYear = user.userDetails.entranceYear;
     this.exchangeSchool = user.userDetails.exchangeSchool
       ? user.userDetails.exchangeSchool
-      : 'Not placed';
+      : null;
     this.otherStudents = [];
     userService.getSameSchoolStudents(this.userName).subscribe(data => {
       data.forEach(other => {
         if (user.userName !== other.identityUser.userName) {
-          console.log(other);
           const temp = {
             fullName: `${other.firstName} ${other.lastName}`,
             department: other.major.departmentName,
@@ -48,7 +56,39 @@ export class ProfileComponent implements OnInit {
         }
       });
     });
+    console.log(!this.otherStudents);
   }
 
   ngOnInit(): void {}
+
+  cancelApplication() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      text: `Are you sure you want to cancel your application?`
+    };
+    const dialogRef = this.dialog.open(
+      ConfirmationDialogComponent,
+      dialogConfig
+    );
+
+    dialogRef.afterClosed().subscribe(cancelConfirm => {
+      if (cancelConfirm) {
+        this.userService.cancelPlacedStudent(this.userName).subscribe(
+          data => {
+            const user = JSON.parse(localStorage.getItem('user'));
+            user.userDetails.exchangeSchool = null;
+            this.exchangeSchool = null;
+            localStorage.setItem('user', JSON.stringify(user));
+
+            this.toaster.success('Your application is canceled.');
+          },
+          error => {
+            this.toaster.error(
+              'An error happened during canceling application.'
+            );
+          }
+        );
+      }
+    });
+  }
 }

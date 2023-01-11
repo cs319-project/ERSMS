@@ -32,7 +32,13 @@ namespace Backend.Services
         // Method
         public async Task<bool> AddEquivalenceRequestToStudent(EquivalenceRequestDto equivalenceRequest, IFormFile file)
         {
-            var logs = (await _loggedCourseService.GetLoggedEquivalantCourses()).Select(x => (x.HostCourseCode == equivalenceRequest.HostCourseCode)
+            var logs = (await _loggedCourseService.GetLoggedEquivalantCourses()).Select(x =>
+                        (((equivalenceRequest.ExemptedCourse.CourseType == "Mandatory Course")
+                        && (x.HostCourseCode == equivalenceRequest.HostCourseCode)
+                        && (x.ExemptedCourse.CourseCode == equivalenceRequest.ExemptedCourse.CourseCode))
+                        || (((equivalenceRequest.ExemptedCourse.CourseType != "Mandatory Course"))
+                        && (x.HostCourseCode == equivalenceRequest.HostCourseCode)
+                        && (x.ExemptedCourse.CourseType == equivalenceRequest.ExemptedCourse.CourseType)))
                         && (x.HostSchool == equivalenceRequest.HostUniversityName));
             foreach (var log in logs)
             {
