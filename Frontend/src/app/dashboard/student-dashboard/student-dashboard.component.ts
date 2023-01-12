@@ -204,16 +204,16 @@ export class StudentDashboardComponent implements OnInit {
           this.waitingList = this.todoList.filter(
             todoItem => !todoItem.isComplete
           );
-          this.toastr.success('ToDo Item is successfully added');
+          this.toastr.success('To-Do item is successfully added');
           this.addingValue = '';
           this.isAdding = false;
           this.selectedTabIndex = 0;
         } else {
-          this.toastr.error('Error Occured while adding the ToDo Item');
+          this.toastr.error('An error occured while adding the to-do item');
         }
       },
       error => {
-        this.toastr.error('Error Occured while adding the ToDo Item');
+        this.toastr.error('An error occured while adding the to-do item');
       }
     );
   }

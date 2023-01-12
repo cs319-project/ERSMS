@@ -1,3 +1,4 @@
+using System.Globalization;
 using Backend.Entities;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
@@ -94,12 +95,13 @@ namespace Backend.Utilities
 
                             if (topCellValue.StartsWith("First Name"))
                             {
-                                student.FirstName = cellValue;
+                                TextInfo textInfo = new CultureInfo("tr-TR", false).TextInfo;
+                                student.FirstName = textInfo.ToTitleCase(textInfo.ToLower(cellValue));
                             }
                             else if (topCellValue.StartsWith("Lastname"))
                             {
-                                var temp = cellValue.Substring(1, cellValue.Length - 1).ToLower();
-                                student.LastName = cellValue[0] + temp;
+                                TextInfo textInfo = new CultureInfo("tr-TR", false).TextInfo;
+                                student.LastName = textInfo.ToTitleCase(textInfo.ToLower(cellValue));
                             }
                             else if (topCellValue.StartsWith("Student ID Number"))
                             {

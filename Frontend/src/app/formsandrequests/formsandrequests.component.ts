@@ -284,7 +284,7 @@ export class FormsAndRequestsComponent {
                 id: element.idNumber,
                 student: element.firstName + ' ' + element.lastName,
                 date: formattedDate,
-                type: 'PreApproval Form',
+                type: 'Pre-Approval Form',
                 school: element.hostUniversityName,
                 status: element.isCanceled
                   ? 'Cancelled'
@@ -396,7 +396,7 @@ export class FormsAndRequestsComponent {
                 id: element.idNumber,
                 student: element.firstName + ' ' + element.lastName,
                 date: formattedDate,
-                type: 'PreApproval Form',
+                type: 'Pre-Approval Form',
                 school: element.hostUniversityName,
                 status: element.isCanceled
                   ? 'Cancelled'
@@ -530,7 +530,7 @@ export class FormsAndRequestsComponent {
             }
           });
         });
-    } else if (row.type == 'PreApproval Form') {
+    } else if (row.type == 'Pre-Approval Form') {
       this.userService
         .getUserDetails(row.id)
         .toPromise()
@@ -721,7 +721,7 @@ export class FormsAndRequestsComponent {
               this.toastr.error('An error occured while canceling');
             }
           );
-        } else if (type === 'PreApproval Form') {
+        } else if (type === 'Pre-Approval Form') {
           this.preApprovalFormService.cancelPreApprovalForm(formId).subscribe(
             result => {
               console.log(result);

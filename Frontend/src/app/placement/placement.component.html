@@ -37,8 +37,8 @@
       </button>
     </div>
   </div>
-  <div class="placement-content mt-4">
-    <div style="width: 70%">
+  <div class="placement-content mt-4 flex">
+    <div style="width: 100%">
       <div class="table-header">
         <mat-form-field>
           <mat-icon matPrefix class="mr-3">search</mat-icon>
@@ -213,7 +213,9 @@
         </mat-tab>
       </mat-tab-group>
     </div>
-    <div class="preview-container">
+    <div
+      class="preview-container ml-3"
+      *ngIf="selection.selected[0] !== this.sample">
       <div class="preview-header">
         <img src="../assets/icons/big-user.svg" class="mt-3" />
         <span class="mt-2 preview-name">{{ selection.selected[0].name }}</span>

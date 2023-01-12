@@ -182,7 +182,7 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
             show: true
           },
           xaxis: {
-            categories: ['CTE', 'Pre-approval', 'Course Equivalence'],
+            categories: ['CTE', 'Pre-Approval', 'Course Equivalence'],
             labels: {
               style: {
                 colors: [],
@@ -274,7 +274,7 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
               show: true
             },
             xaxis: {
-              categories: ['CTE', 'Pre-approval', 'Course Equivalence'],
+              categories: ['CTE', 'Pre-Approval', 'Course Equivalence'],
               labels: {
                 style: {
                   colors: [],
@@ -366,7 +366,7 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
               show: true
             },
             xaxis: {
-              categories: ['CTE', 'Pre-approval', 'Course Equivalence'],
+              categories: ['CTE', 'Pre-Approval', 'Course Equivalence'],
               labels: {
                 style: {
                   colors: [],
@@ -457,7 +457,7 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
         show: true
       },
       xaxis: {
-        categories: ['CTE', 'Pre-approval', 'Course Equivalence'],
+        categories: ['CTE', 'Pre-Approval', 'Course Equivalence'],
         labels: {
           style: {
             colors: [],
@@ -601,16 +601,16 @@ export class ExchangeCoordinatorDashboardComponent implements OnInit {
           this.waitingList = this.todoList.filter(
             todoItem => !todoItem.isComplete
           );
-          this.toastr.success('ToDo Item is successfully added');
+          this.toastr.success('To-Do item is successfully added');
           this.addingValue = '';
           this.isAdding = false;
           this.selectedTabIndex = 0;
         } else {
-          this.toastr.error('Error Occured while adding the ToDo Item');
+          this.toastr.error('An error occured while adding the to-do item');
         }
       },
       error => {
-        this.toastr.error('Error Occured while adding the ToDo Item');
+        this.toastr.error('An error occured while adding the to-do item');
       }
     );
   }

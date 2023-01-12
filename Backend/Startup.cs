@@ -211,38 +211,38 @@ namespace Backend
                 // });
 
 
-                // if (!authService.UserExists("22002900", "oisep@bilkent.edu.tr").GetAwaiter().GetResult())
-                // {
-                //     authService.Register(new DTOs.RegisterDto
-                //     {
-                //         ActorType = "Office of International Students and Exchange Programs",
-                //         UserName = "22002900",
-                //         Email = "oisep@bilkent.edu.tr",
-                //         Password = "Test123_",
-                //         FirstName = "Erkin",
-                //         LastName = "Tarhan",
-                //     }
-                //     ).Wait();
-                // }
+                if (!authService.UserExists("22002900", "oisep@bilkent.edu.tr").GetAwaiter().GetResult())
+                {
+                    authService.Register(new DTOs.RegisterDto
+                    {
+                        ActorType = "Office of International Students and Exchange Programs",
+                        UserName = "22002900",
+                        Email = "oisep@bilkent.edu.tr",
+                        Password = "Test123_",
+                        FirstName = "Yelda İrem",
+                        LastName = "Ateş",
+                    }
+                    ).Wait();
+                }
 
-                // if (!authService.UserExists("22002901", "instructor@bilkent.edu.tr").GetAwaiter().GetResult())
-                // {
-                //     authService.Register(new DTOs.RegisterDto
-                //     {
-                //         ActorType = "Course Coordinator Instructor",
-                //         UserName = "22002901",
-                //         Email = "instructor@bilkent.edu.tr",
-                //         Password = "Test123_",
-                //         FirstName = "Eray",
-                //         LastName = "Tüzün",
-                //         IsCourseCoordinator = true,
-                //         Course = new CourseDto
-                //         {
-                //             CourseCode = "CS319",
-                //             CourseName = "Object Oriented Software Engineering"
-                //         }
-                //     }).Wait();
-                // }
+                if (!authService.UserExists("22002901", "instructor@bilkent.edu.tr").GetAwaiter().GetResult())
+                {
+                    authService.Register(new DTOs.RegisterDto
+                    {
+                        ActorType = "Course Coordinator Instructor",
+                        UserName = "22002901",
+                        Email = "instructor@bilkent.edu.tr",
+                        Password = "Test123_",
+                        FirstName = "Eray",
+                        LastName = "Tüzün",
+                        IsCourseCoordinator = true,
+                        Course = new CourseDto
+                        {
+                            CourseCode = "CS319",
+                            CourseName = "Object Oriented Software Engineering"
+                        }
+                    }).Wait();
+                }
 
                 if (!authService.UserExists("1", "admin@bilkent.edu.tr").GetAwaiter().GetResult())
                 {

@@ -36,7 +36,7 @@ export class ProfileComponent implements OnInit {
     this.fullName = `${user.userDetails.firstName} ${user.userDetails.lastName}`;
     this.department = user.userDetails.major.departmentName;
     this.email = user.userDetails.identityUser.email;
-    this.cgpa = user.userDetails.cgpa / 100;
+    this.cgpa = user.userDetails.cgpa;
     this.preferredSemester = `${user.userDetails.preferredSemester.academicYear} ${user.userDetails.preferredSemester.semester}`;
     this.preferredSchools = user.userDetails.preferredSchools.join(', ');
     this.entranceYear = user.userDetails.entranceYear;
@@ -84,7 +84,7 @@ export class ProfileComponent implements OnInit {
           },
           error => {
             this.toaster.error(
-              'An error happened during canceling application.'
+              'An error happened during canceling the application.'
             );
           }
         );

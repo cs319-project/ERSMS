@@ -122,12 +122,12 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       isStarred: false
     },
     {
-      description: "Check Atak Talay Yücel's Pre-approval Form",
+      description: "Check Atak Talay Yücel's Pre-Approval Form",
       isCompleted: false,
       isStarred: true
     },
     {
-      description: "Check Yiğit Yalın's Pre-approval Form",
+      description: "Check Yiğit Yalın's Pre-Approval Form",
       isCompleted: false,
       isStarred: true
     }
