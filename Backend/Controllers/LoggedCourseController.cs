@@ -47,7 +47,7 @@ namespace Backend.Controllers
         public async Task<ActionResult> DeleteLoggedEquivalentCourse(Guid id)
         {
             return await _loggedCourseService.DeleteLoggedEquivalantCourse(id)
-                        ? Ok() : BadRequest();
+                        ? Ok(true) : BadRequest();
         }
 
         /// <summary>Deletes a logged transferred course.</summary>
@@ -57,7 +57,7 @@ namespace Backend.Controllers
         public async Task<ActionResult> DeleteLoggedTransferredCourse(Guid id)
         {
             return await _loggedCourseService.DeleteLoggedTransferredCourse(id)
-                        ? Ok() : BadRequest();
+                        ? Ok(true) : BadRequest(false);
         }
     }
 }

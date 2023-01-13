@@ -56,7 +56,7 @@ import { CteFormDialogComponent } from './formsandrequests/cte-form-dialog/cte-f
 import { ViewCteFormDialogComponent } from './formsandrequests/view-cte-form-dialog/view-cte-form-dialog.component';
 import { ViewPreapprovalFormDialogComponent } from './formsandrequests/view-preapproval-form-dialog/view-preapproval-form-dialog.component';
 import { ViewEquivalenceRequestDialogComponent } from './formsandrequests/view-equivalence-request-dialog/view-equivalence-request-dialog.component';
-
+import { ManualPlacementDialogComponent } from './placement/manual-placement-dialog/manual-placement-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,7 +78,9 @@ import { ViewEquivalenceRequestDialogComponent } from './formsandrequests/view-e
     CteFormDialogComponent,
     ViewCteFormDialogComponent,
     ViewPreapprovalFormDialogComponent,
-    ViewEquivalenceRequestDialogComponent
+    ViewEquivalenceRequestDialogComponent,
+    ViewEquivalenceRequestDialogComponent,
+    ManualPlacementDialogComponent
   ],
   imports: [
     BrowserModule,

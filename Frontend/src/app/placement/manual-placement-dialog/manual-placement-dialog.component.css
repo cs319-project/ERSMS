@@ -1,0 +1,34 @@
+.user-container{
+  width: 700px;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-header{
+  display: flex;
+  justify-content: center;
+}
+
+.user-header span{
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.flex{
+  display: flex;
+  align-items: center;
+}
+
+.user-type{
+  display: flex;
+  align-items: center;
+}
+
+.form-footer {
+  bottom: 0;
+  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

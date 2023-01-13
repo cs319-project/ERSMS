@@ -24,6 +24,9 @@ import { ViewEquivalenceRequestDialogComponent } from '../formsandrequests/view-
 import { ActorsEnum } from '../_models/enum/actors-enum';
 import { formatDate } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import {LoggedCourseService} from "../_services/loggedcourse.service";
+import {LoggedEquivalentCourse} from "../_models/logged-equivalent-course";
+import {ConfirmationDialogComponent} from "../appointments/confirmation-dialog/confirmation-dialog.component";
 
 @Component({
   selector: 'app-logging',
@@ -33,25 +36,34 @@ import { ToastrService } from 'ngx-toastr';
 export class LoggingComponent {
   displayedColumns = ['id', 'student', 'date', 'type', 'school', 'status'];
   displayedColumns2 = ['id', 'student', 'date', 'school', 'status'];
+  loggedCoursesColumns = ['LogTime', 'HCode', 'HName', 'HECTS', 'CourseType', 'BCode', 'BName', 'BCredit'];
   dataSource: MatTableDataSource<UserData>;
   preapprovalDataSource: MatTableDataSource<UserData>;
   cteDataSource: MatTableDataSource<UserData>;
   courseEquivalenceDataSource: MatTableDataSource<UserData>;
+  loggedCoursesDataSource: MatTableDataSource<any>;
+
+  loggedCourses: LoggedEquivalentCourse[] = [];
 
   @ViewChild('paginator') paginator: MatPaginator;
   @ViewChild('paginator2') paginator2: MatPaginator;
   @ViewChild('paginator3') paginator3: MatPaginator;
   @ViewChild('paginator4') paginator4: MatPaginator;
+  @ViewChild('paginator4') paginator5: MatPaginator;
 
   @ViewChild('sorter1') sorter1: MatSort;
   @ViewChild('sorter2') sorter2: MatSort;
   @ViewChild('sorter3') sorter3: MatSort;
   @ViewChild('sorter4') sorter4: MatSort;
+  @ViewChild('sorter4') sorter5: MatSort;
+
 
   @ViewChild(MatTable) AllFormsTable!: MatTable<UserData>;
   @ViewChild(MatTable) PreApprovalTable!: MatTable<UserData>;
   @ViewChild(MatTable) CTETable!: MatTable<UserData>;
   @ViewChild(MatTable) CourseEqTable!: MatTable<UserData>;
+  @ViewChild(MatTable) LoggedCoursesTable!: MatTable<UserData>;
+
 
   selection = new SelectionModel<UserData>(true, []);
   activatedRow = null;
@@ -66,8 +78,11 @@ export class LoggingComponent {
   preApprovalForms: PreApprovalForm[] = [];
   equivalenceRequests: EquivalenceRequest[] = [];
 
-  format = 'dd/MM/yyyy h:mm';
+
+  format = 'dd/MM/yyyy';
   locale = 'en-TR';
+  selectedSchool: string;
+  schools: Set<string> = new Set<string>();
 
   constructor(
     private dialog: MatDialog,
@@ -75,12 +90,16 @@ export class LoggingComponent {
     private equivalenceRequestService: EquivalenceRequestService,
     private cteFormService: CTEFormService,
     private userService: UserService,
-    private preApprovalFormService: PreApprovalFormService
+    private preApprovalFormService: PreApprovalFormService,
+    private loggedCourseService: LoggedCourseService
   ) {
     this.currentUserId = JSON.parse(localStorage.getItem('user')).userName;
     this.currentUserRole = JSON.parse(localStorage.getItem('user')).roles[0];
     this.isDean = JSON.parse(localStorage.getItem('user')).userDetails.isDean;
 
+    if(this.currentUserRole === ActorsEnum.Student){
+      this.selectedSchool = JSON.parse(localStorage.getItem('user')).userDetails.exchangeSchool;
+    }
     // for (let i = 1; i <= 100; i++) {
     //   users.push(createNewUser(i, (status = 'Processing')));
     // }
@@ -88,6 +107,9 @@ export class LoggingComponent {
     this.cteDataSource = new MatTableDataSource<UserData>();
     this.preapprovalDataSource = new MatTableDataSource<UserData>();
     this.courseEquivalenceDataSource = new MatTableDataSource<UserData>();
+    this.loggedCoursesDataSource = new MatTableDataSource<LoggedEquivalentCourse>();
+
+    this.getLoggedCourses();
 
     if (this.currentUserRole === ActorsEnum.CourseCoordinatorInstructor) {
       const courseCode: string = JSON.parse(localStorage.getItem('user'))
@@ -368,6 +390,76 @@ export class LoggingComponent {
     });
   }
 
+  getLoggedCourses(){
+    if(this.currentUserRole !== ActorsEnum.Student){
+      this.loggedCourseService.getLoggedEquivalentCourses().subscribe(data => {
+        if(data){
+          data.forEach(element => {
+            console.log(element);
+            this.schools.add(element.hostSchool);
+            let temp: LoggedEquivalentCourse = {
+              id: element.id,
+              hostSchool: element.hostSchool,
+              hostCourseName: element.hostCourseName,
+              hostCourseEcts: element.hostCourseECTS,
+              hostCourseCode: element.hostCourseCode,
+              logTime: element.logTime,
+              exemptedCourse: {
+                id: element.exemptedCourse.id,
+                bilkentCredits: element.exemptedCourse.bilkentCredits,
+                courseName: element.exemptedCourse.courseName,
+                courseType: element.exemptedCourse.courseType,
+                courseCode: element.exemptedCourse.courseCode,
+                ects: element.exemptedCourse.ects
+              }
+            };
+            this.loggedCourses.push(temp);
+          });
+        }
+      });
+    }
+    else{
+      this.loggedCourseService.getLoggedEquivalentCourses().subscribe(data => {
+        if(data){
+          data.forEach(element => {
+            console.log(element);
+            this.schools.add(element.hostSchool);
+            let temp: LoggedEquivalentCourse = {
+              id: element.id,
+              hostSchool: element.hostSchool,
+              hostCourseName: element.hostCourseName,
+              hostCourseEcts: element.hostCourseECTS,
+              hostCourseCode: element.hostCourseCode,
+              logTime: element.logTime,
+              exemptedCourse: {
+                id: element.exemptedCourse.id,
+                bilkentCredits: element.exemptedCourse.bilkentCredits,
+                courseName: element.exemptedCourse.courseName,
+                courseType: element.exemptedCourse.courseType,
+                courseCode: element.exemptedCourse.courseCode,
+                ects: element.exemptedCourse.ects
+              }
+            };
+            if(temp.hostSchool === this.selectedSchool){
+              this.loggedCourses.push(temp);
+            }
+          });
+          this.loggedCoursesDataSource = new MatTableDataSource(this.loggedCourses);
+          this.LoggedCoursesTable.renderRows();
+        }
+      });
+    }
+  }
+
+  formatTheDate(date: Date){
+    const formattedDate = formatDate(
+      date.toString(),
+      this.format,
+      this.locale
+    );
+    return formattedDate;
+  }
+
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
@@ -375,6 +467,7 @@ export class LoggingComponent {
     this.preapprovalDataSource.filter = filterValue;
     this.cteDataSource.filter = filterValue;
     this.courseEquivalenceDataSource.filter = filterValue;
+    this.loggedCoursesDataSource.filter = filterValue;
   }
 
   openDialog(row) {
@@ -430,7 +523,50 @@ export class LoggingComponent {
         });
     }
   }
+
+  onSchoolSelect() {
+    console.log("selected school is : " + this.selectedSchool);
+    console.log(this.loggedCourses);
+    this.loggedCoursesDataSource = new MatTableDataSource(this.loggedCourses.filter(element => {
+      if(element.hostSchool == this.selectedSchool){
+        return element;
+      }
+    }));
+    this.LoggedCoursesTable.renderRows();
+  }
+
+  onCancel(row) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = { text: 'Are you sure to delete this Course Equivalence?' };
+    dialogConfig.autoFocus = false;
+    const dialogRef = this.dialog.open(
+      ConfirmationDialogComponent,
+      dialogConfig
+    );
+
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) {
+        this.loggedCourseService.deleteLoggedEquivalentCourse(row.id).subscribe(result => {
+          if(result){
+            this.toastr.success("The Course Log is deleted");
+            let index = this.loggedCourses.indexOf(row);
+            this.loggedCourses.splice(index, 1);
+            this.loggedCoursesDataSource = new MatTableDataSource(this.loggedCourses);
+            this.LoggedCoursesTable.renderRows();
+          }
+          else{
+            this.toastr.error("An error occured while deleting");
+          }
+        },
+          error => {
+            this.toastr.error("An error occured while deleting");
+          });
+      }
+    });
+  }
 }
+
+
 
 export function createRandomDialogData(row) {
   return {

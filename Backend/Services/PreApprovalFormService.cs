@@ -2,7 +2,10 @@ using AutoMapper;
 using Backend.DTOs;
 using Backend.Entities;
 using Backend.Interfaces;
+using Backend.Utilities;
 using Backend.Utilities.Enum;
+using iTextSharp.text.pdf;
+using NPOI.Util;
 
 namespace Backend.Services
 {
@@ -58,7 +61,10 @@ namespace Backend.Services
 
                 await _notificationService.CreateNewApprovalNotification(formEntity, FormType.PreApprovalForm,
                                                                             approvalEntity.IsApproved, approvalEntity.Name);
-                return await _preApprovalFormRepository.UpdatePreApprovalForm(formEntity);
+                var flag = await _preApprovalFormRepository.UpdatePreApprovalForm(formEntity);
+
+                await GenerateHelper(_mapper.Map<PreApprovalFormDto>(formEntity));
+                return flag;
             }
             return false;
         }
@@ -162,6 +168,7 @@ namespace Backend.Services
                                     + " and approve or reject it.";
             todo.CascadeId = Guid.NewGuid();
             PreApprovalForm formEntity = _mapper.Map<PreApprovalForm>(preApprovalForm);
+            formEntity.Id = new Guid();
             formEntity.ToDoItemId = todo.CascadeId;
 
             var flag = await _preApprovalFormRepository.SubmitPreApprovalForm(formEntity);
@@ -173,6 +180,8 @@ namespace Backend.Services
                     await _toDoItemService.AddToDoItemToAllByDepartment(todo, student.Major.DepartmentName);
 
                 await _notificationService.CreateNewFormNotification(formEntity, FormType.PreApprovalForm);
+                preApprovalForm.Id = formEntity.Id;
+                await GenerateHelper(preApprovalForm);
             }
 
             return flag;
@@ -312,6 +321,15 @@ namespace Backend.Services
                 return await _preApprovalFormRepository.UploadPdf(formId, pdfBytes, pdf.FileName);
             }
 
+        }
+
+        private async Task<bool> GenerateHelper(PreApprovalFormDto preApprovalForm)
+        {
+            PDFGenerator.GeneratePreAppPdf(preApprovalForm);
+            byte[] fileBytes;
+            fileBytes = File.ReadAllBytes("bin/filled.pdf");
+            await _preApprovalFormRepository.UploadPdf(preApprovalForm.Id, fileBytes, "PreApprovalForm.pdf");
+            return true;
         }
 
         public async Task<(byte[], string)> DownloadPdf(Guid formId)

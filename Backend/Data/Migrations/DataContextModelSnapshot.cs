@@ -269,6 +269,9 @@ namespace Backend.Data.Migrations
                     b.Property<string>("HostCourseName")
                         .HasColumnType("text");
 
+                    b.Property<string>("HostUniversityName")
+                        .HasColumnType("text");
+
                     b.Property<Guid?>("InstructorApprovalId")
                         .HasColumnType("uuid");
 
@@ -352,6 +355,12 @@ namespace Backend.Data.Migrations
                     b.Property<string>("HostCourseName")
                         .HasColumnType("text");
 
+                    b.Property<string>("HostSchool")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("LogTime")
+                        .HasColumnType("timestamp with time zone");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ExemptedCourseId");
@@ -364,6 +373,9 @@ namespace Backend.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<DateTime>("LogTime")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 

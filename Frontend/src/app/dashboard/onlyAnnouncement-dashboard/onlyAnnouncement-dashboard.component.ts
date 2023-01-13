@@ -72,7 +72,6 @@ export class OnlyAnnouncementDashboardComponent implements OnInit {
       );
     });
 
-    
     announcementService.getAllAnnouncements().subscribe(data => {
       if (data) {
         data.forEach(element => {
@@ -82,10 +81,10 @@ export class OnlyAnnouncementDashboardComponent implements OnInit {
             creationDate: element.creationDate,
             description: element.description
           };
-          this.announcements.push(temp);
+          this.announcements.unshift(temp);
         });
       }
-    })
+    });
   }
 
   stateForm = this._formBuilder.group({
@@ -231,11 +230,9 @@ export class OnlyAnnouncementDashboardComponent implements OnInit {
         todoItem => todoItem.isComplete
       );
     });
-
-    
   }
 
-  formatTheDate(date: Date){
+  formatTheDate(date: Date) {
     const formattedDate = formatDate(
       date.toString(),
       this.dateFormat,

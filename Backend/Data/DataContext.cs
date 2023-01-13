@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Backend.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -115,14 +116,24 @@ namespace Backend.Data
 
             // ...
 
+            // builder.Entity<Student>().Property(m => m.PreferredSchools).HasConversion(
+            //     v => string.Join(";|;", v),
+            //     v => (ICollection<string>)v.Split(";|;", StringSplitOptions.RemoveEmptyEntries).ToList()
+            // );
+
+            // builder.Entity<PlacedStudent>().Property(m => m.PreferredSchools).HasConversion(
+            //     v => string.Join(";|;'", v),
+            //     v => (ICollection<string>)v.Split(";|;", StringSplitOptions.RemoveEmptyEntries).ToList()
+            // );
+
             builder.Entity<Student>().Property(m => m.PreferredSchools).HasConversion(
-                v => string.Join(";|;", v),
-                v => (ICollection<string>)v.Split(";|;", StringSplitOptions.RemoveEmptyEntries).ToList()
+                v => JsonSerializer.Serialize(v.ToList(), new JsonSerializerOptions { Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping }),
+                v => JsonSerializer.Deserialize<List<string>>(v, new JsonSerializerOptions { Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping })
             );
 
             builder.Entity<PlacedStudent>().Property(m => m.PreferredSchools).HasConversion(
-                v => string.Join(";|;'", v),
-                v => (ICollection<string>)v.Split(";|;", StringSplitOptions.RemoveEmptyEntries).ToList()
+                v => JsonSerializer.Serialize(v.ToList(), new JsonSerializerOptions { Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping }),
+                v => JsonSerializer.Deserialize<List<string>>(v, new JsonSerializerOptions { Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping })
             );
 
             // builder.Entity<Student>().Property(m => m.PreferredSemester).HasConversion(

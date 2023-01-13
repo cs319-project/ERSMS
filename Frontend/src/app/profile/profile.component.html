@@ -1,60 +1,65 @@
-<div class="full-width  profile-header-container">
+<div class="full-width profile-header-container">
   <div class="profile-header m-3">
     <div class="user-container">
       <div class="profile-photo-container">
-        <img src="../assets/images/avatar.png" />
+        <img src="../assets/icons/big-user.svg" />
       </div>
+
       <div class="m-3 name-dep-container">
         <h2>
           <b>{{ this.fullName }}</b>
         </h2>
         <span class="gray-text">{{ this.department }}</span>
-        <!--<div class="buttons-container">
-          <button mat-icon-button>
-            <mat-icon svgIcon="mail"></mat-icon>
-          </button>
-          <button mat-icon-button>
-            <mat-icon svgIcon="messages"></mat-icon>
-          </button>
-          <button mat-icon-button>
-            <mat-icon svgIcon="logging"></mat-icon>
-          </button>
-        </div>-->
       </div>
     </div>
     <div class="status-school-container m-3">
-      <div class="name-value-pair mt-2">
-        <span class="gray-text">Bilkent ID Number</span>
-        <span>{{ this.userName }}</span>
-      </div>
-      <div class="name-value-pair mt-2">
-        <span class="gray-text">Exchange School</span>
-        <span>Kingston University</span>
+      <div class="cancel-button">
+        <button
+          mat-raised-button
+          color="warn"
+          class="mb-3 mt-3"
+          *ngIf="this.exchangeSchool !== null"
+          (click)="cancelApplication()">
+          Cancel Application
+        </button>
       </div>
     </div>
   </div>
 </div>
 
-<div class="profile-content-container  mt-5">
+<div class="profile-content-container mt-5">
   <div class="profile-content">
-    <div class="social-container">
+    <div *ngIf="this.exchangeSchool !== null" class="social-container">
       <h3 class="mt-3">Other Students Going to {{ this.exchangeSchool }}</h3>
       <mat-divider></mat-divider>
       <div class="social-profile-container">
-        <div *ngFor="let student of this.otherStudents" style="width: 100%; display: flex; align-items: center; justify-content: space-between" class="other-student mt-3">
-          <img src="../assets/images/avatar.png" />
+        <div class="mt-4" *ngIf="this.otherStudents.length === 0">
+          No other students found.
+        </div>
+        <div
+          *ngFor="let student of this.otherStudents"
+          style="
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          "
+          class="other-student mt-3">
+          <img src="../assets/icons/big-user.svg" />
           <div class="name-value-pair ml-5">
             <span>{{ student.fullName }}</span>
             <span class="gray-text">{{ student.department }}</span>
           </div>
-          <a href="mailto:{{ student.email }}"><button *ngIf="student.email" mat-icon-button>
-            <mat-icon svgIcon="mail"></mat-icon>
-          </button></a>
+          <a href="mailto:{{ student.email }}"
+            ><button *ngIf="student.email" mat-icon-button>
+              <mat-icon svgIcon="mail"></mat-icon></button
+          ></a>
         </div>
       </div>
     </div>
-
-    <div class="information-card-container">
+    <div
+      class="information-card-container"
+      [ngStyle]="this.exchangeSchool === null && { width: '100%' }">
       <div class="info-card-element ml-3 mr-3 mt-3">
         <h3>Information Card</h3>
         <!--<button mat-icon-button>

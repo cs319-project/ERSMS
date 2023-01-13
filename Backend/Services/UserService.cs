@@ -245,12 +245,19 @@ namespace Backend.Services
             }
         }
 
-        public async Task<ICollection<StudentDto>> GetRegisteredStudentsTuples()
+        public async Task<ICollection<MailUserNameTupleDto>> GetRegisteredStudentsTuples()
         {
             var students = await _userRepository.GetStudentsAsync();
             var studentsTuples = students.Select(s => new MailUserNameTupleDto
             { Email = s.IdentityUser.Email, UserName = s.IdentityUser.UserName }).ToList();
-            return _mapper.Map<ICollection<StudentDto>>(studentsTuples);
+            return studentsTuples;
+        }
+
+        public async Task<bool> CancelPlacedStudentApplication(string username)
+        {
+            var success = _userRepository.CancelPlacedStudentApplication(username);
+            return await success;
+
         }
     }
 }

@@ -136,7 +136,7 @@ export class ViewCteFormDialogComponent implements OnInit {
       this.cteFormService
         .approveCTEFormCoordinator(approval, this.data.cteForm.id)
         .subscribe(data => {
-          this.dialogRef.close();
+          this.dialogRef.close(true);
         });
     } else if (this.roleOfUser == 'Dean Department Chair') {
       let approval: Approval = {
@@ -150,13 +150,13 @@ export class ViewCteFormDialogComponent implements OnInit {
         this.cteFormService
           .approveCTEFormChair(approval, this.data.cteForm.id)
           .subscribe(data => {
-            this.dialogRef.close();
+            this.dialogRef.close(true);
           });
       } else {
         this.cteFormService
           .approveCTEFormDean(approval, this.data.cteForm.id)
           .subscribe(data => {
-            this.dialogRef.close();
+            this.dialogRef.close(true);
           });
       }
     }
@@ -171,7 +171,7 @@ export class ViewCteFormDialogComponent implements OnInit {
     this.cteFormService
       .approveCTEFormFAB(approval, this.data.cteForm.id)
       .subscribe(data => {
-        this.dialogRef.close();
+        this.dialogRef.close(true);
       });
   }
 
@@ -184,7 +184,7 @@ export class ViewCteFormDialogComponent implements OnInit {
     this.cteFormService
       .approveCTEFormFAB(approval, this.data.cteForm.id)
       .subscribe(data => {
-        this.dialogRef.close();
+        this.dialogRef.close(true);
       });
   }
 
@@ -203,7 +203,7 @@ export class ViewCteFormDialogComponent implements OnInit {
       this.cteFormService
         .approveCTEFormCoordinator(approval, this.data.cteForm.id)
         .subscribe(data => {
-          this.dialogRef.close();
+          this.dialogRef.close(true);
         });
     } else if (this.roleOfUser == 'Dean Department Chair') {
       let approval: Approval = {
@@ -217,13 +217,13 @@ export class ViewCteFormDialogComponent implements OnInit {
         this.cteFormService
           .approveCTEFormChair(approval, this.data.cteForm.id)
           .subscribe(data => {
-            this.dialogRef.close();
+            this.dialogRef.close(true);
           });
       } else {
         this.cteFormService
           .approveCTEFormDean(approval, this.data.cteForm.id)
           .subscribe(data => {
-            this.dialogRef.close();
+            this.dialogRef.close(true);
           });
       }
     }
@@ -246,6 +246,7 @@ export class ViewCteFormDialogComponent implements OnInit {
       if (data) {
         this.isDownloadable = false;
         this.toastr.success('Document is deleted successfully');
+        this.data.cteForm.fileName = '';
       } else {
         this.toastr.error('No file found');
       }

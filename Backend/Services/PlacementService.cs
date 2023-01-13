@@ -3,6 +3,8 @@ using Backend.DTOs;
 using Backend.Entities;
 using Backend.Interfaces;
 using Backend.Utilities;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
 
 namespace Backend.Services
 {
@@ -45,13 +47,59 @@ namespace Backend.Services
         /// <returns>The placement table DTO.</returns>
         public async Task<PlacementTableDto> UploadPlacementTable(String facultyName, String departmentName, IFormFile placementTable)
         {
-            if (Path.GetExtension(placementTable.FileName) != ".xlsx" && Path.GetExtension(placementTable.FileName) != ".xls")
+            if (Path.GetExtension(placementTable.FileName) != ".xlsx") // && Path.GetExtension(placementTable.FileName) != ".xls")
             {
-                return null;
+                throw new BadHttpRequestException("The file is should be an .xlsx file.");
             }
 
             else
             {
+                var excelFile = SaveFile(placementTable).Result;
+
+                using (var stream = new MemoryStream(excelFile))
+                {
+                    string[] firstRowColumns = { "First Name", "Lastname", "Student ID Number", "Faculty", "Department", "Transcript Grade(4/4)", "Total Points", "Duration Preferred", "Preferred University" };
+
+                    IWorkbook workbook = null;
+
+                    if (Path.GetExtension(placementTable.FileName) == ".xlsx")
+                    {
+                        workbook = new XSSFWorkbook(stream);
+                    }
+
+                    // else if (Path.GetExtension(placementTable.FileName) == ".xls")
+                    // {
+                    //     workbook = new HSSFWorkbook(stream);
+                    //     workbook.GetAllNames();
+                    // }
+
+                    var sheet = workbook.GetSheetAt(0);
+
+                    // check if the excel file all the elements in firstRowColumns at the first row
+                    for (int i = 0; i < firstRowColumns.Length; i++)
+                    {
+                        var cell = sheet.GetRow(0);
+
+                        if (Path.GetExtension(placementTable.FileName) == ".xlsx")
+                        {
+                            for (int j = 0; j < cell.LastCellNum; j++)
+                            {
+                                if (j == cell.LastCellNum - 1)
+                                {
+                                    throw new BadHttpRequestException("The excel file is not in the correct format.");
+                                }
+                                var topCell = sheet.GetRow(0).GetCell(j);
+                                var topCellValue = Selector(topCell);
+
+                                if (topCellValue.StartsWith(firstRowColumns[i]))
+                                {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                }
 
                 var department = new DepartmentInfo()
                 {
@@ -76,6 +124,39 @@ namespace Backend.Services
                 }
                 else return null;
             }
+        }
+
+        private static string Selector(ICell cell)
+        {
+            if (cell == null)
+            {
+                return null;
+            }
+            else if (cell.CellType == CellType.Numeric)
+            {
+                return cell.NumericCellValue.ToString();
+            }
+            else if (cell.CellType == CellType.String)
+            {
+                return cell.StringCellValue;
+            }
+            else if (cell.CellType == CellType.Formula)
+            {
+                return cell.CellFormula;
+            }
+            else if (cell.CellType == CellType.Blank)
+            {
+                return "";
+            }
+            else if (cell.CellType == CellType.Boolean)
+            {
+                return cell.BooleanCellValue.ToString();
+            }
+            else if (cell.CellType == CellType.Error)
+            {
+                return cell.ErrorCellValue.ToString();
+            }
+            else return null;
         }
 
         /// <summary>Downloads the placement table.</summary>

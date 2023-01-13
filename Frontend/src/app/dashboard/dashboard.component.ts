@@ -36,7 +36,7 @@ import { CTEFormService } from '../_services/cteform.service';
 import { PreApprovalFormService } from '../_services/preapprovalform.service';
 import { EquivalenceRequestService } from '../_services/equivalencerequest.service';
 import { DepartmentToFacultyMapper } from 'src/utils/department-to-faculty-mapper';
-import {Router} from "@angular/router";
+import { Router } from '@angular/router';
 
 export type PieChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -122,17 +122,16 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       isStarred: false
     },
     {
-      description: "Check Atak Talay Yücel's Pre-approval Form",
+      description: "Check Atak Talay Yücel's Pre-Approval Form",
       isCompleted: false,
       isStarred: true
     },
     {
-      description: "Check Yiğit Yalın's Pre-approval Form",
+      description: "Check Yiğit Yalın's Pre-Approval Form",
       isCompleted: false,
       isStarred: true
     }
   ];
-
 
   selectedTabIndex = 0;
 
@@ -368,8 +367,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       this.fileName = file.name;
     }
 
-    if (!(this.fileName.endsWith('.xlsx') || this.fileName.endsWith('.xls'))) {
-      this.toastr.error('Please select a valid Excel file (.xlsx or .xls)');
+    if (!this.fileName.endsWith('.xlsx')) {
+      this.toastr.error('Please select a valid Excel file (.xlsx)');
       return;
     }
     const dialogConfig = new MatDialogConfig();
@@ -396,7 +395,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
               this.toastr.success('Score table uploaded successfully');
             },
             err => {
-              this.toastr.error('Error uploading score table');
+              console.log(err);
+              this.toastr.error('Error uploading score table: ' + err.error);
             }
           );
       }

@@ -1,13 +1,14 @@
 <div class="logging-container mr-3 ml-3">
   <div class="logging-header mt-3">
     <div style="width: 80%">
-      <span class="logging-title">Logging</span>
+      <span class="logging-title" *ngIf="currentUserRole !== 'Student'">Logging</span>
+      <span class="logging-title" *ngIf="currentUserRole === 'Student'">Course Logs</span>
     </div>
   </div>
   <div class="logging-content mt-4">
     <div style="width: 80%">
       <mat-tab-group #tabGroup (selectedIndexChange)="_setDataSource($event)">
-        <mat-tab label="All" *ngIf="currentUserRole === 'Exchange Coordinator'">
+        <mat-tab label="All Forms & Requests" *ngIf="currentUserRole === 'Exchange Coordinator'">
           <div class="mt-2 table-container">
             <div class="table-header">
               <mat-form-field>
@@ -217,7 +218,7 @@
             </div>
           </div>
         </mat-tab>
-        <mat-tab label="CTE Forms" *ngIf="currentUserRole !== 'Course Coordinator Instructor'">
+        <mat-tab label="CTE Forms" *ngIf="!(currentUserRole === 'Course Coordinator Instructor' || currentUserRole === 'Student')">
           <div class="mt-2 table-container">
             <div class="table-header">
               <mat-form-field>
@@ -315,7 +316,7 @@
             </div>
           </div>
         </mat-tab>
-        <mat-tab label="Course Equivalence Request" *ngIf="currentUserRole !== 'Dean Department Chair'">
+        <mat-tab label="Course Equivalence Requests" *ngIf="!(currentUserRole === 'Dean Department Chair' || currentUserRole === 'Student')">
           <div class="mt-2 table-container">
             <div class="table-header">
               <mat-form-field>
@@ -406,6 +407,132 @@
 
               <mat-paginator
                 #paginator4
+                [pageSizeOptions]="[7]"
+                [pageSize]="7"
+                [showFirstLastButtons]="true"
+                [hidePageSize]="true"></mat-paginator>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Equivalent Courses">
+          <div class="mt-2 table-container">
+            <div class="table-header">
+              <mat-form-field style="flex-grow: 1; text-align: center" class="ml-2" *ngIf="currentUserRole !== 'Student'">
+                <mat-select [(ngModel)]="selectedSchool" placeholder="Select a host school" (selectionChange)="onSchoolSelect()">
+                  <mat-option *ngFor="let school of schools" [value]="school">
+                    {{ school }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-icon matPrefix class="mr-3">search</mat-icon>
+                <input
+                  type="search"
+                  matInput
+                  (keyup)="applyFilter($event.target.value)"
+                  placeholder="Search" />
+              </mat-form-field>
+            </div>
+            <div class="table-content mat-elevation-z8">
+              <table
+                #LoggedCoursesTable
+                mat-table
+                [dataSource]="loggedCoursesDataSource"
+                matSort
+                #sorter5="matSort">
+                <!-- ID Column -->
+                <ng-container matColumnDef="LogTime">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Log Time</th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ formatTheDate(row.logTime) }}
+                  </td>
+                </ng-container>
+
+                <!-- ID Column -->
+                <ng-container matColumnDef="HCode">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>H. Code</th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.hostCourseCode }}
+                  </td>
+                </ng-container>
+
+                <!-- Student Column -->
+                <ng-container matColumnDef="HName">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    H. Name
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.hostCourseName }}
+                  </td>
+                </ng-container>
+
+                <!-- Date Column -->
+                <ng-container matColumnDef="HECTS">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    H. ECTS
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.hostCourseEcts }}
+                  </td>
+                </ng-container>
+
+                <!-- School Column -->
+                <ng-container matColumnDef="CourseType">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Course Type
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.exemptedCourse.courseType }}
+                  </td>
+                </ng-container>
+
+                <!-- School Column -->
+                <ng-container matColumnDef="BCode">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    B. Code
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.exemptedCourse.courseCode }}
+                  </td>
+                </ng-container>
+
+                <!-- School Column -->
+                <ng-container matColumnDef="BName">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    B. Name
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.exemptedCourse.courseName }}
+                  </td>
+                </ng-container>
+
+                <!-- School Column -->
+                <ng-container matColumnDef="BCredit">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    B. Code
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    <div style="display: flex;align-items: center; justify-content: space-between">
+                      {{ row.exemptedCourse.bilkentCredits }}
+                      <button mat-icon-button *ngIf="currentUserRole !== 'Student'" (click)="onCancel(row)"><mat-icon>close</mat-icon></button>
+                      <div style="width: 4  0px" *ngIf="currentUserRole === 'Student'"></div>
+                    </div>
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="loggedCoursesColumns"></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: loggedCoursesColumns"
+                  [class.active]="activatedRow === row"
+                  (click)="openDialog(row)"
+                  [ngClass]="{ hovered: row.hovered }"
+                  (mouseover)="row.hovered = true"
+                  (mouseout)="row.hovered = false"></tr>
+              </table>
+
+              <mat-paginator
+                #paginator5
                 [pageSizeOptions]="[7]"
                 [pageSize]="7"
                 [showFirstLastButtons]="true"

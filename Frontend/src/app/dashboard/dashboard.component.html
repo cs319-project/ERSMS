@@ -21,7 +21,7 @@
       </select>
     </div>
 
-    <div class="button-container mt-2">
+    <div class="button-container mt-4">
       <input
         type="file"
         class="file-input"
@@ -74,7 +74,7 @@
   <app-student-dashboard></app-student-dashboard>
 </div>
 
-<div *ngIf="this.role === actorsEnum.Admin" >
+<div *ngIf="this.role === actorsEnum.Admin">
   <app-admin-dashboard></app-admin-dashboard>
 </div>
 
@@ -82,7 +82,11 @@
   <app-exchangeCoordinator-dashboard></app-exchangeCoordinator-dashboard>
 </div>
 
-<div *ngIf="this.role === actorsEnum.CourseCoordinatorInstructor || this.role === actorsEnum.DeanDepartmentChair">
+<div
+  *ngIf="
+    this.role === actorsEnum.CourseCoordinatorInstructor ||
+    this.role === actorsEnum.DeanDepartmentChair
+  ">
   <app-onlyAnnouncement-dashboard></app-onlyAnnouncement-dashboard>
 </div>
 

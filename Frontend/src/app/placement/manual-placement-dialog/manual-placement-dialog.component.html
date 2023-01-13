@@ -1,0 +1,36 @@
+<div class="user-container">
+  <div class="user-header">
+    <span>Placement</span>
+  </div>
+  <div class="user-content mt-5">
+    <div class="user-type-content">
+      <div class="student-details">
+        <div style="display: flex; justify-content: center; align-items: center">
+          <div style="width: 100%">
+            <form style="width: 90%">
+              <mat-form-field style="width: 100%" appearance="fill">
+                <mat-label>Exchange School</mat-label>
+                <select matNativeControl required [(ngModel)]="data.user.hostUniversity">
+                  <option *ngFor="let school of data.schools" value="{{school}}">
+                    {{school}}
+                  </option>
+                </select>
+              </mat-form-field>
+            </form>
+          </div>
+          <div style="height: 100%; width: 20%; padding-bottom: 18px">
+            <button style="background-color: #FD7972" mat-button [disabled]="!data.user.hostUniversity">Displace</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div style="flex-grow: 1"></div>
+  <div class="form-footer mt-4">
+    <button mat-raised-button color="primary" (click)="dialogRef.close(null)">
+      Cancel
+    </button>
+    <button mat-raised-button color="primary" class="ml-5" (click)="onSave(true)">
+      Save
+    </button>
+  </div>
+</div>

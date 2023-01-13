@@ -1,6 +1,7 @@
 using AutoMapper;
 using Backend.DTOs;
 using Backend.Entities;
+using Backend.Entities.Exceptions;
 using Backend.Interfaces;
 using Backend.Utilities.Enum;
 
@@ -31,6 +32,18 @@ namespace Backend.Services
         // Method
         public async Task<bool> AddEquivalenceRequestToStudent(EquivalenceRequestDto equivalenceRequest, IFormFile file)
         {
+            var logs = (await _loggedCourseService.GetLoggedEquivalantCourses()).Select(x =>
+                        (((equivalenceRequest.ExemptedCourse.CourseType == "Mandatory Course")
+                        && (x.HostCourseCode == equivalenceRequest.HostCourseCode)
+                        && (x.ExemptedCourse.CourseCode == equivalenceRequest.ExemptedCourse.CourseCode))
+                        || (((equivalenceRequest.ExemptedCourse.CourseType != "Mandatory Course"))
+                        && (x.HostCourseCode == equivalenceRequest.HostCourseCode)
+                        && (x.ExemptedCourse.CourseType == equivalenceRequest.ExemptedCourse.CourseType)))
+                        && (x.HostSchool == equivalenceRequest.HostUniversityName));
+            foreach (var log in logs)
+            {
+                if (log) { throw new AlreadyLoggedException("Course with code " + equivalenceRequest.HostCourseCode + " already logged"); }
+            }
             EquivalenceRequest request = _mapper.Map<EquivalenceRequest>(equivalenceRequest);
             request.Syllabus = await SaveFile(file);
             var flag = await _equivalenceRequestRepository.AddEquivalenceRequestToStudent(equivalenceRequest.StudentId, request);
@@ -407,7 +420,8 @@ namespace Backend.Services
                 ExemptedCourse = equivalentRequest.ExemptedCourse,
                 HostCourseCode = equivalentRequest.HostCourseCode,
                 HostCourseName = equivalentRequest.HostCourseName,
-                HostCourseECTS = equivalentRequest.HostCourseECTS
+                HostCourseECTS = equivalentRequest.HostCourseECTS,
+                HostSchool = equivalentRequest.HostUniversityName
             };
 
             form.ExemptedCourse.Id = Guid.NewGuid();

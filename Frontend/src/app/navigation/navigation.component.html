@@ -1,19 +1,39 @@
 <div></div>
-<mat-toolbar >
+<mat-toolbar>
   <mat-toolbar-row style="background: white; height: 60px">
     <button mat-icon-button (click)="sidenav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
-    <span>ERSMS</span>
+    <img
+      src="../assets/logos/Black Logo.svg"
+      class="mt-2 mb-2"
+      style="height: 60px" />
     <span class="toolbar-item-spacer"></span>
     <!-- <button mat-icon-button [matMenuTriggerFor]="notificationsMenu">
       <mat-icon svgIcon="notification-idle" matBadge="2"></mat-icon>
     </button> -->
-    <button mat-icon-button>
+    <button
+      mat-icon-button
+      *ngIf="
+        this.role !== actorsEnum.OISEP &&
+        this.role !== actorsEnum.Admin &&
+        notifications.length > 0
+      ">
       <mat-icon
         [matBadge]="unreadCount"
         matBadgeColor="warn"
         [matMenuTriggerFor]="notificationsMenu"
+        >notifications</mat-icon
+      >
+    </button>
+    <button
+      mat-icon-button
+      *ngIf="
+        this.role !== actorsEnum.OISEP &&
+        this.role !== actorsEnum.Admin &&
+        notifications.length === 0
+      ">
+      <mat-icon matBadgeColor="warn" [matMenuTriggerFor]="notificationsMenu"
         >notifications</mat-icon
       >
     </button>
@@ -22,12 +42,16 @@
       *ngIf="this.role === actorsEnum.Student"
       mat-icon-button
       routerLink="/profile"
-      class="m-2"><mat-icon svgIcon="user" style="scale: 1.5"></mat-icon></button>
+      class="m-2">
+      <mat-icon svgIcon="user" style="scale: 1.5"></mat-icon>
+    </button>
     <button
       *ngIf="this.role !== actorsEnum.Student"
       mat-icon-button
       class="m-2"
-      disabled><mat-icon svgIcon="user" style="scale: 1.5"  ></mat-icon></button>
+      disabled>
+      <mat-icon svgIcon="user" style="scale: 1.5"></mat-icon>
+    </button>
     <div class="username">
       <span
         ><b>{{ name }}</b>
@@ -64,7 +88,8 @@
     >No Notifications yet.</span
   >
   <button
-    mat-menu-item style="padding-top: 5px; padding-bottom: 5px"
+    mat-menu-item
+    style="padding-top: 5px; padding-bottom: 5px"
     *ngFor="let notification of notifications"
     (click)="readNotification(notification)">
     <span>
@@ -93,8 +118,9 @@
 </mat-menu>
 
 <mat-sidenav-container>
-  <mat-sidenav style="width: 200px"
-    opened="true"
+  <mat-sidenav
+    style="width: 200px"
+    opened="false"
     #sidenav
     mode="side"
     [class.mat-elevation-z4]="true"
@@ -127,52 +153,39 @@
         <mat-icon svgIcon="dashboard" class="m-2"></mat-icon>
         <span>Dashboard</span>
       </mat-list-item>
-      <mat-list-item routerLink="/formsandrequests" (click)="populateNotifications()">
+      <mat-list-item
+        routerLink="/formsandrequests"
+        (click)="populateNotifications()">
         <mat-icon svgIcon="forms" class="m-2"></mat-icon
         ><span>Forms and Requests</span>
       </mat-list-item>
-      <mat-list-item
+      <mat-list-item routerLink="/logging" (click)="populateNotifications()">
+        <mat-icon svgIcon="logging" class="m-2"></mat-icon
+        ><span>Course Logs</span>
+      </mat-list-item>
+      <!-- <mat-list-item
         (click)="populateNotifications()"
         routerLink="/appointments"
         routerLinkActive="active-list-item">
         <mat-icon svgIcon="calendar" class="m-2"></mat-icon
         ><span>Appointments</span>
       </mat-list-item>
-      <mat-list-item (click)="populateNotifications()" routerLink="/messages" routerLinkActive="active-list-item">
+      <mat-list-item
+        (click)="populateNotifications()"
+        routerLink="/messages"
+        routerLinkActive="active-list-item">
         <mat-icon
           svgIcon="messages"
           style="border-color: red"
           class="m-2"></mat-icon
         ><span>Messages</span>
-      </mat-list-item>
-    </mat-nav-list>
-
-
-    <mat-nav-list *ngIf="this.role === actorsEnum.DeanDepartmentChair
-    || this.role === actorsEnum.CourseCoordinatorInstructor">
-
-    <mat-list-item
-        (click)="populateNotifications()"
-        routerLink="/dashboard"
-        routerLinkActive="active-list-item">
-        <mat-icon svgIcon="dashboard" class="m-2"></mat-icon>
-        <span>Dashboard</span>
-      </mat-list-item>
-      <mat-list-item
-        (click)="populateNotifications()"
-        routerLink="/formsandrequests"
-        routerLinkActive="active-list-item">
-        <mat-icon svgIcon="forms" class="m-2"></mat-icon
-        ><span>Forms and Requests</span>
-      </mat-list-item>
-      <mat-list-item routerLink="/logging" routerLinkActive="active-list-item">
-        <mat-icon svgIcon="logging" class="m-2"></mat-icon><span>Logging</span>
-      </mat-list-item>
+      </mat-list-item> -->
     </mat-nav-list>
 
     <mat-nav-list
       *ngIf="
-        this.role === actorsEnum.ExchangeCoordinator
+        this.role === actorsEnum.DeanDepartmentChair ||
+        this.role === actorsEnum.CourseCoordinatorInstructor
       ">
       <mat-list-item
         (click)="populateNotifications()"
@@ -188,13 +201,33 @@
         <mat-icon svgIcon="forms" class="m-2"></mat-icon
         ><span>Forms and Requests</span>
       </mat-list-item>
+      <mat-list-item routerLink="/logging" routerLinkActive="active-list-item">
+        <mat-icon svgIcon="logging" class="m-2"></mat-icon><span>Logging</span>
+      </mat-list-item>
+    </mat-nav-list>
+
+    <mat-nav-list *ngIf="this.role === actorsEnum.ExchangeCoordinator">
       <mat-list-item
+        (click)="populateNotifications()"
+        routerLink="/dashboard"
+        routerLinkActive="active-list-item">
+        <mat-icon svgIcon="dashboard" class="m-2"></mat-icon>
+        <span>Dashboard</span>
+      </mat-list-item>
+      <mat-list-item
+        (click)="populateNotifications()"
+        routerLink="/formsandrequests"
+        routerLinkActive="active-list-item">
+        <mat-icon svgIcon="forms" class="m-2"></mat-icon
+        ><span>Forms and Requests</span>
+      </mat-list-item>
+      <!-- <mat-list-item
         (click)="populateNotifications()"
         routerLink="/appointments"
         routerLinkActive="active-list-item">
         <mat-icon svgIcon="calendar" class="m-2"></mat-icon
         ><span>Appointments</span>
-      </mat-list-item>
+      </mat-list-item> -->
       <mat-list-item routerLink="/logging" routerLinkActive="active-list-item">
         <mat-icon svgIcon="logging" class="m-2"></mat-icon><span>Logging</span>
       </mat-list-item>
@@ -205,13 +238,16 @@
         <mat-icon svgIcon="placements" class="m-2"></mat-icon
         ><span>Placements</span>
       </mat-list-item>
-      <mat-list-item (click)="populateNotifications()" routerLink="/messages" routerLinkActive="active-list-item">
+      <!-- <mat-list-item
+        (click)="populateNotifications()"
+        routerLink="/messages"
+        routerLinkActive="active-list-item">
         <mat-icon
           svgIcon="messages"
           style="border-color: red"
           class="m-2"></mat-icon
         ><span>Messages</span>
-      </mat-list-item>
+      </mat-list-item> -->
       <!-- <mat-list-item routerLink="/login">
         <mat-icon svgIcon="reports" class="m-2"></mat-icon><span>Reports</span>
       </mat-list-item> -->

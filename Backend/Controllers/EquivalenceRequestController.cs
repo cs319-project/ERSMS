@@ -1,4 +1,5 @@
 using Backend.DTOs;
+using Backend.Entities.Exceptions;
 using Backend.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -46,9 +47,11 @@ namespace Backend.Controllers
             if (Path.GetExtension(Syllabus.FileName) == ".pdf"
                     || Path.GetExtension(Syllabus.FileName) == ".docx")
             {
+                var student = await _userService.GetStudent(studentId);
                 EquivalenceRequestDto request = new EquivalenceRequestDto
                 {
                     StudentId = studentId,
+                    HostUniversityName = student.ExchangeSchool,
                     HostCourseECTS = hostCourseECTS,
                     HostCourseName = hostCourseName,
                     HostCourseCode = hostCourseCode,
@@ -66,8 +69,15 @@ namespace Backend.Controllers
                     CourseType = exemptedCourseType
                 };
 
-                return await _equivalenceRequestService.AddEquivalenceRequestToStudent(request, Syllabus)
-                                ? Ok(request) : BadRequest("Failed to add Equivalence Request");
+                try
+                {
+                    return await _equivalenceRequestService.AddEquivalenceRequestToStudent(request, Syllabus)
+                                    ? Ok(request) : BadRequest("Failed to add Equivalence Request");
+                }
+                catch (AlreadyLoggedException e)
+                {
+                    return Conflict("You have already submitted an equivalence request");
+                }
             }
             return BadRequest("Wrong formated syllabus");
         }

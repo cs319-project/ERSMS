@@ -52,4 +52,12 @@ export class UserService {
   getUserTuples(): Observable<any> {
     return this.http.get(`${this.baseUrl}registeredStudents/tuples`);
   }
+
+  cancelPlacedStudent(userName: String): Observable<any> {
+    console.log(`${this.baseUrl}placedStudent/cancelApplication/${userName}`);
+    return this.http.patch(
+      `${this.baseUrl}placedStudent/cancelApplication/${userName}`,
+      null
+    );
+  }
 }

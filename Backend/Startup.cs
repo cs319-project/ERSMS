@@ -144,6 +144,72 @@ namespace Backend
             using (var scope = app.ApplicationServices.CreateScope())
             {
                 var authService = scope.ServiceProvider.GetRequiredService<IAuthenticationService>();
+                // var loggedCourseService = scope.ServiceProvider.GetRequiredService<ILoggedCourseService>();
+
+                // loggedCourseService.CreateLoggedEquivalantCourse(new LoggedEquivalentCourseDto
+                // {
+                //     ExemptedCourse = new ExemptedCourseDto
+                //     {
+                //         BilkentCredits = 4,
+                //         CourseCode = "CS342",
+                //         CourseName = "Operating Systems",
+                //         CourseType = "Mandatory Course",
+                //         ECTS = 5
+                //     },
+                //     HostCourseCode = "1DT044",
+                //     HostCourseName = "Operating Systems",
+                //     HostCourseECTS = 4,
+                //     HostSchool = "Uppsala University",
+                // });
+
+                // loggedCourseService.CreateLoggedEquivalantCourse(new LoggedEquivalentCourseDto
+                // {
+                //     ExemptedCourse = new ExemptedCourseDto
+                //     {
+                //         BilkentCredits = 4,
+                //         CourseCode = "",
+                //         CourseName = "",
+                //         CourseType = "Technical Elective",
+                //         ECTS = 3
+                //     },
+                //     HostCourseCode = "1TD388",
+                //     HostCourseName = "Computer Graphics",
+                //     HostCourseECTS = 4,
+                //     HostSchool = "Uppsala University",
+                // });
+
+                // loggedCourseService.CreateLoggedEquivalantCourse(new LoggedEquivalentCourseDto
+                // {
+                //     ExemptedCourse = new ExemptedCourseDto
+                //     {
+                //         BilkentCredits = 3,
+                //         CourseCode = "",
+                //         CourseName = "",
+                //         CourseType = "Technical Elective",
+                //         ECTS = 3
+                //     },
+                //     HostCourseCode = "1TD388",
+                //     HostCourseName = "Geometrical Product Specifications and Verification",
+                //     HostCourseECTS = 3,
+                //     HostSchool = "Technische Universiteit Eindhoven",
+                // });
+
+                // loggedCourseService.CreateLoggedEquivalantCourse(new LoggedEquivalentCourseDto
+                // {
+                //     ExemptedCourse = new ExemptedCourseDto
+                //     {
+                //         BilkentCredits = 4,
+                //         CourseCode = "MAN 329",
+                //         CourseName = "Integrated Finance",
+                //         CourseType = "General Elective",
+                //         ECTS = 3
+                //     },
+                //     HostCourseCode = "MAN 307",
+                //     HostCourseName = "Integrated Financial and Operations Managment",
+                //     HostCourseECTS = 3,
+                //     HostSchool = "Technische Universiteit Eindhoven",
+                // });
+
 
                 if (!authService.UserExists("22002900", "oisep@bilkent.edu.tr").GetAwaiter().GetResult())
                 {
@@ -153,8 +219,8 @@ namespace Backend
                         UserName = "22002900",
                         Email = "oisep@bilkent.edu.tr",
                         Password = "Test123_",
-                        FirstName = "Erkin",
-                        LastName = "Tarhan",
+                        FirstName = "Yelda İrem",
+                        LastName = "Ateş",
                     }
                     ).Wait();
                 }
@@ -169,6 +235,12 @@ namespace Backend
                         Password = "Test123_",
                         FirstName = "Eray",
                         LastName = "Tüzün",
+                        IsCourseCoordinator = true,
+                        Course = new CourseDto
+                        {
+                            CourseCode = "CS319",
+                            CourseName = "Object Oriented Software Engineering"
+                        }
                     }).Wait();
                 }
 
@@ -213,6 +285,7 @@ namespace Backend
                         Password = "Test123_",
                         FirstName = "Nail",
                         LastName = "Akar",
+                        IsDean = true,
                         Department = new DTOs.DepartmentInfoDto
                         {
                             DepartmentName = "Department of Computer Engineering",
@@ -231,6 +304,7 @@ namespace Backend
                         Password = "Test123_",
                         FirstName = "Selim",
                         LastName = "Aksoy",
+                        IsDean = false,
                         Department = new DTOs.DepartmentInfoDto
                         {
                             DepartmentName = "Department of Computer Engineering",

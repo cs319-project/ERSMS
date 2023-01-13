@@ -97,7 +97,7 @@ export class ViewPreapprovalFormDialogComponent implements OnInit {
           approval
         )
         .subscribe(data => {
-          this.dialogRef.close();
+          this.dialogRef.close(true);
         });
     }
   }
@@ -112,7 +112,7 @@ export class ViewPreapprovalFormDialogComponent implements OnInit {
       this.preApprovalFormService
         .approvePreApprovalFormFAB(this.data.preApprovalForm.id, approval)
         .subscribe(data => {
-          this.dialogRef.close();
+          this.dialogRef.close(true);
         });
     }
   }
@@ -130,7 +130,7 @@ export class ViewPreapprovalFormDialogComponent implements OnInit {
           approval
         )
         .subscribe(data => {
-          this.dialogRef.close();
+          this.dialogRef.close(true);
         });
     }
   }
@@ -145,7 +145,7 @@ export class ViewPreapprovalFormDialogComponent implements OnInit {
       this.preApprovalFormService
         .approvePreApprovalFormFAB(this.data.preApprovalForm.id, approval)
         .subscribe(data => {
-          this.dialogRef.close();
+          this.dialogRef.close(true);
         });
     }
   }
@@ -196,6 +196,7 @@ export class ViewPreapprovalFormDialogComponent implements OnInit {
         if (data) {
           this.toastr.success('File deleted');
           this.isDownloadable = false;
+          this.data.preApprovalForm.fileName = '';
         } else {
           this.toastr.error('File not found');
         }

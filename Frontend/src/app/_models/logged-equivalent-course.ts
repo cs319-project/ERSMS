@@ -6,5 +6,7 @@ export interface LoggedEquivalentCourse {
   exemptedCourse: ExemptedCourse;
   hostCourseCode: string;
   hostCourseName: string;
+  logTime?: Date;
   hostCourseEcts: number;
+  hostSchool: string;
 }

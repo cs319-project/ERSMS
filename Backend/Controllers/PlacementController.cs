@@ -30,14 +30,21 @@ namespace Backend.Controllers
                                                                 [FromQuery] String departmentName,
                                                                 [FromForm(Name = "placementTable")] IFormFile placementTable)
         {
-            if (placementTable == null)
+            try
             {
-                return BadRequest("No file uploaded");
+                if (placementTable == null)
+                {
+                    return BadRequest("No file uploaded");
+                }
+
+                var result = await _placementService.UploadPlacementTable(facultyName, departmentName, placementTable);
+
+                return (result != null) ? Ok(result) : BadRequest("Error when uploading file");
             }
-
-            var result = await _placementService.UploadPlacementTable(facultyName, departmentName, placementTable);
-
-            return (result != null) ? Ok(result) : BadRequest("Error when uploading file");
+            catch (BadHttpRequestException e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         /// <summary>Downloads the placement table.</summary>

@@ -42,7 +42,7 @@ namespace Backend.Data
             var course = await _context.LoggedEquivalentCourses.FindAsync(id);
             if (course == null)
                 return false;
-
+            _context.LoggedEquivalentCourses.Remove(course);
             return await _context.SaveChangesAsync() > 0;
         }
 
@@ -54,7 +54,7 @@ namespace Backend.Data
             var course = await _context.LoggedTransferredCourses.FindAsync(id);
             if (course == null)
                 return false;
-
+            _context.LoggedTransferredCourses.Remove(course);
             return await _context.SaveChangesAsync() > 0;
         }
 

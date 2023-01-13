@@ -36,8 +36,8 @@
       class="status-text"
       *ngIf="formStatus === 'Cancelled'"
       style="background-color: #621324; color: white"
-    >Cancelled
-      </span>
+      >Cancelled
+    </span>
   </div>
   <mat-tab-group>
     <mat-tab label="Form Information">
@@ -46,7 +46,9 @@
           <span class="subtitle">Student Details</span>
           <div class="student-info mt-3">
             <span>Name</span>
-            <span>{{ data.student.firstName + data.student.lastName }}</span>
+            <span
+              >{{ data.student.firstName }} {{ data.student.lastName }}</span
+            >
           </div>
           <mat-divider style="width: 100%"></mat-divider>
           <div class="student-info mt-2">
@@ -94,12 +96,15 @@
           <div class="approve-info-content">
             <div
               class="approve-info-element"
-              *ngIf="instructorStatus !== 'Waiting' && data.eqReq.instructorApproval != null">
+              *ngIf="
+                instructorStatus !== 'Waiting' &&
+                data.eqReq.instructorApproval != null
+              ">
               <span
                 ><b class="mr-2">Name:</b
                 >{{ data.eqReq.instructorApproval.name }}</span
               >
-              <span><b class="mr-2">Role:</b>Exchange Coordinator</span>
+              <span><b class="mr-2">Role:</b>Coordinator</span>
               <span>
                 <b class="mr-2">Approval Date:</b>
                 {{
@@ -119,25 +124,27 @@
                   style="background-color: '#FD7972'"
                   >Rejected</span
                 >
-
               </div>
             </div>
             <div
               class="approve-info-element"
               *ngIf="instructorStatus === 'Waiting'">
-              <span><b class="mr-2">Role:</b>Exchange Coordinator or Course Coordinator</span>
+              <span
+                ><b class="mr-2">Role:</b>Exchange Coordinator or Course
+                Coordinator</span
+              >
               <div class="status-text-container">
                 <span
                   class="status-text"
                   *ngIf="formStatus === 'Waiting'"
                   style="background-color: '#FF965D'"
-                >Waiting</span
+                  >Waiting</span
                 >
                 <span
                   class="status-text"
                   *ngIf="formStatus !== 'Waiting'"
                   style="background-color: '#828491FF'; color: white"
-                >Incomplete</span
+                  >Incomplete</span
                 >
               </div>
             </div>
@@ -209,7 +216,7 @@
                   appearance="outline"
                   *ngIf="
                     data.eqReq.exemptedCourse.courseName !== '' &&
-              data.eqReq.exemptedCourse.courseName !== null
+                    data.eqReq.exemptedCourse.courseName !== null
                   ">
                   <mat-label>Course Code</mat-label>
                   <input
@@ -276,11 +283,14 @@
         </div>
       </div>
     </mat-tab>
-    <mat-tab label="Decision" *ngIf="roleOfUser !== 'Student' || formStatus !== 'Waiting'">
+    <mat-tab
+      label="Decision"
+      *ngIf="roleOfUser !== 'Student' || formStatus !== 'Waiting'">
       <div
         class="decision-container"
         *ngIf="
-          (roleOfUser === 'Course Coordinator Instructor' ||  roleOfUser === 'Exchange Coordinator' )&&
+          (roleOfUser === 'Course Coordinator Instructor' ||
+            roleOfUser === 'Exchange Coordinator') &&
           formStatus === 'Waiting'
         ">
         <span class="subtitle">Your Decision</span>
@@ -313,7 +323,8 @@
       <div
         class="decision-container"
         *ngIf="
-          formStatus != 'Waiting' && data.eqReq.instructorApproval != null &&
+          formStatus != 'Waiting' &&
+          data.eqReq.instructorApproval != null &&
           data.eqReq.instructorApproval.comment != null &&
           data.eqReq.instructorApproval.comment != ''
         ">

@@ -145,7 +145,6 @@ export class FormsAndRequestsComponent {
               };
               this.equivalenceRequests.push(element);
               this.courseEquivalenceDataSource.data.push(temp);
-              console.log(this.courseEquivalenceDataSource.data);
             });
             this.courseEquivalenceDataSource.paginator = this.paginator4;
             this.courseEquivalenceDataSource.sort = this.sorter4;
@@ -285,7 +284,7 @@ export class FormsAndRequestsComponent {
                 id: element.idNumber,
                 student: element.firstName + ' ' + element.lastName,
                 date: formattedDate,
-                type: 'PreApproval Form',
+                type: 'Pre-Approval Form',
                 school: element.hostUniversityName,
                 status: element.isCanceled
                   ? 'Cancelled'
@@ -397,7 +396,7 @@ export class FormsAndRequestsComponent {
                 id: element.idNumber,
                 student: element.firstName + ' ' + element.lastName,
                 date: formattedDate,
-                type: 'PreApproval Form',
+                type: 'Pre-Approval Form',
                 school: element.hostUniversityName,
                 status: element.isCanceled
                   ? 'Cancelled'
@@ -521,9 +520,17 @@ export class FormsAndRequestsComponent {
           dialogConfig.disableClose = true;
           dialogConfig.autoFocus = false;
           dialogConfig.data = viewCTEForm;
-          this.dialog.open(ViewCteFormDialogComponent, dialogConfig);
+          const dialogRef = this.dialog.open(
+            ViewCteFormDialogComponent,
+            dialogConfig
+          );
+          dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+              this.getFormData();
+            }
+          });
         });
-    } else if (row.type == 'PreApproval Form') {
+    } else if (row.type == 'Pre-Approval Form') {
       this.userService
         .getUserDetails(row.id)
         .toPromise()
@@ -537,8 +544,15 @@ export class FormsAndRequestsComponent {
           dialogConfig.disableClose = true;
           dialogConfig.autoFocus = false;
           dialogConfig.data = viewPreApprovalForm;
-          this.dialog.open(ViewPreapprovalFormDialogComponent, dialogConfig);
-          console.log(viewPreApprovalForm);
+          const dialogRef = this.dialog.open(
+            ViewPreapprovalFormDialogComponent,
+            dialogConfig
+          );
+          dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+              this.getFormData();
+            }
+          });
         });
     } else if (row.type == 'Course Eq. Request') {
       this.userService
@@ -554,7 +568,15 @@ export class FormsAndRequestsComponent {
           dialogConfig.disableClose = true;
           dialogConfig.autoFocus = false;
           dialogConfig.data = viewCourseEquivalenceRequest;
-          this.dialog.open(ViewEquivalenceRequestDialogComponent, dialogConfig);
+          const dialogRef = this.dialog.open(
+            ViewEquivalenceRequestDialogComponent,
+            dialogConfig
+          );
+          dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+              this.getFormData();
+            }
+          });
         });
     }
   }
@@ -699,7 +721,7 @@ export class FormsAndRequestsComponent {
               this.toastr.error('An error occured while canceling');
             }
           );
-        } else if (type === 'PreApproval Form') {
+        } else if (type === 'Pre-Approval Form') {
           this.preApprovalFormService.cancelPreApprovalForm(formId).subscribe(
             result => {
               console.log(result);

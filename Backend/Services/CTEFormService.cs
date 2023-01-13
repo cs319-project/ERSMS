@@ -54,6 +54,7 @@ namespace Backend.Services
 
             CTEForm formEntity = _mapper.Map<CTEForm>(cTEForm);
             formEntity.ToDoItemId = todo.CascadeId;
+            formEntity.Id = new Guid();
             bool flag = await _cTEFormRepository.AddCTEFormToStudent(cTEForm.IDNumber, formEntity);
 
             if (flag)
@@ -62,6 +63,8 @@ namespace Backend.Services
                 if (student != null)
                     flag = await _toDoItemService.AddToDoItemToAllByDepartment(todo, student.Major.DepartmentName);
                 await _notificationService.CreateNewFormNotification(formEntity, FormType.CTEForm);
+                cTEForm.Id = formEntity.Id;
+                await GenerateHelper(cTEForm);
             }
 
             return flag;
@@ -117,7 +120,9 @@ namespace Backend.Services
                 await _notificationService.CreateNewApprovalNotification(formEntity, FormType.CTEForm,
                                                                             approvalEntity.IsApproved, approvalEntity.Name);
 
-                return await _cTEFormRepository.UpdateCTEForm(formEntity);
+                var flag = await _cTEFormRepository.UpdateCTEForm(formEntity);
+                await GenerateHelper(_mapper.Map<CTEFormDto>(formEntity));
+                return flag;
             }
             return false;
         }
@@ -171,7 +176,9 @@ namespace Backend.Services
                 // send notification
                 await _notificationService.CreateNewApprovalNotification(formEntity, FormType.CTEForm,
                                                                             approvalEntity.IsApproved, approvalEntity.Name);
-                return await _cTEFormRepository.UpdateCTEForm(formEntity);
+                var flag = await _cTEFormRepository.UpdateCTEForm(formEntity);
+                await GenerateHelper(_mapper.Map<CTEFormDto>(formEntity));
+                return flag;
             }
             return false;
         }
@@ -215,7 +222,10 @@ namespace Backend.Services
                     await LogTheAcceptedCourse(formDto);
                 }
 
-                return await _cTEFormRepository.UpdateCTEForm(formEntity);
+                var flag = await _cTEFormRepository.UpdateCTEForm(formEntity);
+
+                await GenerateHelper(_mapper.Map<CTEFormDto>(formEntity));
+                return flag;
             }
             return false;
         }
@@ -693,6 +703,15 @@ namespace Backend.Services
             }
 
             return fileBytes;
+        }
+
+        private async Task<bool> GenerateHelper(CTEFormDto cteForm)
+        {
+            PDFGenerator.GenerateCTEPdf(cteForm);
+            byte[] fileBytes;
+            fileBytes = File.ReadAllBytes("bin/filledCTE.pdf");
+            await _cTEFormRepository.UploadPdf(cteForm.Id, fileBytes, "CTEForm.pdf");
+            return true;
         }
     }
 }

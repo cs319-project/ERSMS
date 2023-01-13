@@ -12,6 +12,9 @@
 .form-content {
   flex-grow: 1;
 }
+.red-text {
+  color: crimson;
+}
 
 .course-group-header {
   display: flex;
