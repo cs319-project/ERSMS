@@ -1,6 +1,7 @@
+# ERSMS <img align="right" width="145" height="85" src="Frontend/src/assets/logos/White Logo.svg">
 
+[![version](https://img.shields.io/badge/version-1.1-yellow?style=flat-square)](https://github.com/cs319-project/ERSMS) [![license](https://img.shields.io/github/license/cs319-project/ERSMS?style=flat-square)](https://github.com/cs319-project/ERSMS/blob/master/LICENSE)
 
-# ERSMS (Erasmus Registration Management System)
 ERSMS is a web application which is being developed in the scope of CS319 course. This project allows Erasmus coordinators, students and the other stakeholders to achieve a smooth ERASMUS application process. This project aims to be a subsidiary app for the currently used [Erasmus+ Application System](https://app.erasmus.bilkent.edu.tr/) by removing the paper work done by the ERASMUS department coordinators.
 
 # Technology Stack (Tentative)
